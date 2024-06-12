@@ -6,11 +6,11 @@
       </ws-widget-avatar-photo>
     </div>
     <div class="flex flex-col flex-1" *ngIf="user && user.userInfo" (click)="loadUser(user)">
-      <p class="truncate margin-remove mat-body-1">{{user?.userInfo.first_name}}</p>
+      <p class="truncate margin-remove mat-body-1">{{user?.userInfo.first_name | titlecase }}</p>
       <p class="truncate ws-mat-black60-text margin-remove mat-body-2">{{user?.wfInfo[0].deptName | slice:0:30}}</p>
     </div>
     <div class="flex flex-col flex-1" *ngIf="user && !user.userInfo" (click)="loadUser(user)">
-      <p class="truncate margin-remove mat-body-1">{{user?.first_name}}</p>
+      <p class="truncate margin-remove mat-body-1">{{user?.first_name | titlecase }}</p>
       <p class="truncate ws-mat-black60-text margin-remove mat-body-2">{{user?.deptName || user?.department}}</p>
     </div>
     <div *ngIf="approvalType" class="flex flex-middle">
