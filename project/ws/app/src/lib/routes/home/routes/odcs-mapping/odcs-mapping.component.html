@@ -20,7 +20,7 @@
           <div class="flex-1 flex-col gap-4">
             <p class="flex items-center" *ngFor="let step of odcConfig?.topsection?.steps">
               <mat-icon class="mat-icon mr-4">error_outline</mat-icon>
-              {{step.title}}
+              <span [innerHTML]="step.title"></span>
             </p>
           </div>
           <div *ngIf="odcConfig?.topsection?.guideVideo?.enabled">
