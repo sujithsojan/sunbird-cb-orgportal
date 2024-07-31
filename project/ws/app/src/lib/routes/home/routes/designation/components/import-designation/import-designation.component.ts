@@ -197,7 +197,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
             importedById: _.get(this.configSvc, 'userProfileV2.userId'),
             importedOn: currentDate,
             previousCategoryCode: _.get(orgCategorie, 'terms[0].category'),
-            previousTermCode: _.get(orgCategorie, 'terms[0].code')
+            previousTermCode: _.get(orgCategorie, 'terms[0].code'),
           },
         }
         this.designationsImportSuccessResponses =
@@ -271,7 +271,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
         if (response) {
           setTimeout(() => {
             this.dialogRef.close()
-          }, 2000)
+          },         2000)
         }
       },
       error: (error: HttpErrorResponse) => {
@@ -295,7 +295,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
       autoFocus: false,
     })
 
-    this.dialogRef.afterClosed().subscribe((res = true) => {
+    this.dialogRef.afterClosed().subscribe((res: boolean = true) => {
       if (res) {
         this.openConforamtionPopup()
       }
@@ -345,8 +345,8 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
       //   ],
       // })
       const dialogData = {
-        dialogType: 'warning',
         descriptions,
+        dialogType: 'warning',
         footerClass: 'items-center justify-center',
         buttons: [
           {
