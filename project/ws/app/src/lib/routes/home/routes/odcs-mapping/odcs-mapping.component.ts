@@ -52,12 +52,12 @@ export class OdcsMappingComponent implements OnInit {
   callResizeEvent(_event: any) {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'))
-    },         100)
+    }, 100)
   }
 
   createFreamwork() {
     this.loaderMsg = this.odcConfig.frameworkCreationMSg
-    const departmentName = _.get(this.configSvc, 'userProfile.departmentName').replace(/\s/g, '')
+    const departmentName = _.get(this.configSvc, 'userProfile.departmentName')
     const masterFrameWorkName = this.environmentVal.ODCSMasterFramework
     this.designationsService.createFrameWork(masterFrameWorkName, this.orgId, departmentName).subscribe((res: any) => {
       if (res) {
@@ -79,7 +79,7 @@ export class OdcsMappingComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        },         10000)
+        }, 10000)
       }
     })
   }

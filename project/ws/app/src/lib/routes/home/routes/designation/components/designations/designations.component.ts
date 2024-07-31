@@ -114,7 +114,7 @@ export class DesignationsComponent implements OnInit {
   createFreamwork() {
     this.showCreateLoader = true
     this.loaderMsg = this.designationConfig.frameworkCreationMSg
-    const departmentName = _.get(this.configSvc, 'userProfile.departmentName').replace(/\s/g, '')
+    const departmentName = _.get(this.configSvc, 'userProfile.departmentName')
     const masterFrameWorkName = this.environment.ODCSMasterFramework
     this.designationsService.createFrameWork(masterFrameWorkName, this.orgId, departmentName).subscribe((res: any) => {
       if (res) {
@@ -134,7 +134,7 @@ export class DesignationsComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        },         10000)
+        }, 10000)
       }
       // console.log('orgFramework Details', res)
     })
