@@ -57,7 +57,7 @@ export class OdcsMappingComponent implements OnInit {
 
   createFreamwork() {
     this.loaderMsg = this.odcConfig.frameworkCreationMSg
-    const departmentName = _.get(this.configSvc, 'userProfile.departmentName').replace(/\s/g, '')
+    const departmentName = _.get(this.configSvc, 'userProfile.departmentName')
     const masterFrameWorkName = this.environmentVal.ODCSMasterFramework
     this.designationsService.createFrameWork(masterFrameWorkName, this.orgId, departmentName).subscribe((res: any) => {
       if (res) {
