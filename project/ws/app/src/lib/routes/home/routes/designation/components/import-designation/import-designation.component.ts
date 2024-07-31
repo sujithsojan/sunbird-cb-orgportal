@@ -11,6 +11,7 @@ import { LoaderService } from '../../../../../../../../../../../src/app/services
 import { ActivatedRoute, Router } from '@angular/router'
 import { ConfirmationBoxComponent } from '../../../../../training-plan/components/confirmation-box/confirmation.box.component'
 import { DatePipe } from '@angular/common'
+import { ConformationPopupComponent } from '../../dialog-boxes/conformation-popup/conformation-popup.component'
 // import { environment } from '../../../../../../../../../../../src/environments/environment'
 // import { ConformationPopupComponent } from '../../dialog-boxes/conformation-popup/conformation-popup.component'
 
@@ -179,6 +180,8 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
     if (this.selctedDesignationsCount) {
       this.openProcessingBox()
       const currentDate = this.datePipe.transform(new Date(), 'dd MMM, yyyy')
+      const orgCategorie = _.get(this.frameworkInfo, 'categories', [])
+        .find((category: any) => category.code === 'org')
       const observables = this.selectedDesignationsList.map((selectedDesignation: any) => {
         const requestBody = {
           name: selectedDesignation.designation,
@@ -193,6 +196,8 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
             importedByName: _.get(this.configSvc, 'userProfileV2.firstName'),
             importedById: _.get(this.configSvc, 'userProfileV2.userId'),
             importedOn: currentDate,
+            previousCategoryCode: _.get(orgCategorie, 'terms[0].category'),
+            previousTermCode: _.get(orgCategorie, 'terms[0].code')
           },
         }
         this.designationsImportSuccessResponses =
@@ -201,7 +206,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
           })
         return this.designationsService.createTerm(requestBody).pipe(
           map(response => {
-            this.designationsImportSuccessResponses.push({ identifier: _.get(response, 'result.identifier[0]') })
+            this.designationsImportSuccessResponses.push({ identifier: _.get(response, 'result.node_id[0]') })
             this.importedDesignationNames.push(selectedDesignation.designation)
             return response
           }),
@@ -215,7 +220,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
       forkJoin(observables).subscribe({
         next: response => {
           if (response) {
-            this.updateTerms()
+            this.updateTerms(orgCategorie)
           }
         },
         error: (error: HttpErrorResponse) => {
@@ -227,29 +232,36 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
     }
   }
 
-  updateTerms() {
-    const framework = _.get(this.frameworkInfo, 'code')
-    const category = _.get(this.frameworkInfo, 'categories[0].terms[0].category')
-    const categoryTermCode = _.get(this.frameworkInfo, 'categories[0].terms[0].code')
-    const requestBody = {
-      request: {
-        term: {
-          associations: this.designationsImportSuccessResponses,
+  updateTerms(orgCategorie: any) {
+    if (this.selectedDesignationsList.length === this.designationsImportFailed.length) {
+      this.dialogRef.close(false)
+      const errorMessage = 'Import failed'
+      this.openSnackbar(errorMessage)
+      this.designationsImportFailed = []
+    } else {
+      const framework = _.get(this.frameworkInfo, 'code')
+      const category = _.get(orgCategorie, 'terms[0].category')
+      const categoryTermCode = _.get(orgCategorie, 'terms[0].code')
+      const requestBody = {
+        request: {
+          term: {
+            associations: this.designationsImportSuccessResponses,
+          },
         },
-      },
+      }
+      this.designationsService.updateTerms(framework, category, categoryTermCode, requestBody).subscribe({
+        next: response => {
+          if (response) {
+            this.publishFrameWork()
+          }
+        },
+        error: (error: HttpErrorResponse) => {
+          const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
+          this.dialogRef.close()
+          this.openSnackbar(errorMessage)
+        },
+      })
     }
-    this.designationsService.updateTerms(framework, category, categoryTermCode, requestBody).subscribe({
-      next: response => {
-        if (response) {
-          this.publishFrameWork()
-        }
-      },
-      error: (error: HttpErrorResponse) => {
-        const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
-        this.dialogRef.close()
-        this.openSnackbar(errorMessage)
-      },
-    })
   }
 
   publishFrameWork() {
@@ -259,7 +271,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
         if (response) {
           setTimeout(() => {
             this.dialogRef.close()
-          },         2000)
+          }, 2000)
         }
       },
       error: (error: HttpErrorResponse) => {
@@ -274,8 +286,8 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
     const dialogData = {
       type: 'progress',
       icon: 'vega',
-      title: 'Importing Your Designations',
-      subTitle: 'Wait a second , your importing in processing….',
+      title: 'Importing your designation.',
+      subTitle: 'Please wait a moment, your import is in progress.',
     }
     this.dialogRef = this.dialog.open(ConfirmationBoxComponent, {
       disableClose: true,
@@ -283,86 +295,84 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
       autoFocus: false,
     })
 
-    this.dialogRef.afterClosed().subscribe(() => {
-      this.openConforamtionPopup()
+    this.dialogRef.afterClosed().subscribe((res = true) => {
+      if (res) {
+        this.openConforamtionPopup()
+      }
     })
   }
 
   openConforamtionPopup() {
-    // const descriptions = []
-    // if (this.designationsImportFailed.length > 0) {
-    //   const designationNames = this.designationsImportFailed.map((e: any) => e.designation.designation).join(', ')
-    //   const description = {
-    //     header: 'Import failed designations',
-    //     messages: [
-    //       {
-    //         msgClass: '',
-    //         msg: 'Some thing went wrong while importing ',
-    //       },
-    //       {
-    //         msgClass: 'textBold',
-    //         msg: `${designationNames}`,
-    //       },
-    //       {
-    //         msgClass: '',
-    //         msg: ' designations',
-    //       },
-    //     ],
-    //   }
-    //   descriptions.push(description)
-    // }
-    // if (this.importedDesignationNames.length > 0) {
-    //   const designationNames = this.importedDesignationNames.join(', ')
-    //   const description = {
-    //     header: 'Designations imported successfully',
-    //     messages: [
-    //       {
-    //         msgClass: 'textBold',
-    //         msg: `${designationNames}`,
-    //       },
-    //       {
-    //         msgClass: '',
-    //         msg: ' are imported successfully',
-    //       },
-    //     ],
-    //   }
-    //   descriptions.push(description)
-    // }
+    if (this.designationsImportFailed.length > 0) {
+      const descriptions = []
+      const designationNames = this.designationsImportFailed.map((e: any) => e.designation.designation).join(', ')
+      const description = {
+        header: 'The following designations could not be imported at the moment. Please retry after some time.',
+        headerClass: 'flex items-center justify-center text-blue',
+        messages: [
+          {
+            msgClass: '',
+            msg: `${designationNames}`,
+          },
+        ],
+      }
+      descriptions.push(description)
+      // if (this.importedDesignationNames.length > 0) {
+      //   const designationNames = this.importedDesignationNames.join(', ')
+      //   const description = {
+      //     header: 'Designations imported successfully',
+      //     messages: [
+      //       {
+      //         msgClass: 'textBold',
+      //         msg: `${designationNames}`,
+      //       },
+      //       {
+      //         msgClass: '',
+      //         msg: ' are imported successfully',
+      //       },
+      //     ],
+      //   }
+      //   descriptions.push(description)
+      // }
 
-    // descriptions.push({
-    //   messages: [
-    //     {
-    //       msgClass: '',
-    //       msg: 'The changes will reflect shortly.',
-    //     },
-    //   ],
-    // })
-    // const dialogData = {
-    //   descriptions,
-    //   footerClass: 'items-center justify-end',
-    //   buttons: [
-    //     {
-    //       btnText: 'Cancel',
-    //       btnClass: '',
-    //       response: false,
-    //     },
-    //   ],
-    // }
+      // descriptions.push({
 
-    // const dialogRef = this.dialog.open(ConformationPopupComponent, {
-    //   data: dialogData,
-    //   autoFocus: false,
-    //   width: '600px',
-    //   maxWidth: '80vw',
-    //   maxHeight: '90vh',
-    //   disableClose: true,
-    // })
-    // dialogRef.afterClosed().subscribe(() => {
-    //   this.navigateToMyDesignations()
-    // })
-    const successMessage = 'Imported Successfully '
-    this.openSnackbar(successMessage, 10000)
-    this.navigateToMyDesignations()
+      //   messages: [
+      //     {
+      //       msgClass: '',
+      //       msg: 'The changes will reflect shortly.',
+      //     },
+      //   ],
+      // })
+      const dialogData = {
+        dialogType: 'warning',
+        descriptions,
+        footerClass: 'items-center justify-center',
+        buttons: [
+          {
+            btnText: 'ok',
+            btnClass: 'btn-full-success',
+            response: true,
+          },
+        ],
+      }
+
+      const dialogRef = this.dialog.open(ConformationPopupComponent, {
+        data: dialogData,
+        autoFocus: false,
+        width: '800px',
+        maxWidth: '80vw',
+        maxHeight: '90vh',
+        disableClose: true,
+      })
+      dialogRef.afterClosed().subscribe(() => {
+        this.navigateToMyDesignations()
+      })
+    } else {
+      const successMessage = 'Imported Successfully '
+      this.openSnackbar(successMessage, 10000)
+      this.navigateToMyDesignations()
+    }
   }
 
   navigateToMyDesignations() {
