@@ -37,8 +37,7 @@
               </div>
             </div>
             <div class="mat-body-2 ws-mat-black40-text">{{user?.profileDetails &&
-              user?.profileDetails?.professionalDetails
-              &&
+              user?.profileDetails?.professionalDetails &&
               user?.profileDetails?.professionalDetails[0]?.designation ?
               user?.profileDetails?.professionalDetails[0]?.designation : '-'}}</div>
             <div class="mat-caption ws-mat-black40-text">
@@ -403,9 +402,9 @@
           <div class="flex flex-row margin-top-m">
             <div class="md:w-1/3">
               <label class="view-text-label">Group</label>
-              <p>{{user.profileDetails && user.profileDetails.professionalDetails &&
-                user.profileDetails.professionalDetails[0].group ?
-                user.profileDetails.professionalDetails[0].group : '-'}}
+              <p>{{user?.profileDetails && user?.profileDetails?.professionalDetails &&
+                user?.profileDetails?.professionalDetails[0]?.group ?
+                user?.profileDetails?.professionalDetails[0]?.group : '-'}}
                 <mat-icon class="verified-icon margin-left-xs"
                   *ngIf="user?.profileDetails?.profileGroupStatus === 'VERIFIED'">
                   check_circle</mat-icon>
@@ -420,9 +419,9 @@
             </div>
             <div class="md:w-1/3">
               <label class="view-text-label">Designation</label>
-              <p>{{user.profileDetails && user.profileDetails.professionalDetails &&
-                user.profileDetails.professionalDetails[0].designation ?
-                user.profileDetails.professionalDetails[0].designation : '-'}}
+              <p>{{user?.profileDetails && user?.profileDetails?.professionalDetails &&
+                user?.profileDetails?.professionalDetails[0]?.designation ?
+                user?.profileDetails?.professionalDetails[0]?.designation : '-'}}
                 <mat-icon class="verified-icon margin-left-xs"
                   *ngIf="user?.profileDetails?.profileDesignationStatus === 'VERIFIED'">
                   check_circle</mat-icon>
@@ -447,50 +446,51 @@
           <div class="flex flex-row margin-top-m">
             <div class="md:w-1/4">
               <label class="view-text-label">Employee ID</label>
-              <p class="word-wrap margin-right-l">{{user.profileDetails && user.profileDetails.employmentDetails &&
-                user.profileDetails.employmentDetails.employeeCode ?
-                user.profileDetails.employmentDetails.employeeCode : '-'}}</p>
+              <p class="word-wrap margin-right-l">{{user?.profileDetails && user?.profileDetails?.employmentDetails &&
+                user?.profileDetails?.employmentDetails?.employeeCode ?
+                user?.profileDetails?.employmentDetails?.employeeCode : '-'}}</p>
             </div>
 
             <div class="md:w-1/4">
               <label class="view-text-label">Email</label>
-              <p class="word-wrap">{{user.profileDetails && user.profileDetails.personalDetails ?
-                user.profileDetails.personalDetails.primaryEmail : '-'}}</p>
+              <p class="word-wrap">{{user?.profileDetails && user?.profileDetails?.personalDetails ?
+                user?.profileDetails?.personalDetails?.primaryEmail : '-'}}</p>
             </div>
 
             <div class="md:w-1/4">
               <label class="view-text-label">Mobile Number</label>
-              <p>+91 {{user.profileDetails && user.profileDetails.personalDetails ?
-                user.profileDetails.personalDetails.mobile : '-'}}</p>
+              <p>+91 {{user?.profileDetails && user?.profileDetails?.personalDetails ?
+                user?.profileDetails?.personalDetails?.mobile : '-'}}</p>
             </div>
 
             <div class="md:w-1/4">
               <label class="view-text-label">Gender</label>
-              <p>{{user.profileDetails && user.profileDetails.personalDetails &&
-                user.profileDetails.personalDetails.gender ?
-                user.profileDetails.personalDetails.gender : '-'}}</p>
+              <p>{{user?.profileDetails && user?.profileDetails?.personalDetails &&
+                user?.profileDetails?.personalDetails?.gender ?
+                user?.profileDetails?.personalDetails?.gender : '-'}}</p>
             </div>
           </div>
           <div class="flex flex-row margin-top-m">
             <div class="md:w-1/4">
               <label class="view-text-label">Date Of Birth</label>
-              <p>{{user.profileDetails && user.profileDetails.personalDetails && user.profileDetails.personalDetails.dob
-                ? user.profileDetails.personalDetails.dob
+              <p>{{user?.profileDetails && user?.profileDetails?.personalDetails &&
+                user?.profileDetails?.personalDetails?.dob
+                ? user?.profileDetails?.personalDetails?.dob
                 : '-'}}</p>
             </div>
 
             <div class="md:w-1/4">
               <label class="view-text-label">Mother Tongue</label>
-              <p>{{user.profileDetails && user.profileDetails.personalDetails &&
-                user.profileDetails.personalDetails.domicileMedium ?
-                user.profileDetails.personalDetails.domicileMedium : '-'}}</p>
+              <p>{{user?.profileDetails && user?.profileDetails?.personalDetails &&
+                user?.profileDetails?.personalDetails?.domicileMedium ?
+                user?.profileDetails?.personalDetails?.domicileMedium : '-'}}</p>
             </div>
 
             <div class="md:w-1/4">
               <label class="view-text-label">Category</label>
-              <p>{{user.profileDetails && user.profileDetails.personalDetails &&
-                user.profileDetails.personalDetails.category ?
-                user.profileDetails.personalDetails.category : '-'}}</p>
+              <p>{{user?.profileDetails && user?.profileDetails?.personalDetails &&
+                user?.profileDetails?.personalDetails?.category ?
+                user?.profileDetails?.personalDetails?.category : '-'}}</p>
             </div>
 
             <!-- <div class="md:w-1/4">
@@ -503,23 +503,23 @@
           <div class="flex flex-row margin-top-m">
             <div class="md:w-1/4">
               <label class="view-text-label">Office Pin Code</label>
-              <p>{{user.profileDetails && user.profileDetails.employmentDetails &&
-                user.profileDetails.employmentDetails.pinCode ?
-                user.profileDetails.employmentDetails.pinCode : '-'}}</p>
+              <p>{{user?.profileDetails && user?.profileDetails?.employmentDetails &&
+                user?.profileDetails?.employmentDetails?.pinCode ?
+                user?.profileDetails?.employmentDetails?.pinCode : '-'}}</p>
             </div>
 
             <div class="md:w-1/4">
               <label class="view-text-label">eHRMS ID</label>
-              <p>{{user.profileDetails && user.profileDetails.additionalProperties &&
-                user.profileDetails.additionalProperties.externalSystemId ?
-                user.profileDetails.additionalProperties.externalSystemId : '-'}}</p>
+              <p>{{user?.profileDetails && user?.profileDetails?.additionalProperties &&
+                user?.profileDetails?.additionalProperties?.externalSystemId ?
+                user?.profileDetails?.additionalProperties?.externalSystemId : '-'}}</p>
             </div>
 
             <div class="md:w-1/2">
               <label class="view-text-label">Tags</label>
-              <div *ngIf="user.profileDetails && user.profileDetails.additionalProperties &&
-              user.profileDetails.additionalProperties.tag &&
-              user.profileDetails.additionalProperties.tag.length > 0">
+              <div *ngIf="user?.profileDetails && user?.profileDetails?.additionalProperties &&
+              user?.profileDetails?.additionalProperties?.tag &&
+              user?.profileDetails?.additionalProperties?.tag.length > 0">
                 <ul class="tagslist">
                   <li *ngFor="let t of user.profileDetails.additionalProperties.tag">{{t}}</li>
                 </ul>
@@ -530,13 +530,13 @@
           <div class="flex flex-row margin-top-m">
             <div class="md:w-1/1">
               <label class="view-text-label">Roles</label>
-              <div *ngIf="user.organisations && user.organisations[0].roles.length > 0">
+              <div *ngIf="user?.organisations && user?.organisations[0]?.roles?.length > 0">
                 <ul class="roleslist">
                   <li *ngFor="let t of user.organisations[0].roles">{{t}}
                   </li>
                 </ul>
               </div>
-              <p *ngIf="user.organisations && user.organisations[0].roles.length === 0">-</p>
+              <p *ngIf="user?.organisations && user?.organisations[0]?.roles?.length === 0">-</p>
             </div>
           </div>
         </div>
@@ -570,9 +570,9 @@
               {{appData.userWorkflow.userInfo.first_name}}
             </div>
             <div class="mat-body-2 ws-mat-black40-text">{{appData.user &&
-              appData.user.profileDetails.professionalDetails &&
-              appData.user.profileDetails.professionalDetails[0].designation ?
-              appData.user.profileDetails.professionalDetails[0].designation : '-'}}</div>
+              appData.user?.profileDetails?.professionalDetails &&
+              appData.user?.profileDetails?.professionalDetails[0]?.designation ?
+              appData.user?.profileDetails?.professionalDetails[0]?.designation : '-'}}</div>
             <div class="mat-caption ws-mat-black40-text">Requested on: {{appData.requestedon | date: 'dd/MM/yyyy'}}
             </div>
           </div>
@@ -675,52 +675,52 @@
             <div class="flex flex-row margin-top-m">
               <div class="md:w-1/4">
                 <label class="view-text-label">Employee ID</label>
-                <p class="word-wrap margin-right-l">{{appData.user.profileDetails &&
-                  appData.user.profileDetails.employmentDetails &&
-                  appData.user.profileDetails.employmentDetails.employeeCode ?
+                <p class="word-wrap margin-right-l">{{appData?.user?.profileDetails &&
+                  appData.user?.profileDetails?.employmentDetails &&
+                  appData.user?.profileDetails?.employmentDetails?.employeeCode ?
                   appData.user.profileDetails.employmentDetails.employeeCode : '-'}}</p>
               </div>
 
               <div class="md:w-1/4">
                 <label class="view-text-label">Email</label>
-                <p>{{appData.user.profileDetails && appData.user.profileDetails.personalDetails ?
+                <p>{{appData?.user?.profileDetails && appData?.user?.profileDetails?.personalDetails ?
                   appData.user.profileDetails.personalDetails.primaryEmail : '-'}}</p>
               </div>
 
               <div class="md:w-1/4">
                 <label class="view-text-label">Mobile Number</label>
-                <p>+91 {{appData.user.profileDetails && appData.user.profileDetails.personalDetails ?
+                <p>+91 {{appData?.user?.profileDetails && appData?.user?.profileDetails?.personalDetails ?
                   appData.user.profileDetails.personalDetails.mobile : '-'}}</p>
               </div>
 
               <div class="md:w-1/4">
                 <label class="view-text-label">Gender</label>
-                <p>{{appData.user.profileDetails && appData.user.profileDetails.personalDetails &&
-                  appData.user.profileDetails.personalDetails.gender ?
-                  appData.user.profileDetails.personalDetails.gender : '-'}}</p>
+                <p>{{appData?.user?.profileDetails && appData?.user?.profileDetails?.personalDetails &&
+                  appData?.user?.profileDetails?.personalDetails?.gender ?
+                  appData?.user?.profileDetails?.personalDetails?.gender : '-'}}</p>
               </div>
             </div>
             <div class="flex flex-row margin-top-m">
               <div class="md:w-1/4">
                 <label class="view-text-label">Date Of Birth</label>
-                <p>{{appData.user.profileDetails && appData.user.profileDetails.personalDetails &&
-                  appData.user.profileDetails.personalDetails.dob
-                  ? appData.user.profileDetails.personalDetails.dob
+                <p>{{appData?.user?.profileDetails && appData?.user?.profileDetails?.personalDetails &&
+                  appData?.user?.profileDetails?.personalDetails?.dob
+                  ? appData?.user?.profileDetails?.personalDetails?.dob
                   : '-'}}</p>
               </div>
 
               <div class="md:w-1/4">
                 <label class="view-text-label">Mother Tongue</label>
-                <p>{{appData.user.profileDetails && appData.user.profileDetails.personalDetails &&
-                  appData.user.profileDetails.personalDetails.domicileMedium ?
-                  appData.user.profileDetails.personalDetails.domicileMedium : '-'}}</p>
+                <p>{{appData?.user?.profileDetails && appData?.user?.profileDetails?.personalDetails &&
+                  appData?.user?.profileDetails?.personalDetails?.domicileMedium ?
+                  appData?.user?.profileDetails?.personalDetails?.domicileMedium : '-'}}</p>
               </div>
 
               <div class="md:w-1/4">
                 <label class="view-text-label">Category</label>
-                <p>{{appData.user.profileDetails && appData.user.profileDetails.personalDetails &&
-                  appData.user.profileDetails.personalDetails.category ?
-                  appData.user.profileDetails.personalDetails.category : '-'}}</p>
+                <p>{{appData?.user?.profileDetails && appData?.user?.profileDetails?.personalDetails &&
+                  appData?.user?.profileDetails?.personalDetails?.category ?
+                  appData?.user?.profileDetails?.personalDetails?.category : '-'}}</p>
               </div>
 
               <!-- <div class="md:w-1/4">
@@ -733,15 +733,15 @@
             <div class="flex flex-row margin-top-m">
               <div class="md:w-1/4">
                 <label class="view-text-label">Office Pin Code</label>
-                <p>{{appData.user.profileDetails && appData.user.profileDetails.employmentDetails &&
-                  appData.user.profileDetails.employmentDetails.pinCode ?
+                <p>{{appData?.user?.profileDetails && appData?.user?.profileDetails?.employmentDetails &&
+                  appData?.user?.profileDetails?.employmentDetails?.pinCode ?
                   appData.user.profileDetails.employmentDetails.pinCode : '-'}}</p>
               </div>
 
               <div class="md:w-1/4">
                 <label class="view-text-label">eHRMS ID</label>
-                <p>{{appData.user.profileDetails && appData.user.profileDetails.additionalProperties &&
-                  appData.user.profileDetails.additionalProperties.externalSystemId ?
+                <p>{{appData?.user?.profileDetails && appData?.user?.profileDetails?.additionalProperties &&
+                  appData?.user?.profileDetails?.additionalProperties?.externalSystemId ?
                   appData.user.profileDetails.additionalProperties.externalSystemId : '-'}}</p>
               </div>
 
