@@ -567,13 +567,13 @@
           </div>
           <div class="username display-inline-block">
             <div class="mat-subheading-2 margin-remove word-wrap">
-              {{appData.userWorkflow.userInfo.first_name}}
+              {{appData?.userWorkflow?.userInfo?.first_name}}
             </div>
-            <div class="mat-body-2 ws-mat-black40-text">{{appData.user &&
-              appData.user?.profileDetails?.professionalDetails &&
-              appData.user?.profileDetails?.professionalDetails[0]?.designation ?
-              appData.user?.profileDetails?.professionalDetails[0]?.designation : '-'}}</div>
-            <div class="mat-caption ws-mat-black40-text">Requested on: {{appData.requestedon | date: 'dd/MM/yyyy'}}
+            <div class="mat-body-2 ws-mat-black40-text">{{appData?.user &&
+              appData?.user?.profileDetails?.professionalDetails &&
+              appData?.user?.profileDetails?.professionalDetails[0]?.designation ?
+              appData?.user?.profileDetails?.professionalDetails[0]?.designation : '-'}}</div>
+            <div class="mat-caption ws-mat-black40-text">Requested on: {{appData?.requestedon | date: 'dd/MM/yyyy'}}
             </div>
           </div>
         </div>
@@ -676,21 +676,21 @@
               <div class="md:w-1/4">
                 <label class="view-text-label">Employee ID</label>
                 <p class="word-wrap margin-right-l">{{appData?.user?.profileDetails &&
-                  appData.user?.profileDetails?.employmentDetails &&
-                  appData.user?.profileDetails?.employmentDetails?.employeeCode ?
-                  appData.user.profileDetails.employmentDetails.employeeCode : '-'}}</p>
+                  appData?.user?.profileDetails?.employmentDetails &&
+                  appData?.user?.profileDetails?.employmentDetails?.employeeCode ?
+                  appData?.user?.profileDetails?.employmentDetails?.employeeCode : '-'}}</p>
               </div>
 
               <div class="md:w-1/4">
                 <label class="view-text-label">Email</label>
                 <p>{{appData?.user?.profileDetails && appData?.user?.profileDetails?.personalDetails ?
-                  appData.user.profileDetails.personalDetails.primaryEmail : '-'}}</p>
+                  appData?.user?.profileDetails?.personalDetails?.primaryEmail : '-'}}</p>
               </div>
 
               <div class="md:w-1/4">
                 <label class="view-text-label">Mobile Number</label>
                 <p>+91 {{appData?.user?.profileDetails && appData?.user?.profileDetails?.personalDetails ?
-                  appData.user.profileDetails.personalDetails.mobile : '-'}}</p>
+                  appData?.user?.profileDetails?.personalDetails?.mobile : '-'}}</p>
               </div>
 
               <div class="md:w-1/4">
@@ -735,14 +735,14 @@
                 <label class="view-text-label">Office Pin Code</label>
                 <p>{{appData?.user?.profileDetails && appData?.user?.profileDetails?.employmentDetails &&
                   appData?.user?.profileDetails?.employmentDetails?.pinCode ?
-                  appData.user.profileDetails.employmentDetails.pinCode : '-'}}</p>
+                  appData?.user?.profileDetails?.employmentDetails?.pinCode : '-'}}</p>
               </div>
 
               <div class="md:w-1/4">
                 <label class="view-text-label">eHRMS ID</label>
                 <p>{{appData?.user?.profileDetails && appData?.user?.profileDetails?.additionalProperties &&
                   appData?.user?.profileDetails?.additionalProperties?.externalSystemId ?
-                  appData.user.profileDetails.additionalProperties.externalSystemId : '-'}}</p>
+                  appData?.user?.profileDetails?.additionalProperties?.externalSystemId : '-'}}</p>
               </div>
 
               <div class="md:w-1/2">
