@@ -13,7 +13,7 @@ import { DesignationsService } from '../designation/services/designations.servic
 export class OdcsMappingComponent implements OnInit {
   environmentVal: any
   taxonomyConfig: any
-  showTopSection = true
+  showTopSection = false
   odcConfig: any
   configSvc: any
   showLoader = false
@@ -52,7 +52,7 @@ export class OdcsMappingComponent implements OnInit {
   callResizeEvent(_event: any) {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'))
-    },         100)
+    }, 100)
   }
 
   createFreamwork() {
@@ -79,7 +79,7 @@ export class OdcsMappingComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        },         10000)
+        }, 10000)
       }
     })
   }
