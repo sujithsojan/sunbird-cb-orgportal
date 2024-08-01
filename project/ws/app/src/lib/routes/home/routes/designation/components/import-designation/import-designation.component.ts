@@ -198,7 +198,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
             importedOn: currentDate,
             previousCategoryCode: _.get(orgCategorie, 'terms[0].category'),
             previousTermCode: _.get(orgCategorie, 'terms[0].code'),
-            timeStamp: new Date().getTime()
+            timeStamp: new Date().getTime(),
           },
         }
         this.designationsImportSuccessResponses =
@@ -272,7 +272,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
         if (response) {
           setTimeout(() => {
             this.dialogRef.close()
-          }, 2000)
+          },         2000)
         }
       },
       error: (error: HttpErrorResponse) => {

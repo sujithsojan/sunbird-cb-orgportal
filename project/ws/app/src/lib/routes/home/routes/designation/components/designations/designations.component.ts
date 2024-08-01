@@ -37,6 +37,7 @@ export class DesignationsComponent implements OnInit {
     isMdoLeader: boolean
   }[] = []
   orgId = ''
+  showTopSection = false
 
   constructor(
     private designationsService: DesignationsService,
@@ -134,7 +135,7 @@ export class DesignationsComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        },         10000)
+        }, 10000)
       }
       // console.log('orgFramework Details', res)
     })
