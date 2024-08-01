@@ -198,6 +198,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
             importedOn: currentDate,
             previousCategoryCode: _.get(orgCategorie, 'terms[0].category'),
             previousTermCode: _.get(orgCategorie, 'terms[0].code'),
+            timeStamp: new Date().getTime(),
           },
         }
         this.designationsImportSuccessResponses =
