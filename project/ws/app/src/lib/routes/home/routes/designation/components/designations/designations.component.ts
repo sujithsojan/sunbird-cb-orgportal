@@ -135,7 +135,7 @@ export class DesignationsComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        },         10000)
+        }, 10000)
       }
       // console.log('orgFramework Details', res)
     })
@@ -300,7 +300,7 @@ export class DesignationsComponent implements OnInit {
       this.designationsService.deleteDesignation(this.frameworkDetails.code, 'designation', requestBody).subscribe({
         next: res => {
           if (res) {
-            this.publishFrameWork()
+            this.publishFrameWork('delete')
           } else {
             this.showLoader = false
           }
@@ -314,12 +314,15 @@ export class DesignationsComponent implements OnInit {
     }
   }
 
-  publishFrameWork() {
+  publishFrameWork(action?: string) {
     const frameworkName = _.get(this.frameworkDetails, 'code')
     this.designationsService.publishFramework(frameworkName).subscribe({
       next: response => {
         if (response) {
           this.getFrameworkInfo(this.frameworkDetails.code)
+          if (action && action === 'delete') {
+            this.openSnackbar('Deleted Successfully')
+          }
         }
       },
       error: (error: HttpErrorResponse) => {
