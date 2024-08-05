@@ -202,7 +202,14 @@ export class DesignationsComponent implements OnInit {
       this.filteredDesignationsList = this.designationsList
         .filter((designation: any) => designation.name.toLowerCase().includes(key.toLowerCase()))
     } else {
-      this.filteredDesignationsList = this.designationsList
+      let filteredData: any = this.designationsList.sort((a: any, b: any) => {
+        const timestampA = a.additionalProperties && a.additionalProperties.timeStamp ? new Date(Number(a.additionalProperties.timeStamp)).getTime() : 0
+        const timestampB = b.additionalProperties && b.additionalProperties.timeStamp ? new Date(Number(b.additionalProperties.timeStamp)).getTime() : 0
+
+        return timestampB - timestampA
+
+      })
+      this.filteredDesignationsList = filteredData
     }
   }
 
