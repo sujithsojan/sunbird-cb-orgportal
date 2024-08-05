@@ -272,7 +272,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
         if (response) {
           setTimeout(() => {
             this.dialogRef.close()
-          }, 10000)
+          },         10000)
         }
       },
       error: (error: HttpErrorResponse) => {

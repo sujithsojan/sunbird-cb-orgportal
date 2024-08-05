@@ -135,7 +135,7 @@ export class DesignationsComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        }, 10000)
+        },         10000)
       }
       // console.log('orgFramework Details', res)
     })
@@ -202,9 +202,11 @@ export class DesignationsComponent implements OnInit {
       this.filteredDesignationsList = this.designationsList
         .filter((designation: any) => designation.name.toLowerCase().includes(key.toLowerCase()))
     } else {
-      let filteredData: any = this.designationsList.sort((a: any, b: any) => {
-        const timestampA = a.additionalProperties && a.additionalProperties.timeStamp ? new Date(Number(a.additionalProperties.timeStamp)).getTime() : 0
-        const timestampB = b.additionalProperties && b.additionalProperties.timeStamp ? new Date(Number(b.additionalProperties.timeStamp)).getTime() : 0
+      const filteredData: any = this.designationsList.sort((a: any, b: any) => {
+        const timestampA = a.additionalProperties && a.additionalProperties.timeStamp ?
+          new Date(Number(a.additionalProperties.timeStamp)).getTime() : 0
+        const timestampB = b.additionalProperties && b.additionalProperties.timeStamp ?
+          new Date(Number(b.additionalProperties.timeStamp)).getTime() : 0
 
         return timestampB - timestampA
 
