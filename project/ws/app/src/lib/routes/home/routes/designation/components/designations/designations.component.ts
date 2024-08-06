@@ -135,7 +135,7 @@ export class DesignationsComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        },         10000)
+        }, 10000)
       }
       // console.log('orgFramework Details', res)
     })
@@ -179,7 +179,7 @@ export class DesignationsComponent implements OnInit {
   }
 
   getDesignations() {
-    this.designationsList = this.getTermsByCode('designation')
+    this.designationsList = _.get(this.organisationsList, '[0].children')
     this.designationsService.setCurrentOrgDesignationsList(this.designationsList)
     this.filterDesignations()
   }
