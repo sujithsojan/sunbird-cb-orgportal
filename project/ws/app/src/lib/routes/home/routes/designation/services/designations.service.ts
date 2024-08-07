@@ -132,18 +132,7 @@ export class DesignationsService {
         category: a.category,
         associations: a.associations,
         // config: this.getConfig(a.code),
-        children: (a.terms || []).map((c: any) => {
-          const associations = c.associations || []
-          if (associations.length > 0) {
-            Object.assign(c, { children: associations })
-          }
-          const importedBy = _.get(c, 'additionalProperties.importedById', null) === _.get(this.userProfile, 'userId', '')
-            ? 'You' : _.get(c, 'additionalProperties.importedByName', null)
-          c['importedByName'] = importedBy,
-            c['importedOn'] = _.get(c, 'additionalProperties.importedOn'),
-            c['importedById'] = _.get(c, 'additionalProperties.importedById')
-          return c
-        }),
+        children: this.formateChildren(a.terms || []),
       })
     })
 
@@ -161,6 +150,22 @@ export class DesignationsService {
     })
     // this.categoriesHash.next(allCategories)
 
+  }
+
+  formateChildren(terms: any[]): any[] {
+    return terms.map((c: any) => {
+      const associations = c.associations || []
+      if (associations.length > 0) {
+        Object.assign(c, { children: associations })
+        this.formateChildren(c.associations)
+      }
+      const importedBy = _.get(c, 'additionalProperties.importedById', null) === _.get(this.userProfile, 'userId', '')
+        ? 'You' : _.get(c, 'additionalProperties.importedByName', null)
+      c['importedByName'] = importedBy,
+        c['importedOn'] = _.get(c, 'additionalProperties.importedOn'),
+        c['importedById'] = _.get(c, 'additionalProperties.importedById')
+      return c
+    })
   }
 
   get getUuid() {
