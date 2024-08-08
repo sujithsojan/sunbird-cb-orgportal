@@ -132,7 +132,7 @@ export class DesignationsComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        },         _.get(this.designationConfig, 'refreshDelayTime', 10000))
+        }, _.get(this.designationConfig, 'refreshDelayTime', 10000))
       }
       // console.log('orgFramework Details', res)
     })
@@ -199,7 +199,7 @@ export class DesignationsComponent implements OnInit {
       this.filteredDesignationsList = this.designationsList
         .filter((designation: any) => designation.name.toLowerCase().includes(key.toLowerCase()))
     } else {
-      const filteredData: any = this.designationsList.sort((a: any, b: any) => {
+      const filteredData: any = (this.designationsList && this.designationsList) && this.designationsList.sort((a: any, b: any) => {
         const timestampA = a.additionalProperties && a.additionalProperties.timeStamp ?
           new Date(Number(a.additionalProperties.timeStamp)).getTime() : 0
         const timestampB = b.additionalProperties && b.additionalProperties.timeStamp ?
@@ -304,12 +304,20 @@ export class DesignationsComponent implements OnInit {
     this.designationsService.publishFramework(frameworkName).subscribe({
       next: response => {
         if (response) {
+          // setTimeout(() => {
+          //   this.getFrameworkInfo(this.frameworkDetails.code)
+          //   if (action && action === 'delete') {
+          //     this.openSnackbar(_.get(this.designationConfig, 'termRemoveMsg'))
+          //   }
+          // }, _.get(this.designationConfig, 'refreshDelayTime', 10000))
+          const refreshTime = ((this.designationsList.length / 2) * 1000) >= 10000 ?
+            (this.designationsList.length / 2) * 1000 : 10000
           setTimeout(() => {
             this.getFrameworkInfo(this.frameworkDetails.code)
             if (action && action === 'delete') {
               this.openSnackbar(_.get(this.designationConfig, 'termRemoveMsg'))
             }
-          },         _.get(this.designationConfig, 'refreshDelayTime', 10000))
+          }, refreshTime)
         }
       },
       error: () => {
