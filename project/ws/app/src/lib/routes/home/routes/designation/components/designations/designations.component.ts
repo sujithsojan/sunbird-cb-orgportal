@@ -4,7 +4,6 @@ import { ITableData } from '@sunbird-cb/collection/lib/ui-org-table/interface/in
 import { DesignationsService } from '../../services/designations.service'
 import { FormControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-import { HttpErrorResponse } from '@angular/common/http'
 import { MatDialog, MatSnackBar } from '@angular/material'
 import { ConformationPopupComponent } from '../../dialog-boxes/conformation-popup/conformation-popup.component'
 import { ActivatedRoute } from '@angular/router'
@@ -103,9 +102,7 @@ export class DesignationsComponent implements OnInit {
       this.designationConfig = data.pageData.data
     })
 
-    // console.log('this.configSvc', this.configSvc.orgReadData)
     if (this.configSvc.orgReadData && this.configSvc.orgReadData.frameworkid) {
-      // this.environmentVal.frameworkName = this.configSvc.orgReadData.frameworkid
       this.getFrameworkInfo(this.configSvc.orgReadData.frameworkid)
     } else {
       this.createFreamwork()
@@ -135,7 +132,7 @@ export class DesignationsComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        },         10000)
+        }, _.get(this.designationConfig, 'refreshDelayTime', 10000))
       }
       // console.log('orgFramework Details', res)
     })
@@ -153,9 +150,9 @@ export class DesignationsComponent implements OnInit {
 
           this.getOrganisations()
         },
-        error: (error: HttpErrorResponse) => {
+        error: () => {
           this.showLoader = false
-          const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
+          const errorMessage = _.get(this.designationConfig, 'internalErrorMsg')
           this.openSnackbar(errorMessage)
         },
 
@@ -217,26 +214,6 @@ export class DesignationsComponent implements OnInit {
 
   //#region (ui interactions like click)
 
-  // openDesignationCreatPopup(event?: any) {
-  //   console.log('event', event)
-  //   const dialogData = {
-  //     mode: 'create',
-  //     columnInfo: {
-  //       code: 'designation',
-  //       name: 'Designation',
-  //       children: this.designationsList,
-  //     },
-  //     frameworkId: 'organisation_fw',
-  //     selectedDesignation: null
-  //   }
-  //   if (event && event.action) {
-  //     dialogData.mode = event.action
-  //     dialogData.selectedDesignation = event.row
-  //   }
-  // }
-
-  // upload() { }
-
   menuSelected(event: any) {
     switch (event.action) {
       // case 'edit':
@@ -252,7 +229,6 @@ export class DesignationsComponent implements OnInit {
   }
 
   openConformationPopup(event: any) {
-    // console.log('envent data', event)
     const dialogData = {
       dialogType: 'warning',
       descriptions: [
@@ -314,9 +290,9 @@ export class DesignationsComponent implements OnInit {
             this.showLoader = false
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: () => {
           this.showLoader = false
-          const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
+          const errorMessage = _.get(this.designationConfig, 'internalErrorMsg')
           this.openSnackbar(errorMessage)
         },
       })
@@ -331,14 +307,14 @@ export class DesignationsComponent implements OnInit {
           setTimeout(() => {
             this.getFrameworkInfo(this.frameworkDetails.code)
             if (action && action === 'delete') {
-              this.openSnackbar('Deleted Successfully')
+              this.openSnackbar(_.get(this.designationConfig, 'termRemoveMsg'))
             }
-          },         10000)
+          }, _.get(this.designationConfig, 'refreshDelayTime', 10000))
         }
       },
-      error: (error: HttpErrorResponse) => {
+      error: () => {
         this.showLoader = false
-        const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
+        const errorMessage = _.get(this.designationConfig, 'internalErrorMsg')
         this.openSnackbar(errorMessage)
       },
     })
