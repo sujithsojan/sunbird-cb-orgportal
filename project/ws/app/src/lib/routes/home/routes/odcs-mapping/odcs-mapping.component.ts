@@ -40,8 +40,9 @@ export class OdcsMappingComponent implements OnInit {
       this.environmentVal.frameworkName = this.configSvc.orgReadData.frameworkid
       this.odcConfig.defaultOdcsConfig[0].frameworkId = this.configSvc.orgReadData.frameworkid
       this.environmentVal.frameworkType = 'MDO_DESIGNATION'
-      this.taxonomyConfig = [...this.odcConfig.defaultOdcsConfig, ...this.odcConfig.frameworkConfig]
       this.environmentVal.kcmFrameworkName = environment.KCMframeworkName
+      this.odcConfig.defaultKCMConfig[0].frameworkId = environment.KCMframeworkName
+      this.taxonomyConfig = [...this.odcConfig.defaultOdcsConfig, ...this.odcConfig.defaultKCMConfig, ...this.odcConfig.frameworkConfig]
     } else {
       this.showLoader = false
       this.loaderMsg = this.odcConfig.frameworkCreationMSg
@@ -52,7 +53,7 @@ export class OdcsMappingComponent implements OnInit {
   callResizeEvent(_event: any) {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'))
-    },         100)
+    }, 100)
   }
 
   createFreamwork() {
@@ -79,7 +80,7 @@ export class OdcsMappingComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        },         10000)
+        }, 10000)
       }
     })
   }
