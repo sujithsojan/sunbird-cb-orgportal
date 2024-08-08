@@ -287,9 +287,15 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
     this.designationsService.publishFramework(frameworkName).subscribe({
       next: response => {
         if (response) {
+          // setTimeout(() => {
+          //   this.dialogRef.close(true)
+          // },         _.get(this.designationConfig, 'refreshDelayTime', 10000))
+          const refreshTime = ((this.designationsImportSuccessResponses.length / 2) * 1000) >= 10000 ?
+            (this.designationsImportSuccessResponses.length / 2) * 1000 : 10000
           setTimeout(() => {
             this.dialogRef.close(true)
-          },         _.get(this.designationConfig, 'refreshDelayTime', 10000))
+          }, refreshTime)
+
         }
       },
       error: () => {

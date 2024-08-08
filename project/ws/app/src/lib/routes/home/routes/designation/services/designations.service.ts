@@ -158,6 +158,8 @@ export class DesignationsService {
       if (associations.length > 0) {
         Object.assign(c, { children: associations })
         this.formateChildren(c.associations)
+      } else {
+        Object.assign(c, { children: [] })
       }
       const importedBy = _.get(c, 'additionalProperties.importedById', null) === _.get(this.userProfile, 'userId', '')
         ? 'You' : _.get(c, 'additionalProperties.importedByName', null)
@@ -200,7 +202,7 @@ export class DesignationsService {
       frameworkId,
       categoryId,
       categoryTermCode
-    )}`,                   reguestBody)
+    )}`, reguestBody)
   }
 
   publishFramework(frameworkName: string) {
