@@ -247,7 +247,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
       this.openSnackbar(errorMessage)
       this.designationsImportFailed = []
     } else {
-      if (retry === false) {
+      if (!retry) {
         this.progressDialogData['subTitle'] = _.get(this.designationConfig, 'associationUpdateMsg')
       }
       const framework = _.get(this.frameworkInfo, 'code')
@@ -289,7 +289,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
         if (response) {
           setTimeout(() => {
             this.dialogRef.close(true)
-          }, _.get(this.designationConfig, 'refreshDelayTime', 10000))
+          },         _.get(this.designationConfig, 'refreshDelayTime', 10000))
         }
       },
       error: () => {
@@ -306,7 +306,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
       icon: 'vega',
       title: _.get(this.designationConfig, 'importingDesignation'),
       subTitle: _.get(this.designationConfig, 'termCreationMsg'),
-      showLoader: true
+      showLoader: true,
     }
     this.dialogRef = this.dialog.open(ConfirmationBoxComponent, {
       disableClose: true,

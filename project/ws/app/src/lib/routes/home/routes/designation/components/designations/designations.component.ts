@@ -132,7 +132,7 @@ export class DesignationsComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        }, _.get(this.designationConfig, 'refreshDelayTime', 10000))
+        },         _.get(this.designationConfig, 'refreshDelayTime', 10000))
       }
       // console.log('orgFramework Details', res)
     })
@@ -309,7 +309,7 @@ export class DesignationsComponent implements OnInit {
             if (action && action === 'delete') {
               this.openSnackbar(_.get(this.designationConfig, 'termRemoveMsg'))
             }
-          }, _.get(this.designationConfig, 'refreshDelayTime', 10000))
+          },         _.get(this.designationConfig, 'refreshDelayTime', 10000))
         }
       },
       error: () => {
