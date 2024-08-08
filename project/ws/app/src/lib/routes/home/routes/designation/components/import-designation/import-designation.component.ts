@@ -5,7 +5,6 @@ import { FormControl } from '@angular/forms'
 import { catchError, delay, map } from 'rxjs/operators'
 import { SelectedDesignationPopupComponent } from '../../dialog-boxes/selected-designation-popup/selected-designation-popup.component'
 import { forkJoin, of, Subscription } from 'rxjs'
-import { HttpErrorResponse } from '@angular/common/http'
 import * as _ from 'lodash'
 import { LoaderService } from '../../../../../../../../../../../src/app/services/loader.service'
 import { ActivatedRoute, Router } from '@angular/router'
@@ -42,6 +41,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
   designationsImportFailed: any = []
   frameworkInfo: any = {}
   dialogRef: any
+  progressDialogData: any
 
   constructor(
     private designationsService: DesignationsService,
@@ -51,14 +51,15 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
     private snackBar: MatSnackBar,
     private datePipe: DatePipe,
     private activateRoute: ActivatedRoute
-  ) { }
+  ) {
+    this.getFrameWorkDetails()
+  }
 
   ngOnInit() {
     this.configSvc = this.activateRoute.snapshot.data['configService']
     this.loadDesignations()
-    this.valudChangeSubscribers()
-
-    this.getFrameWorkDetails()
+    this.valueChangeSubscription()
+    this.getRoutesData()
   }
 
   getFrameWorkDetails() {
@@ -108,12 +109,18 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
     return this.selectedDesignationsList
   }
 
-  valudChangeSubscribers() {
+  valueChangeSubscription() {
     if (this.searchControl) {
       this.searchControl.valueChanges.pipe(delay(500)).subscribe((value: string) => {
         this.loadDesignations(value)
       })
     }
+  }
+
+  getRoutesData() {
+    this.activateRoute.data.subscribe(data => {
+      this.designationConfig = data.pageData.data
+    })
   }
 
   selectDesignation(checked: Boolean, id: number) {
@@ -224,22 +231,25 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
             this.updateTerms(orgCategorie)
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: () => {
           this.dialogRef.close()
-          const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
+          const errorMessage = _.get(this.designationConfig, 'internalErrorMsg')
           this.openSnackbar(errorMessage)
         },
       })
     }
   }
 
-  updateTerms(orgCategorie: any) {
+  updateTerms(orgCategorie: any, retry = false) {
     if (this.selectedDesignationsList.length === this.designationsImportFailed.length) {
       this.dialogRef.close(false)
-      const errorMessage = 'Import failed'
+      const errorMessage = _.get(this.designationConfig, 'internalErrorMsg')
       this.openSnackbar(errorMessage)
       this.designationsImportFailed = []
     } else {
+      if (!retry) {
+        this.progressDialogData['subTitle'] = _.get(this.designationConfig, 'associationUpdateMsg')
+      }
       const framework = _.get(this.frameworkInfo, 'code')
       const category = _.get(orgCategorie, 'terms[0].category')
       const categoryTermCode = _.get(orgCategorie, 'terms[0].code')
@@ -256,10 +266,16 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
             this.publishFrameWork()
           }
         },
-        error: (error: HttpErrorResponse) => {
-          const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
-          this.dialogRef.close()
-          this.openSnackbar(errorMessage)
+        error: () => {
+          if (retry) {
+            const errorMessage = _.get(this.designationConfig, 'internalErrorMsg')
+            this.dialogRef.close()
+            this.openSnackbar(errorMessage)
+          } else {
+            this.progressDialogData['subTitle'] = _.get(this.designationConfig, 'associationRetryMsg')
+            const traiagain = true
+            this.updateTerms(orgCategorie, traiagain)
+          }
         },
       })
     }
@@ -267,16 +283,17 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
 
   publishFrameWork() {
     const frameworkName = _.get(this.frameworkInfo, 'code')
+    this.progressDialogData['subTitle'] = _.get(this.designationConfig, 'publishingMsg')
     this.designationsService.publishFramework(frameworkName).subscribe({
       next: response => {
         if (response) {
           setTimeout(() => {
-            this.dialogRef.close()
-          },         10000)
+            this.dialogRef.close(true)
+          },         _.get(this.designationConfig, 'refreshDelayTime', 10000))
         }
       },
-      error: (error: HttpErrorResponse) => {
-        const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
+      error: () => {
+        const errorMessage = _.get(this.designationConfig, 'internalErrorMsg')
         this.dialogRef.close()
         this.openSnackbar(errorMessage)
       },
@@ -284,19 +301,20 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
   }
 
   openProcessingBox() {
-    const dialogData = {
+    this.progressDialogData = {
       type: 'progress',
       icon: 'vega',
-      title: 'Importing your designation.',
-      subTitle: 'Please wait a moment, your import is in progress.',
+      title: _.get(this.designationConfig, 'importingDesignation'),
+      subTitle: _.get(this.designationConfig, 'termCreationMsg'),
+      showLoader: true,
     }
     this.dialogRef = this.dialog.open(ConfirmationBoxComponent, {
       disableClose: true,
-      data: dialogData,
+      data: this.progressDialogData,
       autoFocus: false,
     })
 
-    this.dialogRef.afterClosed().subscribe((res: boolean = true) => {
+    this.dialogRef.afterClosed().subscribe((res: boolean = false) => {
       if (res) {
         this.openConforamtionPopup()
       }
@@ -318,33 +336,6 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
         ],
       }
       descriptions.push(description)
-      // if (this.importedDesignationNames.length > 0) {
-      //   const designationNames = this.importedDesignationNames.join(', ')
-      //   const description = {
-      //     header: 'Designations imported successfully',
-      //     messages: [
-      //       {
-      //         msgClass: 'textBold',
-      //         msg: `${designationNames}`,
-      //       },
-      //       {
-      //         msgClass: '',
-      //         msg: ' are imported successfully',
-      //       },
-      //     ],
-      //   }
-      //   descriptions.push(description)
-      // }
-
-      // descriptions.push({
-
-      //   messages: [
-      //     {
-      //       msgClass: '',
-      //       msg: 'The changes will reflect shortly.',
-      //     },
-      //   ],
-      // })
       const dialogData = {
         descriptions,
         dialogType: 'warning',
@@ -370,7 +361,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
         this.navigateToMyDesignations()
       })
     } else {
-      const successMessage = 'Imported Successfully '
+      const successMessage = _.get(this.designationConfig, 'successMsg')
       this.openSnackbar(successMessage, 10000)
       this.navigateToMyDesignations()
     }
