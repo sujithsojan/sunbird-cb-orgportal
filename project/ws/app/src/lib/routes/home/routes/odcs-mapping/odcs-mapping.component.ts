@@ -3,6 +3,8 @@ import { environment } from '../../../../../../../../../src/environments/environ
 import { ActivatedRoute } from '@angular/router'
 import * as _ from 'lodash'
 import { DesignationsService } from '../designation/services/designations.service'
+import { MatDialog } from '@angular/material'
+import { ReportsVideoComponent } from '../reports-video/reports-video.component'
 // import { OdcsService } from '../../services/odcs.service'
 
 @Component({
@@ -22,6 +24,7 @@ export class OdcsMappingComponent implements OnInit {
   constructor(
     private activateRoute: ActivatedRoute,
     private designationsService: DesignationsService,
+    private dialog: MatDialog
     // private odcsSvc: OdcsService
   ) { }
 
@@ -196,5 +199,19 @@ export class OdcsMappingComponent implements OnInit {
   //     )
   //   })
   // }
+
+
+  openVideoPopup() {
+    const url = `${environment.karmYogiPath}${_.get(this.odcConfig, 'topsection.guideVideo.url')}`
+    this.dialog.open(ReportsVideoComponent, {
+      data: {
+        videoLink: url,
+      },
+      disableClose: true,
+      width: '50%',
+      height: '60%',
+      panelClass: 'overflow-visable',
+    })
+  }
 
 }

@@ -8,6 +8,7 @@ import { MatDialog, MatSnackBar } from '@angular/material'
 import { ConformationPopupComponent } from '../../dialog-boxes/conformation-popup/conformation-popup.component'
 import { ActivatedRoute } from '@angular/router'
 import { environment } from '../../../../../../../../../../../src/environments/environment'
+import { ReportsVideoComponent } from '../../../reports-video/reports-video.component'
 
 @Component({
   selector: 'ws-app-designations',
@@ -176,7 +177,7 @@ export class DesignationsComponent implements OnInit {
   }
 
   getDesignations() {
-    this.designationsList = _.get(this.organisationsList, '[0].children')
+    this.designationsList = _.get(this.organisationsList, '[0].children', [])
     this.designationsService.setCurrentOrgDesignationsList(this.designationsList)
     this.filterDesignations()
   }
@@ -196,10 +197,10 @@ export class DesignationsComponent implements OnInit {
 
   filterDesignations(key?: string) {
     if (key) {
-      this.filteredDesignationsList = this.designationsList
+      this.filteredDesignationsList = (this.designationsList || [])
         .filter((designation: any) => designation.name.toLowerCase().includes(key.toLowerCase()))
     } else {
-      const filteredData: any = (this.designationsList && this.designationsList) && this.designationsList.sort((a: any, b: any) => {
+      const filteredData: any = (this.designationsList || []).sort((a: any, b: any) => {
         const timestampA = a.additionalProperties && a.additionalProperties.timeStamp ?
           new Date(Number(a.additionalProperties.timeStamp)).getTime() : 0
         const timestampB = b.additionalProperties && b.additionalProperties.timeStamp ?
@@ -208,11 +209,24 @@ export class DesignationsComponent implements OnInit {
         return timestampB - timestampA
 
       })
-      this.filteredDesignationsList = filteredData
+      this.filteredDesignationsList = filteredData ? filteredData : []
     }
   }
 
   //#region (ui interactions like click)
+
+  openVideoPopup() {
+    const url = `${environment.karmYogiPath}${_.get(this.designationConfig, 'topsection.guideVideo.url')}`
+    this.dialog.open(ReportsVideoComponent, {
+      data: {
+        videoLink: url,
+      },
+      disableClose: true,
+      width: '50%',
+      height: '60%',
+      panelClass: 'overflow-visable',
+    })
+  }
 
   menuSelected(event: any) {
     switch (event.action) {
