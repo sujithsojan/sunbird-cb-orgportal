@@ -56,7 +56,7 @@ export class OdcsMappingComponent implements OnInit {
   callResizeEvent(_event: any) {
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'))
-    }, 100)
+    },         100)
   }
 
   createFreamwork() {
@@ -83,7 +83,7 @@ export class OdcsMappingComponent implements OnInit {
       } else {
         setTimeout(() => {
           this.getOrgReadData()
-        }, 10000)
+        },         10000)
       }
     })
   }
@@ -199,7 +199,6 @@ export class OdcsMappingComponent implements OnInit {
   //     )
   //   })
   // }
-
 
   openVideoPopup() {
     const url = `${environment.karmYogiPath}${_.get(this.odcConfig, 'topsection.guideVideo.url')}`

@@ -294,7 +294,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
             (this.designationsImportSuccessResponses.length / 2) * 1000 : 10000
           setTimeout(() => {
             this.dialogRef.close(true)
-          }, refreshTime)
+          },         refreshTime)
 
         }
       },
