@@ -8,6 +8,7 @@ import { MatDialog, MatSnackBar } from '@angular/material'
 import { ConformationPopupComponent } from '../../dialog-boxes/conformation-popup/conformation-popup.component'
 import { ActivatedRoute } from '@angular/router'
 import { environment } from '../../../../../../../../../../../src/environments/environment'
+import { ReportsVideoComponent } from '../../../reports-video/reports-video.component'
 
 @Component({
   selector: 'ws-app-designations',
@@ -115,8 +116,11 @@ export class DesignationsComponent implements OnInit {
     const departmentName = _.get(this.configSvc, 'userProfile.departmentName')
     const masterFrameWorkName = this.environment.ODCSMasterFramework
     this.designationsService.createFrameWork(masterFrameWorkName, this.orgId, departmentName).subscribe((res: any) => {
-      if (res) {
+      if (_.get(res, 'result.framework')) {
+        this.environment.frameworkName = _.get(res, 'result.framework')
         this.getOrgReadData()
+        // this.publishFrameWork('', true)
+        // this.getFrameworkInfo(res.frameworkid)
       }
       // console.log('frameworkCreated: ', res)
     })
@@ -124,16 +128,16 @@ export class DesignationsComponent implements OnInit {
 
   getOrgReadData() {
     this.designationsService.getOrgReadData(this.orgId).subscribe((res: any) => {
-      if (_.get(res, 'frameworkid')) {
-        this.showLoader = true
-        this.showCreateLoader = false
-        this.environment.frameworkName = _.get(res, 'frameworkid')
-        this.getFrameworkInfo(res.frameworkid)
-      } else {
-        setTimeout(() => {
-          this.getOrgReadData()
-        }, _.get(this.designationConfig, 'refreshDelayTime', 10000))
-      }
+      // if (_.get(res, 'frameworkid')) {
+      this.showLoader = true
+      this.showCreateLoader = false
+      this.environment.frameworkName = _.get(res, 'frameworkid')
+      this.getFrameworkInfo(res.frameworkid)
+      // } else {
+      //   setTimeout(() => {
+      //     this.getOrgReadData()
+      //   }, _.get(this.designationConfig, 'refreshDelayTime', 10000))
+      // }
       // console.log('orgFramework Details', res)
     })
   }
@@ -176,7 +180,7 @@ export class DesignationsComponent implements OnInit {
   }
 
   getDesignations() {
-    this.designationsList = _.get(this.organisationsList, '[0].children')
+    this.designationsList = _.get(this.organisationsList, '[0].children', [])
     this.designationsService.setCurrentOrgDesignationsList(this.designationsList)
     this.filterDesignations()
   }
@@ -196,10 +200,10 @@ export class DesignationsComponent implements OnInit {
 
   filterDesignations(key?: string) {
     if (key) {
-      this.filteredDesignationsList = this.designationsList
+      this.filteredDesignationsList = (this.designationsList || [])
         .filter((designation: any) => designation.name.toLowerCase().includes(key.toLowerCase()))
     } else {
-      const filteredData: any = (this.designationsList && this.designationsList) && this.designationsList.sort((a: any, b: any) => {
+      const filteredData: any = (this.designationsList || []).sort((a: any, b: any) => {
         const timestampA = a.additionalProperties && a.additionalProperties.timeStamp ?
           new Date(Number(a.additionalProperties.timeStamp)).getTime() : 0
         const timestampB = b.additionalProperties && b.additionalProperties.timeStamp ?
@@ -208,11 +212,24 @@ export class DesignationsComponent implements OnInit {
         return timestampB - timestampA
 
       })
-      this.filteredDesignationsList = filteredData
+      this.filteredDesignationsList = filteredData ? filteredData : []
     }
   }
 
   //#region (ui interactions like click)
+
+  openVideoPopup() {
+    const url = `${environment.karmYogiPath}${_.get(this.designationConfig, 'topsection.guideVideo.url')}`
+    this.dialog.open(ReportsVideoComponent, {
+      data: {
+        videoLink: url,
+      },
+      disableClose: true,
+      width: '50%',
+      height: '60%',
+      panelClass: 'overflow-visable',
+    })
+  }
 
   menuSelected(event: any) {
     switch (event.action) {
@@ -300,7 +317,7 @@ export class DesignationsComponent implements OnInit {
   }
 
   publishFrameWork(action?: string) {
-    const frameworkName = _.get(this.frameworkDetails, 'code')
+    const frameworkName = _.get(this.frameworkDetails, 'code', _.get(this.environment, 'frameworkName'))
     this.designationsService.publishFramework(frameworkName).subscribe({
       next: response => {
         if (response) {
@@ -317,7 +334,7 @@ export class DesignationsComponent implements OnInit {
             if (action && action === 'delete') {
               this.openSnackbar(_.get(this.designationConfig, 'termRemoveMsg'))
             }
-          }, refreshTime)
+          },         refreshTime)
         }
       },
       error: () => {
