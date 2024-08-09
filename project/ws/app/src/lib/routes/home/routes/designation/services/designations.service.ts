@@ -25,8 +25,9 @@ const API_END_POINTS = {
   IMPORT_DESIGNATION: 'api/framework/v1/term/create?',
   ORG_READ: '/apis/proxies/v8/org/v1/read',
   CREATE_TERM: `/apis/proxies/v8/designation/create/term`,
-  CREATE_FRAME_WORK: (frameworkName: string, orgId: string, termName: string) =>
-    `/apis/proxies/v8/org/framework/read?frameworkName=${frameworkName}&orgId=${orgId}&termName=${termName}`,
+  CREATE_FRAME_WORK: (frameworkName: string, orgId: string, termName: string) => {
+    return `/apis/proxies/v8/org/framework/read?frameworkName=${frameworkName}&orgId=${orgId}&termName=${encodeURIComponent(termName)}`
+  },
   DELETE_DESIGNATION: (frameworkName: string, category: string) =>
     `/apis/proxies/v8/framework/v1/term/retire?framework=${frameworkName}&category=${category}`,
 }

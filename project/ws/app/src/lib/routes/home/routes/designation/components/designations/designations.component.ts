@@ -118,7 +118,9 @@ export class DesignationsComponent implements OnInit {
     this.designationsService.createFrameWork(masterFrameWorkName, this.orgId, departmentName).subscribe((res: any) => {
       if (_.get(res, 'result.framework')) {
         this.environment.frameworkName = _.get(res, 'result.framework')
-        this.getOrgReadData()
+        setTimeout(() => {
+          this.getOrgReadData()
+        },         5000)
         // this.publishFrameWork('', true)
         // this.getFrameworkInfo(res.frameworkid)
       }

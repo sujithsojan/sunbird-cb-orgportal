@@ -67,7 +67,9 @@ export class OdcsMappingComponent implements OnInit {
     this.designationsService.createFrameWork(masterFrameWorkName, this.orgId, departmentName).subscribe({
       next: res => {
         if (_.get(res, 'result.framework')) {
-          this.getOrgReadData()
+          setTimeout(() => {
+            this.getOrgReadData()
+          },         5000)
         }
       },
       error: () => {
