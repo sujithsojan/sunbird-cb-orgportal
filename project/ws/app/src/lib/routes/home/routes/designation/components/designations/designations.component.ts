@@ -120,7 +120,7 @@ export class DesignationsComponent implements OnInit {
         this.environment.frameworkName = _.get(res, 'result.framework')
         setTimeout(() => {
           this.getOrgReadData()
-        }, 5000)
+        },         5000)
         // this.publishFrameWork('', true)
         // this.getFrameworkInfo(res.frameworkid)
       }
@@ -336,7 +336,7 @@ export class DesignationsComponent implements OnInit {
             if (action && action === 'delete') {
               this.openSnackbar(_.get(this.designationConfig, 'termRemoveMsg'))
             }
-          }, refreshTime)
+          },         refreshTime)
         }
       },
       error: () => {
