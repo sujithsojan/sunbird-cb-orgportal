@@ -334,7 +334,7 @@ export class DesignationsComponent implements OnInit {
             if (action && action === 'delete') {
               this.openSnackbar(_.get(this.designationConfig, 'termRemoveMsg'))
             }
-          }, refreshTime)
+          },         refreshTime)
         }
       },
       error: () => {
