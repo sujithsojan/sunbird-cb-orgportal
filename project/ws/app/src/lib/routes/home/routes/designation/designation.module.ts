@@ -30,17 +30,11 @@ const routes: Routes = [
   {
     path: 'import-designation',
     pathMatch: 'full',
-    // data: {
-    //   pageId: 'home/org-designations/import-designation',
-    //   module: 'manage-designations',
-    //   pageType: 'feature',
-    //   pageKey: 'import-designations',
-    // },
     data: {
       pageId: 'home/odcs-mapping',
       module: 'odcs-mapping',
       pageType: 'feature',
-      pageKey: 'odcs',
+      pageKey: 'my_designations',
     },
     component: ImportDesignationComponent,
     resolve: {

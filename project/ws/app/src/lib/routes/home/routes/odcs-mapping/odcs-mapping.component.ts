@@ -3,6 +3,8 @@ import { environment } from '../../../../../../../../../src/environments/environ
 import { ActivatedRoute } from '@angular/router'
 import * as _ from 'lodash'
 import { DesignationsService } from '../designation/services/designations.service'
+import { MatDialog, MatSnackBar } from '@angular/material'
+import { ReportsVideoComponent } from '../reports-video/reports-video.component'
 // import { OdcsService } from '../../services/odcs.service'
 
 @Component({
@@ -22,6 +24,8 @@ export class OdcsMappingComponent implements OnInit {
   constructor(
     private activateRoute: ActivatedRoute,
     private designationsService: DesignationsService,
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
     // private odcsSvc: OdcsService
   ) { }
 
@@ -40,10 +44,11 @@ export class OdcsMappingComponent implements OnInit {
       this.environmentVal.frameworkName = this.configSvc.orgReadData.frameworkid
       this.odcConfig.defaultOdcsConfig[0].frameworkId = this.configSvc.orgReadData.frameworkid
       this.environmentVal.frameworkType = 'MDO_DESIGNATION'
-      this.taxonomyConfig = [...this.odcConfig.defaultOdcsConfig, ...this.odcConfig.frameworkConfig]
       this.environmentVal.kcmFrameworkName = environment.KCMframeworkName
+      this.odcConfig.defaultKCMConfig[0].frameworkId = environment.KCMframeworkName
+      this.taxonomyConfig = [...this.odcConfig.defaultOdcsConfig, ...this.odcConfig.defaultKCMConfig, ...this.odcConfig.frameworkConfig]
     } else {
-      this.showLoader = false
+      this.showLoader = true
       this.loaderMsg = this.odcConfig.frameworkCreationMSg
       this.createFreamwork()
     }
@@ -59,10 +64,20 @@ export class OdcsMappingComponent implements OnInit {
     this.loaderMsg = this.odcConfig.frameworkCreationMSg
     const departmentName = _.get(this.configSvc, 'userProfile.departmentName')
     const masterFrameWorkName = this.environmentVal.ODCSMasterFramework
-    this.designationsService.createFrameWork(masterFrameWorkName, this.orgId, departmentName).subscribe((res: any) => {
-      if (res) {
-        this.getOrgReadData()
-      }
+    this.designationsService.createFrameWork(masterFrameWorkName, this.orgId, departmentName).subscribe({
+      next: res => {
+        if (_.get(res, 'result.framework')) {
+          setTimeout(() => {
+            this.getOrgReadData()
+          },         5000)
+        }
+      },
+      error: () => {
+        this.showLoader = false
+        const errorMessage = _.get(this.odcConfig, 'internalErrorMsg')
+        this.openSnackbar(errorMessage)
+      },
+
       // console.log('frameworkCreated: ', res)
     })
   }
@@ -70,17 +85,19 @@ export class OdcsMappingComponent implements OnInit {
   getOrgReadData() {
     this.showLoader = true
     this.designationsService.getOrgReadData(this.orgId).subscribe((res: any) => {
-      if (_.get(res, 'frameworkid')) {
-        this.environmentVal.frameworkName = (_.get(res, 'frameworkid'))
-        this.environmentVal.frameworkType = 'MDO_DESIGNATION'
-        this.odcConfig.defaultOdcsConfig[0].frameworkId = (_.get(res, 'frameworkid'))
-        this.taxonomyConfig = [...this.odcConfig.defaultOdcsConfig, ...this.odcConfig.frameworkConfig]
-        this.environmentVal.kcmFrameworkName = environment.KCMframeworkName
-      } else {
-        setTimeout(() => {
-          this.getOrgReadData()
-        },         10000)
-      }
+      // if (_.get(res, 'frameworkid')) {
+      this.environmentVal.frameworkName = (_.get(res, 'frameworkid'))
+      this.odcConfig.defaultOdcsConfig[0].frameworkId = (_.get(res, 'frameworkid'))
+      this.environmentVal.frameworkType = 'MDO_DESIGNATION'
+      this.environmentVal.kcmFrameworkName = environment.KCMframeworkName
+      this.odcConfig.defaultKCMConfig[0].frameworkId = environment.KCMframeworkName
+      this.taxonomyConfig = [...this.odcConfig.defaultOdcsConfig, ...this.odcConfig.frameworkConfig]
+      this.showLoader = false
+      // } else {
+      //   setTimeout(() => {
+      //     this.getOrgReadData()
+      //   }, 10000)
+      // }
     })
   }
 
@@ -195,5 +212,24 @@ export class OdcsMappingComponent implements OnInit {
   //     )
   //   })
   // }
+
+  openVideoPopup() {
+    const url = `${environment.karmYogiPath}${_.get(this.odcConfig, 'topsection.guideVideo.url')}`
+    this.dialog.open(ReportsVideoComponent, {
+      data: {
+        videoLink: url,
+      },
+      disableClose: true,
+      width: '50%',
+      height: '60%',
+      panelClass: 'overflow-visable',
+    })
+  }
+
+  private openSnackbar(primaryMsg: any, duration: number = 5000) {
+    this.snackBar.open(primaryMsg, 'X', {
+      duration,
+    })
+  }
 
 }

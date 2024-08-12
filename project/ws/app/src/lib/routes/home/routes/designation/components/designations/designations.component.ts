@@ -4,11 +4,11 @@ import { ITableData } from '@sunbird-cb/collection/lib/ui-org-table/interface/in
 import { DesignationsService } from '../../services/designations.service'
 import { FormControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-import { HttpErrorResponse } from '@angular/common/http'
 import { MatDialog, MatSnackBar } from '@angular/material'
 import { ConformationPopupComponent } from '../../dialog-boxes/conformation-popup/conformation-popup.component'
 import { ActivatedRoute } from '@angular/router'
 import { environment } from '../../../../../../../../../../../src/environments/environment'
+import { ReportsVideoComponent } from '../../../reports-video/reports-video.component'
 
 @Component({
   selector: 'ws-app-designations',
@@ -103,9 +103,7 @@ export class DesignationsComponent implements OnInit {
       this.designationConfig = data.pageData.data
     })
 
-    // console.log('this.configSvc', this.configSvc.orgReadData)
     if (this.configSvc.orgReadData && this.configSvc.orgReadData.frameworkid) {
-      // this.environmentVal.frameworkName = this.configSvc.orgReadData.frameworkid
       this.getFrameworkInfo(this.configSvc.orgReadData.frameworkid)
     } else {
       this.createFreamwork()
@@ -118,8 +116,13 @@ export class DesignationsComponent implements OnInit {
     const departmentName = _.get(this.configSvc, 'userProfile.departmentName')
     const masterFrameWorkName = this.environment.ODCSMasterFramework
     this.designationsService.createFrameWork(masterFrameWorkName, this.orgId, departmentName).subscribe((res: any) => {
-      if (res) {
-        this.getOrgReadData()
+      if (_.get(res, 'result.framework')) {
+        this.environment.frameworkName = _.get(res, 'result.framework')
+        setTimeout(() => {
+          this.getOrgReadData()
+        },         5000)
+        // this.publishFrameWork('', true)
+        // this.getFrameworkInfo(res.frameworkid)
       }
       // console.log('frameworkCreated: ', res)
     })
@@ -127,16 +130,16 @@ export class DesignationsComponent implements OnInit {
 
   getOrgReadData() {
     this.designationsService.getOrgReadData(this.orgId).subscribe((res: any) => {
-      if (_.get(res, 'frameworkid')) {
-        this.showLoader = true
-        this.showCreateLoader = false
-        this.environment.frameworkName = _.get(res, 'frameworkid')
-        this.getFrameworkInfo(res.frameworkid)
-      } else {
-        setTimeout(() => {
-          this.getOrgReadData()
-        },         10000)
-      }
+      // if (_.get(res, 'frameworkid')) {
+      this.showLoader = true
+      this.showCreateLoader = false
+      this.environment.frameworkName = _.get(res, 'frameworkid')
+      this.getFrameworkInfo(res.frameworkid)
+      // } else {
+      //   setTimeout(() => {
+      //     this.getOrgReadData()
+      //   }, _.get(this.designationConfig, 'refreshDelayTime', 10000))
+      // }
       // console.log('orgFramework Details', res)
     })
   }
@@ -153,9 +156,9 @@ export class DesignationsComponent implements OnInit {
 
           this.getOrganisations()
         },
-        error: (error: HttpErrorResponse) => {
+        error: () => {
           this.showLoader = false
-          const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
+          const errorMessage = _.get(this.designationConfig, 'internalErrorMsg')
           this.openSnackbar(errorMessage)
         },
 
@@ -179,7 +182,7 @@ export class DesignationsComponent implements OnInit {
   }
 
   getDesignations() {
-    this.designationsList = this.getTermsByCode('designation')
+    this.designationsList = _.get(this.organisationsList, '[0].children', [])
     this.designationsService.setCurrentOrgDesignationsList(this.designationsList)
     this.filterDesignations()
   }
@@ -199,10 +202,10 @@ export class DesignationsComponent implements OnInit {
 
   filterDesignations(key?: string) {
     if (key) {
-      this.filteredDesignationsList = this.designationsList
+      this.filteredDesignationsList = (this.designationsList || [])
         .filter((designation: any) => designation.name.toLowerCase().includes(key.toLowerCase()))
     } else {
-      const filteredData: any = this.designationsList.sort((a: any, b: any) => {
+      const filteredData: any = (this.designationsList || []).sort((a: any, b: any) => {
         const timestampA = a.additionalProperties && a.additionalProperties.timeStamp ?
           new Date(Number(a.additionalProperties.timeStamp)).getTime() : 0
         const timestampB = b.additionalProperties && b.additionalProperties.timeStamp ?
@@ -211,31 +214,24 @@ export class DesignationsComponent implements OnInit {
         return timestampB - timestampA
 
       })
-      this.filteredDesignationsList = filteredData
+      this.filteredDesignationsList = filteredData ? filteredData : []
     }
   }
 
   //#region (ui interactions like click)
 
-  // openDesignationCreatPopup(event?: any) {
-  //   console.log('event', event)
-  //   const dialogData = {
-  //     mode: 'create',
-  //     columnInfo: {
-  //       code: 'designation',
-  //       name: 'Designation',
-  //       children: this.designationsList,
-  //     },
-  //     frameworkId: 'organisation_fw',
-  //     selectedDesignation: null
-  //   }
-  //   if (event && event.action) {
-  //     dialogData.mode = event.action
-  //     dialogData.selectedDesignation = event.row
-  //   }
-  // }
-
-  // upload() { }
+  openVideoPopup() {
+    const url = `${environment.karmYogiPath}${_.get(this.designationConfig, 'topsection.guideVideo.url')}`
+    this.dialog.open(ReportsVideoComponent, {
+      data: {
+        videoLink: url,
+      },
+      disableClose: true,
+      width: '50%',
+      height: '60%',
+      panelClass: 'overflow-visable',
+    })
+  }
 
   menuSelected(event: any) {
     switch (event.action) {
@@ -252,7 +248,6 @@ export class DesignationsComponent implements OnInit {
   }
 
   openConformationPopup(event: any) {
-    // console.log('envent data', event)
     const dialogData = {
       dialogType: 'warning',
       descriptions: [
@@ -314,9 +309,9 @@ export class DesignationsComponent implements OnInit {
             this.showLoader = false
           }
         },
-        error: (error: HttpErrorResponse) => {
+        error: () => {
           this.showLoader = false
-          const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
+          const errorMessage = _.get(this.designationConfig, 'internalErrorMsg')
           this.openSnackbar(errorMessage)
         },
       })
@@ -324,19 +319,29 @@ export class DesignationsComponent implements OnInit {
   }
 
   publishFrameWork(action?: string) {
-    const frameworkName = _.get(this.frameworkDetails, 'code')
+    const frameworkName = _.get(this.frameworkDetails, 'code', _.get(this.environment, 'frameworkName'))
     this.designationsService.publishFramework(frameworkName).subscribe({
       next: response => {
         if (response) {
-          this.getFrameworkInfo(this.frameworkDetails.code)
-          if (action && action === 'delete') {
-            this.openSnackbar('Deleted Successfully')
-          }
+          // setTimeout(() => {
+          //   this.getFrameworkInfo(this.frameworkDetails.code)
+          //   if (action && action === 'delete') {
+          //     this.openSnackbar(_.get(this.designationConfig, 'termRemoveMsg'))
+          //   }
+          // }, _.get(this.designationConfig, 'refreshDelayTime', 10000))
+          const refreshTime = ((this.designationsList.length / 2) * 1000) >= 10000 ?
+            (this.designationsList.length / 2) * 1000 : 10000
+          setTimeout(() => {
+            this.getFrameworkInfo(this.frameworkDetails.code)
+            if (action && action === 'delete') {
+              this.openSnackbar(_.get(this.designationConfig, 'termRemoveMsg'))
+            }
+          },         refreshTime)
         }
       },
-      error: (error: HttpErrorResponse) => {
+      error: () => {
         this.showLoader = false
-        const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
+        const errorMessage = _.get(this.designationConfig, 'internalErrorMsg')
         this.openSnackbar(errorMessage)
       },
     })

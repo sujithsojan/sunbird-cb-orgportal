@@ -217,11 +217,11 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     reqBody = {
       request: {
         filters: filtreq,
-        facets: [
-          'profileDetails.professionalDetails.group',
-          'profileDetails.professionalDetails.designation',
-          'profileDetails.additionalDetails.tag',
-        ],
+        // facets: [
+        //   'profileDetails.professionalDetails.group',
+        //   'profileDetails.professionalDetails.designation',
+        //   'profileDetails.additionalDetails.tag',
+        // ],
         // fields: [
         //   'rootOrgId',
         //   'profileDetails',
@@ -273,11 +273,11 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     reqBody = {
       request: {
         filters: filtreq,
-        facets: [
-          'profileDetails.professionalDetails.group',
-          'profileDetails.professionalDetails.designation',
-          'profileDetails.additionalDetails.tag',
-        ],
+        // facets: [
+        //   'profileDetails.professionalDetails.group',
+        //   'profileDetails.professionalDetails.designation',
+        //   'profileDetails.additionalDetails.tag',
+        // ],
         // fields: [
         //   'rootOrgId',
         //   'profileDetails',
@@ -327,11 +327,11 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     reqBody = {
       request: {
         filters: filtreq,
-        facets: [
-          'profileDetails.professionalDetails.group',
-          'profileDetails.professionalDetails.designation',
-          'profileDetails.additionalDetails.tag',
-        ],
+        // facets: [
+        //   'profileDetails.professionalDetails.group',
+        //   'profileDetails.professionalDetails.designation',
+        //   'profileDetails.additionalDetails.tag',
+        // ],
         // fields: [
         //   'rootOrgId',
         //   'profileDetails',
@@ -382,11 +382,11 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     reqBody = {
       request: {
         filters: filtreq,
-        facets: [
-          'profileDetails.professionalDetails.group',
-          'profileDetails.professionalDetails.designation',
-          'profileDetails.additionalDetails.tag',
-        ],
+        // facets: [
+        //   'profileDetails.professionalDetails.group',
+        //   'profileDetails.professionalDetails.designation',
+        //   'profileDetails.additionalDetails.tag',
+        // ],
         // fields: [
         //   'rootOrgId',
         //   'profileDetails',

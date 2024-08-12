@@ -12,23 +12,27 @@
     <div class="flex">
       <span class="mat-body-1 font-bold-imp flex-1">{{designationConfig?.topsection?.heading}}</span>
       <mat-icon class="cursor-pointer mat-icon mr-4" *ngIf="showTopSection"
-        (click)="showTopSection = !showTopSection; callResizeEvent($event)">keyboard_arrow_up</mat-icon>
+        (click)="showTopSection = !showTopSection">keyboard_arrow_up</mat-icon>
       <mat-icon class="cursor-pointer mat-icon mr-4" *ngIf="!showTopSection"
-        (click)="showTopSection = !showTopSection; callResizeEvent($event)">keyboard_arrow_down</mat-icon>
+        (click)="showTopSection = !showTopSection">keyboard_arrow_down</mat-icon>
     </div>
     <div class="mt-5" *ngIf="showTopSection">
-      <div class="flex">
+      <div class="flex gap-20">
         <div class="flex-1 flex-col gap-4">
           <p class="flex items-center" *ngFor="let step of designationConfig?.topsection?.steps">
             <mat-icon class="mat-icon mr-4">error_outline</mat-icon>
             <span [innerHTML]="step.title"></span>
           </p>
         </div>
-        <div *ngIf="designationConfig?.topsection?.guideVideo?.enabled">
-          <video width="173" height="102" controls>
-            <source src="{{designationConfig?.topsection?.guideVideo?.url}}"
-              type="{{designationConfig?.topsection?.guideVideo?.type}}">
-          </video>
+        <div class="">
+          <div class="videoDemo flex justify-end section-2">
+            <div class="videoDemoVideo flex flex-column flex-middle justify-center" (click)="openVideoPopup()">
+              <mat-icon class="video_icon mb-2">play_arrow</mat-icon>
+              <div>
+                Watch how it works
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -71,7 +75,7 @@
         </div>
       </div>
       <ng-container *ngIf="!showLoader">
-        <ng-container *ngIf="designationsList.length === 0; else designationsTable">
+        <ng-container *ngIf="designationsList?.length === 0; else designationsTable">
           <div class="w-full flex flex-col justify-center items-center emptyDesignations">
             <img src="/assets/icons/empty_data.svg" class="empty-desigantions-img">
             <div>

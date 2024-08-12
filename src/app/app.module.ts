@@ -25,6 +25,7 @@ import {
   MatCheckboxModule,
   MatNativeDateModule,
   MatSortModule,
+  MatProgressSpinnerModule,
 } from '@angular/material'
 import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -145,6 +146,7 @@ const getBaseHref = (platformLocation: PlatformLocation): string => {
     PipeSafeSanitizerModule,
     TourModule,
     PublicLogoutModule,
+    MatProgressSpinnerModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   exports: [
