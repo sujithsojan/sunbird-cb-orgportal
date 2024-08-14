@@ -68,11 +68,11 @@ export class CreateRequestFormComponent implements OnInit {
   competencySubtheme!: FormControl
 
   constructor(private formBuilder: FormBuilder,
-              private homeService: ProfileV2Service,
-              private activatedRouter: ActivatedRoute,
-              private snackBar: MatSnackBar,
-              private router: Router,
-              public dialog: MatDialog
+    private homeService: ProfileV2Service,
+    private activatedRouter: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    public dialog: MatDialog
   ) {
     this.requestForm = this.formBuilder.group({
       TitleName: new FormControl('', [Validators.required, Validators.pattern(this.noSpecialChar), Validators.minLength(10)]),
@@ -156,15 +156,15 @@ export class CreateRequestFormComponent implements OnInit {
     this.selectRequestType(this.requestObjData.requestType)
     if (this.filteredRequestType) {
       if (this.requestObjData.preferredProvider && this.requestObjData.preferredProvider.length) {
-      const prefferedData = this.filteredRequestType.filter(option =>
-        this.requestObjData.preferredProvider.some((res: any) =>
-          res.providerId === option.id
+        const prefferedData = this.filteredRequestType.filter(option =>
+          this.requestObjData.preferredProvider.some((res: any) =>
+            res.providerId === option.id
+          )
         )
-      )
-      if (prefferedData && prefferedData.length) {
-        this.requestForm.controls['providers'].setValue(prefferedData)
+        if (prefferedData && prefferedData.length) {
+          this.requestForm.controls['providers'].setValue(prefferedData)
+        }
       }
-    }
     }
 
     if (this.filteredAssigneeType) {
@@ -254,6 +254,7 @@ export class CreateRequestFormComponent implements OnInit {
         filters: {
           isCbp: true,
         },
+        limit: 1000,
       },
     }
     this.homeService.getRequestTypeList(requestObj).subscribe(data => {
@@ -613,9 +614,9 @@ export class CreateRequestFormComponent implements OnInit {
           this.router.navigateByUrl('/app/home/request-list')
           this.snackBar.open('Request submitted successfully ')
         }
-      },         1000)
+      }, 1000)
     },
-                                                     (error: any) => {
+      (error: any) => {
         this.dialogRefs.close({ error })
         this.snackBar.open('Request Failed')
 
