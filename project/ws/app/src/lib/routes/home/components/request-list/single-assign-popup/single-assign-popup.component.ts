@@ -24,7 +24,7 @@ export class SingleAssignPopupComponent implements OnInit {
   submitAssign = ''
   requestTypeData: any[] = []
   filterRequestData: any[] = []
-  isDisable  = false
+  isDisable = false
   // @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
   dataSource = new MatTableDataSource<any>([])
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator | null = null
@@ -37,10 +37,10 @@ export class SingleAssignPopupComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder,
-              private homeService: ProfileV2Service,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              private configService: ConfigResolveService,
-              public dialogRef: MatDialogRef<SingleAssignPopupComponent>,
+    private homeService: ProfileV2Service,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private configService: ConfigResolveService,
+    public dialogRef: MatDialogRef<SingleAssignPopupComponent>,
   ) {
     this.requestForm = this.fb.group({
       assignee: new FormControl('', Validators.required),
@@ -55,9 +55,9 @@ export class SingleAssignPopupComponent implements OnInit {
     this.getOrgListData()
     if (this.configService['confService'].userProfile || this.configService['confService'].userProfileV2) {
       this.fullProfile = this.configService['confService'].userProfile ?
-      this.configService['confService'].userProfile
-       : this.configService['confService'].userProfileV2
-      this.userId =  this.fullProfile.userId
+        this.configService['confService'].userProfile
+        : this.configService['confService'].userProfileV2
+      this.userId = this.fullProfile.userId
     }
   }
 
@@ -83,7 +83,7 @@ export class SingleAssignPopupComponent implements OnInit {
         this.requestTypeData.unshift(selectedData)
       }
     }
-   }
+  }
 
   getOrgListData() {
     const requestObj = {
@@ -91,6 +91,7 @@ export class SingleAssignPopupComponent implements OnInit {
         filters: {
           isCbp: true,
         },
+        limit: 1000,
       },
     }
     this.homeService.getRequestTypeList(requestObj).subscribe(data => {
@@ -104,7 +105,7 @@ export class SingleAssignPopupComponent implements OnInit {
 
       }
     })
-   }
+  }
 
   //  searchText(event:any){
   //   this.requestForm.controls['orgSearch'].valueChanges.subscribe((newValue: any) => {
@@ -124,9 +125,9 @@ export class SingleAssignPopupComponent implements OnInit {
     this.pageNumber = event.pageIndex
     this.pageSize = event.pageSize
     this.getOrgListData()
-    }
+  }
 
-    onSubmitAssign() {
+  onSubmitAssign() {
     const selectedProvider = this.requestForm.value.assignee
     let assigneeProvider: any
     if (this.requestForm.value.assignee) {
@@ -137,19 +138,19 @@ export class SingleAssignPopupComponent implements OnInit {
     }
     if (selectedProvider) {
       const request = {
-      title:  this.data.title,
-      objective: this.data.objective,
-      typeOfUser: this.data.typeOfUser,
-      // learningMode: this.requestForm.value.learningMode.toLowerCase(),
-      competencies: this.data.competencies,
-      referenceLink: this.data.referenceLink,
-      requestType: this.data.requestType,
-      preferredProvider: this.data.preferredProvider,
-      assignedProvider: assigneeProvider,
-      status: this.data.status,
-      source: this.data.owner,
-      demand_id: this.data.demand_id,
-      learningMode: this.data.learningMode,
+        title: this.data.title,
+        objective: this.data.objective,
+        typeOfUser: this.data.typeOfUser,
+        // learningMode: this.requestForm.value.learningMode.toLowerCase(),
+        competencies: this.data.competencies,
+        referenceLink: this.data.referenceLink,
+        requestType: this.data.requestType,
+        preferredProvider: this.data.preferredProvider,
+        assignedProvider: assigneeProvider,
+        status: this.data.status,
+        source: this.data.owner,
+        demand_id: this.data.demand_id,
+        learningMode: this.data.learningMode,
         // assignedBy: this.userId,
       }
       this.homeService.createDemand(request).subscribe((res: any) => {
@@ -157,11 +158,11 @@ export class SingleAssignPopupComponent implements OnInit {
           this.dialogRef.close({ data: 'confirmed' })
         }
 
-      },                                               (error: any) => {
-       this.dialogRef.close({ error })
+      }, (error: any) => {
+        this.dialogRef.close({ error })
 
       }
-    )
+      )
     } else {
     }
   }
