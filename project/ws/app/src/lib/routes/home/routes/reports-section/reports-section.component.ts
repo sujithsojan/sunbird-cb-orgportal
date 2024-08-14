@@ -333,9 +333,9 @@ export class ReportsSectionComponent implements OnInit {
   openVideoPopup() {
     let url = ''
     if (this.configSvc && this.userDetails.roles.includes('MDO_LEADER')) {
-      url = `${environment.karmYogiPath}/content-store/MDO-leader-reports.MP4`
+      url = `${environment.karmYogiPath}/assets/public/content/guide-videos/MDO-leader-reports.MP4`
     } else {
-      url = `${environment.karmYogiPath}/content-store/MDO-admin-reports.mp4`
+      url = `${environment.karmYogiPath}/assets/public/content/guide-videos/MDO-admin-reports.mp4`
     }
     this.dialog.open(ReportsVideoComponent, {
       data: {
