@@ -235,19 +235,19 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     }
     this.usersService.getAllKongUsers(reqBody).subscribe((data: any) => {
       const allusersData = data && data.result.response
-      let userContent = allusersData.content
+      const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
       if (searchText.length > 0) {
         debugger
-        let userData: any = []
+        const userData: any = []
         if (data.result.response.count > 0) {
           if (userContent && userContent.length > 0) {
             // userContent.forEach((element: any) => {
-            for (let element of userContent) {
-              let userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+            for (const element of userContent) {
+              const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
                 element.profileDetails.personalDetails.primaryEmail.toLowerCase()
-              let userName = element && element.firstName && element.firstName.toLowerCase()
-              let userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+              const userName = element && element.firstName && element.firstName.toLowerCase()
+              const userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
                 element.profileDetails.personalDetails.mobile
               const emailMatch = userMail && userMail.includes(searchText)
               const firstNameMatch = userName && userName.includes(searchText)
@@ -258,8 +258,7 @@ export class UsersViewComponent implements OnInit, OnDestroy {
                 userData.push(element)
                 this.activeUsersData = userData
                 this.activeUsersDataCount = userData.length
-              }
-              else {
+              } else {
                 // this.activeUsersData = []
                 // this.activeUsersDataCount = 0
                 this.activeUsersData = userData
@@ -318,26 +317,27 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     }
     this.usersService.getAllKongUsers(reqBody).subscribe((data: any) => {
       const allusersData = data && data.result.response
-      let userContent = allusersData.content
+      const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
       if (searchText.length > 0) {
-        let userData: any = []
+        const userData: any = []
         if (data.result.response.count > 0) {
-          for (let element of userContent) {
-            let userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+          for (const element of userContent) {
+            const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.primaryEmail.toLowerCase()
-            let userName = element && element.firstName && element.firstName.toLowerCase()
-            let userPhone = element && element.profileDetails && element.profileDetails.personalDetails && element.profileDetails.personalDetails.mobile
+            const userName = element && element.firstName && element.firstName.toLowerCase()
+            const userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.mobile
             const emailMatch = userMail && userMail.includes(searchText)
             const firstNameMatch = userName && userName.includes(searchText)
-            const phoneMatch = userPhone && userPhone.toString().startsWith(searchText) || userPhone && userPhone.toString().includes(searchText)
+            const phoneMatch = userPhone && userPhone.toString().startsWith(searchText) || userPhone &&
+              userPhone.toString().includes(searchText)
 
             if (emailMatch || firstNameMatch || phoneMatch) {
               userData.push(element)
               this.verifiedUsersData = userData
               this.verifiedUsersDataCount = userData.length
-            }
-            else {
+            } else {
               this.verifiedUsersData = userData
               this.verifiedUsersDataCount = userData.length
             }
@@ -417,26 +417,27 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       //       this.nonverifiedUsersDataCount - 1 : this.nonverifiedUsersDataCount
       //   }
       // }
-      let userContent = allusersData.content
+      const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
       if (searchText.length > 0) {
-        let userData: any = []
+        const userData: any = []
         if (data.result.response.count > 0) {
-          for (let element of userContent) {
-            let userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+          for (const element of userContent) {
+            const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.primaryEmail.toLowerCase()
-            let userName = element && element.firstName && element.firstName.toLowerCase()
-            let userPhone = element && element.profileDetails && element.profileDetails.personalDetails && element.profileDetails.personalDetails.mobile
+            const userName = element && element.firstName && element.firstName.toLowerCase()
+            const userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.mobile
             const emailMatch = userMail && userMail.includes(searchText)
             const firstNameMatch = userName && userName.includes(searchText)
-            const phoneMatch = userPhone && userPhone.toString().startsWith(searchText) || userPhone && userPhone.toString().includes(searchText)
+            const phoneMatch = userPhone && userPhone.toString().startsWith(searchText) || userPhone &&
+              userPhone.toString().includes(searchText)
 
             if (emailMatch || firstNameMatch || phoneMatch) {
               userData.push(element)
               this.nonverifiedUsersData = userData
               this.nonverifiedUsersDataCount = userData.length
-            }
-            else {
+            } else {
               this.nonverifiedUsersData = userData
               this.nonverifiedUsersDataCount = userData.length
             }
@@ -496,26 +497,27 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       // this.notmyuserUsersData = allusersData.content
       // this.notmyuserUsersDataCount = data.result.response.count
       // this.filterFacets = allusersData.facets ? allusersData.facets : []
-      let userContent = allusersData.content
+      const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
       if (searchText.length > 0) {
-        let userData: any = []
+        const userData: any = []
         if (data.result.response.count > 0) {
-          for (let element of userContent) {
-            let userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+          for (const element of userContent) {
+            const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.primaryEmail.toLowerCase()
-            let userName = element && element.firstName && element.firstName.toLowerCase()
-            let userPhone = element && element.profileDetails && element.profileDetails.personalDetails && element.profileDetails.personalDetails.mobile
+            const userName = element && element.firstName && element.firstName.toLowerCase()
+            const userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.mobile
             const emailMatch = userMail && userMail.includes(searchText)
             const firstNameMatch = userName && userName.includes(searchText)
-            const phoneMatch = userPhone && userPhone.toString().startsWith(searchText) || userPhone && userPhone.toString().includes(searchText)
+            const phoneMatch = userPhone && userPhone.toString().startsWith(searchText) || userPhone &&
+              userPhone.toString().includes(searchText)
 
             if (emailMatch || firstNameMatch || phoneMatch) {
               userData.push(element)
               this.notmyuserUsersData = userData
               this.notmyuserUsersDataCount = userData.length
-            }
-            else {
+            } else {
               this.notmyuserUsersData = userData
               this.notmyuserUsersDataCount = userData.length
             }
