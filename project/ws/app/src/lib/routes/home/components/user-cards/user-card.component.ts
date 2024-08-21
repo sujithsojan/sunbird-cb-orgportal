@@ -564,6 +564,8 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
     if (user && user.profileDetails && user.profileDetails.personalDetails) {
       if (user.profileDetails.personalDetails.firstname) {
         name = `${user.profileDetails.personalDetails.firstname}`
+      } else if (user.profileDetails.personalDetails.firstName) {
+        name = `${user.profileDetails.personalDetails.firstName}`
       }
     } else {
       name = `${user.firstName}`
