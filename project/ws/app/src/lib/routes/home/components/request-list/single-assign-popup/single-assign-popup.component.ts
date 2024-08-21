@@ -37,10 +37,10 @@ export class SingleAssignPopupComponent implements OnInit {
   }
 
   constructor(private fb: FormBuilder,
-    private homeService: ProfileV2Service,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private configService: ConfigResolveService,
-    public dialogRef: MatDialogRef<SingleAssignPopupComponent>,
+              private homeService: ProfileV2Service,
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private configService: ConfigResolveService,
+              public dialogRef: MatDialogRef<SingleAssignPopupComponent>,
   ) {
     this.requestForm = this.fb.group({
       assignee: new FormControl('', Validators.required),
@@ -158,7 +158,7 @@ export class SingleAssignPopupComponent implements OnInit {
           this.dialogRef.close({ data: 'confirmed' })
         }
 
-      }, (error: any) => {
+      },                                               (error: any) => {
         this.dialogRef.close({ error })
 
       }
