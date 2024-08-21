@@ -237,9 +237,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       const allusersData = data && data.result && data.result.response
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
-      if (searchText.length > 0) {
+      if (searchText && searchText.length && searchText.length > 0) {
         const userData: any = []
-        if (data && data.result && data.result.response && data.result.response.count > 0) {
+        if (data && data.result && data.result.response && data.result.response.count &&
+          data.result.response.count > 0) {
           if (userContent && userContent.length > 0) {
             // userContent.forEach((element: any) => {
             for (const element of userContent) {
@@ -319,9 +320,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       const allusersData = data && data.result && data.result.response
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
-      if (searchText.length > 0) {
+      if (searchText && searchText.length && searchText.length > 0) {
         const userData: any = []
-        if (data && data.result && data.result.response && data.result.response.count > 0) {
+        if (data && data.result && data.result.response && data.result.response.count &&
+          data.result.response.count > 0) {
           for (const element of userContent) {
             const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.primaryEmail &&
@@ -420,9 +422,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       // }
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
-      if (searchText.length > 0) {
+      if (searchText && searchText.length && searchText.length > 0) {
         const userData: any = []
-        if (data && data.result && data.result.response && data.result.response.count > 0) {
+        if (data && data.result && data.result.response && data.result.response.count &&
+          data.result.response.count > 0) {
           for (const element of userContent) {
             const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.primaryEmail &&
@@ -501,9 +504,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       // this.filterFacets = allusersData.facets ? allusersData.facets : []
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
-      if (searchText.length > 0) {
+      if (searchText && searchText.length && searchText.length > 0) {
         const userData: any = []
-        if (data && data.result && data.result.response && data.result.response.count > 0) {
+        if (data && data.result && data.result.response && data.result.response.count &&
+          data.result.response.count > 0) {
           for (const element of userContent) {
             const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.primaryEmail &&
