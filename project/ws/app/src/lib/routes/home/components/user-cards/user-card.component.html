@@ -16,13 +16,17 @@
           <div class="username display-inline-block">
             <div class="mat-subheading-2 margin-remove flex">
               <div class="word-wrap userName">
-                <span *ngIf="user?.profileDetails && user?.profileDetails?.personalDetails">
+                <span
+                  *ngIf="user?.profileDetails && user?.profileDetails?.personalDetails && user?.profileDetails?.personalDetails?.firstname">
                   {{user?.profileDetails?.personalDetails?.firstname}}
+                </span>
+                <span
+                  *ngIf="user?.profileDetails && user?.profileDetails?.personalDetails && user?.profileDetails?.personalDetails?.firstName">
+                  {{user?.profileDetails?.personalDetails?.firstName}}
                 </span>
                 <span *ngIf="!user?.profileDetails?.personalDetails">
                   {{user?.firstName}}
                 </span>
-
               </div>
               <div>
                 <span class="status-label margin-left-s verified"
