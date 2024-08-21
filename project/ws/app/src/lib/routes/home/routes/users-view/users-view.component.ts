@@ -238,7 +238,6 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
       if (searchText.length > 0) {
-        debugger
         const userData: any = []
         if (data.result.response.count > 0) {
           if (userContent && userContent.length > 0) {
