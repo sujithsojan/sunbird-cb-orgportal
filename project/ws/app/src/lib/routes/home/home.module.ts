@@ -133,7 +133,7 @@ import { MentorManageComponent } from './routes/mentor-manage/mentor-manage.comp
     AssignListPopupComponent,
     SingleAssignPopupComponent,
     OdcsMappingComponent,
-    MentorManageComponent
+    MentorManageComponent,
   ],
   imports: [
     CommonModule,

@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute, Router } from '@angular/router'
 /* tslint:disable */
@@ -76,8 +76,7 @@ export class MentorManageComponent implements OnInit, OnDestroy {
     private loaderService: LoaderService,
     private sanitizer: DomSanitizer,
     // private configSvc: ConfigurationsService,
-    private usersService: UsersService,
-    private cdr: ChangeDetectorRef
+    private usersService: UsersService
   ) {
     this.Math = Math
     this.configSvc = this.route.parent && this.route.parent.snapshot.data.configService
@@ -94,9 +93,7 @@ export class MentorManageComponent implements OnInit, OnDestroy {
     // }
   }
 
-  ngAfterViewChecked() {
-    this.cdr.detectChanges()
-  }
+
   ngOnInit() {
     this.currentFilter = this.route.snapshot.params['tab'] || 'verified'
     this.rootOrgId = _.get(this.route.snapshot.parent, 'data.configService.unMappedUser.rootOrg.rootOrgId')
