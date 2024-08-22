@@ -28,7 +28,7 @@ import { BulkUploadApprovalComponent } from './routes/approvals/bulk-upload/bulk
 import { RequestListComponent } from './components/request-list/request-list.component'
 import { CreateRequestFormComponent } from './components/request-list/create-request-form/create-request-form.component'
 import { OdcsMappingComponent } from './routes/odcs-mapping/odcs-mapping.component'
-
+import { MentorManageComponent } from './routes/mentor-manage/mentor-manage.component'
 const routes: Routes = [
   {
     path: '',
@@ -131,6 +131,36 @@ const routes: Routes = [
         path: 'users',
         redirectTo: 'users/allusers',
         component: UsersViewComponent,
+        resolve: {
+          usersList: UsersListResolve,
+          pageData: PageResolve,
+          configService: ConfigResolveService,
+        },
+        data: {
+          pageId: 'users',
+          module: 'User',
+          pageType: 'feature',
+          pageKey: 'users-view',
+        },
+      },
+      {
+        path: 'mentor-manage',
+        component: MentorManageComponent,
+        resolve: {
+          usersList: UsersListResolve,
+          pageData: PageResolve,
+          configService: ConfigResolveService,
+        },
+        data: {
+          pageId: 'users',
+          module: 'User',
+          pageType: 'feature',
+          pageKey: 'users-view',
+        },
+      },
+      {
+        path: 'mentor-manage/:tab',
+        component: MentorManageComponent,
         resolve: {
           usersList: UsersListResolve,
           pageData: PageResolve,
@@ -405,6 +435,7 @@ const routes: Routes = [
       },
     ],
   },
+
 ]
 
 @NgModule({
