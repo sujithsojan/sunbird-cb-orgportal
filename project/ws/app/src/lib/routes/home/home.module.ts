@@ -86,6 +86,7 @@ import { DesignationModule } from './routes/designation/designation.module'
 import { OdcsMappingComponent } from './routes/odcs-mapping/odcs-mapping.component'
 import { environment } from '../../../../../../../src/environments/environment'
 import { TaxonomyEditorModule } from '@sunbird-cb/taxonomy-editor'
+import { MentorManageComponent } from './routes/mentor-manage/mentor-manage.component'
 
 @NgModule({
   declarations: [
@@ -132,6 +133,7 @@ import { TaxonomyEditorModule } from '@sunbird-cb/taxonomy-editor'
     AssignListPopupComponent,
     SingleAssignPopupComponent,
     OdcsMappingComponent,
+    MentorManageComponent
   ],
   imports: [
     CommonModule,
