@@ -156,15 +156,15 @@ export class CreateRequestFormComponent implements OnInit {
     this.selectRequestType(this.requestObjData.requestType)
     if (this.filteredRequestType) {
       if (this.requestObjData.preferredProvider && this.requestObjData.preferredProvider.length) {
-      const prefferedData = this.filteredRequestType.filter(option =>
-        this.requestObjData.preferredProvider.some((res: any) =>
-          res.providerId === option.id
+        const prefferedData = this.filteredRequestType.filter(option =>
+          this.requestObjData.preferredProvider.some((res: any) =>
+            res.providerId === option.id
+          )
         )
-      )
-      if (prefferedData && prefferedData.length) {
-        this.requestForm.controls['providers'].setValue(prefferedData)
+        if (prefferedData && prefferedData.length) {
+          this.requestForm.controls['providers'].setValue(prefferedData)
+        }
       }
-    }
     }
 
     if (this.filteredAssigneeType) {
@@ -254,6 +254,7 @@ export class CreateRequestFormComponent implements OnInit {
         filters: {
           isCbp: true,
         },
+        limit: 1000,
       },
     }
     this.homeService.getRequestTypeList(requestObj).subscribe(data => {
