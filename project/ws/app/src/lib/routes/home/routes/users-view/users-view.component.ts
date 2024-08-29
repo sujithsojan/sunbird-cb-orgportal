@@ -244,16 +244,43 @@ export class UsersViewComponent implements OnInit, OnDestroy {
           if (userContent && userContent.length > 0) {
             // userContent.forEach((element: any) => {
             for (const element of userContent) {
-              const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+              const userPrimaryEmail = (element && element.profileDetails && element.profileDetails.personalDetails &&
                 element.profileDetails.personalDetails.primaryEmail &&
-                element.profileDetails.personalDetails.primaryEmail.toLowerCase()
+                element.profileDetails.personalDetails.primaryEmail.toLowerCase())
+
+              const userMail = element && element.email && element.email.toLowerCase()
+
+              const userOfficialMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+                element.profileDetails.personalDetails.officialEmail &&
+                element.profileDetails.personalDetails.officialEmail.toLowerCase()
+
+              const userPersonalMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+                element.profileDetails.personalDetails.personalEmail &&
+                element.profileDetails.personalDetails.personalEmail.toLowerCase()
+
               const userName = element && element.firstName && element.firstName.toLowerCase()
-              const userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+              const userFirstName = element && element.profileDetails && element.profileDetails.personalDetails &&
+                element.profileDetails.personalDetails.firstname &&
+                element.profileDetails.personalDetails.firstname.toLowerCase()
+
+              const userMob = element && element.profileDetails && element.profileDetails.personalDetails &&
                 element.profileDetails.personalDetails.mobile
-              const emailMatch = userMail && userMail.includes(searchText)
-              const firstNameMatch = userName && userName.includes(searchText)
-              const phoneMatch = userPhone && userPhone.toString().startsWith(searchText) || userPhone &&
-                userPhone.toString().includes(searchText)
+
+              const userTelePhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+                element.profileDetails.personalDetails.telephone
+
+              const userPhone = element && element.phone
+
+              const emailMatch = (userMail && userMail.includes(searchText.toLowerCase())) ||
+                (userPrimaryEmail && userPrimaryEmail.includes(searchText.toLowerCase())) ||
+                (userOfficialMail && userOfficialMail.includes(searchText.toLowerCase())) ||
+                (userPersonalMail && userPersonalMail.includes(searchText.toLowerCase()))
+
+              const firstNameMatch = (userName && userName.includes(searchText.toLowerCase())) ||
+                (userFirstName && userFirstName.includes(searchText.toLowerCase()))
+
+              const phoneMatch = (userTelePhone && userTelePhone.includes(searchText)) ||
+                (userMob && userMob.toString().includes(searchText)) || (userPhone && userPhone.includes(searchText))
 
               if (emailMatch || firstNameMatch || phoneMatch) {
                 userData.push(element)
@@ -325,16 +352,50 @@ export class UsersViewComponent implements OnInit, OnDestroy {
         if (data && data.result && data.result.response && data.result.response.count &&
           data.result.response.count > 0) {
           for (const element of userContent) {
-            const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+            // const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+            //   element.profileDetails.personalDetails.primaryEmail &&
+            //   element.profileDetails.personalDetails.primaryEmail.toLowerCase()
+            // const userName = element && element.firstName && element.firstName.toLowerCase()
+            // const userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+            //   element.profileDetails.personalDetails.mobile
+
+            const userPrimaryEmail = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.primaryEmail &&
               element.profileDetails.personalDetails.primaryEmail.toLowerCase()
+
+            const userMail = element && element.email && element.email.toLowerCase()
+
+            const userOfficialMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.officialEmail &&
+              element.profileDetails.personalDetails.officialEmail.toLowerCase()
+
+            const userPersonalMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.personalEmail &&
+              element.profileDetails.personalDetails.personalEmail.toLowerCase()
+
             const userName = element && element.firstName && element.firstName.toLowerCase()
-            const userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+            const userFirstName = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.firstname &&
+              element.profileDetails.personalDetails.firstname.toLowerCase()
+
+            const userMob = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.mobile
-            const emailMatch = userMail && userMail.includes(searchText)
-            const firstNameMatch = userName && userName.includes(searchText)
-            const phoneMatch = userPhone && userPhone.toString().startsWith(searchText) || userPhone &&
-              userPhone.toString().includes(searchText)
+
+            const userTelePhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.telephone
+
+            const userPhone = element && element.phone
+
+            const emailMatch = (userMail && userMail.includes(searchText.toLowerCase())) ||
+              (userPrimaryEmail && userPrimaryEmail.includes(searchText.toLowerCase())) ||
+              (userOfficialMail && userOfficialMail.includes(searchText.toLowerCase())) ||
+              (userPersonalMail && userPersonalMail.includes(searchText.toLowerCase()))
+
+            const firstNameMatch = (userName && userName.includes(searchText.toLowerCase())) ||
+              (userFirstName && userFirstName.includes(searchText.toLowerCase()))
+
+            const phoneMatch = (userTelePhone && userTelePhone.includes(searchText)) ||
+              (userMob && userMob.toString().includes(searchText)) || (userPhone && userPhone.includes(searchText))
 
             if (emailMatch || firstNameMatch || phoneMatch) {
               userData.push(element)
@@ -427,16 +488,50 @@ export class UsersViewComponent implements OnInit, OnDestroy {
         if (data && data.result && data.result.response && data.result.response.count &&
           data.result.response.count > 0) {
           for (const element of userContent) {
-            const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+            // const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+            //   element.profileDetails.personalDetails.primaryEmail &&
+            //   element.profileDetails.personalDetails.primaryEmail.toLowerCase()
+            // const userName = element && element.firstName && element.firstName.toLowerCase()
+            // const userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+            //   element.profileDetails.personalDetails.mobile
+
+            const userPrimaryEmail = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.primaryEmail &&
               element.profileDetails.personalDetails.primaryEmail.toLowerCase()
+
+            const userMail = element && element.email && element.email.toLowerCase()
+
+            const userOfficialMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.officialEmail &&
+              element.profileDetails.personalDetails.officialEmail.toLowerCase()
+
+            const userPersonalMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.personalEmail &&
+              element.profileDetails.personalDetails.personalEmail.toLowerCase()
+
             const userName = element && element.firstName && element.firstName.toLowerCase()
-            const userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+            const userFirstName = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.firstname &&
+              element.profileDetails.personalDetails.firstname.toLowerCase()
+
+            const userMob = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.mobile
-            const emailMatch = userMail && userMail.includes(searchText)
-            const firstNameMatch = userName && userName.includes(searchText)
-            const phoneMatch = userPhone && userPhone.toString().startsWith(searchText) || userPhone &&
-              userPhone.toString().includes(searchText)
+
+            const userTelePhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.telephone
+
+            const userPhone = element && element.phone
+
+            const emailMatch = (userMail && userMail.includes(searchText.toLowerCase())) ||
+              (userPrimaryEmail && userPrimaryEmail.includes(searchText.toLowerCase())) ||
+              (userOfficialMail && userOfficialMail.includes(searchText.toLowerCase())) ||
+              (userPersonalMail && userPersonalMail.includes(searchText.toLowerCase()))
+
+            const firstNameMatch = (userName && userName.includes(searchText.toLowerCase())) ||
+              (userFirstName && userFirstName.includes(searchText.toLowerCase()))
+
+            const phoneMatch = (userTelePhone && userTelePhone.includes(searchText)) ||
+              (userMob && userMob.toString().includes(searchText)) || (userPhone && userPhone.includes(searchText))
 
             if (emailMatch || firstNameMatch || phoneMatch) {
               userData.push(element)
@@ -509,16 +604,51 @@ export class UsersViewComponent implements OnInit, OnDestroy {
         if (data && data.result && data.result.response && data.result.response.count &&
           data.result.response.count > 0) {
           for (const element of userContent) {
-            const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+            // const userMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+            //   element.profileDetails.personalDetails.primaryEmail &&
+            //   element.profileDetails.personalDetails.primaryEmail.toLowerCase()
+            // const userName = element && element.firstName && element.firstName.toLowerCase()
+            // const userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+            //   element.profileDetails.personalDetails.mobile
+
+            const userPrimaryEmail = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.primaryEmail &&
               element.profileDetails.personalDetails.primaryEmail.toLowerCase()
+
+            const userMail = element && element.email && element.email.toLowerCase()
+
+            const userOfficialMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.officialEmail &&
+              element.profileDetails.personalDetails.officialEmail.toLowerCase()
+
+            const userPersonalMail = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.personalEmail &&
+              element.profileDetails.personalDetails.personalEmail.toLowerCase()
+
             const userName = element && element.firstName && element.firstName.toLowerCase()
-            const userPhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+
+            const userFirstName = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.firstname &&
+              element.profileDetails.personalDetails.firstname.toLowerCase()
+
+            const userMob = element && element.profileDetails && element.profileDetails.personalDetails &&
               element.profileDetails.personalDetails.mobile
-            const emailMatch = userMail && userMail.includes(searchText)
-            const firstNameMatch = userName && userName.includes(searchText)
-            const phoneMatch = userPhone && userPhone.toString().startsWith(searchText) || userPhone &&
-              userPhone.toString().includes(searchText)
+
+            const userTelePhone = element && element.profileDetails && element.profileDetails.personalDetails &&
+              element.profileDetails.personalDetails.telephone
+
+            const userPhone = element && element.phone
+
+            const emailMatch = (userMail && userMail.includes(searchText.toLowerCase())) ||
+              (userPrimaryEmail && userPrimaryEmail.includes(searchText.toLowerCase())) ||
+              (userOfficialMail && userOfficialMail.includes(searchText.toLowerCase())) ||
+              (userPersonalMail && userPersonalMail.includes(searchText.toLowerCase()))
+
+            const firstNameMatch = (userName && userName.includes(searchText.toLowerCase())) ||
+              (userFirstName && userFirstName.includes(searchText.toLowerCase()))
+
+            const phoneMatch = (userTelePhone && userTelePhone.includes(searchText)) ||
+              (userMob && userMob.toString().includes(searchText)) || (userPhone && userPhone.includes(searchText))
 
             if (emailMatch || firstNameMatch || phoneMatch) {
               userData.push(element)
