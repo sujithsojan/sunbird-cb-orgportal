@@ -67,6 +67,13 @@
                                                                 *ngIf="budgetdata?.controls['salarybudget']?.touched && budgetdata?.controls['salarybudget'].errors?.required">
                                                                 Field is mandatory
                                                             </mat-error>
+                                                            <mat-error [hidden]="false"
+                                                                i18n="Salary budget allocated Error|Explains name is required"
+                                                                i18n-aria-label
+                                                                aria-label="Salary budget allocated Error|Explains name is required "
+                                                                *ngIf="budgetdata?.controls['salarybudget']?.touched && !budgetdata?.controls['salarybudget'].errors?.required && budgetdata?.controls['salarybudget'].errors?.noHtml">
+                                                                HTML or Js is not allowed
+                                                            </mat-error>
                                                         </mat-form-field>
                                                     </div>
                                                     <div class="margin-bottom-m">
@@ -91,6 +98,13 @@
                                                                 aria-label="Training budget allocated Error|Explains name is required "
                                                                 *ngIf="budgetdata?.controls['trainingbudget']?.touched && budgetdata?.controls['trainingbudget'].errors?.required">
                                                                 Field is mandatory
+                                                            </mat-error>
+                                                            <mat-error [hidden]="false"
+                                                                i18n="Salary budget allocated Error|Explains name is required"
+                                                                i18n-aria-label
+                                                                aria-label="Salary budget allocated Error|Explains name is required "
+                                                                *ngIf="budgetdata?.controls['trainingbudget']?.touched && !budgetdata?.controls['trainingbudget'].errors?.required && budgetdata?.controls['trainingbudget'].errors?.noHtml">
+                                                                HTML or Js is not allowed
                                                             </mat-error>
                                                         </mat-form-field>
                                                     </div>
@@ -123,6 +137,15 @@
                                                                 aria-label="Training budget utilization Error|Explains name is required "
                                                                 *ngIf="utilizedChangeError">
                                                                 Projected utilization should be less than allocated
+                                                            </mat-error>
+                                                            <mat-error [hidden]="false"
+                                                                i18n="Salary budget allocated Error|Explains name is required"
+                                                                i18n-aria-label
+                                                                aria-label="Salary budget allocated Error|Explains name is required "
+                                                                *ngIf="budgetdata?.controls['budgetutilized']?.touched &&
+                                                                !budgetdata?.controls['budgetutilized'].errors?.required &&
+                                                                !utilizedChangeError && budgetdata?.controls['budgetutilized'].errors?.noHtml">
+                                                                HTML or Js is not allowed
                                                             </mat-error>
                                                         </mat-form-field>
                                                     </div>

@@ -623,7 +623,7 @@
                         <mat-radio-button value="rejectgroup"
                           (click)="onClickHandleWorkflow(field,'REJECT')">Reject</mat-radio-button>
                         <mat-icon class="margin-left-m editreasonicon cursor-pointer"
-                          *ngIf="field.action === 'REJECT' && comment !== ''"
+                          *ngIf="field.action === 'REJECT' && comment !== '' && !htmlDetected"
                           (click)="updateRejection(field)">chat_bubble</mat-icon>
                       </mat-radio-group>
                     </div>
@@ -649,7 +649,7 @@
                         <mat-radio-button value="rejectdesg"
                           (click)="onClickHandleWorkflow(field,'REJECT')">Reject</mat-radio-button>
                         <mat-icon class="margin-left-m editreasonicon cursor-pointer"
-                          *ngIf="field.action === 'REJECT' && comment !== ''"
+                          *ngIf="field.action === 'REJECT' && comment !== '' && !htmlDetected"
                           (click)="updateRejection(field)">chat_bubble</mat-icon>
                       </mat-radio-group>
                     </div>
@@ -816,12 +816,16 @@
       <mat-form-field class="w-full mt-5" appearance="outline">
         <textarea matInput class="reason-text-area" [(ngModel)]="comment" name="reason"
           placeholder="Type the description in fewer than 100 characters" i18n-placeholder resizable="none"
-          maxlength="100"></textarea>
+          maxlength="100" (input)="validateText($event.target.value)"></textarea>
+        <mat-error [hidden]="false" i18n="Budget year Error|Explains name is required" i18n-aria-label
+          aria-label="Budget year Error|Explains name is required" *ngIf="htmlDetected">
+          Field is mandatory
+        </mat-error>
       </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions class="flex flex-wrap justify-end">
       <button mat-raised-button class="btn-success btn-responsive successbtn" [mat-dialog-close]="true"
-        [disabled]="!comment">
+        [disabled]="!comment || htmlDetected">
         <span class="text-white">Submit</span></button>
       <button mat-raised-button class="btn-success btn-responsive cancelbtn" matDialogClose>Cancel</button>
     </mat-dialog-actions>
@@ -838,11 +842,12 @@
       <mat-form-field class="w-full mt-5" appearance="outline" *ngIf="showeditText">
         <textarea matInput class="reason-text-area" [(ngModel)]="comment" name="reason"
           placeholder="Type the description in fewer than 100 characters" i18n-placeholder resizable="none"
-          maxlength="100"></textarea>
+          maxlength="100" (input)="validateText($event.target.value)"></textarea>
       </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions class="flex flex-wrap justify-end" *ngIf="showeditText">
-      <button mat-raised-button class="btn-success btn-responsive successbtn" [mat-dialog-close]="true">
+      <button mat-raised-button class="btn-success btn-responsive successbtn" [disabled]="!comment || htmlDetected"
+        [mat-dialog-close]="true">
         <span class="text-white">Update</span></button>
       <button mat-raised-button class="btn-success btn-responsive cancelbtn" matDialogClose>Cancel</button>
     </mat-dialog-actions>

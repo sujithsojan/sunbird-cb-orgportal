@@ -105,6 +105,9 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   yearPattern = '(^[0-9]{4}$)'
   empIDPattern = `^[A-Za-z0-9]+$`
 
+  noHtmlCharacter = new RegExp(/<[^>]*>|(function[^\s]+)|(javascript:[^\s]+)/i)
+  htmlDetected = false
+
   userGroup: any
 
   otpSend = false
@@ -884,6 +887,16 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
       }
     })
 
+  }
+
+  validateText(text: any) {
+    const regexMatch = text.match(this.noHtmlCharacter)
+    if (regexMatch) {
+      this.htmlDetected = true
+      this.snackBar.open('HTML or Js is not allowed')
+    } else {
+      this.htmlDetected = false
+    }
   }
 
   updateRejection(field: any) {

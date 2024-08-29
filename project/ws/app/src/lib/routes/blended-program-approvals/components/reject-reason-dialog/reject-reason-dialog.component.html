@@ -8,8 +8,14 @@
         <mat-hint i18n class="no-padding">
           Limited to 500 characters.
         </mat-hint>
-        <mat-error i18n="Reason Error | Explains reason is required" class="no-padding">
+        <mat-error i18n="Reason Error | Explains reason is required" class="no-padding"
+          *ngIf="reasonForm?.controls['reason']?.touched && reasonForm?.controls['reason'].errors?.required">
           Reason is required
+        </mat-error>
+        <mat-error [hidden]="false" i18n="Budget year Error|Explains name is required" i18n-aria-label
+          aria-label="Budget year Error|Explains name is required"
+          *ngIf="reasonForm?.controls['reason']?.touched && !reasonForm?.controls['reason'].errors?.required && reasonForm?.controls['reason'].errors?.noHtml">
+          HTML or Js is not allowed
         </mat-error>
       </mat-form-field>
     </div>
