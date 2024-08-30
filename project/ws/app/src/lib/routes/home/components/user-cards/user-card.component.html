@@ -764,13 +764,15 @@
             <div class="flex flex-row margin-top-m">
               <div class="md:w-1/1">
                 <label class="view-text-label">Roles</label>
-                <div *ngIf="appData?.user?.organisations && appData?.user?.organisations[0]?.roles.length > 0">
+                <div *ngIf="appData?.user?.organisations && appData?.user?.organisations[0]?.roles && appData?.user?.organisations[0]?.roles.length
+                 &&  appData?.user?.organisations[0]?.roles.length > 0">
                   <ul class="roleslist">
                     <li *ngFor="let t of appData?.user?.organisations[0]?.roles">{{t}}
                     </li>
                   </ul>
                 </div>
-                <p *ngIf="appData?.user?.organisations && appData?.user?.organisations[0].roles.length === 0">-</p>
+                <p *ngIf="appData?.user?.organisations && appData?.user?.organisations[0].roles &&
+                    appData?.user?.organisations[0].roles.length && appData?.user?.organisations[0].roles.length === 0">-</p>
               </div>
             </div>
           </div>
