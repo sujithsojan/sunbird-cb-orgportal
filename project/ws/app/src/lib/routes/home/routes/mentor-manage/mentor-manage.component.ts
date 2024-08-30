@@ -122,6 +122,7 @@ export class MentorManageComponent implements OnInit, OnDestroy {
       `Assign a mentor from the <strong>All Verified Users</strong> tab, and they will automatically appear in the <strong>Assigned Mentors</strong> tab.`,
       // tslint:disable-next-line: max-line-length
       `Mentors can be assigned or managed from either tab, with changes reflected across both.`
+
     ]
   }
 
