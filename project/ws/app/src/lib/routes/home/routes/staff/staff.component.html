@@ -54,7 +54,7 @@
                                             i18n-aria-label
                                             aria-label="Total positions filled Error|Explains name is required " *ngIf="staffdata?.controls['posfilled']?.touched &&
                                                 !staffdata?.controls['posfilled'].errors?.required &&
-                                                staffdata?.controls['posfilled'].errors?.noHtml">
+                                                staffdata?.controls['posfilled'].errors?.hasHtml">
                                             HTML or Js is not allowed
                                         </mat-error>
                                     </mat-form-field>
@@ -83,7 +83,7 @@
                                             i18n-aria-label
                                             aria-label="Total positions filled Error|Explains name is required " *ngIf="staffdata?.controls['posvacant']?.touched &&
                                                 !staffdata?.controls['posvacant'].errors?.required &&
-                                                staffdata?.controls['posvacant'].errors?.noHtml">
+                                                staffdata?.controls['posvacant'].errors?.hasHtml">
                                             HTML or Js is not allowed
                                         </mat-error>
                                     </mat-form-field>

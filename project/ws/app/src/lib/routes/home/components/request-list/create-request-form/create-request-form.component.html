@@ -283,7 +283,7 @@
             <mat-form-field appearance="outline" class="w-full field-height" fxFlex="40">
               <input class="w-full  placeholder-text" matInput placeholder="Provide reference link"
                 formControlName="referenceLink">
-              <mat-error *ngIf="requestForm.controls['referenceLink'].errors?.noHtml"
+              <mat-error *ngIf="requestForm.controls['referenceLink'].errors?.hasHtml"
                 i18n="name Error|Explains name is required">
                 HTML or Js is not allowed
               </mat-error>

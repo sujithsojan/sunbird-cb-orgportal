@@ -56,7 +56,7 @@
                                     i18n-aria-label aria-label="Budget allocated Error|Explains name is required "
                                     *ngIf="schemeform?.controls['schemename']?.touched &&
                                                                     !schemeform?.controls['schemename'].errors?.required &&
-                                                                    schemeform?.controls['schemename'].errors?.noHtml">
+                                                                    schemeform?.controls['schemename'].errors?.hasHtml">
                                     HTML or Js is not allowed
                                 </mat-error>
                             </mat-form-field>
@@ -101,7 +101,7 @@
                                     i18n-aria-label aria-label="Budget allocated Error|Explains name is required "
                                     *ngIf="schemeform?.controls['budgetutilized']?.touched &&
                                             !schemeform?.controls['budgetutilized'].errors?.required &&
-                                            schemeform?.controls['budgetutilized'].errors?.noHtml">
+                                            schemeform?.controls['budgetutilized'].errors?.hasHtml">
                                     HTML or Js is not allowed
                                 </mat-error>
                             </mat-form-field>
