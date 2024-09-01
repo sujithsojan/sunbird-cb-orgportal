@@ -124,11 +124,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   currentUserRole = ''
   checked = false
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-              private dialog: MatDialog, private approvalSvc: ApprovalsService,
-              private route: ActivatedRoute, private snackBar: MatSnackBar,
-              private events: EventService,
-              private datePipe: DatePipe,
-              private cdr: ChangeDetectorRef) {
+    private dialog: MatDialog, private approvalSvc: ApprovalsService,
+    private route: ActivatedRoute, private snackBar: MatSnackBar,
+    private events: EventService,
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new FormGroup({
       designation: new FormControl('', []),
       group: new FormControl('', [Validators.required]),
@@ -1056,7 +1056,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
       if (this.activeTab === 'verified') {
         this.memberAlertMessage = 'Remove this user from mentor role?'
       } else {
-        this.memberAlertMessage = 'Remove this user from mentor role? The user will move to the Verified tab.'
+        this.memberAlertMessage = 'Remove this user from the mentor role? You can reverse this in the All Verified Users tab.'
       }
 
     }
@@ -1067,7 +1067,21 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
       if (v) {
         this.saveMentorProfile(user, event)
       } else {
-        event.source.checked = true
+        if (this.activeTab === 'verified') {
+          if (event.checked) {
+            event.source.checked = false
+          } else {
+            event.source.checked = true
+          }
+        }
+        if (this.activeTab === 'mentor') {
+          if (event.checked) {
+            event.source.checked = false
+          } else {
+            event.source.checked = true
+          }
+        }
+
       }
     })
   }
