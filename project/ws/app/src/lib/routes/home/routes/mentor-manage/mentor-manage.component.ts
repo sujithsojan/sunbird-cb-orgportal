@@ -93,7 +93,6 @@ export class MentorManageComponent implements OnInit, OnDestroy {
     // }
   }
 
-
   ngOnInit() {
     this.currentFilter = this.route.snapshot.params['tab'] || 'verified'
     this.rootOrgId = _.get(this.route.snapshot.parent, 'data.configService.unMappedUser.rootOrg.rootOrgId')
@@ -107,7 +106,7 @@ export class MentorManageComponent implements OnInit, OnDestroy {
       setTimeout(() => {
         this.getAllVerifiedUsers('')
         this.getMentorUsers('')
-      }, 1000)
+      },         1000)
 
     })
     this.getAllVerifiedUsers('')
@@ -121,7 +120,7 @@ export class MentorManageComponent implements OnInit, OnDestroy {
       // tslint:disable-next-line: max-line-length
       `Assign a mentor from the <strong>All Verified Users</strong> tab, and they will automatically appear in the <strong>Assigned Mentors</strong> tab.`,
       // tslint:disable-next-line: max-line-length
-      `Mentors can be assigned or managed from either tab, with changes reflected across both.`
+      `Mentors can be assigned or managed from either tab, with changes reflected across both.`,
     ]
   }
 
