@@ -40,6 +40,8 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
   transfersCount = 0
   profileVerificationCount = 0
   getSortOrderValue: any
+  totaltransfersRecords = 0
+  totalprofileVerificationRecords = 0
 
   constructor(
     private router: Router,
@@ -161,6 +163,8 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
 
       this.apprService.getApprovals(req).subscribe(res => {
         // this.data = []
+        this.totalprofileVerificationRecords = res.result.count
+        this.totaltransfersRecords = res.result.count
         const newarray: any = []
         let currentdate: Date
         const resData = res.result.data

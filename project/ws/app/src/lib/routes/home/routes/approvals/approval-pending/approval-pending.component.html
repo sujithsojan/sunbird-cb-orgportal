@@ -54,7 +54,7 @@
         </div>
         <ng-container *ngIf="profileVerificationCount > 0">
           <ws-widget-user-card [currentFilter]="currentFilter" [usersData]="profileVerificationData"
-            [isApprovals]="true" [totalRecords]="profileVerificationCount" [tabChangeIndex]="pageIndex"
+            [isApprovals]="true" [totalRecords]="totalprofileVerificationRecords" [tabChangeIndex]="pageIndex"
             (searchByEnterKey)="onEnterkySearch($event)" (disableButton)="showButton()"
             (paginationData)="onPaginateChange($event)" (updateList)="fetchApprovals()"></ws-widget-user-card>
         </ng-container>
@@ -69,9 +69,9 @@
         </div>
         <ng-container *ngIf="transfersData && transfersData.length > 0">
           <ws-widget-user-card [currentFilter]="currentFilter" [usersData]="transfersData" [isApprovals]="true"
-            [totalRecords]="transfersCount" [tabChangeIndex]="pageIndex" (searchByEnterKey)="onEnterkySearch($event)"
-            (disableButton)="showButton()" (paginationData)="onPaginateChange($event)"
-            (updateList)="fetchApprovals()"></ws-widget-user-card>
+            [totalRecords]="totaltransfersRecords" [tabChangeIndex]="pageIndex"
+            (searchByEnterKey)="onEnterkySearch($event)" (disableButton)="showButton()"
+            (paginationData)="onPaginateChange($event)" (updateList)="fetchApprovals()"></ws-widget-user-card>
         </ng-container>
         <ng-container *ngIf="!transfersData || transfersData.length === 0">
           <p class="margin-top-xl margin-bottom-xl">No approvals</p>
