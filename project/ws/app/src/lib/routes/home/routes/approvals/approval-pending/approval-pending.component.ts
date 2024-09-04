@@ -171,39 +171,43 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
           const resData = res.result.data
           resData.forEach((approval: any) => {
             // let keys = ''
-            approval.wfInfo.forEach((wf: any) => {
-              currentdate = new Date(wf.createdOn)
-              if (typeof wf.updateFieldValues === 'string') {
-                const fields = JSON.parse(wf.updateFieldValues)
-                if (fields.length > 0) {
-                  fields.forEach((field: any) => {
-                    // if (Object.keys(field.fromValue).length > 0) {
-                    //   keys += `${_.first(Object.keys(field.fromValue))}, `
-                    // } else {
-                    //   keys += `${_.first(Object.keys(field.toValue))}, `
-                    // }
-                    const labelKey = Object.keys(field.toValue)[0]
-                    if (labelKey === 'designation' || labelKey === 'group') {
-                      if (newarray.find((u: any) => u.userInfo.wid === approval.userInfo.wid) === undefined) {
-                        newarray.push(approval)
-                      }
+            if (approval && approval.wfInfo && approval.wfInfo.length) {
+              approval.wfInfo.forEach((wf: any) => {
+                currentdate = new Date(wf.createdOn)
+                if (wf && wf.updateFieldValues) {
+                  if (typeof wf.updateFieldValues === 'string') {
+                    const fields = JSON.parse(wf.updateFieldValues)
+                    if (fields && fields.length > 0) {
+                      fields.forEach((field: any) => {
+                        // if (Object.keys(field.fromValue).length > 0) {
+                        //   keys += `${_.first(Object.keys(field.fromValue))}, `
+                        // } else {
+                        //   keys += `${_.first(Object.keys(field.toValue))}, `
+                        // }
+                        const labelKey = field && field.toValue && Object.keys(field.toValue).length ? Object.keys(field.toValue)[0] : ''
+                        if (labelKey === 'designation' || labelKey === 'group') {
+                          if (newarray.find((u: any) => u.userInfo.wid === approval.userInfo.wid) === undefined) {
+                            newarray.push(approval)
+                          }
+                        }
+                      })
                     }
-                  })
+                  }
                 }
-              }
-            })
+              })
+            }
           })
 
           newarray.forEach((appr: any) => {
             const requestData = {
-              fullname: appr.userInfo ? `${appr.userInfo.first_name}` : '--',
+              fullname: (appr.userInfo && appr.userInfo.first_name) ? `${appr.userInfo.first_name}` : '--',
               requestedon: currentdate,
               // fields: this.replaceWords(keys, conditions),
               userWorkflow: appr,
               tag: (appr.userInfo && appr.userInfo.tag) ? `${appr.userInfo.tag}` : '',
             }
             /* tslint:disable */
-            if (appr!.wfInfo[0] && appr!.wfInfo[0].orgTansferRequest) {
+            if (appr!.wfInfo && appr!.wfInfo.length && appr!.wfInfo[0].orgTansferRequest) {
               this.transfersData.push(requestData)
             } else {
               this.profileVerificationData.push(requestData)
