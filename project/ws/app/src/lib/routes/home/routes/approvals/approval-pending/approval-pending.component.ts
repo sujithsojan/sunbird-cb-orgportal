@@ -163,76 +163,76 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
 
       this.apprService.getApprovals(req).subscribe(res => {
         // this.data = []
-        this.totalprofileVerificationRecords = res.result.count
-        this.totaltransfersRecords = res.result.count
-        const newarray: any = []
-        let currentdate: Date
-        const resData = res.result.data
-        resData.forEach((approval: any) => {
-          // let keys = ''
-          approval.wfInfo.forEach((wf: any) => {
-            currentdate = new Date(wf.createdOn)
-            if (typeof wf.updateFieldValues === 'string') {
-              const fields = JSON.parse(wf.updateFieldValues)
-              if (fields.length > 0) {
-                fields.forEach((field: any) => {
-                  // if (Object.keys(field.fromValue).length > 0) {
-                  //   keys += `${_.first(Object.keys(field.fromValue))}, `
-                  // } else {
-                  //   keys += `${_.first(Object.keys(field.toValue))}, `
-                  // }
-                  const labelKey = Object.keys(field.toValue)[0]
-                  if (labelKey === 'designation' || labelKey === 'group') {
-                    if (newarray.find((u: any) => u.userInfo.wid === approval.userInfo.wid) === undefined) {
-                      newarray.push(approval)
+        if (res && res.result) {
+          this.totalprofileVerificationRecords = res.result.count
+          this.totaltransfersRecords = res.result.count
+          const newarray: any = []
+          let currentdate: Date
+          const resData = res.result.data
+          resData.forEach((approval: any) => {
+            // let keys = ''
+            approval.wfInfo.forEach((wf: any) => {
+              currentdate = new Date(wf.createdOn)
+              if (typeof wf.updateFieldValues === 'string') {
+                const fields = JSON.parse(wf.updateFieldValues)
+                if (fields.length > 0) {
+                  fields.forEach((field: any) => {
+                    // if (Object.keys(field.fromValue).length > 0) {
+                    //   keys += `${_.first(Object.keys(field.fromValue))}, `
+                    // } else {
+                    //   keys += `${_.first(Object.keys(field.toValue))}, `
+                    // }
+                    const labelKey = Object.keys(field.toValue)[0]
+                    if (labelKey === 'designation' || labelKey === 'group') {
+                      if (newarray.find((u: any) => u.userInfo.wid === approval.userInfo.wid) === undefined) {
+                        newarray.push(approval)
+                      }
                     }
-                  }
-                })
+                  })
+                }
               }
+            })
+          })
+
+          newarray.forEach((appr: any) => {
+            const requestData = {
+              fullname: appr.userInfo ? `${appr.userInfo.first_name}` : '--',
+              requestedon: currentdate,
+              // fields: this.replaceWords(keys, conditions),
+              userWorkflow: appr,
+              tag: (appr.userInfo && appr.userInfo.tag) ? `${appr.userInfo.tag}` : '',
+            }
+            /* tslint:disable */
+            if (appr!.wfInfo[0] && appr!.wfInfo[0].orgTansferRequest) {
+              this.transfersData.push(requestData)
+            } else {
+              this.profileVerificationData.push(requestData)
             }
           })
-        })
-
-        newarray.forEach((appr: any) => {
-          const requestData = {
-            fullname: appr.userInfo ? `${appr.userInfo.first_name}` : '--',
-            requestedon: currentdate,
-            // fields: this.replaceWords(keys, conditions),
-            userWorkflow: appr,
-            tag: (appr.userInfo && appr.userInfo.tag) ? `${appr.userInfo.tag}` : '',
-          }
-          /* tslint:disable */
-          if (appr!.wfInfo[0] && appr!.wfInfo[0].orgTansferRequest) {
-            this.transfersData.push(requestData)
-          } else {
-            this.profileVerificationData.push(requestData)
-          }
-        })
-        /* tslint:enable */
-        this.transfersData.sort((a: any, b: any) => {
-          const textA = a.fullname.toUpperCase()
-          const textB = b.fullname.toUpperCase()
-          return (textA < textB) ? -1 : (textA > textB) ? 1 : 0
-        })
-        this.profileVerificationData.sort((a: any, b: any) => {
-          const textA = a.fullname.toUpperCase()
-          const textB = b.fullname.toUpperCase()
-          return (textA < textB) ? -1 : (textA > textB) ? 1 : 0
-        })
-        this.transfersCount = this.transfersData.length
-        this.profileVerificationCount = this.profileVerificationData.length
-
-        this.allTransfersData = this.transfersData
-        this.allprofileVerificationData = this.profileVerificationData
-
-        if (this.profileVerificationData && this.profileVerificationData.length > 0) {
-          this.showApproveALL = true
-          this.disableApproveALL = false
-          // this.transfersCount = this.transfersData.length
+          /* tslint:enable */
+          this.transfersData.sort((a: any, b: any) => {
+            const textA = a.fullname.toUpperCase()
+            const textB = b.fullname.toUpperCase()
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0
+          })
+          this.profileVerificationData.sort((a: any, b: any) => {
+            const textA = a.fullname.toUpperCase()
+            const textB = b.fullname.toUpperCase()
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0
+          })
+          this.transfersCount = this.transfersData.length
           this.profileVerificationCount = this.profileVerificationData.length
-
-          // this.allTransfersData = this.transfersData
+          this.allTransfersData = this.transfersData
           this.allprofileVerificationData = this.profileVerificationData
+
+          if (this.profileVerificationData && this.profileVerificationData.length > 0) {
+            this.showApproveALL = true
+            this.disableApproveALL = false
+            // this.transfersCount = this.transfersData.length
+            this.profileVerificationCount = this.profileVerificationData.length
+            // this.allTransfersData = this.transfersData
+            this.allprofileVerificationData = this.profileVerificationData
+          }
         }
       })
     } else {
