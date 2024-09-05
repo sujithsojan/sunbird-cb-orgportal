@@ -325,11 +325,11 @@
             <!-- Cader Related Code-->
 
             <div class="flex flex-row margin-top-m">
-              <div class="md:w-1/3" *ngIf="user?.profileDetails?.hasOwnProperty('cadreDetails')">
+              <div class="md:w-1/3">
                 <label class="margin-remove-bottom form-label">Are you a Cadre Employee?</label>
                 <mat-form-field appearance="outline">
                   <input type="text" matInput [disabled]="true"
-                    [value]="user?.profileDetails?.cadreDetails?.civilServiceType ? 'Yes': 'No'">
+                    [value]="user?.profileDetails?.hasOwnProperty('cadreDetails') ? (user?.profileDetails?.cadreDetails?.civilServiceType ? 'Yes': 'No') : ''">
                 </mat-form-field>
               </div>
 
@@ -601,9 +601,11 @@
           </div>
           <!-- Cader Related Code-->
           <div class="flex flex-row margin-top-m">
-            <div class="md:w-1/4" *ngIf="user?.profileDetails?.hasOwnProperty('cadreDetails')">
+            <div class="md:w-1/4">
               <label class="view-text-label">Are you a Cadre Employee?</label>
-              <p>{{user?.profileDetails?.cadreDetails?.civilServiceType ? 'Yes': 'No'}}</p>
+              <p *ngIf="user?.profileDetails?.hasOwnProperty('cadreDetails')">
+                {{user?.profileDetails?.cadreDetails?.civilServiceType ? 'Yes': 'No'}}</p>
+              <p *ngIf="!(user?.profileDetails?.hasOwnProperty('cadreDetails'))">-</p>
             </div>
 
             <div class="md:w-1/4" *ngIf="user?.profileDetails?.cadreDetails?.civilServiceType">
