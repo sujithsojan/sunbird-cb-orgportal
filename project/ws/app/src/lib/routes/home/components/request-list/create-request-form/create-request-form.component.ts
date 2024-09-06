@@ -19,7 +19,7 @@ export class CreateRequestFormComponent implements OnInit {
   requestForm!: FormGroup
   specialCharList = `( a-z/A-Z , 0-9 . _ - $ / \ : [ ]' ' !)`
   // tslint:disable-next-line:max-line-length
-  noSpecialChar = new RegExp(/^[\u0900-\u09FE\u0C01-\u0CFE\u0B80-\u0BFF\u0C80-\u0CFE\u0D01-\u0D7F\u0A80-\u0AFF\u0B00-\u0B7F\u0A00-\u0A7Fa-zA-Z0-9()$[\]\\.:,_/ -]*[\u09FF\u0C00\u0CFF\u0D00]?$/);
+  noSpecialChar = new RegExp(/^[\u0900-\u09FE\u0C01-\u0CFE\u0B80-\u0BFF\u0C80-\u0CFE\u0D01-\u0D7F\u0A80-\u0AFF\u0B00-\u0B7F\u0A00-\u0A7Fa-zA-Z0-9()$[\]\\.:,_/ -]*[\u09FF\u0C00\u0CFF\u0D00]?$/)
   // learningList = ['Self-paced', 'Instructor-led']
   learningList = [
     {
@@ -68,11 +68,11 @@ export class CreateRequestFormComponent implements OnInit {
   competencySubtheme!: FormControl
 
   constructor(private formBuilder: FormBuilder,
-    private homeService: ProfileV2Service,
-    private activatedRouter: ActivatedRoute,
-    private snackBar: MatSnackBar,
-    private router: Router,
-    public dialog: MatDialog
+              private homeService: ProfileV2Service,
+              private activatedRouter: ActivatedRoute,
+              private snackBar: MatSnackBar,
+              private router: Router,
+              public dialog: MatDialog
   ) {
     this.requestForm = this.formBuilder.group({
       TitleName: new FormControl('', [Validators.required, Validators.pattern(this.noSpecialChar), Validators.minLength(10)]),
@@ -614,9 +614,9 @@ export class CreateRequestFormComponent implements OnInit {
           this.router.navigateByUrl('/app/home/request-list')
           this.snackBar.open('Request submitted successfully ')
         }
-      }, 1000)
+      },         1000)
     },
-      (error: any) => {
+                                                     (error: any) => {
         this.dialogRefs.close({ error })
         this.snackBar.open('Request Failed')
 
