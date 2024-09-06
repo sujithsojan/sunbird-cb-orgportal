@@ -1,6 +1,6 @@
 
 .designationHeader {
-  font: 600 16px / 24px Montserrat;
+  font: 600 16px / 24px Montserrat, sans-serif;
 }
 .custom-user-card {
   width: 292px;
@@ -9,7 +9,7 @@
   height: 70px;
   display: flex;
   padding: 0 16px;
-  width: 230px;
+  // width: 230px;
   white-space: nowrap;
   position: relative;
   p {
