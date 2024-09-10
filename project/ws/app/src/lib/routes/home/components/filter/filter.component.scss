@@ -135,16 +135,18 @@
     left: 10px;
 }
 
-/* stylelint-disable */
+
 .sinput {
+    /* stylelint-disable */
     border-radius: 63px;
     border: 1px solid #d5d0d0;
     padding: 6px 36px;
     font: 400 14px 'Lato';
     width: 250px;
     height: 32px;
+    /* stylelint-enable */
 }
-/* stylelint-enable */
+
 
 .filter .category-content {
     max-height: 232px;
