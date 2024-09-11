@@ -19,7 +19,9 @@
     margin: 14px 0 22px;
     .title {
       .title-text {
-         font-family: 'Montserrat', sans-serif;
+          /* stylelint-disable */
+         font-family: 'Montserrat';
+          /* stylelint-enable */
          font-size: 20px;
         font-weight: 600;
         line-height: 30px;
