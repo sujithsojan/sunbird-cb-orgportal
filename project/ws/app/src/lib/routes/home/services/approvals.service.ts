@@ -6,6 +6,7 @@ import { ConfigurationsService } from '@sunbird-cb/utils'
 const API_END_POINTS = {
   APPROVALS: '/apis/protected/v8/workflowhandler/applicationsSearch',
   WORKFLOW_HANDLER: 'apis/protected/v8/workflowhandler/transition',
+  PROFILEAPPROVALSLIST: '/apis/protected/v8/workflowhandler/profileApprovalSearch',
 }
 
 @Injectable({
@@ -15,6 +16,10 @@ export class ApprovalsService {
   constructor(private http: HttpClient, private configSrv: ConfigurationsService) { }
   getApprovals(request: any): Observable<any> {
     return this.http.post<any>(API_END_POINTS.APPROVALS, request)
+  }
+
+  getApprovalsList(request: any): Observable<any> {
+    return this.http.post<any>(API_END_POINTS.PROFILEAPPROVALSLIST, request)
   }
 
   getProfileConfig(): Promise<any> {
