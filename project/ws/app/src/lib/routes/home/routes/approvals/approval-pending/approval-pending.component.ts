@@ -33,8 +33,8 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
   showApproveALL = false
   disableApproveALL = false
   getSortOrderValue: any
-  totaltransfersRecords: any = 0
-  totalprofileVerificationRecords: any = 0
+  totalTransfersRecords: any = 0
+  totalProfileVerificationRecords: any = 0
   tabChange = 0
   cacheOffset: any = 0
 
@@ -190,7 +190,7 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
           this.profileVerificationData = []
           let createdOnDate: Date
 
-          this.totalprofileVerificationRecords = res.result.count
+          this.totalProfileVerificationRecords = res.result.count
           const resData = res.result.data
           resData.forEach((appr: any) => {
             if (appr && appr.wfInfo && appr.wfInfo.length) {
@@ -218,7 +218,7 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
           // Cache the data and timestamp in localStorage
           localStorage.setItem(cacheKey, JSON.stringify(this.profileVerificationData))
           localStorage.setItem(cacheTimestampKey, now.toString())
-          localStorage.setItem(cacheTotalRecordKey, JSON.stringify(this.totalprofileVerificationRecords))
+          localStorage.setItem(cacheTotalRecordKey, JSON.stringify(this.totalProfileVerificationRecords))
 
           if (this.profileVerificationData && this.profileVerificationData.length > 0) {
             this.showApproveALL = true
@@ -252,7 +252,7 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
       this.apprService.getApprovalsList(req).subscribe(res => {
         if (res && res.result) {
           this.loaderService.changeLoaderState(false)
-          this.totaltransfersRecords = res.result.count
+          this.totalTransfersRecords = res.result.count
           this.transfersData = []
           let currentdate: Date
           const resData = res.result.data
@@ -287,7 +287,7 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
             localStorage.setItem(cacheKey, JSON.stringify(this.transfersData))
             localStorage.setItem(cacheTimestampKey, now.toString())
           }
-          localStorage.setItem(cacheTotalRecordKey, JSON.stringify(this.totaltransfersRecords))
+          localStorage.setItem(cacheTotalRecordKey, JSON.stringify(this.totalTransfersRecords))
         }
       })
     } else {
@@ -424,7 +424,7 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
     const now = new Date().getTime()
     const cachedData = localStorage.getItem(cacheKey)
     const cachedTimestamp = localStorage.getItem(cacheTimestampKey)
-    this.totaltransfersRecords = localStorage.getItem('transfersTotalRecords')
+    this.totalTransfersRecords = localStorage.getItem('transfersTotalRecords')
 
     if (cachedData && cachedTimestamp) {
       const cacheAge = now - Number(cachedTimestamp)
@@ -432,7 +432,7 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
       if (cacheAge < cacheDuration) {
         // Use cached data
         this.profileVerificationData = JSON.parse(cachedData)
-        this.totalprofileVerificationRecords = localStorage.getItem(cacheTotalRecordKey)
+        this.totalProfileVerificationRecords = localStorage.getItem(cacheTotalRecordKey)
         this.updateApproveAllStatus()
         return
       } else {
@@ -446,7 +446,7 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
     const cacheKey = `${this.currentFilter}DataCache`
     const cacheTimestampKey = `${this.currentFilter}CacheTimestamp`
     const cacheDuration = 5 * 60 * 1000 // 5 minutes in milliseconds
-    this.totaltransfersRecords = localStorage.getItem('transfersTotalRecords')
+    this.totalTransfersRecords = localStorage.getItem('transfersTotalRecords')
 
     const now = new Date().getTime()
     const cachedData = localStorage.getItem(cacheKey)
