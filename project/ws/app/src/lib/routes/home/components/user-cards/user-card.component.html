@@ -889,8 +889,10 @@
                     </li>
                   </ul>
                 </div>
-                <p *ngIf="appData?.user?.organisations && appData?.user?.organisations[0].roles &&
-                    appData?.user?.organisations[0].roles.length && appData?.user?.organisations[0].roles.length === 0">-</p>
+                <p
+                  *ngIf="appData?.user?.organisations && appData?.user?.organisations[0].roles &&
+                    appData?.user?.organisations[0].roles.length && appData?.user?.organisations[0].roles.length === 0">
+                  -</p>
               </div>
             </div>
           </div>
@@ -926,7 +928,7 @@
 
 <div class="flex flex-row justify-center" *ngIf="totalRecords">
   <mat-paginator [pageSize]="pageSize" [length]="totalRecords" [pageSizeOptions]="[20,30,40]"
-    (page)="onChangePage($event)"></mat-paginator>
+    (page)="onChangePage($event)" showFirstLastButtons="true"></mat-paginator>
 </div>
 
 <ng-template #rejectDialog>

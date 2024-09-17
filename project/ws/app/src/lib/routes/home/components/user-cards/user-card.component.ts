@@ -1,5 +1,6 @@
 import {
   AfterViewChecked,
+  AfterViewInit,
   ChangeDetectorRef,
   Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output,
   QueryList, TemplateRef, ViewChild, ViewChildren,
@@ -39,7 +40,7 @@ const EMAIL_PATTERN = /^[a-zA-Z0-9]+[a-zA-Z0-9._-]*[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
   ],
 })
-export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
+export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, AfterViewInit {
   @Input() userId: any
   @Input() tableData: any
   @Input() usersData: any
@@ -61,7 +62,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   @ViewChild('updaterejectDialog', { static: false })
   updaterejectDialog!: TemplateRef<any>
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | any
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator | any
 
   @ViewChild('toggleElement', { static: true }) ref!: ElementRef
 
@@ -69,7 +70,9 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   lastIndex = 20
   pageSize = 20
 
-  // userStatus: any
+  cacheProfilePageIndex = 0
+  cacheTransferPageIndex = 0
+
   rolesList: any = []
   rolesObject: any = []
   uniqueRoles: any = []
@@ -127,11 +130,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   currentUserRole = ''
   checked = false
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-              private dialog: MatDialog, private approvalSvc: ApprovalsService,
-              private route: ActivatedRoute, private snackBar: MatSnackBar,
-              private events: EventService,
-              private datePipe: DatePipe,
-              private cdr: ChangeDetectorRef) {
+    private dialog: MatDialog, private approvalSvc: ApprovalsService,
+    private route: ActivatedRoute, private snackBar: MatSnackBar,
+    private events: EventService,
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new FormGroup({
       designation: new FormControl('', []),
       group: new FormControl('', [Validators.required]),
@@ -192,6 +195,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   }
 
   ngOnInit() {
+    const cacheValProfile = localStorage.getItem('profileverificationOffset')
+    const cacheValTransfer = localStorage.getItem('transferOffset')
+    this.cacheProfilePageIndex = cacheValProfile !== null ? parseInt(cacheValProfile, 10) : 0
+    this.cacheTransferPageIndex = cacheValTransfer !== null ? parseInt(cacheValTransfer, 10) : 0
+
     if (this.isApprovals && this.usersData) {
       this.getApprovalData()
     } else {
@@ -199,7 +207,20 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
     }
   }
 
+  ngAfterViewInit() {
+    if (this.paginator) {
+      if (this.currentFilter === 'profileverification') {
+        this.paginator.pageIndex = this.cacheProfilePageIndex
+      } else if (this.currentFilter === 'transfers') {
+        this.paginator.pageIndex = this.cacheTransferPageIndex
+      }
+      this.paginator.pageSize = this.pageSize
+      this.cdr.detectChanges()
+    }
+  }
+
   ngOnChanges() {
+
     if (this.usersData) {
       this.usersData = _.orderBy(this.usersData, item => {
         if (item.profileDetails && item.profileDetails.personalDetails) {
@@ -637,11 +658,16 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   }
 
   onChangePage(pe: PageEvent) {
-    this.startIndex = (pe.pageIndex) * pe.pageSize
-    this.lastIndex = pe.pageSize
-    this.paginationData.emit({ pageIndex: this.startIndex, pageSize: pe.pageSize })
+    if (this.isApprovals) {
+      this.startIndex = pe.pageIndex
+      this.lastIndex = pe.pageSize
+      this.paginationData.emit({ pageIndex: this.startIndex, pageSize: pe.pageSize })
+    } else {
+      this.startIndex = (pe.pageIndex) * pe.pageSize
+      this.lastIndex = pe.pageSize
+      this.paginationData.emit({ pageIndex: this.startIndex, pageSize: pe.pageSize })
+    }
   }
-
   onSearch(event: any) {
     this.searchByEnterKey.emit(event)
   }

@@ -30,15 +30,15 @@
     <mat-card-content>
       <div class="flex flex-1 flex-row margin-fix">
         <div class="flex flex-3 filter max-height-60">
-          <a routerLink="/app/home/approvals/profileverification" class="filter-option"
+          <a class="filter-option"
             [ngClass]="{'ws-mat-accent-border-active' : currentFilter === 'profileverification', 'ws-mat-accent-border font-medium': currentFilter !== 'profileverification'}"
             mat-button (click)="filter('profileverification'); tabTelemetry('toapprove', 0)" role="button">Profile
-            Verifications ({{profileVerificationCount}})</a>
+            Verifications ({{totalprofileVerificationRecords}})</a>
 
-          <a routerLink="/app/home/approvals/transfers" class="filter-option"
+          <a class="filter-option"
             [ngClass]="{'ws-mat-accent-border-active' : currentFilter === 'transfers', 'ws-mat-accent-border font-medium': currentFilter !== 'transfers'}"
             mat-button (click)="filter('transfers'); tabTelemetry('transfers', 1)" role="button">Transfers
-            ({{transfersCount}})</a>
+            ({{totaltransfersRecords}})</a>
         </div>
         <!-- <div class="flex flex-3 flex-end" *ngIf="currentFilter === 'profileverification'">
           <a (click)="getPendingResquests()"
@@ -52,13 +52,13 @@
             [showApproveALL]="showApproveALL" [showBulkUpdate]="true"
             [disableApproveALL]="disableApproveALL"></ws-app-searchuser>
         </div>
-        <ng-container *ngIf="profileVerificationCount > 0">
+        <ng-container *ngIf="totalprofileVerificationRecords > 0">
           <ws-widget-user-card [currentFilter]="currentFilter" [usersData]="profileVerificationData"
             [isApprovals]="true" [totalRecords]="totalprofileVerificationRecords" [tabChangeIndex]="pageIndex"
             (searchByEnterKey)="onEnterkySearch($event)" (disableButton)="showButton()"
             (paginationData)="onPaginateChange($event)" (updateList)="fetchApprovals()"></ws-widget-user-card>
         </ng-container>
-        <ng-container *ngIf="!profileVerificationData || profileVerificationData.length === 0">
+        <ng-container *ngIf="totalprofileVerificationRecords === 0">
           <p class="margin-top-xl margin-bottom-xl">No approvals</p>
         </ng-container>
       </ng-container>
@@ -67,14 +67,14 @@
           <ws-app-searchuser (handleApiData)="onSearch($event)" [isApprovals]="true" (handleapproveAll)="onApproveALL()"
             [showApproveALL]="false" [showBulkUpdate]="false"></ws-app-searchuser>
         </div>
-        <ng-container *ngIf="transfersData && transfersData.length > 0">
+        <ng-container *ngIf="totaltransfersRecords > 0">
           <ws-widget-user-card [currentFilter]="currentFilter" [usersData]="transfersData" [isApprovals]="true"
             [totalRecords]="totaltransfersRecords" [tabChangeIndex]="pageIndex"
             (searchByEnterKey)="onEnterkySearch($event)" (disableButton)="showButton()"
             (paginationData)="onPaginateChange($event)" (updateList)="fetchApprovals()"></ws-widget-user-card>
         </ng-container>
-        <ng-container *ngIf="!transfersData || transfersData.length === 0">
-          <p class="margin-top-xl margin-bottom-xl">No approvals</p>
+        <ng-container *ngIf="totaltransfersRecords === 0">
+          <p class="margin-top-xl margin-bottom-xl">No transfers</p>
         </ng-container>
       </ng-container>
     </mat-card-content>
