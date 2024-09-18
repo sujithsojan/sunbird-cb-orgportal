@@ -25,7 +25,7 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
   approvalData: any = []
   currentFilter = 'profileverification'
   departName = ''
-  limit = 20
+  limit: any = 20
   pageIndex: any = 0
   currentOffset = 0
   configSvc: any
@@ -184,6 +184,7 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
       }
 
       localStorage.setItem('profileverificationOffset', req.offset)
+      localStorage.setItem(`profileverificationPageSize`, req.limit.toString())
       this.apprService.getApprovalsList(req).subscribe(res => {
         if (res && res.result) {
           this.loaderService.changeLoaderState(false)
@@ -249,6 +250,7 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
       }
 
       localStorage.setItem('transferOffset', req.offset)
+      localStorage.setItem('transferPageSize', req.limit)
       this.apprService.getApprovalsList(req).subscribe(res => {
         if (res && res.result) {
           this.loaderService.changeLoaderState(false)
@@ -347,6 +349,9 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
     localStorage.removeItem(cacheTimestampKey)
     localStorage.removeItem(transfersCacheKey)
     localStorage.removeItem(transfersCacheTimestampKey)
+    // Store current pagination state
+    localStorage.setItem(`${this.currentFilter}Offset`, this.pageIndex.toString())
+    localStorage.setItem(`${this.currentFilter}PageSize`, this.limit.toString())
     this.filterData()
   }
 
