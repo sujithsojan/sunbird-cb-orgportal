@@ -184,7 +184,6 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
       }
 
       localStorage.setItem('profileverificationOffset', req.offset)
-      localStorage.setItem(`profileverificationPageSize`, req.limit.toString())
       this.apprService.getApprovalsList(req).subscribe(res => {
         if (res && res.result) {
           this.loaderService.changeLoaderState(false)
@@ -250,7 +249,6 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
       }
 
       localStorage.setItem('transferOffset', req.offset)
-      localStorage.setItem('transferPageSize', req.limit)
       this.apprService.getApprovalsList(req).subscribe(res => {
         if (res && res.result) {
           this.loaderService.changeLoaderState(false)
