@@ -130,11 +130,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   currentUserRole = ''
   checked = false
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-              private dialog: MatDialog, private approvalSvc: ApprovalsService,
-              private route: ActivatedRoute, private snackBar: MatSnackBar,
-              private events: EventService,
-              private datePipe: DatePipe,
-              private cdr: ChangeDetectorRef) {
+    private dialog: MatDialog, private approvalSvc: ApprovalsService,
+    private route: ActivatedRoute, private snackBar: MatSnackBar,
+    private events: EventService,
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new FormGroup({
       designation: new FormControl('', []),
       group: new FormControl('', [Validators.required]),
@@ -197,8 +197,10 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   ngOnInit() {
     const cacheValProfile = localStorage.getItem('profileverificationOffset')
     const cacheValTransfer = localStorage.getItem('transferOffset')
+    const storedPageSize = localStorage.getItem(`${this.currentFilter}PageSize`)
     this.cacheProfilePageIndex = cacheValProfile !== null ? parseInt(cacheValProfile, 10) : 0
     this.cacheTransferPageIndex = cacheValTransfer !== null ? parseInt(cacheValTransfer, 10) : 0
+    this.pageSize = storedPageSize !== null ? parseInt(storedPageSize, 10) : 20
 
     if (this.isApprovals && this.usersData) {
       this.getApprovalData()
