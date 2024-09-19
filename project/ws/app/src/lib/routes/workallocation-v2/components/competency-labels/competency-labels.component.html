@@ -38,9 +38,9 @@
                 <div class="flex flex-2 margin-2px">
                   <mat-form-field appearance="outline" class="full-width no-pb square outline-color">
                     <input [attr.id]="'compName_' + i" matInput #compName formControlName="compDescription"
-                      i18n-placeholder placeholder="Type here" i18n-aria-label aria-label="Activity name input"
-                      class="form-input flex-1" (input)="filterCompetencies(compName.value)"
-                      [matAutocomplete]="competencyAuto" autocomplete="off" maxlength="250" />
+                      placeholder="Type here" aria-label="Activity name input" class="form-input flex-1"
+                      (input)="filterCompetencies(compName.value)" [matAutocomplete]="competencyAuto" autocomplete="off"
+                      maxlength="250" />
                     <mat-autocomplete [attr.id]="'compAuto1_' + i" #competencyAuto="matAutocomplete"
                       (optionSelected)="competencySelected($event,i)">
                       <ng-container
@@ -76,9 +76,9 @@
                 </div>
                 <div class="flex flex-1 margin-2px">
                   <mat-form-field appearance="outline" class="full-width no-pb square outline-color">
-                    <input [attr.id]="'compt_' + i" matInput #compt formControlName="compDescription" i18n-placeholder
-                      placeholder="Type here" i18n-aria-label aria-label="Competency description input"
-                      class="form-input flex-1" autocomplete="off" />
+                    <input [attr.id]="'compt_' + i" matInput #compt formControlName="compDescription"
+                      placeholder="Type here" aria-label="Competency description input" class="form-input flex-1"
+                      autocomplete="off" />
                   </mat-form-field>
                 </div>
 
@@ -114,8 +114,8 @@
             </span>
             <!-- <mat-form-field *ngIf="canshowName === i" appearance="outline"
               class="full-width no-pb square outline-color">
-              <input [attr.id]="'roleName_' + i" formControlName="roleName" matInput #roleName i18n-placeholder
-                placeholder="Type here" onfocus="this.select()" i18n-aria-label aria-label="Activity name input"
+              <input [attr.id]="'roleName_' + i" formControlName="roleName" matInput #roleName
+                placeholder="Type here" onfocus="this.select()"  aria-label="Activity name input"
                 class="form-input flex-1" autocomplete="off" />
             </mat-form-field> -->
           </div>
@@ -126,7 +126,7 @@
             </span>
             <!-- <mat-form-field *ngIf="canshow === i" appearance="outline" class="full-width no-pb square outline-color ">
               <textarea [attr.id]="'roleDesc_' + i" matInput #roleDesc name="questionText" cols="35" rows="8"
-                placeholder="Type here" formControlName="roleDescription" i18n-aria-label
+                placeholder="Type here" formControlName="roleDescription"
                 aria-label="role description input" onfocus="this.select()"></textarea>
             </mat-form-field> -->
           </div>
@@ -166,8 +166,8 @@
                     <mat-form-field appearance="outline" (click)="setSelectedFilter(gaIdx)"
                       class="full-width no-pb square outline-color">
                       <input [attr.id]="'compName_' + gaIdx" formControlName="compName" matInput #compName
-                        i18n-placeholder placeholder="Type here" i18n-aria-label aria-label="Activity name input"
-                        class="form-input flex-1" autocomplete="off" (click)="setSelectedFilter(gaIdx)"
+                        placeholder="Type here" aria-label="Activity name input" class="form-input flex-1"
+                        autocomplete="off" (click)="setSelectedFilter(gaIdx)"
                         (input)="filterCompetencies(compName.value, gaIdx)" [matAutocomplete]="competencyAuto1"
                         maxlength="250" />
                       <mat-autocomplete [attr.id]="'compAuto_' + gaIdx" #competencyAuto1="matAutocomplete"
@@ -205,13 +205,13 @@
                   </div>
                   <div class="flex flex-2 margin-2px">
                     <mat-form-field appearance="outline" class="full-width no-pb square outline-color">
-                      <!-- <input [attr.id]="'compt_' + gaIdx" matInput #compt i18n-placeholder placeholder="Type here"
-                        i18n-aria-label aria-label="Activity description input" class="form-input flex-1"
+                      <!-- <input [attr.id]="'compt_' + gaIdx" matInput #compt  placeholder="Type here"
+                         aria-label="Activity description input" class="form-input flex-1"
                         autocomplete="off" /> -->
                       <textarea [attr.id]="'compt_' + gaIdx" class="form-input flex-1" matInput #OfficerName
-                        formControlName="compDescription" i18n-placeholder placeholder="Type here" i18n-aria-label
-                        aria-label="Type here" autocomplete="off" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" maxlength="2000"></textarea>
+                        formControlName="compDescription" placeholder="Type here" aria-label="Type here"
+                        autocomplete="off" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5" maxlength="2000"></textarea>
                     </mat-form-field>
                   </div>
                   <div *ngIf="i === 0" class="flex margin-auto">

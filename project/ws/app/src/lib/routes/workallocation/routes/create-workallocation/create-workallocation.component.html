@@ -11,10 +11,10 @@
                 <div class="flex flex-3 custom button-row-inline">
                     <button mat-stroked-button color="accent" type="button" class="mat-accent-border flex-auto-display"
                         (click)="publishWorkOrder()" id="publishbtn" *ngIf="showPublishButton">
-                        <span i18n>Publish</span>
+                        <span> Publish</span>
                     </button>
                     <button mat-button class="create-btn" type="button" (click)="onSubmit()" id="savebtn">
-                        <span i18n>Save</span>
+                        <span> Save</span>
                     </button>
                 </div>
             </div>
@@ -77,19 +77,16 @@
                                                     </div>
                                                     <div class="flex-3">
                                                         <label for="fname" class="margin-remove-bottom form-label"
-                                                            i18n="First Name label|Label which explains the user to enter first name"
-                                                            i18n-aria-label aria-label="First name label">
+                                                            aria-label="First name label">
                                                             Name
                                                         </label>
                                                         <mat-form-field appearance="outline" class="margin-top-xs">
                                                             <input id="fname" matInput #fname formControlName="fname"
-                                                                i18n-placeholder placeholder="Type here" i18n-aria-label
-                                                                aria-label="First name input" class="form-input"
-                                                                autocomplete="off" (keypress)="onSearchUser($event)"
+                                                                placeholder="Type here" aria-label="First name input"
+                                                                class="form-input" autocomplete="off"
+                                                                (keypress)="onSearchUser($event)"
                                                                 (keyup)="onSearchUser($event)" />
                                                             <mat-error [hidden]="false"
-                                                                i18n="First name Error|Explains name is required"
-                                                                i18n-aria-label
                                                                 aria-label="First name Error|Explains name is required "
                                                                 *ngIf="newAllocationForm?.controls['fname']?.touched && newAllocationForm?.controls['fname'].errors?.required">
                                                                 Name is mandatory
@@ -98,46 +95,38 @@
 
                                                         <label for="email"
                                                             class="margin-remove-bottom margin-top-xs form-label"
-                                                            i18n="Email label|Label which explains the user to enter email"
-                                                            i18n-aria-label aria-label="Email label">
+                                                            aria-label="Email label">
                                                             Email
                                                         </label>
                                                         <mat-form-field appearance="outline" class="margin-top-xs">
                                                             <input id="email" matInput #email formControlName="email"
-                                                                i18n-placeholder placeholder="Type here" i18n-aria-label
-                                                                aria-label="Email input" class="form-input"
-                                                                autocomplete="off" (keypress)="onSearchUser($event)"
+                                                                placeholder="Type here" aria-label="Email input"
+                                                                class="form-input" autocomplete="off"
+                                                                (keypress)="onSearchUser($event)"
                                                                 (keyup)="onSearchUser($event)" />
                                                             <mat-error [hidden]="false"
-                                                                i18n="Email Error|Explains name is required"
-                                                                i18n-aria-label
                                                                 aria-label="Email Error|Explains name is required "
                                                                 *ngIf="newAllocationForm?.controls['email']?.touched && newAllocationForm?.controls['email'].errors?.required">
                                                                 Email is mandatory
                                                             </mat-error>
                                                             <mat-error [hidden]="false"
                                                                 *ngIf="newAllocationForm?.controls['email'].errors?.invalid"
-                                                                i18n-aria-label
                                                                 aria-label="Email Error|Name fields not valid ">
                                                                 Email field is not valid
                                                             </mat-error>
                                                         </mat-form-field>
 
                                                         <label for="position" class="margin-remove-bottom form-label"
-                                                            i18n="Position label|Label which explains the user to enter position"
-                                                            i18n-aria-label aria-label="Position label">
+                                                            aria-label="Position label">
                                                             Designation
                                                         </label>
                                                         <mat-form-field appearance="outline" class="margin-top-xs">
                                                             <input type="text" id="position" matInput #position
-                                                                formControlName="position" i18n-placeholder
-                                                                placeholder="Type here" i18n-aria-label
+                                                                formControlName="position" placeholder="Type here"
                                                                 aria-label="position input" class="form-input"
                                                                 autocomplete="off" (keypress)="onSearchPosition($event)"
                                                                 (keyup)="onSearchPosition($event)" />
                                                             <mat-error [hidden]="false"
-                                                                i18n="Position Error|Explains position is required"
-                                                                i18n-aria-label
                                                                 aria-label="Position Error|Explains position is required "
                                                                 *ngIf="newAllocationForm?.controls['position']?.touched && newAllocationForm?.controls['position'].errors?.required">
                                                                 Designation is mandatory
@@ -168,16 +157,16 @@
                                                                 <!-- <div class="roles-div">
                                                                     <label for="name"
                                                                         class="margin-remove-bottom form-label"
-                                                                        i18n="rolename label|Label which explains the user to enter rolename"
-                                                                        i18n-aria-label aria-label="rolename label">
+
+                                                                         aria-label="rolename label">
                                                                         Role
                                                                     </label>
                                                                     <mat-form-field appearance="outline"
                                                                         class="margin-top-xs">
                                                                         <input id="name" matInput #name
-                                                                            formControlName="name" i18n-placeholder
+                                                                            formControlName="name"
                                                                             placeholder="Role label here"
-                                                                            i18n-aria-label aria-label="name input"
+                                                                             aria-label="name input"
                                                                             class="form-input" autocomplete="off"
                                                                             (keypress)="onSearchRole($event)"
                                                                             (keyup)="onSearchRole($event)" />
@@ -186,17 +175,17 @@
                                                                 <div class="activites-div">
                                                                     <label for="childNodes"
                                                                         class="margin-remove-bottom form-label"
-                                                                        i18n="roleactivity label|Label which explains the user to enter roleactivity"
-                                                                        i18n-aria-label aria-label="activites label">
+
+                                                                         aria-label="activites label">
                                                                         Activities
                                                                     </label>
                                                                     <mat-form-field appearance="outline"
                                                                         class="margin-top-xs">
                                                                         <input id="childNodes" matInput #childNodes
                                                                             formControlName="childNodes"
-                                                                            i18n-placeholder
+
                                                                             placeholder="Activities here"
-                                                                            i18n-aria-label
+
                                                                             aria-label="childNodes input"
                                                                             class="form-input" autocomplete="off"
                                                                             (keypress)="onSearchActivity($event)"
@@ -222,7 +211,7 @@
                                                                 <button mat-raised-button type="button"
                                                                     class="text-white btn-success btn-responsive"
                                                                     id="addtolist-btn" (click)="openDialog()">
-                                                                    <span class="text-white" i18n>Add new role</span>
+                                                                    <span class="text-white">Add new role</span>
                                                                 </button>
                                                             </div>
                                                         </li>
@@ -244,7 +233,7 @@
                                                                     *ngFor="let a of r.childNodes">{{a.name}}</span>
                                                             </td>
                                                             <td class="action-cell">
-                                                                <button type="button" mat-icon-button i18n-aria-label
+                                                                <button type="button" mat-icon-button
                                                                     aria-label="action items"
                                                                     [matMenuTriggerFor]="cardMenu"
                                                                     [matMenuTriggerData]="{'data':r}"
@@ -266,14 +255,13 @@
                                                     <mat-menu #cardMenu="matMenu">
                                                         <ng-template matMenuContent let-rowData="data">
                                                             <!-- <button (click)="buttonClick('Archive',rowData)" mat-menu-item name="channel-analytics-button"
-                                                            class="ws-mat-primary-text" i18n-aria-label
+                                                            class="ws-mat-primary-text"
                                                             aria-label="Analytics">
                                                             <mat-icon>archive</mat-icon> <span>Archive role</span>
                                                             </button> -->
                                                             <button (click)="buttonClick('Delete', rowData)"
                                                                 mat-menu-item name="channel-analytics-button"
-                                                                class="ws-mat-primary-text" i18n-aria-label
-                                                                aria-label="Analytics">
+                                                                class="ws-mat-primary-text" aria-label="Analytics">
                                                                 <mat-icon>delete</mat-icon> <span>Delete role</span>
                                                             </button>
                                                         </ng-template>

@@ -4,7 +4,8 @@ import { ITableData } from '@sunbird-cb/collection/lib/ui-org-table/interface/in
 import { DesignationsService } from '../../services/designations.service'
 import { FormControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
-import { MatDialog, MatSnackBar } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConformationPopupComponent } from '../../dialog-boxes/conformation-popup/conformation-popup.component'
 import { ActivatedRoute } from '@angular/router'
 import { environment } from '../../../../../../../../../../../src/environments/environment'

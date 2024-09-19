@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { DesignationsService } from '../../services/designations.service'
-import { MatDialog, MatSnackBar, PageEvent } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl } from '@angular/forms'
 import { catchError, delay, map } from 'rxjs/operators'
 import { SelectedDesignationPopupComponent } from '../../dialog-boxes/selected-designation-popup/selected-designation-popup.component'

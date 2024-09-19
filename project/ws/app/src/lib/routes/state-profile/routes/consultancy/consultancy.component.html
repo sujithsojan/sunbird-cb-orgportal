@@ -15,18 +15,15 @@
                 <div class="input-wrapper margin-top-s flex flex-col flex-1">
                     <div class="flex flex-1">
                         <label class=" margin-remove-bottom form-label required flex mat-subheading-2"
-                            i18n="Consultancy project label|Label which explains the user to enter Consultancy project"
-                            i18n-aria-label aria-label="Consultancy project label">
+                            aria-label="Consultancy project label">
                             Add project name
                         </label>
                     </div>
 
                     <mat-form-field appearance="outline" class="margin-top-xs form_field flex flex-1 full-width">
                         <input matInput autocomplete="off" #projectName formControlName="projectName"
-                            placeholder="Enter project name" class="flex flex-1" i18n-aria-label
-                            aria-label="institute Name input" />
-                        <mat-error [hidden]="false" i18n="Project Name Error|Explains Project name is required"
-                            i18n-aria-label aria-label="Project Name Error|Explains Project name is required "
+                            placeholder="Enter project name" class="flex flex-1" aria-label="institute Name input" />
+                        <mat-error [hidden]="false" aria-label="Project Name Error|Explains Project name is required "
                             *ngIf="consultancyForm?.controls['projectName'].errors?.required">
                             Project name is mandatory
                         </mat-error>
@@ -37,13 +34,12 @@
                     <div class="flex flex-2 flex-col">
                         <div class="flex flex-1">
                             <label class=" margin-remove-bottom form-label required flex mat-subheading-2"
-                                i18n="Programe status label|Label which explains the user to enter Programe status"
-                                i18n-aria-label aria-label="Programe status label">
+                                aria-label="Programe status label">
                                 Status
                             </label>
                         </div>
                         <div class="flex flex-1 margin-top-m">
-                            <mat-radio-group #programeStatus formControlName="programeStatus" i18n-aria-label
+                            <mat-radio-group #programeStatus formControlName="programeStatus"
                                 aria-label="Programe status input" class="flex button_box flex-row">
                                 <mat-radio-button class="mat-radio-button radio-unselect" [value]="'Ongoing'">
                                     Ongoing
@@ -52,8 +48,7 @@
                                     [value]="'Completed'">
                                     Completed
                                 </mat-radio-button>
-                                <mat-error [hidden]="false" i18n="Programe status is required" i18n-aria-label
-                                    aria-label="Programe status is required "
+                                <mat-error [hidden]="false" aria-label="Programe status is required "
                                     *ngIf="consultancyForm?.controls['programeStatus'].errors?.required">
                                     Programe status is mandatory
                                 </mat-error>
@@ -64,29 +59,28 @@
                     <div class="flex flex-2 flex-col margin-left-l radio_right">
                         <div class="flex">
                             <label class=" margin-remove-bottom form-label required flex mat-subheading-2"
-                                i18n="Type of sponsorship label|Label which explains the user to enter Type of sponsorship count"
-                                i18n-aria-label aria-label="Type of sponsorship label">
+                                aria-label="Type of sponsorship label">
                                 Type of sponsorship
                             </label>
                         </div>
                         <div class="flex flex-row margin-top-m justify-start radio_left">
                             <div class="flex flex-1">
-                                <mat-checkbox #industrySponsored formControlName="industrySponsored" i18n-aria-label
+                                <mat-checkbox #industrySponsored formControlName="industrySponsored"
                                     aria-label=" Industry sponsored input" class="checkbox_btn">
                                     Industry sponsored
                                 </mat-checkbox>
                             </div>
 
                             <div class="flex flex-1 margin-left-m complete_btn">
-                                <mat-checkbox #govtSponsored formControlName="govtSponsored" i18n-aria-label
+                                <mat-checkbox #govtSponsored formControlName="govtSponsored"
                                     aria-label="Government sponsored input" class="checkbox_btn">
                                     Government sponsored
                                 </mat-checkbox>
                             </div>
 
                             <div class="flex flex-1 margin-left-m complete_btn">
-                                <mat-checkbox #otherSponsored formControlName="otherSponsored" i18n-aria-label
-                                    aria-label="Others input" class="checkbox_btn">
+                                <mat-checkbox #otherSponsored formControlName="otherSponsored" aria-label="Others input"
+                                    class="checkbox_btn">
                                     Others
                                 </mat-checkbox>
                             </div>
@@ -97,13 +91,13 @@
                 <div class="input-wrapper flex flex-col flex-1">
                     <mat-form-field appearance="outline" class="margin-top-l form_field flex flex-1 full-width">
                         <textarea matInput autocomplete="off" #projectDetail formControlName="projectDetail"
-                            i18n-aria-label aria-label="Project detail input" placeholder="Enter project details "
-                            class="flex flex-1" [matTextareaAutosize]="true" [matAutosizeMaxRows]="10"
-                            [matAutosizeMinRows]="5" maxlength="200"></textarea>
+                            aria-label="Project detail input" placeholder="Enter project details " class="flex flex-1"
+                            [matTextareaAutosize]="true" [matAutosizeMaxRows]="10" [matAutosizeMinRows]="5"
+                            maxlength="200"></textarea>
                         <mat-hint align="end" class="margin-top-l">{{ projectDetail.value.length }} /200 characters
                         </mat-hint>
-                        <mat-error [hidden]="false" i18n="Project detail Error|Explains Project detail is required"
-                            i18n-aria-label aria-label="Project detail Error|Explains Project detail is required "
+                        <mat-error [hidden]="false"
+                            aria-label="Project detail Error|Explains Project detail is required "
                             *ngIf="consultancyForm?.controls['projectDetail'].errors?.required">
                             Project detail is mandatory
                         </mat-error>
@@ -175,5 +169,5 @@
     </form>
 </div>
 
-<input #deleteTitleRef type="hidden" i18n-value value="Project delete!" />
-<input #deleteBodyRef type="hidden" i18n-value value="Do you want to delete this consultancy project" />
+<input #deleteTitleRef type="hidden" value="Project delete!" />
+<input #deleteBodyRef type="hidden" value="Do you want to delete this consultancy project" />

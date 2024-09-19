@@ -5,11 +5,11 @@
             <button mat-raised-button type="button" *ngIf="needCreateUser"
                 class="text-white ws-mat-primary-background text-white margin-right-l custom-btn"
                 (click)="gotoCreateUser()">
-                <b class="text-white" i18n>Create user</b>
+                <b class="text-white"> Create user</b>
             </button>
             <button mat-raised-button type="button" *ngIf="needAddAdmin"
                 class="text-white ws-mat-primary-background text-white margin-right-m custom-btn" (click)="openPopup()">
-                <b class="text-white" i18n>Add admin</b>
+                <b class="text-white"> Add admin</b>
             </button>
         </div>
         <mat-table #table matSort [ngStyle]="{'height': bodyHeight}" [matSortActive]="tableData!.sortColumn"
@@ -64,8 +64,8 @@
                     Actions
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row" class="action-cell">
-                    <button type="button" mat-icon-button i18n-aria-label aria-label="action items"
-                        [matMenuTriggerFor]="cardMenu" [matMenuTriggerData]="{'data':row}" class="action-btn">
+                    <button type="button" mat-icon-button aria-label="action items" [matMenuTriggerFor]="cardMenu"
+                        [matMenuTriggerData]="{'data':row}" class="action-btn">
                         <mat-icon>more_horiz</mat-icon>
                     </button>
                 </mat-cell>
@@ -91,7 +91,7 @@
 <mat-menu #cardMenu="matMenu">
     <ng-template matMenuContent let-rowData="data">
         <button (click)="buttonClick(rowData)" mat-menu-item name="channel-analytics-button" class="ws-mat-primary-text"
-            i18n-aria-label aria-label="Analytics">
+            aria-label="Analytics">
             <mat-icon>print</mat-icon> Print
         </button>
     </ng-template>

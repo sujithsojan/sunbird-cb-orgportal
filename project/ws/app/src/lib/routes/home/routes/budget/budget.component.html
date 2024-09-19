@@ -18,8 +18,7 @@
                                                     <div class="margin-bottom-m">
                                                         <label for="budgetyear"
                                                             class="custom-label display-block mat-subheading-2 margin-remove-bottom form-label required"
-                                                            i18n="Budget year label|Label which explains the user to enter Budget year"
-                                                            i18n-aria-label aria-label="Budget year label">
+                                                            aria-label="Budget year label">
                                                             Budget for financial year
                                                         </label>
                                                         <mat-form-field appearance="outline"
@@ -34,8 +33,6 @@
                                                                 </mat-option>
                                                             </mat-select>
                                                             <mat-error [hidden]="false"
-                                                                i18n="Budget year Error|Explains name is required"
-                                                                i18n-aria-label
                                                                 aria-label="Budget year Error|Explains name is required "
                                                                 *ngIf="budgetdata?.controls['budgetyear']?.touched && budgetdata?.controls['budgetyear'].errors?.required">
                                                                 Field is mandatory
@@ -47,22 +44,18 @@
                                                     <div class="margin-bottom-m">
                                                         <label for="salarybudget"
                                                             class="display-block mat-subheading-2 margin-remove-bottom form-label required"
-                                                            i18n="Salary budget allocated label|Label which explains the user to enter Salary budget allocated"
-                                                            i18n-aria-label aria-label="Salary budget allocated label">
+                                                            aria-label="Salary budget allocated label">
                                                             Allocate salary budget
                                                         </label>
                                                         <mat-form-field appearance="outline" class="margin-top-xs">
                                                             <input type="text" id="salarybudget" matInput #salarybudget
-                                                                formControlName="salarybudget" i18n-placeholder
-                                                                placeholder="Add budget" i18n-aria-label
+                                                                formControlName="salarybudget" placeholder="Add budget"
                                                                 aria-label="Salary budget allocated input"
                                                                 class="form-input" autocomplete="off"
                                                                 (ngModelChange)='onSalarayChange($event)'
                                                                 [disabled]=overallbudget
                                                                 (keypress)="keyPressNumbers($event)" maxlength="14" />
                                                             <mat-error [hidden]="false"
-                                                                i18n="Salary budget allocated Error|Explains name is required"
-                                                                i18n-aria-label
                                                                 aria-label="Salary budget allocated Error|Explains name is required "
                                                                 *ngIf="budgetdata?.controls['salarybudget']?.touched && budgetdata?.controls['salarybudget'].errors?.required">
                                                                 Field is mandatory
@@ -72,22 +65,19 @@
                                                     <div class="margin-bottom-m">
                                                         <label for="trainingbudget"
                                                             class="display-block mat-subheading-2 margin-remove-bottom form-label required"
-                                                            i18n="Training budget allocated label|Label which explains the user to enter Training budget allocated"
-                                                            i18n-aria-label aria-label="Training budget allocated">
+                                                            aria-label="Training budget allocated">
                                                             Allocate training/capacity building budget
                                                         </label>
                                                         <mat-form-field appearance="outline" class="margin-top-xs">
                                                             <input id="trainingbudget" matInput #trainingbudget
-                                                                formControlName="trainingbudget" i18n-placeholder
-                                                                placeholder="Add budget" i18n-aria-label
+                                                                formControlName="trainingbudget"
+                                                                placeholder="Add budget"
                                                                 aria-label="Training budget allocated input"
                                                                 (ngModelChange)='onTrainingChange($event)'
                                                                 class="form-input" autocomplete="off"
                                                                 [disabled]=overallbudget
                                                                 (keypress)="keyPressNumbers($event)" maxlength="14" />
                                                             <mat-error [hidden]="false"
-                                                                i18n="Training budget allocated Error|Explains name is required"
-                                                                i18n-aria-label
                                                                 aria-label="Training budget allocated Error|Explains name is required "
                                                                 *ngIf="budgetdata?.controls['trainingbudget']?.touched && budgetdata?.controls['trainingbudget'].errors?.required">
                                                                 Field is mandatory
@@ -97,29 +87,23 @@
                                                     <div class="margin-bottom-m">
                                                         <label for="budgetutilized"
                                                             class="display-block mat-subheading-2 margin-remove-bottom form-label required"
-                                                            i18n="Training budget utilization label|Label which explains the user to enter Training budget utilization"
-                                                            i18n-aria-label
                                                             aria-label="Training budget utilization label">
                                                             Projected utilization of training budget
                                                         </label>
                                                         <mat-form-field appearance="outline" class="margin-top-xs">
                                                             <input id="budgetutilized" matInput #budgetutilized
-                                                                formControlName="budgetutilized" i18n-placeholder
-                                                                placeholder="Add budget" i18n-aria-label
+                                                                formControlName="budgetutilized"
+                                                                placeholder="Add budget"
                                                                 aria-label="Training budget utilization input"
                                                                 (ngModelChange)='onUtilizedChange($event)'
                                                                 class="form-input" autocomplete="off"
                                                                 (keypress)="keyPressNumbers($event)" maxlength="14" />
                                                             <mat-error [hidden]="false"
-                                                                i18n="Training budget utilization Error|Explains name is required"
-                                                                i18n-aria-label
                                                                 aria-label="Training budget utilization Error|Explains name is required "
                                                                 *ngIf="budgetdata?.controls['budgetutilized']?.touched && budgetdata?.controls['budgetutilized'].errors?.required">
                                                                 Field is mandatory
                                                             </mat-error>
                                                             <mat-error [hidden]="false"
-                                                                i18n="Training budget utilization Error|Explains name is required"
-                                                                i18n-aria-label
                                                                 aria-label="Training budget utilization Error|Explains name is required "
                                                                 *ngIf="utilizedChangeError">
                                                                 Projected utilization should be less than allocated
@@ -142,7 +126,7 @@
                                                 <button mat-raised-button type="submit" (click)="onSubmit(budgetdata)"
                                                     class="display-block text-white btn-success btn-responsive"
                                                     [disabled]="budgetdata?.invalid">
-                                                    <span class="text-white" i18n>Save</span>
+                                                    <span class="text-white"> Save</span>
                                                 </button>
                                             </form>
                                         </div>
@@ -222,8 +206,8 @@
                                                     <!-- <mat-icon>view_comfy</mat-icon> -->
                                                 </mat-header-cell>
                                                 <mat-cell *matCellDef="let row" class="action-cell">
-                                                    <button type="button" mat-icon-button i18n-aria-label
-                                                        aria-label="action items" [matMenuTriggerFor]="cardMenu"
+                                                    <button type="button" mat-icon-button aria-label="action items"
+                                                        [matMenuTriggerFor]="cardMenu"
                                                         [matMenuTriggerData]="{'data':row}" class="action-btn">
                                                         <mat-icon>more_horiz</mat-icon>
                                                     </button>
@@ -254,12 +238,12 @@
                                 <mat-menu #cardMenu="matMenu">
                                     <ng-template matMenuContent let-rowData="data">
                                         <button (click)="updateData(rowData)" mat-menu-item
-                                            name="channel-analytics-button" class="ws-mat-primary-text" i18n-aria-label
+                                            name="channel-analytics-button" class="ws-mat-primary-text"
                                             aria-label="Analytics">
                                             <span>Edit</span>
                                         </button>
                                         <!-- <button (click)="deleteBudgetDetails(rowData)" mat-menu-item name="channel-analytics-button"
-                                            class="ws-mat-primary-text" i18n-aria-label aria-label="Analytics">
+                                            class="ws-mat-primary-text"  aria-label="Analytics">
                                             <span>Delete</span>
                                         </button> -->
                                     </ng-template>

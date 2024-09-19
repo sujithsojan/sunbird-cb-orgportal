@@ -39,12 +39,12 @@
       <label class="mat-subheading-2 required">List of Providers</label>
       <mat-form-field appearance="outline" class="margin-top-s full-width">
         <input id="provider" matInput tab-directive type="text" placeholder="Select your provider"
-          i18n-placeholder="Providers list" formControlName="provider" [matAutocomplete]="providerAutocomplete"
-          i18n-aria-label aria-label="Providers list" i18n-aria-label aria-label="providers input" maxlength="250" />
+          ="Providers list" formControlName="provider" [matAutocomplete]="providerAutocomplete"
+           aria-label="Providers list"  aria-label="providers input" maxlength="250" />
       </mat-form-field>
-      <mat-autocomplete #providerAutocomplete="matAutocomplete" autoActiveFirstOption="true" i18n-aria-label
+      <mat-autocomplete #providerAutocomplete="matAutocomplete" autoActiveFirstOption="true"
         aria-label="Providers list" [displayWith]="displayFnState" (optionSelected)="providerSelected($event.option)">
-        <mat-option *ngFor="let option of providersList" [value]="option.name" i18n-aria-label
+        <mat-option *ngFor="let option of providersList" [value]="option.name"
           aria-label="Providers list autocomplete option">
           {{ option.name }}
         </mat-option>

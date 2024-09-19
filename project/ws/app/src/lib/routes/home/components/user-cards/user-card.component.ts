@@ -6,10 +6,12 @@ import {
 } from '@angular/core'
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { UsersService } from '../../../users/services/users.service'
-import {
-  DateAdapter, MAT_DATE_FORMATS, MatChipInputEvent, MatDialog,
-  MatExpansionPanel, MatPaginator, MatSnackBar, PageEvent,
-} from '@angular/material'
+import { MatChipInputEvent } from '@angular/material/chips';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatExpansionPanel } from '@angular/material/expansion';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { COMMA, ENTER } from '@angular/cdk/keycodes'
 // tslint:disable-next-line
 import _ from 'lodash'
@@ -56,9 +58,9 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   @Output() updateList = new EventEmitter()
   @ViewChildren(MatExpansionPanel) panels!: QueryList<MatExpansionPanel>
 
-  @ViewChild('rejectDialog', { static: false })
+  @ViewChild('rejectDialog')
   rejectDialog!: TemplateRef<any>
-  @ViewChild('updaterejectDialog', { static: false })
+  @ViewChild('updaterejectDialog')
   updaterejectDialog!: TemplateRef<any>
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | any

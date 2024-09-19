@@ -3,7 +3,8 @@ import { environment } from '../../../../../../../../../src/environments/environ
 import { ActivatedRoute } from '@angular/router'
 import * as _ from 'lodash'
 import { DesignationsService } from '../designation/services/designations.service'
-import { MatDialog, MatSnackBar } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ReportsVideoComponent } from '../reports-video/reports-video.component'
 // import { OdcsService } from '../../services/odcs.service'
 
