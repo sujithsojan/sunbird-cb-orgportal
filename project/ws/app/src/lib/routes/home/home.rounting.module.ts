@@ -242,7 +242,8 @@ const routes: Routes = [
           //   redirectTo: 'profileverification',
           // },
           {
-            path: 'profileverification',
+            // path: 'profileverification',
+            path: 'approval',
             component: ApprovalPendingComponent,
             data: {
               pageId: 'approvals-profileverification',
