@@ -666,3 +666,13 @@ h3.shepherd-title {
 .leader-line {
     z-index: 20;
 }
+
+.custom-height-odcs {
+    overflow: hidden;
+    contain: content;
+
+    .app-footer {
+    z-index: 25;
+    position: relative;
+  }
+}
