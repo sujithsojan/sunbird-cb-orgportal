@@ -54,10 +54,12 @@
           </div>
         </div>
         <div class="float-right flex items-center" *ngIf="(isMdoAdmin || isMdoLeader) && !forMentor">
+          <!-- <ng-container *ngIf="checkForMDOAdmin(user)"> -->
           <div class="button mat-body" (click)="onEditUser(user, panel);$event.stopPropagation();"
             *ngIf="currentFilter !== 'notmyuser' && !user?.enableEdit">
             <mat-icon>edit</mat-icon> Edit
           </div>
+          <!-- </ng-container> -->
           <div class="button mat-body" (click)="confirmReassign(confirm, user);$event.stopPropagation();"
             *ngIf="currentFilter === 'notmyuser'">Reassign</div>
         </div>
@@ -984,7 +986,10 @@
   <div class="confirm-dialog text-center padding-l">
     <mat-icon class="infoIcon orangeicon-dialog">error_outline</mat-icon>
     <div mat-dialog-content i18n class="margin-top-xs blue-text">
-      Are you sure you want to update?
+      <span *ngIf="currentUserStatus === 'NOT-MY-USER'">You are about to remove this user from your
+        organization. The user will lose all learning access and be moved out of
+        your organization in 48 hours unless you reverse the action from the "Not My Users" tab.</span>
+      <span *ngIf="currentUserStatus !== 'NOT-MY-USER'">Are you sure you want to update?</span>
     </div>
     <div mat-dialog-actions class="flex-center margin-top-s">
       <button mat-raised-button type="submit" [mat-dialog-close]="false"

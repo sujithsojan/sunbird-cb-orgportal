@@ -201,8 +201,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     let reqBody
     const filtreq = {
       rootOrgId: this.rootOrgId,
+      'profileDetails.profileStatus': ['VERIFIED', 'NOT-VERIFIED'],
       status: 1,
     }
+
     if (this.getFilterGroup(query) && this.getFilterGroup(query) !== 'undefind') {
       Object.assign(filtreq, { 'profileDetails.professionalDetails.group': this.getFilterGroup(query) })
     }

@@ -123,12 +123,13 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   memberAlertMessage = ''
   currentUserRole = ''
   checked = false
+  currentUserStatus = ''
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-              private dialog: MatDialog, private approvalSvc: ApprovalsService,
-              private route: ActivatedRoute, private snackBar: MatSnackBar,
-              private events: EventService,
-              private datePipe: DatePipe,
-              private cdr: ChangeDetectorRef) {
+    private dialog: MatDialog, private approvalSvc: ApprovalsService,
+    private route: ActivatedRoute, private snackBar: MatSnackBar,
+    private events: EventService,
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new FormGroup({
       designation: new FormControl('', []),
       group: new FormControl('', [Validators.required]),
@@ -403,10 +404,21 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
     this.usersSvc.getUserById(user.userId).subscribe((res: any) => {
       if (res) {
         userval = res
+        console.log('userval', userval)
         this.usersData.forEach((u: any) => {
           if (u.userId === user.userId) {
-            u.enableEdit = true
-            userval.enableEdit = true
+            if (this.isMdoLeader) {
+              u.enableEdit = true
+              userval.enableEdit = true
+            } else if (this.isMdoAdmin && userval.roles.includes('MDO_ADMIN')) {
+              u.enableEdit = false
+              userval.enableEdit = false
+              this.snackBar.open('Only MDO Leader Can Update Profile')
+            } else {
+              u.enableEdit = true
+              userval.enableEdit = true
+            }
+
           } else {
             u.enableEdit = false
           }
@@ -994,21 +1006,38 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
 
   confirmUserRequest(template: any, status: any, data: any, event: any) {
     data.enableToggle = true
-    const dialog = this.dialog.open(template, {
-      width: '500px',
-    })
-    dialog.afterClosed().subscribe((v: any) => {
-      if (v) {
-        this.markStatus(status, data)
-        data.enableToggle = false
+    this.currentUserStatus = status
+    let showPopup = true
+    if (status === 'NOT-MY-USER') {
+      if (this.isMdoLeader) {
+        showPopup = true
+      } else if (this.isMdoAdmin && data.roles.includes('MDO_ADMIN')) {
+        showPopup = false
+        this.snackBar.open('Only MDO Leader Can Update Profile')
       } else {
-        if (status === 'NOT-MY-USER') {
-          event.source.checked = true
-        } else {
-          event.source.checked = false
-        }
+        showPopup = true
       }
-    })
+    }
+
+    if (showPopup) {
+      const dialog = this.dialog.open(template, {
+        width: '500px',
+      })
+      dialog.afterClosed().subscribe((v: any) => {
+        if (v) {
+          this.markStatus(status, data)
+          data.enableToggle = false
+        } else {
+          if (status === 'NOT-MY-USER') {
+            event.source.checked = true
+          } else {
+            event.source.checked = false
+          }
+        }
+      })
+    }
+
+
   }
 
   confirmUpdate(template: any, updateUserDataForm: any, user: any, panel: any) {
@@ -1143,4 +1172,13 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
     }
     return false
   }
+
+  // checkForMDOAdmin(user: any) {
+  //   if (this.isMdoLeader) {
+  //     return true
+  //   } else {
+  //     console.log('user.roles', user)
+  //   }
+
+  // }
 }
