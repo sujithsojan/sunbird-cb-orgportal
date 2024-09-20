@@ -323,8 +323,9 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
             }
           }
         })
-        // console.log('appdata--', appdata)
-        appdata.needApprovalList.reverse()
+        if (appdata && appdata.needApprovalList && appdata.needApprovalList.length) {
+          appdata.needApprovalList.reverse()
+        }
       }
     })
 
