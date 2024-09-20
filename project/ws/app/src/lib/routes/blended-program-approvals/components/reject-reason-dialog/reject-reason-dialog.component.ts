@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material'
+import { preventHtmlAndJs } from '../../../validators/prevent-html-and-js.validator'
 
 @Component({
   selector: 'ws-app-reject-reason-dialog',
@@ -13,7 +14,7 @@ export class RejectReasonDialogComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<RejectReasonDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
     this.reasonForm = new FormGroup({
-      reason: new FormControl('', [Validators.required, Validators.maxLength(500)]),
+      reason: new FormControl('', [Validators.required, Validators.maxLength(500), preventHtmlAndJs()]),
     })
   }
 

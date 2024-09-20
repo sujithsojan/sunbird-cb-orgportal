@@ -1,4 +1,4 @@
-<div class="flex flex-1 flex-row margin-top-m margin-bottom-m">
+<div class="flex flex-1 flex-row margin-top-m margin-bottom-m justify-start">
     <div class="search flex margin-right-m" [ngClass]="{'disable': isContentLive}">
         <div class="rsearch flex w-full">
             <mat-icon
@@ -31,17 +31,20 @@
             Apply Filter <mat-icon class="margin-right-xs">filter_list</mat-icon>
         </button>
     </div>
-    <div class="flex flex-end" *ngIf="!isApprovals && currentFilter === 'allusers'">
-        <button mat-button type="button" class="search-btn" [routerLink]="['/app/home/user-creation']"
-            [ngClass]="{'disable': isContentLive}">Create user</button>
-    </div>
-    <div class="flex flex-end margin-right-s" *ngIf="isApprovals && showApproveALL">
-        <button mat-button type="button" class="search-btn" (click)="confirmApproval(approvalconfirm)"
-            [disabled]="disableApproveALL">Approve all requests</button>
-    </div>
-    <div class="flex flex-end" *ngIf="isApprovals && showBulkUpdate">
-        <button mat-button type="button" class="search-btn" [routerLink]="['/app/home/approvals/bulkupdate']"
-            [ngClass]="{'disable': isContentLive}">Bulk profile update</button>
+    <div class="flex flex-row">
+        <div class="flex flex-end" *ngIf="!isApprovals && currentFilter === 'allusers'">
+            <button mat-button type="button" class="search-btn" [routerLink]="['/app/home/user-creation']"
+                [ngClass]="{'disable': isContentLive}">Create user</button>
+        </div>
+        <div class="flex flex-end margin-right-s" *ngIf="isApprovals && showApproveALL">
+            <button mat-button type="button" class="search-btn" (click)="confirmApproval(approvalconfirm)"
+                [disabled]="disableApproveALL">Approve all requests</button>
+        </div>
+        <div class="flex flex-end" *ngIf="isApprovals && showBulkUpdate">
+            <button mat-button type="button" class="search-btn" [routerLink]="['/app/home/approvals/bulkupdate']"
+                [ngClass]="{'disable': isContentLive}">Bulk profile update</button>
+        </div>
+
     </div>
 </div>
 

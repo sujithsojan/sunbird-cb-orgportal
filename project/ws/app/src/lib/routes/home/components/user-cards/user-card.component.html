@@ -54,10 +54,12 @@
           </div>
         </div>
         <div class="float-right flex items-center" *ngIf="(isMdoAdmin || isMdoLeader) && !forMentor">
+          <!-- <ng-container *ngIf="checkForMDOAdmin(user)"> -->
           <div class="button mat-body" (click)="onEditUser(user, panel);$event.stopPropagation();"
             *ngIf="currentFilter !== 'notmyuser' && !user?.enableEdit">
             <mat-icon>edit</mat-icon> Edit
           </div>
+          <!-- </ng-container> -->
           <div class="button mat-body" (click)="confirmReassign(confirm, user);$event.stopPropagation();"
             *ngIf="currentFilter === 'notmyuser'">Reassign</div>
         </div>
@@ -323,16 +325,17 @@
               </div>
             </div>
             <!-- Cader Related Code-->
+
             <div class="flex flex-row margin-top-m">
               <div class="md:w-1/3">
                 <label class="margin-remove-bottom form-label">Are you a Cadre Employee?</label>
                 <mat-form-field appearance="outline">
                   <input type="text" matInput [disabled]="true"
-                    [value]="user?.profileDetails?.cadreDetails ? 'Yes': 'No'">
+                    [value]="user?.profileDetails?.hasOwnProperty('cadreDetails') ? (user?.profileDetails?.cadreDetails?.civilServiceType ? 'Yes': 'No') : ''">
                 </mat-form-field>
               </div>
 
-              <div class="md:w-1/3" *ngIf="user?.profileDetails?.cadreDetails">
+              <div class="md:w-1/3" *ngIf="user?.profileDetails?.cadreDetails?.civilServiceType">
                 <label class="margin-remove-bottom form-label">Type of Civil Service</label>
                 <mat-form-field appearance="outline">
                   <input type="text" matInput [disabled]="true"
@@ -340,7 +343,7 @@
                 </mat-form-field>
               </div>
 
-              <div class="md:w-1/3" *ngIf="user?.profileDetails?.cadreDetails">
+              <div class="md:w-1/3" *ngIf="user?.profileDetails?.cadreDetails?.civilServiceType">
                 <label class="margin-remove-bottom form-label">Service</label>
                 <mat-form-field appearance="outline">
                   <input type="text" matInput [disabled]="true"
@@ -349,7 +352,10 @@
               </div>
             </div>
             <div class="flex flex-row margin-top-m">
-              <div class="md:w-1/3" *ngIf="user?.profileDetails?.cadreDetails">
+              <div class="md:w-1/3" *ngIf="user?.profileDetails?.cadreDetails?.civilServiceType &&
+              (user?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Administrative Service (IAS)' ||
+            user?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Police Service (IPS)' ||
+            user?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Forest Service (IFoS)')">
                 <label class="margin-remove-bottom form-label">Cadre</label>
                 <mat-form-field appearance="outline">
                   <input type="text" matInput [disabled]="true"
@@ -357,7 +363,7 @@
                 </mat-form-field>
               </div>
 
-              <div class="md:w-1/3" *ngIf="user?.profileDetails?.cadreDetails">
+              <div class="md:w-1/3" *ngIf="user?.profileDetails?.cadreDetails?.civilServiceType">
                 <label class="margin-remove-bottom form-label">Batch</label>
                 <mat-form-field appearance="outline">
                   <input type="text" matInput [disabled]="true"
@@ -365,7 +371,7 @@
                 </mat-form-field>
               </div>
 
-              <div class="md:w-1/3" *ngIf="user?.profileDetails?.cadreDetails">
+              <div class="md:w-1/3" *ngIf="user?.profileDetails?.cadreDetails?.civilServiceType">
                 <label class="margin-remove-bottom form-label">Cadre Controlling Authority</label>
                 <mat-form-field appearance="outline">
                   <input type="text" matInput [disabled]="true"
@@ -599,23 +605,29 @@
           <div class="flex flex-row margin-top-m">
             <div class="md:w-1/4">
               <label class="view-text-label">Are you a Cadre Employee?</label>
-              <p>{{user?.profileDetails?.cadreDetails ? 'Yes': 'No'}}</p>
+              <p *ngIf="user?.profileDetails?.hasOwnProperty('cadreDetails')">
+                {{user?.profileDetails?.cadreDetails?.civilServiceType ? 'Yes': 'No'}}</p>
+              <p *ngIf="!(user?.profileDetails?.hasOwnProperty('cadreDetails'))">-</p>
             </div>
 
-            <div class="md:w-1/4" *ngIf="user?.profileDetails?.cadreDetails">
+            <div class="md:w-1/4" *ngIf="user?.profileDetails?.cadreDetails?.civilServiceType">
               <label class="view-text-label">Type of Civil Service</label>
               <p>{{user?.profileDetails?.cadreDetails?.civilServiceType ?
                 user?.profileDetails?.cadreDetails?.civilServiceType: '-'}}</p>
 
             </div>
 
-            <div class="md:w-1/4" *ngIf="user?.profileDetails?.cadreDetails">
+            <div class="md:w-1/4" *ngIf="user?.profileDetails?.cadreDetails?.civilServiceType">
               <label class="view-text-label">Service</label>
               <p>{{user?.profileDetails?.cadreDetails?.civilServiceName ?
                 user?.profileDetails?.cadreDetails?.civilServiceName: '-'}}</p>
 
             </div>
-            <div class="md:w-1/4" *ngIf="user?.profileDetails?.cadreDetails">
+            <div class="md:w-1/4" *ngIf="user?.profileDetails?.cadreDetails?.civilServiceType &&
+            (user?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Administrative Service (IAS)' ||
+            user?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Police Service (IPS)' ||
+            user?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Forest Service (IFoS)')
+            ">
               <label class="view-text-label">Cadre</label>
               <p>{{user?.profileDetails?.cadreDetails?.cadreName ? user?.profileDetails?.cadreDetails?.cadreName: '-'}}
               </p>
@@ -623,7 +635,7 @@
             </div>
           </div>
           <div class="flex flex-row margin-top-m">
-            <div class="md:w-1/4" *ngIf="user?.profileDetails?.cadreDetails">
+            <div class="md:w-1/4" *ngIf="user?.profileDetails?.cadreDetails?.civilServiceType">
               <label class="view-text-label">Batch</label>
               <p>{{user?.profileDetails?.cadreDetails?.cadreBatch ? user?.profileDetails?.cadreDetails?.cadreBatch:
                 '-'}}
@@ -631,7 +643,7 @@
 
             </div>
 
-            <div class="md:w-1/2" *ngIf="user?.profileDetails?.cadreDetails">
+            <div class="md:w-1/2" *ngIf="user?.profileDetails?.cadreDetails?.civilServiceType">
               <label class="view-text-label">Cadre Controlling Authority</label>
               <p>{{user?.profileDetails?.cadreDetails?.cadreControllingAuthorityName ?
                 user?.profileDetails?.cadreDetails?.cadreControllingAuthorityName: '-'}}</p>
@@ -731,7 +743,7 @@
                         <mat-radio-button value="rejectgroup"
                           (click)="onClickHandleWorkflow(field,'REJECT')">Reject</mat-radio-button>
                         <mat-icon class="margin-left-m editreasonicon cursor-pointer"
-                          *ngIf="field.action === 'REJECT' && comment !== ''"
+                          *ngIf="field.action === 'REJECT' && comment !== '' && !htmlDetected"
                           (click)="updateRejection(field)">chat_bubble</mat-icon>
                       </mat-radio-group>
                     </div>
@@ -757,7 +769,7 @@
                         <mat-radio-button value="rejectdesg"
                           (click)="onClickHandleWorkflow(field,'REJECT')">Reject</mat-radio-button>
                         <mat-icon class="margin-left-m editreasonicon cursor-pointer"
-                          *ngIf="field.action === 'REJECT' && comment !== ''"
+                          *ngIf="field.action === 'REJECT' && comment !== '' && !htmlDetected"
                           (click)="updateRejection(field)">chat_bubble</mat-icon>
                       </mat-radio-group>
                     </div>
@@ -872,13 +884,17 @@
             <div class="flex flex-row margin-top-m">
               <div class="md:w-1/1">
                 <label class="view-text-label">Roles</label>
-                <div *ngIf="appData?.user?.organisations && appData?.user?.organisations[0]?.roles.length > 0">
+                <div *ngIf="appData?.user?.organisations && appData?.user?.organisations[0]?.roles && appData?.user?.organisations[0]?.roles.length
+                 &&  appData?.user?.organisations[0]?.roles.length > 0">
                   <ul class="roleslist">
                     <li *ngFor="let t of appData?.user?.organisations[0]?.roles">{{t}}
                     </li>
                   </ul>
                 </div>
-                <p *ngIf="appData?.user?.organisations && appData?.user?.organisations[0].roles.length === 0">-</p>
+                <p
+                  *ngIf="appData?.user?.organisations && appData?.user?.organisations[0].roles &&
+                    appData?.user?.organisations[0].roles.length && appData?.user?.organisations[0].roles.length === 0">
+                  -</p>
               </div>
             </div>
           </div>
@@ -914,7 +930,7 @@
 
 <div class="flex flex-row justify-center" *ngIf="totalRecords">
   <mat-paginator [pageSize]="pageSize" [length]="totalRecords" [pageSizeOptions]="[20,30,40]"
-    (page)="onChangePage($event)"></mat-paginator>
+    (page)="onChangePage($event)" showFirstLastButtons="true"></mat-paginator>
 </div>
 
 <ng-template #rejectDialog>
@@ -924,12 +940,16 @@
       <mat-form-field class="w-full mt-5" appearance="outline">
         <textarea matInput class="reason-text-area" [(ngModel)]="comment" name="reason"
           placeholder="Type the description in fewer than 100 characters" i18n-placeholder resizable="none"
-          maxlength="100"></textarea>
+          maxlength="100" (input)="validateText($event.target.value)"></textarea>
+        <mat-error [hidden]="false" i18n="Budget year Error|Explains name is required" i18n-aria-label
+          aria-label="Budget year Error|Explains name is required" *ngIf="htmlDetected">
+          Field is mandatory
+        </mat-error>
       </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions class="flex flex-wrap justify-end">
       <button mat-raised-button class="btn-success btn-responsive successbtn" [mat-dialog-close]="true"
-        [disabled]="!comment">
+        [disabled]="!comment || htmlDetected">
         <span class="text-white">Submit</span></button>
       <button mat-raised-button class="btn-success btn-responsive cancelbtn" matDialogClose>Cancel</button>
     </mat-dialog-actions>
@@ -946,11 +966,12 @@
       <mat-form-field class="w-full mt-5" appearance="outline" *ngIf="showeditText">
         <textarea matInput class="reason-text-area" [(ngModel)]="comment" name="reason"
           placeholder="Type the description in fewer than 100 characters" i18n-placeholder resizable="none"
-          maxlength="100"></textarea>
+          maxlength="100" (input)="validateText($event.target.value)"></textarea>
       </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions class="flex flex-wrap justify-end" *ngIf="showeditText">
-      <button mat-raised-button class="btn-success btn-responsive successbtn" [mat-dialog-close]="true">
+      <button mat-raised-button class="btn-success btn-responsive successbtn" [disabled]="!comment || htmlDetected"
+        [mat-dialog-close]="true">
         <span class="text-white">Update</span></button>
       <button mat-raised-button class="btn-success btn-responsive cancelbtn" matDialogClose>Cancel</button>
     </mat-dialog-actions>
@@ -984,7 +1005,10 @@
   <div class="confirm-dialog text-center padding-l">
     <mat-icon class="infoIcon orangeicon-dialog">error_outline</mat-icon>
     <div mat-dialog-content i18n class="margin-top-xs blue-text">
-      Are you sure you want to update?
+      <span *ngIf="currentUserStatus === 'NOT-MY-USER'">You are about to remove this user from your
+        organization. The user will lose all learning access and be moved out of
+        your organization in 48 hours unless you reverse the action from the "Not My Users" tab.</span>
+      <span *ngIf="currentUserStatus !== 'NOT-MY-USER'">Are you sure you want to update?</span>
     </div>
     <div mat-dialog-actions class="flex-center margin-top-s">
       <button mat-raised-button type="submit" [mat-dialog-close]="false"

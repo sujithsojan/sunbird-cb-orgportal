@@ -1,5 +1,6 @@
 import {
   AfterViewChecked,
+  AfterViewInit,
   ChangeDetectorRef,
   Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output,
   QueryList, TemplateRef, ViewChild, ViewChildren,
@@ -39,7 +40,7 @@ const EMAIL_PATTERN = /^[a-zA-Z0-9]+[a-zA-Z0-9._-]*[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[
     { provide: MAT_DATE_FORMATS, useValue: APP_DATE_FORMATS },
   ],
 })
-export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
+export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, AfterViewInit {
   @Input() userId: any
   @Input() tableData: any
   @Input() usersData: any
@@ -50,6 +51,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   @Input() handleApiData: any
   @Input() activeTab: any
   @Input() forMentor = false
+  @Input() pendingApprovals?: any = []
   @Output() paginationData = new EventEmitter()
   @Output() searchByEnterKey = new EventEmitter()
   @Output() disableButton = new EventEmitter()
@@ -61,7 +63,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   @ViewChild('updaterejectDialog', { static: false })
   updaterejectDialog!: TemplateRef<any>
 
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | any
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator | any
 
   @ViewChild('toggleElement', { static: true }) ref!: ElementRef
 
@@ -69,7 +71,9 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   lastIndex = 20
   pageSize = 20
 
-  // userStatus: any
+  cacheProfilePageIndex = 0
+  cacheTransferPageIndex = 0
+
   rolesList: any = []
   rolesObject: any = []
   uniqueRoles: any = []
@@ -106,6 +110,9 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   yearPattern = '(^[0-9]{4}$)'
   empIDPattern = `^[A-Za-z0-9]+$`
 
+  noHtmlCharacter = new RegExp(/<[^>]*>|(function[^\s]+)|(javascript:[^\s]+)/i)
+  htmlDetected = false
+
   userGroup: any
 
   otpSend = false
@@ -123,6 +130,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   memberAlertMessage = ''
   currentUserRole = ''
   checked = false
+  currentUserStatus = ''
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
               private dialog: MatDialog, private approvalSvc: ApprovalsService,
               private route: ActivatedRoute, private snackBar: MatSnackBar,
@@ -189,6 +197,13 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   }
 
   ngOnInit() {
+    const cacheValProfile = localStorage.getItem('profileverificationOffset')
+    const cacheValTransfer = localStorage.getItem('transferOffset')
+    const storedPageSize = localStorage.getItem(`${this.currentFilter}PageSize`)
+    this.cacheProfilePageIndex = cacheValProfile !== null ? parseInt(cacheValProfile, 10) : 0
+    this.cacheTransferPageIndex = cacheValTransfer !== null ? parseInt(cacheValTransfer, 10) : 0
+    this.pageSize = storedPageSize !== null ? parseInt(storedPageSize, 10) : 20
+
     if (this.isApprovals && this.usersData) {
       this.getApprovalData()
     } else {
@@ -196,7 +211,20 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
     }
   }
 
+  ngAfterViewInit() {
+    if (this.paginator) {
+      if (this.currentFilter === 'profileverification') {
+        this.paginator.pageIndex = this.cacheProfilePageIndex
+      } else if (this.currentFilter === 'transfers') {
+        this.paginator.pageIndex = this.cacheTransferPageIndex
+      }
+      this.paginator.pageSize = this.pageSize
+      this.cdr.detectChanges()
+    }
+  }
+
   ngOnChanges() {
+
     if (this.usersData) {
       this.usersData = _.orderBy(this.usersData, item => {
         if (item.profileDetails && item.profileDetails.personalDetails) {
@@ -403,10 +431,21 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
     this.usersSvc.getUserById(user.userId).subscribe((res: any) => {
       if (res) {
         userval = res
+        // console.log('userval', userval)
         this.usersData.forEach((u: any) => {
           if (u.userId === user.userId) {
-            u.enableEdit = true
-            userval.enableEdit = true
+            if (this.isMdoLeader) {
+              u.enableEdit = true
+              userval.enableEdit = true
+            } else if (this.isMdoAdmin && userval.roles.includes('MDO_ADMIN')) {
+              u.enableEdit = false
+              userval.enableEdit = false
+              this.snackBar.open('Only MDO Leader Can Update Profile')
+            } else {
+              u.enableEdit = true
+              userval.enableEdit = true
+            }
+
           } else {
             u.enableEdit = false
           }
@@ -634,11 +673,16 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   }
 
   onChangePage(pe: PageEvent) {
-    this.startIndex = (pe.pageIndex) * pe.pageSize
-    this.lastIndex = pe.pageSize
-    this.paginationData.emit({ pageIndex: this.startIndex, pageSize: pe.pageSize })
+    if (this.isApprovals) {
+      this.startIndex = pe.pageIndex
+      this.lastIndex = pe.pageSize
+      this.paginationData.emit({ pageIndex: this.startIndex, pageSize: pe.pageSize })
+    } else {
+      this.startIndex = (pe.pageIndex) * pe.pageSize
+      this.lastIndex = pe.pageSize
+      this.paginationData.emit({ pageIndex: this.startIndex, pageSize: pe.pageSize })
+    }
   }
-
   onSearch(event: any) {
     this.searchByEnterKey.emit(event)
   }
@@ -889,6 +933,16 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
 
   }
 
+  validateText(text: any) {
+    const regexMatch = text.match(this.noHtmlCharacter)
+    if (regexMatch) {
+      this.htmlDetected = true
+      this.snackBar.open('HTML or Js is not allowed')
+    } else {
+      this.htmlDetected = false
+    }
+  }
+
   updateRejection(field: any) {
     this.comment = field.comment
     const dialogRef = this.dialog.open(this.updaterejectDialog, {
@@ -992,23 +1046,56 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
     })
   }
 
-  confirmUserRequest(template: any, status: any, data: any, event: any) {
+  confirmUserRequest(template: any, status: any, data: any, event: any): any {
     data.enableToggle = true
-    const dialog = this.dialog.open(template, {
-      width: '500px',
-    })
-    dialog.afterClosed().subscribe((v: any) => {
-      if (v) {
-        this.markStatus(status, data)
-        data.enableToggle = false
-      } else {
-        if (status === 'NOT-MY-USER') {
-          event.source.checked = true
-        } else {
-          event.source.checked = false
+    this.currentUserStatus = status
+    let showPopup = true
+    if (status === 'NOT-MY-USER') {
+      let checkPendingApprovals = false
+      // tslint:disable
+      for (let i = 0; i < this.pendingApprovals.length; i++) {
+        if (this.pendingApprovals[i] && this.pendingApprovals[i]['userInfo']
+          && this.pendingApprovals[i]['userInfo']['wid'] === data.userId
+          && this.pendingApprovals[i]['wfInfo']
+          && this.pendingApprovals[i]['wfInfo'].length
+        ) {
+          checkPendingApprovals = true
         }
       }
-    })
+      // tslint:enable
+      if (checkPendingApprovals) {
+        this.snackBar.open('Please update the approval request of this user from the approvals tab to perform this action')
+        event.source.checked = true
+        return false
+      }
+      if (this.isMdoLeader) {
+        showPopup = true
+      } else if (this.isMdoAdmin && data.roles.includes('MDO_ADMIN')) {
+        showPopup = false
+        this.snackBar.open('Only MDO Leader Can Update Profile')
+      } else {
+        showPopup = true
+      }
+    }
+
+    if (showPopup) {
+      const dialog = this.dialog.open(template, {
+        width: '500px',
+      })
+      dialog.afterClosed().subscribe((v: any) => {
+        if (v) {
+          this.markStatus(status, data)
+          data.enableToggle = false
+        } else {
+          if (status === 'NOT-MY-USER') {
+            event.source.checked = true
+          } else {
+            event.source.checked = false
+          }
+        }
+      })
+    }
+
   }
 
   confirmUpdate(template: any, updateUserDataForm: any, user: any, panel: any) {
@@ -1143,4 +1230,13 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
     }
     return false
   }
+
+  // checkForMDOAdmin(user: any) {
+  //   if (this.isMdoLeader) {
+  //     return true
+  //   } else {
+  //     console.log('user.roles', user)
+  //   }
+
+  // }
 }

@@ -14,6 +14,7 @@ import { UsersService } from '../../../users/services/users.service'
 import { LoaderService } from '../../../../../../../../../src/app/services/loader.service'
 import { TelemetryEvents } from '../../../../head/_services/telemetry.event.model'
 import { ReportsVideoComponent } from '../reports-video/reports-video.component'
+import { ApprovalsService } from '../../services/approvals.service'
 
 @Component({
   selector: 'ws-app-users-view',
@@ -70,7 +71,8 @@ export class UsersViewComponent implements OnInit, OnDestroy {
   sortOrder: any
   searchText = ''
   filterFacets = []
-
+  departName = ''
+  pendingApprovals: any = []
   constructor(
     public dialog: MatDialog,
     private route: ActivatedRoute,
@@ -79,13 +81,14 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     private loaderService: LoaderService,
     private sanitizer: DomSanitizer,
     // private configSvc: ConfigurationsService,
-    private usersService: UsersService
+    private usersService: UsersService,
+    private apprService: ApprovalsService,
   ) {
     this.Math = Math
     this.configSvc = this.route.parent && this.route.parent.snapshot.data.configService
     this.currentUser = this.configSvc.userProfile && this.configSvc.userProfile.userId
     this.currentUserStatus = this.configSvc.unMappedUser.profileDetails.profileStatus
-
+    this.departName = _.get(this.route, 'parent.snapshot.data.configService.unMappedUser.channel')
     // this.usersData = _.get(this.route, 'snapshot.data.usersList.data') || {}
     // this.filterData()
   }
@@ -107,7 +110,7 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     this.getAllUsers('')
     this.getVUsers('')
     this.getNVUsers('')
-
+    this.fetchApprovals()
     this.reportsNoteList = [
       `Easily create users individually or in bulk.`,
       `Edit any user profile within your organization.`,
@@ -159,6 +162,7 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     } else if (this.currentFilter === 'verified') {
       this.getVUsers(query)
     } else if (this.currentFilter === 'nonverified') {
+      this.fetchApprovals()
       this.getNVUsers(query)
     } else if (this.currentFilter === 'notmyuser') {
       this.getNMUsers(query)
@@ -201,8 +205,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     let reqBody
     const filtreq = {
       rootOrgId: this.rootOrgId,
+      'profileDetails.profileStatus': ['VERIFIED', 'NOT-VERIFIED'],
       status: 1,
     }
+
     if (this.getFilterGroup(query) && this.getFilterGroup(query) !== 'undefind') {
       Object.assign(filtreq, { 'profileDetails.professionalDetails.group': this.getFilterGroup(query) })
     }
@@ -234,6 +240,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       },
     }
     this.usersService.getAllKongUsers(reqBody).subscribe((data: any) => {
+      // const allusersData = data.result.response
+      // this.activeUsersData = allusersData.content
+      // // this.activeUsersData = this.activeUsersData.filter((wf: any) => wf.profileDetails.profileStatus !== 'NOT-MY-USER')
+      // this.activeUsersDataCount = allusersData.count
       const allusersData = data && data.result && data.result.response
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
@@ -344,6 +354,20 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       },
     }
     this.usersService.getAllKongUsers(reqBody).subscribe((data: any) => {
+      // const allusersData = data.result.response
+      // this.verifiedUsersData = allusersData.content
+      // this.verifiedUsersDataCount = data.result.response.count
+      // this.verifiedUsersData = allusersData.content
+      // this.verifiedUsersDataCount = data.result.response.count
+      // this.filterFacets = allusersData.facets ? allusersData.facets : []
+
+      // if (this.currentUserStatus === 'VERIFIED') {
+      //   const i = this.verifiedUsersData.findIndex((wf: any) => wf.userId === this.currentUser)
+      //   if (i > -1) {
+      //     this.verifiedUsersData.splice(i, 1)
+      //     this.verifiedUsersDataCount = this.verifiedUsersDataCount ? this.verifiedUsersDataCount - 1 : this.verifiedUsersDataCount
+      //   }
+      // }
       const allusersData = data && data.result && data.result.response
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
@@ -415,17 +439,6 @@ export class UsersViewComponent implements OnInit, OnDestroy {
         this.verifiedUsersData = allusersData.content
         this.verifiedUsersDataCount = data.result.response.count
       }
-      // this.verifiedUsersData = allusersData.content
-      // this.verifiedUsersDataCount = data.result.response.count
-      // this.filterFacets = allusersData.facets ? allusersData.facets : []
-
-      // if (this.currentUserStatus === 'VERIFIED') {
-      //   const i = this.verifiedUsersData.findIndex((wf: any) => wf.userId === this.currentUser)
-      //   if (i > -1) {
-      //     this.verifiedUsersData.splice(i, 1)
-      //     this.verifiedUsersDataCount = this.verifiedUsersDataCount ? this.verifiedUsersDataCount - 1 : this.verifiedUsersDataCount
-      //   }
-      // }
     })
   }
 
@@ -468,19 +481,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       },
     }
     this.usersService.getAllKongUsers(reqBody).subscribe((data: any) => {
-      const allusersData = data && data.result && data.result.response
+      // const allusersData = data.result.response
       // this.nonverifiedUsersData = allusersData.content
       // this.nonverifiedUsersDataCount = data.result.response.count
-      // this.filterFacets = allusersData.facets ? allusersData.facets : []
-
-      // if (this.currentUserStatus === 'NOT-VERIFIED') {
-      //   const i = this.nonverifiedUsersData.findIndex((wf: any) => wf.userId === this.currentUser)
-      //   if (i > -1) {
-      //     this.nonverifiedUsersData.splice(i, 1)
-      //     this.nonverifiedUsersDataCount = this.nonverifiedUsersDataCount ?
-      //       this.nonverifiedUsersDataCount - 1 : this.nonverifiedUsersDataCount
-      //   }
-      // }
+      const allusersData = data && data.result && data.result.response
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
       if (searchText && searchText.length && searchText.length > 0) {
@@ -593,10 +597,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       },
     }
     this.usersService.getAllKongUsers(reqBody).subscribe((data: any) => {
-      const allusersData = data && data.result && data.result.response
+      // const allusersData = data.result.response
       // this.notmyuserUsersData = allusersData.content
       // this.notmyuserUsersDataCount = data.result.response.count
-      // this.filterFacets = allusersData.facets ? allusersData.facets : []
+      const allusersData = data && data.result && data.result.response
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
       if (searchText && searchText.length && searchText.length > 0) {
@@ -762,5 +766,25 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     this.pageIndex = event.pageIndex
     this.limit = event.pageSize
     this.filterData(this.searchQuery)
+  }
+
+  fetchApprovals() {
+    if (this.departName) {
+      const req = {
+        serviceName: 'profile',
+        applicationStatus: 'SEND_FOR_APPROVAL',
+        requestType: ['GROUP_CHANGE', 'DESIGNATION_CHANGE'],
+        deptName: this.departName,
+      }
+      this.apprService.getApprovalsList(req).subscribe((res: any) => {
+        if (res && res.result) {
+          // console.log('res--', res)
+          if (res && res.result && res.result.data && res.result.data.length) {
+            this.pendingApprovals = res.result.data
+          }
+
+        }
+      })
+    }
   }
 }
