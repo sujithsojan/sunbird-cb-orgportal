@@ -234,6 +234,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       },
     }
     this.usersService.getAllKongUsers(reqBody).subscribe((data: any) => {
+      // const allusersData = data.result.response
+      // this.activeUsersData = allusersData.content
+      // // this.activeUsersData = this.activeUsersData.filter((wf: any) => wf.profileDetails.profileStatus !== 'NOT-MY-USER')
+      // this.activeUsersDataCount = allusersData.count
       const allusersData = data && data.result && data.result.response
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
@@ -344,6 +348,20 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       },
     }
     this.usersService.getAllKongUsers(reqBody).subscribe((data: any) => {
+      // const allusersData = data.result.response
+      // this.verifiedUsersData = allusersData.content
+      // this.verifiedUsersDataCount = data.result.response.count
+      // this.verifiedUsersData = allusersData.content
+      // this.verifiedUsersDataCount = data.result.response.count
+      // this.filterFacets = allusersData.facets ? allusersData.facets : []
+
+      // if (this.currentUserStatus === 'VERIFIED') {
+      //   const i = this.verifiedUsersData.findIndex((wf: any) => wf.userId === this.currentUser)
+      //   if (i > -1) {
+      //     this.verifiedUsersData.splice(i, 1)
+      //     this.verifiedUsersDataCount = this.verifiedUsersDataCount ? this.verifiedUsersDataCount - 1 : this.verifiedUsersDataCount
+      //   }
+      // }
       const allusersData = data && data.result && data.result.response
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
@@ -415,17 +433,6 @@ export class UsersViewComponent implements OnInit, OnDestroy {
         this.verifiedUsersData = allusersData.content
         this.verifiedUsersDataCount = data.result.response.count
       }
-      // this.verifiedUsersData = allusersData.content
-      // this.verifiedUsersDataCount = data.result.response.count
-      // this.filterFacets = allusersData.facets ? allusersData.facets : []
-
-      // if (this.currentUserStatus === 'VERIFIED') {
-      //   const i = this.verifiedUsersData.findIndex((wf: any) => wf.userId === this.currentUser)
-      //   if (i > -1) {
-      //     this.verifiedUsersData.splice(i, 1)
-      //     this.verifiedUsersDataCount = this.verifiedUsersDataCount ? this.verifiedUsersDataCount - 1 : this.verifiedUsersDataCount
-      //   }
-      // }
     })
   }
 
@@ -468,19 +475,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       },
     }
     this.usersService.getAllKongUsers(reqBody).subscribe((data: any) => {
-      const allusersData = data && data.result && data.result.response
+      // const allusersData = data.result.response
       // this.nonverifiedUsersData = allusersData.content
       // this.nonverifiedUsersDataCount = data.result.response.count
-      // this.filterFacets = allusersData.facets ? allusersData.facets : []
-
-      // if (this.currentUserStatus === 'NOT-VERIFIED') {
-      //   const i = this.nonverifiedUsersData.findIndex((wf: any) => wf.userId === this.currentUser)
-      //   if (i > -1) {
-      //     this.nonverifiedUsersData.splice(i, 1)
-      //     this.nonverifiedUsersDataCount = this.nonverifiedUsersDataCount ?
-      //       this.nonverifiedUsersDataCount - 1 : this.nonverifiedUsersDataCount
-      //   }
-      // }
+      const allusersData = data && data.result && data.result.response
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
       if (searchText && searchText.length && searchText.length > 0) {
@@ -593,10 +591,10 @@ export class UsersViewComponent implements OnInit, OnDestroy {
       },
     }
     this.usersService.getAllKongUsers(reqBody).subscribe((data: any) => {
-      const allusersData = data && data.result && data.result.response
+      // const allusersData = data.result.response
       // this.notmyuserUsersData = allusersData.content
       // this.notmyuserUsersDataCount = data.result.response.count
-      // this.filterFacets = allusersData.facets ? allusersData.facets : []
+      const allusersData = data && data.result && data.result.response
       const userContent = allusersData.content
       const searchText = this.getSearchText(query).toLowerCase()
       if (searchText && searchText.length && searchText.length > 0) {
