@@ -774,11 +774,11 @@ export class UsersViewComponent implements OnInit, OnDestroy {
         serviceName: 'profile',
         applicationStatus: 'SEND_FOR_APPROVAL',
         requestType: ['GROUP_CHANGE', 'DESIGNATION_CHANGE'],
-        deptName: this.departName
+        deptName: this.departName,
       }
       this.apprService.getApprovalsList(req).subscribe((res: any) => {
         if (res && res.result) {
-          console.log('res--', res)
+          // console.log('res--', res)
           if (res && res.result && res.result.data && res.result.data.length) {
             this.pendingApprovals = res.result.data
           }

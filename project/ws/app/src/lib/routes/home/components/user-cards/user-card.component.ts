@@ -132,11 +132,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   checked = false
   currentUserStatus = ''
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-    private dialog: MatDialog, private approvalSvc: ApprovalsService,
-    private route: ActivatedRoute, private snackBar: MatSnackBar,
-    private events: EventService,
-    private datePipe: DatePipe,
-    private cdr: ChangeDetectorRef) {
+              private dialog: MatDialog, private approvalSvc: ApprovalsService,
+              private route: ActivatedRoute, private snackBar: MatSnackBar,
+              private events: EventService,
+              private datePipe: DatePipe,
+              private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new FormGroup({
       designation: new FormControl('', []),
       group: new FormControl('', [Validators.required]),
@@ -431,7 +431,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
     this.usersSvc.getUserById(user.userId).subscribe((res: any) => {
       if (res) {
         userval = res
-        console.log('userval', userval)
+        // console.log('userval', userval)
         this.usersData.forEach((u: any) => {
           if (u.userId === user.userId) {
             if (this.isMdoLeader) {
@@ -1052,6 +1052,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
     let showPopup = true
     if (status === 'NOT-MY-USER') {
       let checkPendingApprovals = false
+      // tslint:disable
       for (let i = 0; i < this.pendingApprovals.length; i++) {
         if (this.pendingApprovals[i] && this.pendingApprovals[i]['userInfo']
           && this.pendingApprovals[i]['userInfo']['wid'] === data.userId
@@ -1061,6 +1062,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
           checkPendingApprovals = true
         }
       }
+      // tslint:enable
       if (checkPendingApprovals) {
         this.snackBar.open('Please update the approval request of this user from the approvals tab to perform this action')
         event.source.checked = true
@@ -1093,7 +1095,6 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
         }
       })
     }
-
 
   }
 
