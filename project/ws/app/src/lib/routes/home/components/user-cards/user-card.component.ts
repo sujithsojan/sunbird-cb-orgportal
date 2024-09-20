@@ -124,11 +124,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   currentUserRole = ''
   checked = false
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-              private dialog: MatDialog, private approvalSvc: ApprovalsService,
-              private route: ActivatedRoute, private snackBar: MatSnackBar,
-              private events: EventService,
-              private datePipe: DatePipe,
-              private cdr: ChangeDetectorRef) {
+    private dialog: MatDialog, private approvalSvc: ApprovalsService,
+    private route: ActivatedRoute, private snackBar: MatSnackBar,
+    private events: EventService,
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new FormGroup({
       designation: new FormControl('', []),
       group: new FormControl('', [Validators.required]),
@@ -404,7 +404,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
       if (res) {
         userval = res
         this.usersData.forEach((u: any) => {
-          if (u.userId === user.userId) {
+          if (u.userId === user.userId && ((this.isMdoAdmin && !user.organisations[0].roles.includes('MDO_ADMIN')) || (this.isMdoLeader))) {
             u.enableEdit = true
             userval.enableEdit = true
           } else {
