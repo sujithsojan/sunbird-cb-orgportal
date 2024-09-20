@@ -9,6 +9,7 @@ import { ConfirmationBoxComponent } from '../../../../training-plan/components/c
 /* tslint:disable */
 import _ from 'lodash'
 import { debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators'
+import { preventHtmlAndJs } from '../../../../validators/prevent-html-and-js.validator'
 /* tslint:enable */
 
 @Component({
@@ -81,7 +82,7 @@ export class CreateRequestFormComponent implements OnInit {
       userType: new FormControl('', [Validators.pattern(this.noSpecialChar)]),
       learningMode: new FormControl(''),
       compArea: new FormControl(''),
-      referenceLink: new FormControl(''),
+      referenceLink: new FormControl('', [preventHtmlAndJs()]),
       requestType: new FormControl('', Validators.required),
       assignee: new FormControl(''),
       providers: new FormControl([[]]),

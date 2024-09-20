@@ -44,6 +44,14 @@
                                             *ngIf="staffdata?.controls['posfilled']?.touched && staffdata?.controls['posfilled'].errors?.required">
                                             Field is mandatory
                                         </mat-error>
+                                        <mat-error [hidden]="false"
+                                            i18n="Total positions filled Error|Explains name is required"
+                                            i18n-aria-label
+                                            aria-label="Total positions filled Error|Explains name is required " *ngIf="staffdata?.controls['posfilled']?.touched &&
+                                                !staffdata?.controls['posfilled'].errors?.required &&
+                                                staffdata?.controls['posfilled'].errors?.hasHtml">
+                                            HTML or Js is not allowed
+                                        </mat-error>
                                     </mat-form-field>
                                 </div>
                                 <div class="display-inline-block margin-right-xl">
@@ -61,6 +69,14 @@
                                             aria-label="Total positions vacant Error|Explains name is required "
                                             *ngIf="staffdata?.controls['posvacant']?.touched && staffdata?.controls['posvacant'].errors?.required">
                                             Field is mandatory
+                                        </mat-error>
+                                        <mat-error [hidden]="false"
+                                            i18n="Total positions filled Error|Explains name is required"
+                                            i18n-aria-label
+                                            aria-label="Total positions filled Error|Explains name is required " *ngIf="staffdata?.controls['posvacant']?.touched &&
+                                                !staffdata?.controls['posvacant'].errors?.required &&
+                                                staffdata?.controls['posvacant'].errors?.hasHtml">
+                                            HTML or Js is not allowed
                                         </mat-error>
                                     </mat-form-field>
                                 </div>

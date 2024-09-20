@@ -47,6 +47,13 @@
                                     *ngIf="schemeform?.controls['schemename']?.touched && schemeform?.controls['schemename'].errors?.required">
                                     Field is mandatory
                                 </mat-error>
+                                <mat-error [hidden]="false" i18n="Budget allocated Error|Explains name is required"
+                                    i18n-aria-label aria-label="Budget allocated Error|Explains name is required "
+                                    *ngIf="schemeform?.controls['schemename']?.touched &&
+                                                                    !schemeform?.controls['schemename'].errors?.required &&
+                                                                    schemeform?.controls['schemename'].errors?.hasHtml">
+                                    HTML or Js is not allowed
+                                </mat-error>
                             </mat-form-field>
                         </div>
                         <div class="width-44 display-inline-block formgroup margin-right-xl margin-bottom-s">
@@ -80,6 +87,13 @@
                                     aria-label="Budget utilized Error|Explains name is required "
                                     *ngIf="schemeform?.controls['budgetutilized']?.touched && schemeform?.controls['budgetutilized'].errors?.required">
                                     Field is mandatory
+                                </mat-error>
+                                <mat-error [hidden]="false" i18n="Budget allocated Error|Explains name is required"
+                                    i18n-aria-label aria-label="Budget allocated Error|Explains name is required "
+                                    *ngIf="schemeform?.controls['budgetutilized']?.touched &&
+                                            !schemeform?.controls['budgetutilized'].errors?.required &&
+                                            schemeform?.controls['budgetutilized'].errors?.hasHtml">
+                                    HTML or Js is not allowed
                                 </mat-error>
                             </mat-form-field>
                         </div>

@@ -42,7 +42,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   department: any = {}
   departmentName = ''
   subscription: Subscription
-  containerCustomCls: boolean = false
+  containerCustomCls = false
 
   @HostListener('window:scroll', ['$event'])
   handleScroll() {
@@ -75,7 +75,7 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        let urlData = _.get(this.activeRoute, 'snapshot._routerState.url')
+        const urlData = _.get(this.activeRoute, 'snapshot._routerState.url')
         this.containerCustomCls = urlData && urlData.includes('odcs-mapping') ? true : false
 
         if (this.containerCustomCls) {

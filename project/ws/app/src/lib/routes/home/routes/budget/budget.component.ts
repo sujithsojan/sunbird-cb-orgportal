@@ -14,6 +14,7 @@ import { BudgetproofspopupComponent } from '../../components/budgetproofspopup/b
 import { MdoInfoService } from '../../services/mdoinfo.service'
 import { ConfigurationsService } from '@sunbird-cb/utils'
 import { ActivatedRoute } from '@angular/router'
+import { preventHtmlAndJs } from '../../../validators/prevent-html-and-js.validator'
 
 @Component({
   selector: 'ws-app-budget',
@@ -95,9 +96,9 @@ export class BudgetComponent implements OnInit, OnChanges {
     private mdoinfoSrvc: MdoInfoService, private activeRoute: ActivatedRoute) {
     this.budgetdata = new FormGroup({
       budgetyear: new FormControl('', [Validators.required]),
-      salarybudget: new FormControl('', [Validators.required]),
-      trainingbudget: new FormControl('', [Validators.required]),
-      budgetutilized: new FormControl('', [Validators.required]),
+      salarybudget: new FormControl('', [Validators.required, preventHtmlAndJs()]),
+      trainingbudget: new FormControl('', [Validators.required, preventHtmlAndJs()]),
+      budgetutilized: new FormControl('', [Validators.required, preventHtmlAndJs()]),
     })
     // this.dataSource1 = new MatTableDataSource<any>()
     this.dataSource = new MatTableDataSource<any>()
