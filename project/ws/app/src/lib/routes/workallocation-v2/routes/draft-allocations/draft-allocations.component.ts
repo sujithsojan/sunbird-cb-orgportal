@@ -1,6 +1,6 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core'
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog'
+import { MatPaginator } from '@angular/material/paginator'
 import { Router, ActivatedRoute } from '@angular/router'
 import { EventService } from '@sunbird-cb/utils'
 /* tslint:disable */

@@ -3,8 +3,8 @@ import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router'
 import moment from 'moment'
 import { FormGroup, FormControl, Validators } from '@angular/forms'
 import { UsersService } from '../../services/users.service'
-import { MatChipInputEvent } from '@angular/material/chips';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatChipInputEvent } from '@angular/material/chips'
+import { MatSnackBar } from '@angular/material/snack-bar'
 // tslint:disable-next-line
 import _ from 'lodash'
 import { EventService } from '@sunbird-cb/utils'

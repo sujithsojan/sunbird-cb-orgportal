@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MatTableDataSource } from '@angular/material/table'
 import { UploadService } from '../../services/upload.service'
 // import { Observable } from 'rxjs'
 // import { HttpEventType, HttpResponse } from '@angular/common/http'

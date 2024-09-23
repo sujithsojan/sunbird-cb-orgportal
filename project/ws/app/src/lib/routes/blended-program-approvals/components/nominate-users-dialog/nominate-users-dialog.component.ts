@@ -1,8 +1,8 @@
 import { SelectionModel } from '@angular/cdk/collections'
 import { Component, Inject, OnInit, ViewChild } from '@angular/core'
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatTableDataSource } from '@angular/material/table'
 import { UsersService } from '../../../users/services/users.service'
 import { MatSort } from '@angular/material/sort'
 import { BlendedApporvalService } from '../../services/blended-approval.service'

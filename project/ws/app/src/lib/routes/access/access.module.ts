@@ -14,8 +14,8 @@ import { HomeModule } from '../home/home.module'
 import { RouterModule } from '@angular/router'
 import { UsersComponent } from './routes/users/users.component'
 import { UsersService } from './services/users.service'
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon'
+import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatCardModule } from '@angular/material/card'
 
 @NgModule({

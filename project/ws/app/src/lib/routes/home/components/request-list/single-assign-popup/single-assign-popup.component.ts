@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatTableDataSource } from '@angular/material/table';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
+import { MatTableDataSource } from '@angular/material/table'
 import { MatPaginator } from '@angular/material/paginator'
 import { ProfileV2Service } from '../../../services/home.servive'
 import { ConfigResolveService } from '../../../resolvers/config-resolve.service'

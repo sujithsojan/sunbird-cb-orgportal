@@ -12,8 +12,7 @@
           *ngIf="reasonForm?.controls['reason']?.touched && reasonForm?.controls['reason'].errors?.required">
           Reason is required
         </mat-error>
-        <mat-error [hidden]="false" i18n="Budget year Error|Explains name is required" i18n-aria-label
-          aria-label="Budget year Error|Explains name is required"
+        <mat-error [hidden]="false" aria-label="Budget year Error|Explains name is required"
           *ngIf="reasonForm?.controls['reason']?.touched && !reasonForm?.controls['reason'].errors?.required && reasonForm?.controls['reason'].errors?.hasHtml">
           HTML or Js is not allowed
         </mat-error>

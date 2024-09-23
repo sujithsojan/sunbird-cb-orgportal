@@ -404,7 +404,7 @@ const routes: Routes = [
     urlUpdateStrategy: 'eager',
     onSameUrlNavigation: 'reload',
     scrollOffset: [0, 80],
-    relativeLinkResolution: 'legacy'
+    relativeLinkResolution: 'legacy',
 }),
   ],
   exports: [RouterModule],

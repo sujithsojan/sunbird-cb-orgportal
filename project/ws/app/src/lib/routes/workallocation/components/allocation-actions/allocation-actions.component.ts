@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core'
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatTabGroup } from '@angular/material/tabs';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MatTabGroup } from '@angular/material/tabs'
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms'
 import { AllocationService } from '../../services/allocation.service'
 

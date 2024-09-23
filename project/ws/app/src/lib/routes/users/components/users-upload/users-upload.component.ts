@@ -3,9 +3,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { FileService } from '../../services/upload.service'
 import { Observable, Subscription, interval } from 'rxjs'
 import { startWith, map, pairwise } from 'rxjs/operators'
-import { MatRadioChange } from '@angular/material/radio';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
+import { MatRadioChange } from '@angular/material/radio'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatSort } from '@angular/material/sort'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
 import { environment } from 'src/environments/environment'

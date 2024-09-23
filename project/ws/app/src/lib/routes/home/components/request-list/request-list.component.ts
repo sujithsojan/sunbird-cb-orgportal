@@ -4,9 +4,9 @@ import { ITableData } from '@sunbird-cb/collection/lib/ui-org-table/interface/in
 import { ProfileV2Service } from '../../services/home.servive'
 import { DatePipe } from '@angular/common'
 import { ActivatedRoute, Router } from '@angular/router'
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatTableDataSource } from '@angular/material/table'
 import { ConfirmationBoxComponent } from '../../../training-plan/components/confirmation-box/confirmation.box.component'
 import { AssignListPopupComponent } from './assign-list-popup/assign-list-popup.component'
 import { LoaderService } from '../../../../../../../../../src/app/services/loader.service'

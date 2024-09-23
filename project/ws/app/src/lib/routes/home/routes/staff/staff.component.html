@@ -45,8 +45,6 @@
                                             Field is mandatory
                                         </mat-error>
                                         <mat-error [hidden]="false"
-                                            i18n="Total positions filled Error|Explains name is required"
-                                            i18n-aria-label
                                             aria-label="Total positions filled Error|Explains name is required " *ngIf="staffdata?.controls['posfilled']?.touched &&
                                                 !staffdata?.controls['posfilled'].errors?.required &&
                                                 staffdata?.controls['posfilled'].errors?.hasHtml">
@@ -71,8 +69,6 @@
                                             Field is mandatory
                                         </mat-error>
                                         <mat-error [hidden]="false"
-                                            i18n="Total positions filled Error|Explains name is required"
-                                            i18n-aria-label
                                             aria-label="Total positions filled Error|Explains name is required " *ngIf="staffdata?.controls['posvacant']?.touched &&
                                                 !staffdata?.controls['posvacant'].errors?.required &&
                                                 staffdata?.controls['posvacant'].errors?.hasHtml">

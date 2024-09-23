@@ -12,7 +12,7 @@ export class RejectReasonDialogComponent implements OnInit {
 
   reasonForm!: FormGroup
   constructor(public dialogRef: MatDialogRef<RejectReasonDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: any) {
     this.reasonForm = new FormGroup({
       reason: new FormControl('', [Validators.required, Validators.maxLength(500), preventHtmlAndJs()]),
     })

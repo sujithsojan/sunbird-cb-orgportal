@@ -4,9 +4,9 @@ import {
 } from '@angular/core'
 import { SelectionModel } from '@angular/cdk/collections'
 import { MatTableDataSource } from '@angular/material/table'
-import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog'
+import { MatPaginator } from '@angular/material/paginator'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatSort } from '@angular/material/sort'
 import * as _ from 'lodash'
 

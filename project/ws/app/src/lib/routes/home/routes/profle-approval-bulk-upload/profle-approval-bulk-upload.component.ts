@@ -1,9 +1,9 @@
 import { DatePipe } from '@angular/common'
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
 import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms'
-import { MatRadioChange } from '@angular/material/radio';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort } from '@angular/material/sort';
+import { MatRadioChange } from '@angular/material/radio'
+import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatSort } from '@angular/material/sort'
 import { ActivatedRoute } from '@angular/router'
 import { Observable, Subscription, interval } from 'rxjs'
 import { startWith, pairwise, map } from 'rxjs/operators'

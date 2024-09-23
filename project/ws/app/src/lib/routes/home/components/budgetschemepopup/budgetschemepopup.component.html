@@ -47,8 +47,8 @@
                                     *ngIf="schemeform?.controls['schemename']?.touched && schemeform?.controls['schemename'].errors?.required">
                                     Field is mandatory
                                 </mat-error>
-                                <mat-error [hidden]="false" i18n="Budget allocated Error|Explains name is required"
-                                    i18n-aria-label aria-label="Budget allocated Error|Explains name is required "
+                                <mat-error [hidden]="false"
+                                    aria-label="Budget allocated Error|Explains name is required "
                                     *ngIf="schemeform?.controls['schemename']?.touched &&
                                                                     !schemeform?.controls['schemename'].errors?.required &&
                                                                     schemeform?.controls['schemename'].errors?.hasHtml">
@@ -88,9 +88,8 @@
                                     *ngIf="schemeform?.controls['budgetutilized']?.touched && schemeform?.controls['budgetutilized'].errors?.required">
                                     Field is mandatory
                                 </mat-error>
-                                <mat-error [hidden]="false" i18n="Budget allocated Error|Explains name is required"
-                                    i18n-aria-label aria-label="Budget allocated Error|Explains name is required "
-                                    *ngIf="schemeform?.controls['budgetutilized']?.touched &&
+                                <mat-error [hidden]="false"
+                                    aria-label="Budget allocated Error|Explains name is required " *ngIf="schemeform?.controls['budgetutilized']?.touched &&
                                             !schemeform?.controls['budgetutilized'].errors?.required &&
                                             schemeform?.controls['budgetutilized'].errors?.hasHtml">
                                     HTML or Js is not allowed

@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ChangeDetectorRef } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { EventsService } from '../../services/events.service'
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator } from '@angular/material/paginator'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { MatSort } from '@angular/material/sort'
 import { ITableData } from '../../interfaces/interfaces'
 import { MatDialog } from '@angular/material/dialog'

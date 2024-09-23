@@ -1,12 +1,12 @@
 import { FullscreenOverlayContainer, OverlayContainer } from '@angular/cdk/overlay'
 import { APP_BASE_HREF, PlatformLocation } from '@angular/common'
 import { HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
-//Injectable
+// Injectable
 import { APP_INITIALIZER, NgModule, ErrorHandler } from '@angular/core'
 import { MatButtonModule } from '@angular/material/button'
 import { MatCardModule } from '@angular/material/card'
 import { MatCheckboxModule } from '@angular/material/checkbox'
-//GestureConfig,
+// GestureConfig,
 import { MatRippleModule, MatNativeDateModule } from '@angular/material/core'
 import { MatDatepickerModule } from '@angular/material/datepicker'
 import { MatDialogModule } from '@angular/material/dialog'
@@ -24,7 +24,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar'
 import { MatSortModule } from '@angular/material/sort'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatTooltipModule } from '@angular/material/tooltip'
-//HAMMER_GESTURE_CONFIG
+// HAMMER_GESTURE_CONFIG
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import {

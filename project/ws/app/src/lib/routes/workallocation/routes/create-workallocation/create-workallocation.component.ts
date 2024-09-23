@@ -3,8 +3,8 @@ import { FormGroup, Validators, FormBuilder, FormArray, FormControl } from '@ang
 import { AllocationService } from '../../services/allocation.service'
 import { Router } from '@angular/router'
 import { ExportAsService, ExportAsConfig } from 'ngx-export-as'
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { DialogConfirmComponent } from 'src/app/component/dialog-confirm/dialog-confirm.component'
 import { AllocationActionsComponent } from '../../components/allocation-actions/allocation-actions.component'
 import { ConfigurationsService, EventService } from '@sunbird-cb/utils'
