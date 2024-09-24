@@ -700,7 +700,7 @@
           </div>
         </div>
 
-        <div class="float-right">
+        <div class="float-right" *ngIf="currentFilter === 'profileverification'">
           <p class="mat-body-2 margin-top-m margin-right-m"><mat-icon class="orangeicon">error</mat-icon>
             {{appData?.needApprovalList.length}} approval pending</p>
         </div>
@@ -889,8 +889,10 @@
                     </li>
                   </ul>
                 </div>
-                <p *ngIf="appData?.user?.organisations && appData?.user?.organisations[0].roles &&
-                    appData?.user?.organisations[0].roles.length && appData?.user?.organisations[0].roles.length === 0">-</p>
+                <p
+                  *ngIf="appData?.user?.organisations && appData?.user?.organisations[0].roles &&
+                    appData?.user?.organisations[0].roles.length && appData?.user?.organisations[0].roles.length === 0">
+                  -</p>
               </div>
             </div>
           </div>

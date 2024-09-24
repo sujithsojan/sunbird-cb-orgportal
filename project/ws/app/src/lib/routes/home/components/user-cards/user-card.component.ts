@@ -127,11 +127,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   currentUserRole = ''
   checked = false
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-              private dialog: MatDialog, private approvalSvc: ApprovalsService,
-              private route: ActivatedRoute, private snackBar: MatSnackBar,
-              private events: EventService,
-              private datePipe: DatePipe,
-              private cdr: ChangeDetectorRef) {
+    private dialog: MatDialog, private approvalSvc: ApprovalsService,
+    private route: ActivatedRoute, private snackBar: MatSnackBar,
+    private events: EventService,
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new FormGroup({
       designation: new FormControl('', []),
       group: new FormControl('', [Validators.required]),
@@ -817,33 +817,33 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked {
   }
 
   onApprovalSubmit(panel: any, appData: any) {
-    if (this.actionList.length > 0) {
-      if (this.currentFilter === 'transfers') {
-        this.onTransferSubmit(panel, appData)
-      } else {
-        const datalength = this.actionList.length
-        this.actionList.forEach((req: any, index: any) => {
-          if (req.action === 'APPROVE') {
-            req.comment = ''
-          }
-          this.onApproveOrRejectClick(req)
-          if (index === datalength - 1) {
-            panel.close()
-            this.comment = ''
-            setTimeout(() => {
-              this.openSnackbar('Request approved successfully')
-              this.updateList.emit()
-              // tslint:disable-next-line
-            }, 100)
-          }
-          // tslint:disable-next-line
-          // this.approvalData = this.approvalData.filter((wf: any) => { wf.userWorkflow.userInfo.wid !== req.userId })
-          if (this.approvalData.length === 0) {
-            this.disableButton.emit()
-          }
-        })
-      }
+    // if (this.actionList.length > 0) {
+    if (this.currentFilter === 'transfers') {
+      this.onTransferSubmit(panel, appData)
+    } else {
+      const datalength = this.actionList.length
+      this.actionList.forEach((req: any, index: any) => {
+        if (req.action === 'APPROVE') {
+          req.comment = ''
+        }
+        this.onApproveOrRejectClick(req)
+        if (index === datalength - 1) {
+          panel.close()
+          this.comment = ''
+          setTimeout(() => {
+            this.openSnackbar('Request approved successfully')
+            this.updateList.emit()
+            // tslint:disable-next-line
+          }, 100)
+        }
+        // tslint:disable-next-line
+        // this.approvalData = this.approvalData.filter((wf: any) => { wf.userWorkflow.userInfo.wid !== req.userId })
+        if (this.approvalData.length === 0) {
+          this.disableButton.emit()
+        }
+      })
     }
+    // }
   }
 
   onTransferSubmit(panel: any, appData: any) {
