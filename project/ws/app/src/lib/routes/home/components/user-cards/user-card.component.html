@@ -700,7 +700,7 @@
           </div>
         </div>
 
-        <div class="float-right">
+        <div class="float-right" *ngIf="currentFilter === 'profileverification'">
           <p class="mat-body-2 margin-top-m margin-right-m"><mat-icon class="orangeicon">error</mat-icon>
             {{appData?.needApprovalList.length}} approval pending</p>
         </div>
