@@ -95,7 +95,7 @@ import {
   LeftMenuModule,
   UIORGTableModule,
   BreadcrumbsOrgModule,
-  AuthorCardModule
+  AuthorCardModule,
 } from '@sunbird-cb/collection'
 import { WidgetResolverModule } from '@sunbird-cb/resolver'
 import { LoggerService, PipeSafeSanitizerModule } from '@sunbird-cb/utils'
