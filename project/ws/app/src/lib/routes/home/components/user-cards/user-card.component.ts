@@ -132,11 +132,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   checked = false
   currentUserStatus = ''
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-    private dialog: MatDialog, private approvalSvc: ApprovalsService,
-    private route: ActivatedRoute, private snackBar: MatSnackBar,
-    private events: EventService,
-    private datePipe: DatePipe,
-    private cdr: ChangeDetectorRef) {
+              private dialog: MatDialog, private approvalSvc: ApprovalsService,
+              private route: ActivatedRoute, private snackBar: MatSnackBar,
+              private events: EventService,
+              private datePipe: DatePipe,
+              private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new FormGroup({
       designation: new FormControl('', []),
       group: new FormControl('', [Validators.required]),
@@ -301,7 +301,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
       if (appdata.userWorkflow.wfInfo && appdata.userWorkflow.wfInfo.length > 0) {
         appdata.needApprovalList = []
         // appdata.userWorkflow.wfInfo.forEach((wf: any) => {
-        let wf = appdata.userWorkflow.wfInfo[0]
+        const wf = appdata.userWorkflow.wfInfo[0]
         if (typeof wf.updateFieldValues === 'string') {
           const fields = JSON.parse(wf.updateFieldValues)
           if (fields.length > 0) {
