@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { PipeDurationTransformModule, PipeFilterModule, PipeHtmlTagRemovalModule, PipeOrderByModule, PipeRelativeTimeModule } from '@sunbird-cb/utils'
+import { PipeDurationTransformModule, PipeFilterModule, PipeHtmlTagRemovalModule, PipeOrderByModule, PipeRelativeTimeModule, ImageResponsiveModule } from '@sunbird-cb/utils'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDividerModule } from '@angular/material/divider'
@@ -87,6 +87,7 @@ import { OdcsMappingComponent } from './routes/odcs-mapping/odcs-mapping.compone
 import { environment } from '../../../../../../../src/environments/environment'
 import { TaxonomyEditorModule } from '@sunbird-cb/taxonomy-editor'
 import { MentorManageComponent } from './routes/mentor-manage/mentor-manage.component'
+import { SurveyFormComponent } from './components/app-survey/survey-form/survey-form.component'
 
 @NgModule({
   declarations: [
@@ -134,6 +135,7 @@ import { MentorManageComponent } from './routes/mentor-manage/mentor-manage.comp
     SingleAssignPopupComponent,
     OdcsMappingComponent,
     MentorManageComponent,
+    SurveyFormComponent,
   ],
   imports: [
     CommonModule,
@@ -192,6 +194,7 @@ import { MentorManageComponent } from './routes/mentor-manage/mentor-manage.comp
     HttpClientModule,
     DesignationModule,
     TaxonomyEditorModule,
+    ImageResponsiveModule,
   ],
   entryComponents: [
     AdduserpopupComponent,
