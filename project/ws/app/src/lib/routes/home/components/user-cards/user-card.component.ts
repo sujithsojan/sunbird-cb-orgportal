@@ -132,11 +132,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   checked = false
   currentUserStatus = ''
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-    private dialog: MatDialog, private approvalSvc: ApprovalsService,
-    private route: ActivatedRoute, private snackBar: MatSnackBar,
-    private events: EventService,
-    private datePipe: DatePipe,
-    private cdr: ChangeDetectorRef) {
+              private dialog: MatDialog, private approvalSvc: ApprovalsService,
+              private route: ActivatedRoute, private snackBar: MatSnackBar,
+              private events: EventService,
+              private datePipe: DatePipe,
+              private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new FormGroup({
       designation: new FormControl('', []),
       group: new FormControl('', [Validators.required]),
