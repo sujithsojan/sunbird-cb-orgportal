@@ -300,30 +300,29 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
     approvalData.forEach((appdata: any) => {
       if (appdata.userWorkflow.wfInfo && appdata.userWorkflow.wfInfo.length > 0) {
         appdata.needApprovalList = []
-        // appdata.userWorkflow.wfInfo.forEach((wf: any) => {
-        const wf = appdata.userWorkflow.wfInfo[0]
-        if (typeof wf.updateFieldValues === 'string') {
-          const fields = JSON.parse(wf.updateFieldValues)
-          if (fields.length > 0) {
-            fields.forEach((field: any) => {
-              const labelKey = Object.keys(field.toValue)[0]
-              const feildNameObj = labelKey === 'designation' ? 'Designation' : 'Group'
-              if (labelKey === 'designation' || labelKey === 'group') {
-                appdata.needApprovalList.push(
-                  Object.assign({
-                    wf,
-                    feildName: labelKey,
-                    label: feildNameObj,
-                    value: field.toValue[labelKey],
-                    fieldKey: field.fieldKey,
-                    wfId: wf.wfId,
-                  })
-                )
-              }
-            })
+        appdata.userWorkflow.wfInfo.forEach((wf: any) => {
+          if (typeof wf.updateFieldValues === 'string') {
+            const fields = JSON.parse(wf.updateFieldValues)
+            if (fields.length > 0) {
+              fields.forEach((field: any) => {
+                const labelKey = Object.keys(field.toValue)[0]
+                const feildNameObj = labelKey === 'designation' ? 'Designation' : 'Group'
+                if (labelKey === 'designation' || labelKey === 'group') {
+                  appdata.needApprovalList.push(
+                    Object.assign({
+                      wf,
+                      feildName: labelKey,
+                      label: feildNameObj,
+                      value: field.toValue[labelKey],
+                      fieldKey: field.fieldKey,
+                      wfId: wf.wfId,
+                    })
+                  )
+                }
+              })
+            }
           }
-        }
-        // })
+        })
       }
     })
 
@@ -860,33 +859,33 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   }
 
   onApprovalSubmit(panel: any, appData: any) {
-    if (this.actionList.length > 0) {
-      if (this.currentFilter === 'transfers') {
-        this.onTransferSubmit(panel, appData)
-      } else {
-        const datalength = this.actionList.length
-        this.actionList.forEach((req: any, index: any) => {
-          if (req.action === 'APPROVE') {
-            req.comment = ''
-          }
-          this.onApproveOrRejectClick(req)
-          if (index === datalength - 1) {
-            panel.close()
-            this.comment = ''
-            setTimeout(() => {
-              this.openSnackbar('Request approved successfully')
-              this.updateList.emit()
-              // tslint:disable-next-line
-            }, 100)
-          }
-          // tslint:disable-next-line
-          // this.approvalData = this.approvalData.filter((wf: any) => { wf.userWorkflow.userInfo.wid !== req.userId })
-          if (this.approvalData.length === 0) {
-            this.disableButton.emit()
-          }
-        })
-      }
+    // if (this.actionList.length > 0) {
+    if (this.currentFilter === 'transfers') {
+      this.onTransferSubmit(panel, appData)
+    } else {
+      const datalength = this.actionList.length
+      this.actionList.forEach((req: any, index: any) => {
+        if (req.action === 'APPROVE') {
+          req.comment = ''
+        }
+        this.onApproveOrRejectClick(req)
+        if (index === datalength - 1) {
+          panel.close()
+          this.comment = ''
+          setTimeout(() => {
+            this.openSnackbar('Request approved successfully')
+            this.updateList.emit()
+            // tslint:disable-next-line
+          }, 100)
+        }
+        // tslint:disable-next-line
+        // this.approvalData = this.approvalData.filter((wf: any) => { wf.userWorkflow.userInfo.wid !== req.userId })
+        if (this.approvalData.length === 0) {
+          this.disableButton.emit()
+        }
+      })
     }
+    // }
   }
 
   onTransferSubmit(panel: any, appData: any) {
