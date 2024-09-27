@@ -132,11 +132,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   checked = false
   currentUserStatus = ''
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-              private dialog: MatDialog, private approvalSvc: ApprovalsService,
-              private route: ActivatedRoute, private snackBar: MatSnackBar,
-              private events: EventService,
-              private datePipe: DatePipe,
-              private cdr: ChangeDetectorRef) {
+    private dialog: MatDialog, private approvalSvc: ApprovalsService,
+    private route: ActivatedRoute, private snackBar: MatSnackBar,
+    private events: EventService,
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new FormGroup({
       designation: new FormControl('', []),
       group: new FormControl('', [Validators.required]),
@@ -300,30 +300,29 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
     approvalData.forEach((appdata: any) => {
       if (appdata.userWorkflow.wfInfo && appdata.userWorkflow.wfInfo.length > 0) {
         appdata.needApprovalList = []
-        // appdata.userWorkflow.wfInfo.forEach((wf: any) => {
-        const wf = appdata.userWorkflow.wfInfo[0]
-        if (typeof wf.updateFieldValues === 'string') {
-          const fields = JSON.parse(wf.updateFieldValues)
-          if (fields.length > 0) {
-            fields.forEach((field: any) => {
-              const labelKey = Object.keys(field.toValue)[0]
-              const feildNameObj = labelKey === 'designation' ? 'Designation' : 'Group'
-              if (labelKey === 'designation' || labelKey === 'group') {
-                appdata.needApprovalList.push(
-                  Object.assign({
-                    wf,
-                    feildName: labelKey,
-                    label: feildNameObj,
-                    value: field.toValue[labelKey],
-                    fieldKey: field.fieldKey,
-                    wfId: wf.wfId,
-                  })
-                )
-              }
-            })
+        appdata.userWorkflow.wfInfo.forEach((wf: any) => {
+          if (typeof wf.updateFieldValues === 'string') {
+            const fields = JSON.parse(wf.updateFieldValues)
+            if (fields.length > 0) {
+              fields.forEach((field: any) => {
+                const labelKey = Object.keys(field.toValue)[0]
+                const feildNameObj = labelKey === 'designation' ? 'Designation' : 'Group'
+                if (labelKey === 'designation' || labelKey === 'group') {
+                  appdata.needApprovalList.push(
+                    Object.assign({
+                      wf,
+                      feildName: labelKey,
+                      label: feildNameObj,
+                      value: field.toValue[labelKey],
+                      fieldKey: field.fieldKey,
+                      wfId: wf.wfId,
+                    })
+                  )
+                }
+              })
+            }
           }
-        }
-        // })
+        })
       }
     })
 
