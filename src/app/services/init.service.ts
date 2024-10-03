@@ -259,6 +259,12 @@ export class InitService {
 
   private async fetchStartUpDetails(): Promise<any> {
     // let userRoles: string[] = []
+    const checkSurvey = localStorage.getItem('surveyPopup')
+    if (checkSurvey && checkSurvey === 'false') {
+      localStorage.setItem('surveyPopup', 'false')
+    } else {
+      localStorage.setItem('surveyPopup', 'true')
+    }
 
     if (this.configSvc.instanceConfig && !Boolean(this.configSvc.instanceConfig.disablePidCheck)) {
       let completeProdata: any | null = null
