@@ -19,6 +19,7 @@ export const environment: IEnvironment = {
   connectionType: (window as { [key: string]: any })['env']['connectionType'] || '',
   KCMframeworkName: (window as { [key: string]: any })['env']['KCMframeworkName'] || '',
   ODCSMasterFramework: (window as { [key: string]: any })['env']['ODCSMasterFramework'] || '',
+  compentencyVersionKey: (window as { [key: string]: any })['env']['compentencyVersionKey'] || '',
 }
 interface IEnvironment {
   name: null | string
@@ -37,6 +38,7 @@ interface IEnvironment {
   connectionType?: string,
   KCMframeworkName?: string,
   ODCSMasterFramework?: string
+  compentencyVersionKey: string
 }
 
 /*

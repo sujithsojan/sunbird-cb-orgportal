@@ -9,6 +9,9 @@ import { ConfirmationBoxComponent } from '../../../../training-plan/components/c
 import _ from 'lodash'
 import { debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators'
 import { preventHtmlAndJs } from '../../../../validators/prevent-html-and-js.validator'
+import { ICompentencyKeys } from '../../../interface/interfaces'
+import { environment } from '../../../../../../../../../../src/environments/environment'
+import { InitService } from '../../../../../../../../../../src/app/services/init.service'
 /* tslint:enable */
 
 @Component({
@@ -67,14 +70,43 @@ export class CreateRequestFormComponent implements OnInit {
   competencyArea!: FormControl
   competencyTheme!: FormControl
   competencySubtheme!: FormControl
-
+  compentencyKey!: ICompentencyKeys
   constructor(private formBuilder: FormBuilder,
-              private homeService: ProfileV2Service,
-              private activatedRouter: ActivatedRoute,
-              private snackBar: MatSnackBar,
-              private router: Router,
-              public dialog: MatDialog
+    private homeService: ProfileV2Service,
+    private activatedRouter: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    public dialog: MatDialog,
+    private initService: InitService,
   ) {
+
+  }
+
+  ngOnInit() {
+    this.compentencyKey = this.initService.configSvc.competency[environment.compentencyVersionKey]
+
+    this.initFromGroup()
+    this.getRequestTypeList()
+    this.fullProfile = _.get(this.activatedRouter.snapshot, 'data.configService')
+    this.userId = this.fullProfile.userProfile.userId
+    this.competencyArea = new FormControl('')
+    this.competencyTheme = new FormControl('')
+    this.competencySubtheme = new FormControl('')
+
+    this.getFilterEntityV2()
+
+    this.activatedRouter.queryParams.subscribe(params => {
+      if (params['id']) {
+        this.demandId = params.id
+        this.actionBtnName = params.name
+      }
+    })
+
+    this.valuechangeFuctions()
+
+  }
+
+  initFromGroup() {
     this.requestForm = this.formBuilder.group({
       TitleName: new FormControl('', [Validators.required, Validators.pattern(this.noSpecialChar), Validators.minLength(10)]),
       Objective: new FormControl('', [Validators.required, Validators.pattern(this.noSpecialChar)]),
@@ -88,30 +120,9 @@ export class CreateRequestFormComponent implements OnInit {
       providerText: new FormControl(''),
       queryThemeControl: new FormControl(''),
       querySubThemeControl: new FormControl(''),
-      competencies_v5: [],
+      [this.compentencyKey.vKey]: [],
       assigneeText: new FormControl(''),
     })
-
-  }
-
-  ngOnInit() {
-    this.getRequestTypeList()
-    this.fullProfile = _.get(this.activatedRouter.snapshot, 'data.configService')
-    this.userId = this.fullProfile.userProfile.userId
-    this.competencyArea = new FormControl('')
-    this.competencyTheme = new FormControl('')
-    this.competencySubtheme = new FormControl('')
-
-    this.getFilterEntity()
-
-    this.activatedRouter.queryParams.subscribe(params => {
-      if (params['id']) {
-        this.demandId = params.id
-        this.actionBtnName = params.name
-      }
-    })
-
-    this.valuechangeFuctions()
 
   }
 
@@ -131,7 +142,7 @@ export class CreateRequestFormComponent implements OnInit {
       Objective: this.requestObjData.objective,
       userType: this.requestObjData.typeOfUser ? this.requestObjData.typeOfUser : '',
       learningMode: this.requestObjData.learningMode ? this.requestObjData.learningMode : '',
-      competencies_v5: [],
+      [this.compentencyKey.vKey]: [],
       referenceLink: this.requestObjData.referenceLink ? this.requestObjData.referenceLink : '',
       providers: [],
       assignee: {},
@@ -142,7 +153,7 @@ export class CreateRequestFormComponent implements OnInit {
       querySubThemeControl: '',
       assigneeText: '',
     })
-    const value = this.requestForm.controls.competencies_v5.value || []
+    const value = this.requestForm.controls[this.compentencyKey.vKey].value || []
     this.requestObjData.competencies.map((comp: any) => {
       const obj = {
         competencyArea: comp.area,
@@ -152,7 +163,7 @@ export class CreateRequestFormComponent implements OnInit {
       value.push(obj)
     })
 
-    this.requestForm.controls.competencies_v5.setValue(value)
+    this.requestForm.controls[this.compentencyKey.vKey].setValue(value)
 
     this.selectRequestType(this.requestObjData.requestType)
     if (this.filteredRequestType) {
@@ -241,7 +252,18 @@ export class CreateRequestFormComponent implements OnInit {
     }
     this.homeService.getFilterEntity(filterObj).subscribe((res: any) => {
       if (res) {
-        this.competencyList = res
+        // this.competencyList = res
+        // this.allCompetencies = res
+        // this.filteredallCompetencies = this.allCompetencies
+      }
+
+    })
+  }
+
+  getFilterEntityV2() {
+    this.homeService.getFilterEntityV2().subscribe((res: any) => {
+      if (res) {
+        // this.competencyList = res
         this.allCompetencies = res
         this.filteredallCompetencies = this.allCompetencies
       }
@@ -416,19 +438,14 @@ export class CreateRequestFormComponent implements OnInit {
   }
 
   refreshData() {
-    const searchObj = {
-      search: {
-        type: 'Competency Area',
-      },
-      filter: {
-        isDetail: true,
-      },
-    }
-    this.homeService.getFilterEntity(searchObj).subscribe((response: any) => {
-      if (response) {
-        this.allCompetencies = response
+
+    this.homeService.getFilterEntityV2().subscribe((res: any) => {
+      if (res) {
+        // this.competencyList = res
+        this.allCompetencies = res
         this.filteredallCompetencies = this.allCompetencies
       }
+
     })
   }
 
@@ -436,21 +453,21 @@ export class CreateRequestFormComponent implements OnInit {
     if (this.seletedCompetencyArea && this.seletedCompetencyTheme && this.seletedCompetencySubTheme) {
       const obj = {
         competencyArea: this.seletedCompetencyArea.name,
-        competencyAreaId: this.seletedCompetencyArea.id,
+        competencyAreaId: this.seletedCompetencyArea.identifier,
         competencyAreaDescription: this.seletedCompetencyArea.description,
         competencyTheme: this.seletedCompetencyTheme.name,
-        competencyThemeId: this.seletedCompetencyTheme.id,
+        competencyThemeId: this.seletedCompetencyTheme.identifier,
         competecnyThemeDescription: this.seletedCompetencyTheme.description,
-        competencyThemeType: this.seletedCompetencyTheme.additionalProperties.themeType,
+        competencyThemeType: this.seletedCompetencyTheme.refId,
         competencySubTheme: this.seletedCompetencySubTheme.name,
-        competencySubThemeId: this.seletedCompetencySubTheme.id,
+        competencySubThemeId: this.seletedCompetencySubTheme.identifier,
         competecnySubThemeDescription: this.seletedCompetencySubTheme.description,
       }
 
-      const value = this.requestForm.controls.competencies_v5.value || []
+      const value = this.requestForm.controls[this.compentencyKey.vKey].value || []
       if (this.canPush(value, obj)) {
         value.push(obj)
-        this.requestForm.controls.competencies_v5.setValue(value)
+        this.requestForm.controls[this.compentencyKey.vKey].setValue(value)
         this.resetCompfields()
         this.refreshData()
       } else {
@@ -463,16 +480,16 @@ export class CreateRequestFormComponent implements OnInit {
 
   removeCompetency(id: any): void {
     if (id && !id.competencyArea) {
-      const index = _.findIndex(this.requestForm.controls.competencies_v5.value, { id })
-      this.requestForm.controls.competencies_v5.value.splice(index, 1)
-      this.requestForm.controls.competencies_v5.setValue(this.requestForm.controls.competencies_v5.value)
+      const index = _.findIndex(this.requestForm.controls[this.compentencyKey.vKey].value, { id })
+      this.requestForm.controls[this.compentencyKey.vKey].value.splice(index, 1)
+      this.requestForm.controls[this.compentencyKey.vKey].setValue(this.requestForm.controls[this.compentencyKey.vKey].value)
       this.refreshData()
     } else {
-      this.requestForm.controls.competencies_v5.value.forEach((item: any, index: any) => {
+      this.requestForm.controls[this.compentencyKey.vKey].value.forEach((item: any, index: any) => {
         if (item.competencyAreaId === id.competencyAreaId && item.competencyThemeId === id.competencyThemeId
           && item.competencySubThemeId === id.competencySubThemeId) {
-          this.requestForm.controls.competencies_v5.value.splice(index, 1)
-          this.requestForm.controls.competencies_v5.setValue(this.requestForm.controls.competencies_v5.value)
+          this.requestForm.controls[this.compentencyKey.vKey].value.splice(index, 1)
+          this.requestForm.controls[this.compentencyKey.vKey].setValue(this.requestForm.controls[this.compentencyKey.vKey].value)
           this.refreshData()
         }
       })
@@ -555,8 +572,8 @@ export class CreateRequestFormComponent implements OnInit {
     }
 
     let competencyDataList: any[] = []
-    if (this.requestForm.value.competencies_v5) {
-      competencyDataList = this.requestForm.value.competencies_v5.map((item: any) => ({
+    if (this.requestForm.value[this.compentencyKey.vKey]) {
+      competencyDataList = this.requestForm.value[this.compentencyKey.vKey].map((item: any) => ({
         area: item.competencyArea,
         theme: item.competencyTheme,
         sub_theme: item.competencySubTheme,
@@ -615,9 +632,9 @@ export class CreateRequestFormComponent implements OnInit {
           this.router.navigateByUrl('/app/home/request-list')
           this.snackBar.open('Request submitted successfully ')
         }
-      },         1000)
+      }, 1000)
     },
-                                                     (error: any) => {
+      (error: any) => {
         this.dialogRefs.close({ error })
         this.snackBar.open('Request Failed')
 
