@@ -1,26 +1,34 @@
 export interface IColums {
-    displayName: string,
-    key: String,
-    isList?: boolean,
-    prop?: string
-  }
-  export interface IAction {
-    name: String,
-    icon: String,
-    type: string,
-    disabled?: boolean,
-    label: string,
-    condition?: string,
-    optional?: boolean,
-    optional_key?: string,
-    optional_Value?: string,
-  }
-  export interface ITableData {
-    columns: IColums[],
-    actions: IAction[],
-    needHash: boolean,
-    needCheckBox: boolean,
-    sortState?: string,
-    sortColumn?: string
-    needUserMenus: boolean
-  }
+  displayName: string,
+  key: String,
+  isList?: boolean,
+  prop?: string
+}
+export interface IAction {
+  name: String,
+  icon: String,
+  type: string,
+  disabled?: boolean,
+  label: string,
+  condition?: string,
+  optional?: boolean,
+  optional_key?: string,
+  optional_Value?: string,
+}
+export interface ITableData {
+  columns: IColums[],
+  actions: IAction[],
+  needHash: boolean,
+  needCheckBox: boolean,
+  sortState?: string,
+  sortColumn?: string
+  needUserMenus: boolean
+}
+
+export interface ICompentencyKeys {
+  vKey: string
+  vCompetencyArea: string
+  vCompetencyAreaDescription: string
+  vCompetencyTheme: string
+  vCompetencySubTheme: string
+}

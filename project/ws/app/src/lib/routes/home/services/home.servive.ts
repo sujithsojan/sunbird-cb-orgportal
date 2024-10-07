@@ -20,6 +20,7 @@ const API_END_POINTS = {
   GET_MY_DEPARTMENT_ALL: '/apis/protected/v8/portal/mdo/mydepartment?allUsers=true',
   GET_USER_DETAILS: `/apis/protected/v8/user/details?ts='${Date.now()}`,
   GET_FILTER_ENTITY: 'apis/proxies/v8/competency/v4/search',
+  GET_FILTER_ENTITY_V2: 'apis/proxies/v8/searchBy/v2/competency',
   GET_REQUEST_TYPE_LIST: '/apis/proxies/v8/org/v1/search',
   CREATE_DEMAND_REQUEST: '/apis/proxies/v8/demand/content/create',
   GET_REQUEST_DATA: '/apis/proxies/v8/demand/content/search',
@@ -65,21 +66,25 @@ export class ProfileV2Service {
     return this.http.post<any>(`${API_END_POINTS.GET_FILTER_ENTITY}`, filter).pipe(map(res => _.get(res, 'result.competency')))
   }
 
+  getFilterEntityV2(): Observable<any> {
+    return this.http.get<any>(`${API_END_POINTS.GET_FILTER_ENTITY_V2}`).pipe(map(res => _.get(res, 'result.content')))
+  }
+
   getRequestTypeList(request: any): Observable<any> {
     return this.http.post<any>(`${API_END_POINTS.GET_REQUEST_TYPE_LIST}`, request).pipe(map(res => _.get(res, 'result.response.content')))
   }
 
   createDemand(request: any) {
-   return this.http.post<any>(`${API_END_POINTS.CREATE_DEMAND_REQUEST}`, request)
+    return this.http.post<any>(`${API_END_POINTS.CREATE_DEMAND_REQUEST}`, request)
   }
 
   getRequestList(request: any) {
-   return this.http.post<any>(`${API_END_POINTS.GET_REQUEST_DATA}`, request).pipe(map(res => _.get(res, 'result.result')))
+    return this.http.post<any>(`${API_END_POINTS.GET_REQUEST_DATA}`, request).pipe(map(res => _.get(res, 'result.result')))
   }
 
   markAsInvalid(request: any) {
     return this.http.post<any>(`${API_END_POINTS.MARK_INVALID}`, request)
-   }
+  }
 
   getRequestDataById(demandId: any) {
     return this.http.get<any>(`${API_END_POINTS.GET_REQUEST_DATA_BYID}/${demandId}`).pipe(map(res => _.get(res, 'result.result')))

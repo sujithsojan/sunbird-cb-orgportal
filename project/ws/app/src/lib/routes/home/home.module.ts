@@ -88,6 +88,7 @@ import { environment } from '../../../../../../../src/environments/environment'
 import { TaxonomyEditorModule } from '@sunbird-cb/taxonomy-editor'
 import { MentorManageComponent } from './routes/mentor-manage/mentor-manage.component'
 import { SurveyFormComponent } from './components/app-survey/survey-form/survey-form.component'
+import { CapitalizePipe } from './pipe/capitalize.pipe'
 
 @NgModule({
   declarations: [
@@ -136,6 +137,7 @@ import { SurveyFormComponent } from './components/app-survey/survey-form/survey-
     OdcsMappingComponent,
     MentorManageComponent,
     SurveyFormComponent,
+    CapitalizePipe,
   ],
   imports: [
     CommonModule,
