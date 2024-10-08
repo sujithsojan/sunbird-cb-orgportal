@@ -7,7 +7,13 @@
 <ng-container *ngIf="!showLoader">
   <div class="flex flex-col">
     <div class=" odcs-title py-6 bg-white">
-      <h1 class="mat-heading-1">{{odcConfig?.mainHeading}}</h1>
+      <div class="flex flex-between w-full mt-3">
+        <h1 class="mat-heading-1">{{odcConfig?.mainHeading}}</h1>
+        <button mat-raised-button class="importBtn" (click)="routeToBulkUpload()" type="button">
+          {{odcConfig?.bulkUploadConfig?.mainHeading}}
+        </button>
+      </div>
+
       <mat-card class="mb-4" [ngStyle]="{'background-color': showTopSection ? '#fff' : 'rgba(235, 235, 235, 1)'}">
         <div class="flex">
           <span class="mat-body-1 font-bold-imp flex-1">{{odcConfig?.topsection?.heading}}</span>
