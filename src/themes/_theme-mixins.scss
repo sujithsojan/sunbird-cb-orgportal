@@ -393,7 +393,9 @@
     .ws-active-route-menu {
       background-color: $colorBlack040 !important;
       font-weight: 700;
+      /* stylelint-disable */
       font: bold 14px Lato !important;
+      /* stylelint-enable */
 
       &::after {
         content: "";
@@ -631,7 +633,13 @@
       position: absolute;
       width: 90%;
       margin-top: 24%;
+<<<<<<< HEAD
       background: linear-gradient(to bottom, rgba(mat.get-color-from-palette($background, card), 0), mat.get-color-from-palette($background, card) 100%);
+=======
+      /* stylelint-disable */
+      background: linear-gradient(to bottom, rgba(mat-color($background, card), 0), mat-color($background, card) 100%);
+      /* stylelint-enable */
+>>>>>>> 5465b2811381867810573801c75cef65451e5a43
     }
 
     .mat-button-toggle-checked {

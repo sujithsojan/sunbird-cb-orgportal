@@ -689,8 +689,7 @@
           </div>
         </div>
 
-        <div class="float-right">
-          <!--  {{appData?.needApprovalList.length}}-->
+        <div class="float-right" *ngIf="currentFilter === 'profileverification'">
           <p class="mat-body-2 margin-top-m margin-right-m"><mat-icon class="orangeicon">error</mat-icon>
             <span>approval pending</span>
           </p>
@@ -712,7 +711,7 @@
               </p>
             </div>
             <div class="flex flex-row margin-top-m" *ngIf="appData?.needApprovalList?.length > 0">
-              <ng-container *ngFor="let field of appData.needApprovalList | slice: 0 : 1">
+              <ng-container *ngFor="let field of appData.needApprovalList">
                 <div class="md:w-1/3 margin-bottom-s" *ngIf="field.label === 'Group'">
                   <label class="view-text-label">Group</label>
                   <div>
@@ -896,7 +895,9 @@
             <button mat-raised-button type="submit" (click)="confirmApproval(approvalconfirm, panel, appData)"
               class="margin-right-m btn-success btn-responsive successbtn"
               [disabled]="appData.needApprovalList.length !== actionList.length">
-              <span class="text-white"> Update </span>
+              <span class="text-white">
+                {{currentFilter === 'transfers' ? 'Approve': 'Update'}}
+              </span>
             </button>
             <button mat-raised-button type="submit" (click)="onApprovalCancel(panel, appData)"
               class="btn-success btn-responsive cancelbtn">

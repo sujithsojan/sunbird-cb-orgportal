@@ -15,4 +15,5 @@ export const environment = {
   connectionType: (window as { [key: string]: any })['env']['connectionType'] || '',
   KCMframeworkName: (window as { [key: string]: any })['env']['KCMframeworkName'] || '',
   ODCSMasterFramework: (window as { [key: string]: any })['env']['ODCSMasterFramework'] || '',
+  compentencyVersionKey: (window as { [key: string]: any })['env']['compentencyVersionKey'] || '',
 }

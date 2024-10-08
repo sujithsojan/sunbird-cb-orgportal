@@ -182,6 +182,9 @@ export class ApprovalPendingComponent implements OnInit, OnDestroy {
         deptName: this.departName,
         offset: this.pageIndex,
         limit: this.limit,
+        sortBy: {
+          createdOn: 'desc',
+        },
         // sort_by: sortValue ? sortValue : sortedVal,
       }
 

@@ -88,7 +88,7 @@
             <div class="mt-5">
               <mat-radio-group aria-label="Select an option" formControlName="learningMode">
                 <mat-radio-button class="learning-section" *ngFor="let item of learningList"
-                  [value]="item.key">{{item.name}}</mat-radio-button>
+                  [value]="item.key">{{item.name | capitalize}}</mat-radio-button>
 
               </mat-radio-group>
             </div>
@@ -117,7 +117,7 @@
                       class="flex flex-row itm-center ws-mat-accent-border margin-right-s"
                       *ngFor="let option of filteredallCompetencies" [value]="option.name"
                       (change)="compAreaSelected(option)">
-                      <span class="mat-body-2">{{option.name}}</span>
+                      <span class="mat-body-2">{{option.name | capitalize}}</span>
                     </mat-radio-button>
                   </mat-radio-group>
                 </ng-container>
@@ -139,9 +139,9 @@
                 </div>
                 <div>
                   <span class="display-inline-block complabels mat-caption cursor-pointer"
-                    [ngClass]="{active: (seletedCompetencyTheme && option.id === seletedCompetencyTheme.id)}"
-                    (click)="compThemeSelected(option)"
-                    *ngFor="let option of filteredallCompetencyTheme">{{option.name}}</span>
+                    [ngClass]="{active: (seletedCompetencyTheme && option.identifier === seletedCompetencyTheme.identifier)}"
+                    (click)="compThemeSelected(option)" *ngFor="let option of filteredallCompetencyTheme">{{option.name
+                    | capitalize}}</span>
                 </div>
               </div>
 
@@ -161,9 +161,9 @@
                 </div>
                 <div>
                   <span class="display-inline-block complabels mat-caption cursor-pointer"
-                    [ngClass]="{active: (seletedCompetencySubTheme && option.id === seletedCompetencySubTheme.id)}"
+                    [ngClass]="{active: (seletedCompetencySubTheme && option.identifier === seletedCompetencySubTheme.identifier)}"
                     (click)="compSubThemeSelected(option)"
-                    *ngFor="let option of filteredallCompetencySubtheme">{{option.name}}</span>
+                    *ngFor="let option of filteredallCompetencySubtheme">{{option.name | capitalize}}</span>
                 </div>
               </div>
 
@@ -177,19 +177,20 @@
             </div>
             <div class="flex new-mobile">
               <div class="flex-1">
-                <div class="flex flex-1" *ngIf="requestForm.controls?.competencies_v5?.value?.length > 0">
+                <div class="flex flex-1" *ngIf="requestForm.controls[this.compentencyKey.vKey]?.value?.length > 0">
                   <table class="compt-table width-1-1 text-left margin-bottom-xl" cellspacing="0">
                     <tr>
                       <th class="padding-xs ws-mat-black60-text mat-body-1">Area</th>
                       <th class="padding-xs ws-mat-black60-text mat-body-1">Theme</th>
                       <th class="padding-xs ws-mat-black60-text mat-body-1">Sub theme</th>
                     </tr>
-                    <tr *ngFor="let comp of requestForm.controls?.competencies_v5?.value"
+                    <tr *ngFor="let comp of requestForm.controls[this.compentencyKey.vKey]?.value"
                       [attr.disabled]="isCompetencyHide ? true : null" (click)=view(comp)>
-                      <td class="padding-xs mat-body-1 cursor-pointer">{{comp.competencyArea}}</td>
-                      <td class="padding-xs mat-body-1 cursor-pointer">{{comp.competencyTheme || comp.name}}</td>
-                      <td class="padding-xs mat-body-1 cursor-pointer">{{comp.competencySubTheme ||
-                        comp.selectedLevelLevel}}</td>
+                      <td class="padding-xs mat-body-1 cursor-pointer">{{comp.competencyArea | capitalize}}</td>
+                      <td class="padding-xs mat-body-1 cursor-pointer">{{(comp.competencyTheme | capitalize) ||
+                        comp.name | capitalize}}</td>
+                      <td class="padding-xs mat-body-1 cursor-pointer">{{(comp.competencySubTheme | capitalize) ||
+                        comp.selectedLevelLevel | capitalize}}</td>
                     </tr>
                   </table>
                 </div>
