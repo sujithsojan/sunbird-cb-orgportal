@@ -89,6 +89,7 @@ import { TaxonomyEditorModule } from '@sunbird-cb/taxonomy-editor'
 import { MentorManageComponent } from './routes/mentor-manage/mentor-manage.component'
 import { SurveyFormComponent } from './components/app-survey/survey-form/survey-form.component'
 import { CapitalizePipe } from './pipe/capitalize.pipe'
+import { BulkUploadOdcsComponent } from './routes/odcs-mapping/bulk-upload-odcs/bulk-upload-odcs.component'
 
 @NgModule({
   declarations: [
@@ -138,6 +139,7 @@ import { CapitalizePipe } from './pipe/capitalize.pipe'
     MentorManageComponent,
     SurveyFormComponent,
     CapitalizePipe,
+    BulkUploadOdcsComponent,
   ],
   imports: [
     CommonModule,
