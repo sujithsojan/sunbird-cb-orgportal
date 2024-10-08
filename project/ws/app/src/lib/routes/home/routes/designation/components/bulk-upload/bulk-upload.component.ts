@@ -32,11 +32,12 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
   fileSelected!: any
   userProfile: any
   fileUploadDialogInstance: any
+  bulkUploadConfig: any
 
-  sizeOptions = [10, 20]
+  sizeOptions: number[] = []
   startIndex = 0
   lastIndex: any
-  pageSize = 10
+  pageSize = 0
 
   constructor(
     private fileService: FileService,
@@ -55,6 +56,11 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.getBulkStatusList()
+    this.activateRoute.data.subscribe(data => {
+      this.bulkUploadConfig = data.pageData.data.bulkUploadConfig
+      this.pageSize = this.bulkUploadConfig.pageSize
+      this.sizeOptions = this.bulkUploadConfig.pageSizeOptions
+    })
   }
 
   ngAfterViewInit(): void {
