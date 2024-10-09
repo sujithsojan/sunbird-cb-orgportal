@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { environment } from '../../../../../../../../../src/environments/environment'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import * as _ from 'lodash'
 import { DesignationsService } from '../designation/services/designations.service'
 import { MatDialog } from '@angular/material/dialog'
@@ -26,7 +26,8 @@ export class OdcsMappingComponent implements OnInit {
     private activateRoute: ActivatedRoute,
     private designationsService: DesignationsService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router,
     // private odcsSvc: OdcsService
   ) { }
 
@@ -231,6 +232,10 @@ export class OdcsMappingComponent implements OnInit {
     this.snackBar.open(primaryMsg, 'X', {
       duration,
     })
+  }
+
+  routeToBulkUpload() {
+    this.router.navigate(['/app/home/odcs-mapping-upload'])
   }
 
 }

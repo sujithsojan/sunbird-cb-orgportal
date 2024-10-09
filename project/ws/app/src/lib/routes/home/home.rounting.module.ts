@@ -29,6 +29,7 @@ import { RequestListComponent } from './components/request-list/request-list.com
 import { CreateRequestFormComponent } from './components/request-list/create-request-form/create-request-form.component'
 import { OdcsMappingComponent } from './routes/odcs-mapping/odcs-mapping.component'
 import { MentorManageComponent } from './routes/mentor-manage/mentor-manage.component'
+import { BulkUploadOdcsComponent } from './routes/odcs-mapping/bulk-upload-odcs/bulk-upload-odcs.component'
 const routes: Routes = [
   {
     path: '',
@@ -379,6 +380,20 @@ const routes: Routes = [
         component: OdcsMappingComponent,
         data: {
           pageId: 'home/odcs-mapping',
+          module: 'odcs-mapping',
+          pageType: 'feature',
+          pageKey: 'odcs',
+        },
+        resolve: {
+          configService: ConfigResolveService,
+          pageData: PageResolve,
+        },
+      },
+      {
+        path: 'odcs-mapping-upload',
+        component: BulkUploadOdcsComponent,
+        data: {
+          pageId: 'home/odcs-mapping-upload',
           module: 'odcs-mapping',
           pageType: 'feature',
           pageKey: 'odcs',

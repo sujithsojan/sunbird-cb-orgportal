@@ -17,8 +17,9 @@ import { MatTableModule } from '@angular/material/table'
 import { UIORGTableModule } from '@sunbird-cb/collection'
 import { SelectedDesignationPopupComponent } from './dialog-boxes/selected-designation-popup/selected-designation-popup.component'
 import { ConformationPopupComponent } from './dialog-boxes/conformation-popup/conformation-popup.component'
-import { PageResolve } from '@sunbird-cb/utils'
+import { PageResolve, PipeOrderByModule } from '@sunbird-cb/utils'
 import { ConfigResolveService } from '../../resolvers/config-resolve.service'
+import { BulkUploadComponent } from './components/bulk-upload/bulk-upload.component'
 
 const routes: Routes = [
   {
@@ -51,6 +52,21 @@ const routes: Routes = [
       pageData: PageResolve,
     },
   },
+  {
+    path: 'bulk-upload',
+    pathMatch: 'full',
+    data: {
+      pageId: 'home/odcs-mapping',
+      module: 'odcs-mapping',
+      pageType: 'feature',
+      pageKey: 'my_designations',
+    },
+    component: BulkUploadComponent,
+    resolve: {
+      configService: ConfigResolveService,
+      pageData: PageResolve,
+    },
+  },
 ]
 
 @NgModule({
@@ -59,6 +75,7 @@ const routes: Routes = [
     ImportDesignationComponent,
     SelectedDesignationPopupComponent,
     ConformationPopupComponent,
+    BulkUploadComponent,
   ],
   imports: [
     CommonModule,
@@ -76,6 +93,7 @@ const routes: Routes = [
     UIORGTableModule,
     MatPaginatorModule,
     MatDialogModule,
+    PipeOrderByModule,
   ],
   entryComponents: [
     SelectedDesignationPopupComponent,
