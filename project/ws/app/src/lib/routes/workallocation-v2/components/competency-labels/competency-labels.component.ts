@@ -2,12 +2,13 @@ import { AfterViewInit, ChangeDetectorRef, Component, Input, OnDestroy, OnInit }
 import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop'
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms'
 // import { debounceTime } from 'rxjs/operators'
-import { inspect } from 'util'
+// import { inspect } from 'util'
 import { AllocationService } from '../../../workallocation/services/allocation.service'
 import { debounceTime, first, map, switchMap, takeUntil } from 'rxjs/operators'
 import { BehaviorSubject, Observable, Subject } from 'rxjs'
 import { WatStoreService } from '../../services/wat.store.service'
-import { MatDialog, MatSnackBar } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { NSWatCompetency } from '../../models/competency-wat.model'
 import { NSWatActivity } from '../../models/activity-wot.model'
 // tslint:disable
@@ -68,7 +69,7 @@ export class CompetencyLabelsComponent implements OnInit, OnDestroy, AfterViewIn
     return frmctrl
   }
   get getActivityForm() {
-    return JSON.stringify(inspect(this.activityForm.controls.groupsArray.value))
+    return JSON.stringify(JSON.stringify(this.activityForm.controls.groupsArray.value))
   }
 
   ngOnInit(): void {

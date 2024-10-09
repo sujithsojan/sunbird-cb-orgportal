@@ -37,9 +37,9 @@
                 <div class="flex flex-2 margin-2px">
                   <mat-form-field appearance="outline" class="full-width no-pb square outline-color">
                     <input [attr.id]="'actDesc_' + i" matInput #actDesc formControlName="activityDescription"
-                      i18n-placeholder placeholder="Type here" i18n-aria-label aria-label="Activity name input"
-                      class="form-input flex-1" (input)="filterActivities(actDesc.value)"
-                      [matAutocomplete]="activityAuto" autocomplete="off" maxlength="250" />
+                      placeholder="Type here" aria-label="Activity name input" class="form-input flex-1"
+                      (input)="filterActivities(actDesc.value)" [matAutocomplete]="activityAuto" autocomplete="off"
+                      maxlength="250" />
                     <mat-autocomplete #activityAuto="matAutocomplete">
                       <div class="mat-body-4 ws-mat-accent-text padding-s">From activity dictionary</div>
                       <mat-option *ngFor="let activity of filteredActivityDesc | async" [value]="activity.description">
@@ -55,10 +55,9 @@
                   <mat-form-field appearance="outline" class="full-width no-pb square outline-color">
                     <ws-app-initial-avatar *ngIf="assignedTo.value.length" [name]="assignedTo.value">
                     </ws-app-initial-avatar>
-                    <input [attr.id]="'assignto_' + i" matInput #assignto formControlName="assignedTo" i18n-placeholder
-                      placeholder="Type here" i18n-aria-label #assignedTo class="form-input flex-1"
-                      [matAutocomplete]="assignToAuto" (input)="filterUsers(assignedTo.value)" autocomplete="off"
-                      maxlength="250" />
+                    <input [attr.id]="'assignto_' + i" matInput #assignto formControlName="assignedTo"
+                      placeholder="Type here" #assignedTo class="form-input flex-1" [matAutocomplete]="assignToAuto"
+                      (input)="filterUsers(assignedTo.value)" autocomplete="off" maxlength="250" />
                     <mat-autocomplete #assignToAuto="matAutocomplete" (optionSelected)="userClicked($event, i,'to')">
                       <mat-option [value]="''">
                         <div class="ws-mat-accent-border-bottom padding-m padding-left-s padding-bottom-xs">
@@ -116,10 +115,9 @@
             <!-- *ngIf="canshowName === i && activeGroupIdx === i" -->
             <mat-form-field [hidden]="!(canshowName === i && activeGroupIdx === i)" appearance="outline"
               class="full-width no-pb square outline-color">
-              <input [attr.id]="'roleName_' + i" formControlName="groupName" matInput #roleName i18n-placeholder
-                placeholder="Type here" onfocus="this.select()" i18n-aria-label aria-label="Activity name input"
-                class="form-input flex-1" autocomplete="off" (input)="filterRoles(roleName.value)"
-                [matAutocomplete]="roleAuto" />
+              <input [attr.id]="'roleName_' + i" formControlName="groupName" matInput #roleName placeholder="Type here"
+                onfocus="this.select()" aria-label="Activity name input" class="form-input flex-1" autocomplete="off"
+                (input)="filterRoles(roleName.value)" [matAutocomplete]="roleAuto" />
               <mat-autocomplete [attr.id]="'roleAuto_' + i" #roleAuto="matAutocomplete"
                 (optionSelected)="roleSelected($event,i)">
                 <div class="mat-body-4 ws-mat-accent-text padding-s"> From role dictionary</div>
@@ -147,8 +145,8 @@
             <mat-form-field *ngIf="canshow === i && activeGroupIdx === i" appearance="outline"
               class="full-width no-pb square outline-color ">
               <textarea [attr.id]="'roleDesc_' + i" matInput #roleDesc name="questionText" cols="35" rows="8"
-                placeholder="Type here" formControlName="groupDescription" i18n-aria-label
-                aria-label="role description input" onfocus="this.select()"></textarea>
+                placeholder="Type here" formControlName="groupDescription" aria-label="role description input"
+                onfocus="this.select()"></textarea>
             </mat-form-field>
           </div>
         </div>
@@ -192,11 +190,11 @@
                   <div class="flex flex-2 margin-2px">
                     <mat-form-field appearance="outline" class="full-width no-pb square outline-color">
                       <textarea [attr.id]="'actDesc_' + gaIdx" formControlName="activityDescription" matInput #actDesc
-                        i18n-placeholder placeholder="Type here" i18n-aria-label aria-label="Activity name input"
-                        class="form-input flex-1" [matAutocomplete]="roleDescriptionAuto"
-                        (click)="setSelectedFilter(gaIdx)" (input)="filterActivities(actDesc.value, gaIdx)"
-                        autocomplete="off" cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
-                        cdkAutosizeMaxRows="5" maxlength="2000"></textarea>
+                        placeholder="Type here" aria-label="Activity name input" class="form-input flex-1"
+                        [matAutocomplete]="roleDescriptionAuto" (click)="setSelectedFilter(gaIdx)"
+                        (input)="filterActivities(actDesc.value, gaIdx)" autocomplete="off" cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5"
+                        maxlength="2000"></textarea>
                       <mat-autocomplete #roleDescriptionAuto="matAutocomplete"
                         (optionSelected)="activitySelected($event,i)">
                         <ng-container
@@ -229,8 +227,8 @@
                   </div>
                   <div class="flex flex-1 margin-2px">
                     <mat-form-field appearance="outline" class="full-width no-pb square outline-color">
-                      <!-- <input [attr.id]="'assignto_' + gaIdx" matInput #assignto i18n-placeholder placeholder="Type here"
-                        i18n-aria-label aria-label="Activity description input" class="form-input flex-1"
+                      <!-- <input [attr.id]="'assignto_' + gaIdx" matInput #assignto  placeholder="Type here"
+                         aria-label="Activity description input" class="form-input flex-1"
                         autocomplete="off" /> -->
                       <ws-app-initial-avatar *ngIf="assignedTo.value.length && assignedTo.value !== 'Final authority'"
                         [name]="assignedTo.value">
@@ -239,9 +237,9 @@
                         *ngIf="assignedTo.value.length && assignedTo.value === 'Final authority'">sports_score
                       </mat-icon>
                       <input [attr.id]="'assignto_' + gaIdx" class="form-input flex-1" matInput #assignedTo
-                        formControlName="assignedTo" i18n-placeholder placeholder="Type here" i18n-aria-label
-                        aria-label="Type here" [matAutocomplete]="auto" (input)="filterUsers(assignedTo.value)"
-                        autocomplete="off" (click)="setSelectedFilter(gaIdx)" maxlength="250">
+                        formControlName="assignedTo" placeholder="Type here" aria-label="Type here"
+                        [matAutocomplete]="auto" (input)="filterUsers(assignedTo.value)" autocomplete="off"
+                        (click)="setSelectedFilter(gaIdx)" maxlength="250">
                       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="userClicked($event, i,'to')">
                         <mat-option [value]="'Final authority'">
                           <div class="ws-mat-accent-border-bottom padding-m padding-left-s padding-bottom-xs">
@@ -273,7 +271,7 @@
                         [name]="submissionFrom.value">
                       </ws-app-initial-avatar>
                       <input [attr.id]="'submissionFrom_' + gaIdx" class="form-input flex-1" matInput #submissionFrom
-                        formControlName="submissionFrom" i18n-placeholder placeholder="Type here" i18n-aria-label
+                        formControlName="submissionFrom"  placeholder="Type here"
                         aria-label="Type here" [matAutocomplete]="auto" (input)="filterUsers(submissionFrom.value)"
                         autocomplete="off" (click)="setSelectedFilter(gaIdx)">
                       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="userClicked($event, i,'From')">

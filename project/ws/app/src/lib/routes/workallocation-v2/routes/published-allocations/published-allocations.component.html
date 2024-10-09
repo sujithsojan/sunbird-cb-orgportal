@@ -28,7 +28,7 @@
           </button>
           <button mat-stroked-button color="accent" type="button" class="publish-btn mat-accent-border flex-auto-display"
             (click)="publishWorkOrder()" id="publishbtn">
-            <span i18n>Publish</span>
+            <span Publish</span>
           </button> -->
         </div>
       </div>
@@ -169,16 +169,15 @@
         <mat-menu #cardMenu="matMenu">
           <ng-template matMenuContent let-rowData="data">
             <button type="button" (click)="buttonClick('Download',rowData)" mat-menu-item
-              name="channel-analytics-button" class="ws-mat-primary-text downlaod-btn" i18n-aria-label
-              aria-label="Analytics">
+              name="channel-analytics-button" class="ws-mat-primary-text downlaod-btn" aria-label="Analytics">
               <mat-icon>cloud_download</mat-icon> <span>Download</span>
             </button>
-            <!-- <button (click)="buttonClick('Print',rowData)"mat-menu-item name="channel-analytics-button" class="ws-mat-primary-text" i18n-aria-label
+            <!-- <button (click)="buttonClick('Print',rowData)"mat-menu-item name="channel-analytics-button" class="ws-mat-primary-text"
                         aria-label="Analytics">
                         <mat-icon>print</mat-icon> <span>Print</span>
                     </button> -->
             <button (click)="buttonClick('Archive',rowData)" mat-menu-item name="channel-analytics-button"
-              class="ws-mat-primary-text" i18n-aria-label aria-label="Analytics">
+              class="ws-mat-primary-text" aria-label="Analytics">
               <mat-icon>archive</mat-icon> <span>Archive allocation</span>
             </button>
           </ng-template>

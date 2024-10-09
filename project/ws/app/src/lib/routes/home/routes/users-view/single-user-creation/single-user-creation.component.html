@@ -23,10 +23,10 @@
           Please enter a valid email address
         </mat-error> -->
 
-        <input type="email" class="input-text" placeholder="Type here" #email formControlName="email" i18n-aria-label
+        <input type="email" class="input-text" placeholder="Type here" #email formControlName="email"
           aria-label="Primary Email readonly input" maxlength="320">
         <mat-error [hidden]="false" class="custom-error" *ngIf="userCreationForm?.get('email')?.touched &&
-        userCreationForm?.controls['email'].errors?.pattern" i18n-aria-label aria-label="Please enter a valid email">
+        userCreationForm?.controls['email'].errors?.pattern" aria-label="Please enter a valid email">
           Please enter a valid email
         </mat-error>
       </div>
@@ -144,9 +144,9 @@
     <div class="flex flex-row gap-6">
       <div class="input-container">
         <div class="label">Tags</div>
-        <input type="text" class="input-text" matInput i18n-placeholder="Type tag here"
-          placeholder="Type tag here and press enter" [matChipInputFor]="chipListTags" autocomplete="off"
-          maxlength="100" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (keypress)="handleValidTags($event)"
+        <input type="text" class="input-text" matInput="Type tag here" placeholder="Type tag here and press enter"
+          [matChipInputFor]="chipListTags" autocomplete="off" maxlength="100"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (keypress)="handleValidTags($event)"
           (matChipInputTokenEnd)="handleAddTags($event)" />
         <mat-chip-list #chipListTags>
           <mat-chip *ngFor="let tag of userCreationForm?.get('tags')?.value" [selectable]="true" [removable]="true"

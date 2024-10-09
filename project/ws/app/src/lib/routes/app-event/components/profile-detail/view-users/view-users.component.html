@@ -1,8 +1,7 @@
 <ng-container>
   <div class="flex flex-between">
-    <h2 mat-dialog-title class="font-weight-bold title margin-remove-bottom" i18n>
-      Attendees |
-      <span>{{userData.noOfUser}}</span>
+    <h2 mat-dialog-title class="font-weight-bold title margin-remove-bottom"> Attendees | <span>
+        {{userData.noOfUser}}</span>
     </h2>
     <button mat-dialog-close mat-icon-button class="float-right cursor-pointer" (click)="close()">
       <mat-icon>close</mat-icon>
@@ -15,8 +14,8 @@
     <div class="w-full">
       <form>
         <mat-form-field appearance="none">
-          <input [formControl]="searchControl" name="searchQuery" matInput placeholder="Search" i18-aria-label aria-label="Search"
-            i18n-placeholder>
+          <input [formControl]="searchControl" name="searchQuery" matInput placeholder="Search" i18-aria-label
+            aria-label="Search">
         </mat-form-field>
       </form>
     </div>

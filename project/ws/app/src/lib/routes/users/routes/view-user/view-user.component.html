@@ -307,7 +307,7 @@
                                     [value]="professionalDetails.designation || professionalDetails.designationOther || ''"
                                     class="appr-text-field"> -->
                                   <mat-select class="appr-text-field" #designation formControlName="designation"
-                                    i18n-placeholder placeholder="--Select--"
+                                    placeholder="--Select--"
                                     (selectionChange)="otherDropDownChange(designation.value, 'designation')">
                                     <mat-option [value]="designation.name" *ngFor="let designation of designationsMeta">
                                       {{designation.name}}
@@ -403,16 +403,14 @@
                                 <label class="appr-text-label">Tags</label>
                                 <div class="left-input-div">
                                   <div class="flex-col">
-                                    <input class="appr-text-field w-full-imp" #tags matInput
-                                      i18n-placeholder="Type tag here" placeholder="Type tag here"
-                                      formControlName="tags" i18n-aria-label aria-label="Enter tag"
+                                    <input class="appr-text-field w-full-imp" #tags matInput="Type tag here"
+                                      placeholder="Type tag here" formControlName="tags" aria-label="Enter tag"
                                       [matChipInputFor]="chipListTags" autocomplete="off" maxlength="100"
                                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                                       (matChipInputTokenEnd)="addActivity($event)" />
                                     <p class="margin-left-xs">
                                       <mat-error class="hintErr"
-                                        *ngIf="updateProfessionalForm.controls['tags'].errors?.pattern"
-                                        i18n="name Error|Explains name is required">
+                                        *ngIf="updateProfessionalForm.controls['tags'].errors?.pattern">
                                         Only space and alphabets are supported
                                       </mat-error>
                                     </p>
@@ -424,7 +422,7 @@
                                     (click)="addActivity({input: tags, value: tags.value})"
                                     [ngStyle]="{'opacity': updateProfessionalForm.valid? 1: 0.7}"
                                     class="text-white btn-add-activity btn-responsive">
-                                    <span class="text-white" i18n>Add tag</span>
+                                    <span class="text-white"> Add tag</span>
                                   </button>
                                 </div>
                                 <mat-chip-list #chipListTags>
@@ -440,16 +438,12 @@
                                 (click)="onSubmit(updateProfessionalForm, 'Professional')"
                                 class="margin-top-m text-white btn-success btn-responsive"
                                 [disabled]="!updateProfessionalForm.dirty" *ngIf="!isTagsEdited">
-                                <span class="text-white" i18n>
-                                  Update
-                                </span>
+                                <span class="text-white"> Update </span>
                               </button>
                               <button mat-raised-button type="submit"
                                 (click)="onSubmit(updateProfessionalForm, 'Professional')"
                                 class="margin-top-m text-white btn-success btn-responsive" *ngIf="isTagsEdited">
-                                <span class="text-white" i18n>
-                                  Update
-                                </span>
+                                <span class="text-white"> Update </span>
                               </button>
                             </form>
                           </ng-container>
@@ -532,9 +526,8 @@
                           <ng-container>
                             <form [formGroup]="updateUserRoleForm">
                               <div class="input-wrapper margin-top-s">
-                                <label for="roles" class="margin-remove-bottom form-label required" i18n-aria-label
-                                  aria-label="Roles label"
-                                  i18n="Role label|Label which explains the user to select the roles">
+                                <label for="roles" class="margin-remove-bottom form-label required"
+                                  aria-label="Roles label">
                                   Role
                                 </label>
                                 <mat-selection-list id="roles" formControlName="roles" #roles>
@@ -548,16 +541,12 @@
                               <button mat-raised-button type="submit" (click)="onSubmit(updateUserRoleForm, 'Roles')"
                                 class="margin-top-m text-white btn-success btn-responsive"
                                 [disabled]="updateUserRoleForm?.invalid">
-                                <span class="text-white" i18n>
-                                  Update
-                                </span>
+                                <span class="text-white"> Update </span>
                               </button>
                               <button mat-raised-button type="submit" (click)="resetRoles()"
                                 class="margin-top-m text-white btn-success btn-responsive"
                                 [disabled]="updateUserRoleForm?.invalid">
-                                <span class="text-white" i18n>
-                                  Cancel
-                                </span>
+                                <span class="text-white"> Cancel </span>
                               </button>
                             </form>
                           </ng-container>

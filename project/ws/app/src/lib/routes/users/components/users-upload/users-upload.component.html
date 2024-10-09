@@ -28,27 +28,27 @@
             </ng-container>
             <ng-container *ngIf="fileName && registrationForm.value.otpType==='email'">
               <ng-container *ngIf="userEmail && !otpEmailSend">
-                <p for="email" class=" margin-remove-bottom margin-top-s" i18n-aria-label aria-label="Email label">
+                <p for="email" class=" margin-remove-bottom margin-top-s" aria-label="Email label">
                   OTP will be sent to your registered email
                 </p>
               </ng-container>
               <ng-container *ngIf="!userEmail">
-                <p for="email" class=" margin-remove-bottom margin-top-s" i18n-aria-label aria-label="Email label">
+                <p for="email" class=" margin-remove-bottom margin-top-s" aria-label="Email label">
                   No email associated with your account
                 </p>
               </ng-container>
             </ng-container>
             <ng-container *ngIf="fileName && registrationForm.value.otpType==='mobile'">
               <ng-container *ngIf="userMobile">
-                <p for="email" class=" margin-remove-bottom margin-top-s" i18n-aria-label aria-label="Email label">
+                <p for="email" class=" margin-remove-bottom margin-top-s" aria-label="Email label">
                   OTP will be sent to your registered mobile number
                 </p>
               </ng-container>
               <ng-container *ngIf="!userMobile">
-                <p for="email" class=" margin-remove-bottom margin-top-s" i18n-aria-label aria-label="Email label">
+                <p for="email" class=" margin-remove-bottom margin-top-s" aria-label="Email label">
                   No mobile number associated with your account.
                   <a *ngIf="getKarmayogiLink" [href]="getKarmayogiLink">
-                    <span i18n>Click here to update</span>
+                    <span>Click here to update</span>
                   </a>
                 </p>
               </ng-container>
@@ -56,7 +56,7 @@
 
             <ng-container *ngIf="fileName && registrationForm.value.otpType==='email' && userEmail">
               <div class="input-wrapper margin-top-l">
-                <p class="flex items-center margin-remove-bottom form-label" i18n-aria-label aria-label="Email label"
+                <p class="flex items-center margin-remove-bottom form-label" aria-label="Email label"
                   [hidden]="!isEmailVerified">
                   OTP has been verified
                   <mat-icon class="ws-mat-green-text margin-xs" svgIcon="verified"></mat-icon>
@@ -64,21 +64,21 @@
                 <!-- <div class="flex flex-1">
                   <mat-form-field appearance="outline" class="margin-top-s" id="email">
                     <input id="email" name="emailField" autocomplete="off" type="email" maxlength="320" matInput
-                      placeholder="Enter your email id" #email formControlName="email" i18n-aria-label
+                      placeholder="Enter your email id" #email formControlName="email"
                       aria-label="Email input">
                     <mat-icon matSuffix class="ws-mat-green-text margin-xs" svgIcon="verified"
                       [hidden]="!isEmailVerified"></mat-icon>
                     <mat-error [hidden]="false" *ngIf="registrationForm?.controls['email'].errors?.required"
-                      i18n="Email Error|Explains name is required">
+                      >
                       Please enter your email ID one
                     </mat-error>
                     <mat-error [hidden]="false"
                       *ngIf="registrationForm.controls['email'].touched && registrationForm?.controls['email'].errors?.pattern"
-                      i18n-aria-label aria-label="Please enter a valid email ID">
+                       aria-label="Please enter a valid email ID">
                       Please enter a valid email ID tow
                     </mat-error>
                     <div *ngIf="registrationForm.controls['email'].touched " class="email-error"
-                      i18n="Email Error|Explains character validation">
+                      >
                       Max 64 characters before "@" & 255 characters after "@" are valid.
                     </div>
                   </mat-form-field>
@@ -88,15 +88,13 @@
                   <button *ngIf="!otpEmailSend" mat-raised-button type="button" (click)="sendOtpEmail()"
                     class="submitBtnSmall text-white ws-mat-primary-background ws-mat-white-text btn-responsive"
                     [disabled]="registrationForm?.email?.invalid">
-                    <a class="text-white" i18n>
-                      Send OTP
-                    </a>
+                    <a class="text-white"> Send OTP </a>
                   </button>
                   <div *ngIf="otpEmailSend" class="flex flex-1 flex-column">
                     <!-- <div class="flex flex-1 flex-row"> -->
                     <mat-form-field appearance="outline" class="margin-top-xs w-full">
                       <input id="emailOTP" #emailotp type="password" minlength="4" maxlength="6" matInput
-                        placeholder="Enter OTP" i18n-aria-label aria-label="OTP input"
+                        placeholder="Enter OTP" aria-label="OTP input"
                         onKeyPress="if(this.value.length === 8) return false;" autocomplete="new-password">
                       <mat-hint *ngIf="timeLeftforOTPEmail > 0 ">
                         <span>Resend OTP after {{timeLeftforOTPEmail | pipeDurationTransform: 'hms2M'}}</span>
@@ -110,9 +108,7 @@
                       <button mat-raised-button type="button" (click)="verifyOtpEmail(emailotp)"
                         class="submitBtnSmall text-white ws-mat-primary-background ws-mat-white-text margin-top-s otp"
                         [disabled]="registrationForm?.email?.invalid || disableEmailVerifyBtn">
-                        <span class="text-white" i18n>
-                          Verify OTP
-                        </span>
+                        <span class="text-white"> Verify OTP </span>
                       </button>
                     </div>
                     <!-- </div> -->
@@ -123,7 +119,7 @@
             </ng-container>
             <ng-container *ngIf="fileName && registrationForm.value.otpType==='mobile' && userMobile">
               <div class="input-wrapper margin-top-l">
-                <p class="flex items-center margin-remove-bottom form-label" i18n-aria-label aria-label="Email label"
+                <p class="flex items-center margin-remove-bottom form-label" aria-label="Email label"
                   [hidden]="!isMobileVerified">
                   OTP has been verified
                   <mat-icon class="ws-mat-green-text margin-xs" svgIcon="verified"></mat-icon>
@@ -132,20 +128,20 @@
 
                   <mat-form-field appearance="outline" class="margin-top-s w-full">
                     <input [readonly]="otpSend && !otpVerified" id="mobileNumber" #mobile type="number" matInput
-                                    placeholder="Mobile Number" formControlName="mobile" i18n-aria-label
+                                    placeholder="Mobile Number" formControlName="mobile"
                                     aria-label="Mobile Number input" maxlength="12">
                     <input id="mobileNumber" #mobile matInput type="text" maxlength="10"
                       (keypress)="numericOnly($event)" (paste)="numericOnly($event)" placeholder="Mobile Number"
-                      formControlName="mobile" i18n-aria-label aria-label="Mobile Number input">
+                      formControlName="mobile"  aria-label="Mobile Number input">
                     <mat-icon matSuffix class="ws-mat-green-text margin-xs" svgIcon="verified"
                       [hidden]="!isMobileVerified"></mat-icon>
-                    <mat-error [hidden]="false" i18n="Mobile Number Error|Explains Mobile no is required"
-                      *ngIf="registrationForm?.controls['mobile'].errors?.required" i18n-aria-label
+                    <mat-error [hidden]="false"
+                      *ngIf="registrationForm?.controls['mobile'].errors?.required"
                       aria-label="Please enter your mobile number">
                       Please enter your mobile number
                     </mat-error>
                     <mat-error [hidden]="false" *ngIf="registrationForm?.controls['mobile'].errors?.pattern"
-                      i18n-aria-label aria-label="Please enter a valid 10 digit mobile number">
+                       aria-label="Please enter a valid 10 digit mobile number">
                       Please enter a valid 10 digit mobile number
                     </mat-error>
                   </mat-form-field>
@@ -154,15 +150,13 @@
                   <button *ngIf="!otpSend" mat-raised-button type="button" (click)="sendOtp()"
                     class="submitBtnSmall text-white ws-mat-primary-background ws-mat-white-text btn-responsive"
                     [disabled]="registrationForm?.mobile?.invalid">
-                    <a class="text-white" i18n>
-                      Send OTP
-                    </a>
+                    <a class="text-white"> Send OTP </a>
                   </button>
                   <div *ngIf="otpSend" class="flex flex-1 flex-column">
                     <!-- <div class="flex flex-1 flex-row"> -->
                     <mat-form-field appearance="outline" class="margin-top-xs w-full">
                       <input id="mobileNumber" #otp type="password" minlength="4" maxlength="6" matInput
-                        placeholder="Enter OTP" i18n-aria-label aria-label="OTP input"
+                        placeholder="Enter OTP" aria-label="OTP input"
                         onKeyPress="if(this.value.length === 8) return false;" autocomplete="new-password">
                       <mat-hint *ngIf="timeLeftforOTP > 0 ">
                         <span>Resend OTP after {{timeLeftforOTP | pipeDurationTransform: 'hms2M'}}</span>
@@ -180,9 +174,7 @@
                       <button mat-raised-button type="button" (click)="verifyOtp(otp)"
                         class="submitBtnSmall text-white ws-mat-primary-background ws-mat-white-text margin-top-s otp"
                         [disabled]="registrationForm?.mobile?.invalid || disableVerifyBtn">
-                        <span class="text-white" i18n>
-                          Verify OTP
-                        </span>
+                        <span class="text-white"> Verify OTP </span>
                       </button>
                     </div>
                     <!-- </div> -->
@@ -195,17 +187,17 @@
           <ng-container *ngIf="fileName && (isEmailVerified || isMobileVerified)">
             <div class="flex mt-5 items-end justify-start">
               <div class="text-left mr-5">
-                <button mat-button class="download-btn mat-accent-border mat-button mat-button-base" type="button" i18n
+                <button mat-button class="download-btn mat-accent-border mat-button mat-button-base" type="button"
                   (click)="cancelSelected()" (dblclick)="$event.preventDefault();" *ngIf="fileName">
-                  <ng-container i18n>Cancel</ng-container>
+                  <ng-container> Cancel</ng-container>
                 </button>
               </div>
               <div class="text-left flex">
 
-                <button mat-button class="upload-btn mat-button mat-button-base mr-5" type="submit" i18n
+                <button mat-button class="upload-btn mat-button mat-button-base mr-5" type="submit"
                   [disabled]="formGroup.invalid || (displayLoader | async)" (click)="onSubmit(form)"
                   (dblclick)="$event.preventDefault();" *ngIf="fileName">
-                  <ng-container i18n>Upload</ng-container>
+                  <ng-container>Upload</ng-container>
                 </button>
                 <div *ngIf="displayLoader | async" class="pr-4 ml-4 flex items-center justify-center">
                   <mat-spinner [diameter]="30"></mat-spinner>
@@ -217,8 +209,8 @@
         </form>
         <div class="flex-1 inline-flex items-start justify-end">
           <!-- <span class="mat-body-1 mr-5 pl-1">Download the sample file</span> -->
-          <button class="download-btn mat-accent-border mat-button mat-button-base" i18n (click)="downloadFile()">
-            <ng-container i18n>Download sample file</ng-container>
+          <button class="download-btn mat-accent-border mat-button mat-button-base" (click)="downloadFile()">
+            <ng-container> Download sample file</ng-container>
           </button>
         </div>
       </div>

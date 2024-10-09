@@ -29,17 +29,15 @@
             <div class="flex-1 row-cell margin-r-2px ws-mat-accent-border">
               <span class="mat-body-2" *ngIf="!isNew">{{data.name}}</span>
               <mat-form-field *ngIf="isNew" appearance="outline" class="full-width no-pb square outline-color">
-                <input matInput #compName i18n-placeholder placeholder="Type here" i18n-aria-label
-                  formControlName="compName" aria-label="Activity description input" class="form-input flex-1"
-                  autocomplete="off" />
+                <input matInput #compName placeholder="Type here" formControlName="compName"
+                  aria-label="Activity description input" class="form-input flex-1" autocomplete="off" />
               </mat-form-field>
             </div>
             <div class="flex-3 row-cell ws-mat-accent-border">
               <span class="mat-body-2" *ngIf="!isNew">{{data.description}}</span>
               <mat-form-field *ngIf="isNew" appearance="outline" class="full-width no-pb square outline-color">
-                <input matInput #compDescription i18n-placeholder placeholder="Type here" i18n-aria-label
-                  formControlName="compDescription" aria-label="Activity description input" class="form-input flex-1"
-                  autocomplete="off" />
+                <input matInput #compDescription placeholder="Type here" formControlName="compDescription"
+                  aria-label="Activity description input" class="form-input flex-1" autocomplete="off" />
               </mat-form-field>
             </div>
           </div>
@@ -61,9 +59,8 @@
               <span class="mat-subheading-1">Competency type</span>
               <!-- <span class="mat-body-2" *ngIf="!isNew">{{data.compType}}</span> -->
               <mat-form-field appearance="outline" class="full-width no-pb square outline-color">
-                <mat-select [attr.id]="'compType_'" class="form-input flex-1" matInput #compLevel i18n-placeholder
-                  formControlName="compType" placeholder="select type" i18n-aria-label aria-label="select type"
-                  autocomplete="off">
+                <mat-select [attr.id]="'compType_'" class="form-input flex-1" matInput #compLevel
+                  formControlName="compType" placeholder="select type" aria-label="select type" autocomplete="off">
                   <mat-option *ngFor="let _level of compTypList" [value]="_level">
                     <span class="flex flex-1 margin-left-s">{{_level}}</span>
                   </mat-option>
@@ -74,9 +71,8 @@
               <span class="mat-subheading-1">Competency area</span>
               <!-- <span class="mat-body-2" *ngIf="!isNew">{{data.compArea}}</span> -->
               <mat-form-field appearance="outline" class="full-width no-pb square outline-color">
-                <input matInput #compArea i18n-placeholder placeholder="Type here" i18n-aria-label
-                  formControlName="compArea" aria-label="Activity description input" class="form-input flex-1"
-                  autocomplete="off" />
+                <input matInput #compArea placeholder="Type here" formControlName="compArea"
+                  aria-label="Activity description input" class="form-input flex-1" autocomplete="off" />
               </mat-form-field>
             </div>
             <div class="flex-3">
@@ -147,11 +143,11 @@
       <button mat-dialog-close mat-button (click)="onNoClick()"
         class="btn accent-border-local ws-mat-primary-lite-background ws-mat-default-text margin-right-xs padding-s"
         type="button" id="cancel">
-        <span i18n class="mat-subheading-2">Go back</span>
+        <span class="mat-subheading-2">Go back</span>
       </button>
       <button type="submit" cdkFocusInitial mat-button
         class="btn ws-mat-accent-background text-white noborder margin-left-xs padding-s" id="add">
-        <span i18n class="mat-subheading-2">Add selected fields</span>
+        <span class="mat-subheading-2">Add selected fields</span>
       </button>
 
       <!-- </div> -->

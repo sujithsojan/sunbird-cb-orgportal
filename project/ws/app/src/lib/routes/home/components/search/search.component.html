@@ -56,22 +56,18 @@
 <ng-template #approvalconfirm>
     <div class="confirm-dialog text-center padding-l">
         <mat-icon class="infoIcon orangeicon-dialog">error_outline</mat-icon>
-        <div mat-dialog-content i18n class="margin-top-xs blue-text">
+        <div mat-dialog-contentclass="margin-top-xs blue-text">
             Are you sure you want to apporve all the requests of this page?
         </div>
         <div class="mat-caption margin-top-xs">Do you want to proceed?</div>
         <div mat-dialog-actions class="flex-center margin-top-s">
             <button mat-raised-button type="submit" [mat-dialog-close]="false"
                 class="margin-right-m  btn-success btn-responsive cancelbtn">
-                <span i18n>
-                    No
-                </span>
+                <span>No </span>
             </button>
             <button mat-raised-button type="submit" [mat-dialog-close]="true"
                 class="btn-success btn-responsive successbtn">
-                <span class="text-white" i18n>
-                    Yes
-                </span>
+                <span class="text-white"> Yes </span>
             </button>
         </div>
     </div>
