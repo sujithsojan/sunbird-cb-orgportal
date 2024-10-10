@@ -1,91 +1,199 @@
 <ng-container *ngIf="noteLoaded">
   <div class="reports pt-4">
     <div class="flex-4 mobile-margin text-capitalize mat-h2">Reports</div>
-
-    <mat-card class="mb-8">
-
-      <mat-card-content class="flex gap-10">
-        <div class="section-1">
-          <div class="flex-4 mobile-margin text-capitalize mat-h2">Note:</div>
-          <ng-container *ngFor="let note of reportsNoteList">
-            <div class="flex gap-4 mb-4">
-              <div>
-                <mat-icon class="infoIcon">info_outlined</mat-icon>
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" [expanded]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <div class="flex-4 mobile-margin text-capitalize mat-h2 padding-10">Note:</div>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="flex gap-10 mt-2">
+          <div class="section-1 mt-4">
+            <ng-container *ngFor="let note of reportsNoteList">
+              <div class="flex gap-4 mb-4">
+                <div>
+                  <mat-icon class="infoIcon">info_outlined</mat-icon>
+                </div>
+                <div [innerHTML]="sanitizeHtml(note)"></div>
               </div>
-              <div [innerHTML]="sanitizeHtml(note)"></div>
+            </ng-container>
+          </div>
+          <div class="reportsDemo flex justify-end section-2">
+            <div class="reportsDemoVideo flex flex-column flex-middle justify-center" (click)="openVideoPopup()">
+              <mat-icon class="video_icon mb-2">play_circle</mat-icon>
+              <div>
+                Watch how it works
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-card class="no-border mt-4">
+      <mat-card-content>
+        <div class="flex flex-1 flex-row margin-fix">
+          <div class="flex flex-3 filter max-height-60">
+            <a class="filter-option"
+              [ngClass]="{'ws-mat-accent-border-active' : currentFilter === 'customReports', 'ws-mat-accent-border font-medium': currentFilter !== 'customReports'}"
+              mat-button (click)="filter('customReports')" role="button">Download Custom Reports</a>
+
+            <a class="filter-option"
+              [ngClass]="{'ws-mat-accent-border-active' : currentFilter === 'allReports', 'ws-mat-accent-border font-medium': currentFilter !== 'allReports'}"
+              mat-button (click)="filter('allReports')" role="button">Download All Reports</a>
+          </div>
+        </div>
+
+        <ng-container *ngIf="currentFilter === 'customReports'">
+          <mat-card class="mt-8">
+            <ng-container>
+              <div class="flex-4 mobile-margin  mat-h2">Password to view these Reports</div>
+              <div class="flex gap-4">
+                <div>
+                  <mat-icon class="infoIcon">info_outlined</mat-icon>
+                </div>
+                <div>A unique password is generated for each download. After every refresh or login, the previous
+                  password is
+                  lost, and a new file with a new password is required.</div>
+                <div>
+                </div>
+              </div>
+              <div class="flex flex-col">
+                <label class="mt-4 password-lable">
+                  File Password
+                </label>
+                <div class="flex flex-row flex-middle custom-report justify-between">
+                  <div class="flex flex-row flex-1 password">
+                    <mat-form-field appearance="outline" class="margin-top-xs password-input">
+                      <input [type]="showCustomReportPwd ? 'text' : 'password'" matInput [(ngModel)]="customReportPwd"
+                        readonly>
+                      <mat-icon (click)="showCustomReportPwd = !showCustomReportPwd" class="eye-icon">
+                        {{showCustomReportPwd ? 'visibility' : 'visibility_off'}}
+                      </mat-icon>
+                    </mat-form-field>
+                    <mat-icon class="cust-report-icon copy-icon" (click)="copyToClipboard()">content_copy</mat-icon>
+                  </div>
+
+                  <div class="flex flex-row flex-1 justify-end">
+                    <button mat-button type="button" class="download-btn" [disabled]="selection.selected.length === 0"
+                      [ngClass]="{'disable-btn': selection.selected.length === 0}"
+                      (click)="downloadReportsForEach($event)">Download</button>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </mat-card>
+          <ng-container class="margin-top-l">
+            <div class="table-container">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 full-width-table">
+                <ng-container matColumnDef="select">
+                  <th mat-header-cell *matHeaderCellDef class="header-checkbox">
+                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+                    </mat-checkbox>
+                  </th>
+                  <td mat-cell *matCellDef="let row" class="row-checkbox-cell">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="toggleSelection(row)"
+                      [checked]="selection.isSelected(row)">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="orgName">
+                  <th mat-header-cell *matHeaderCellDef class="header-cell"> Organisation Name </th>
+                  <td mat-cell *matCellDef="let element" class="cell h-400-r-14-l"> {{element.orgName}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                  <th mat-header-cell *matHeaderCellDef class="header-cell"> Status </th>
+                  <td mat-cell *matCellDef="let element" class="cell h-400-r-14-l"> {{element.status}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                  <th mat-header-cell *matHeaderCellDef class="header-cell"> Retry </th>
+
+                  <td mat-cell *matCellDef="let element">
+                    <button *ngIf="element.status === 'Failed'" mat-button
+                      (click)="retryDownload($event, element)"><mat-icon>refresh</mat-icon></button>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+
+              <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons="true"
+                aria-label="Select page"></mat-paginator>
             </div>
           </ng-container>
-        </div>
-        <div class="reportsDemo flex justify-end section-2">
-          <div class="reportsDemoVideo flex flex-column flex-middle justify-center" (click)="openVideoPopup()">
-            <mat-icon class="video_icon mb-2">play_circle</mat-icon>
-            <div>
-              Watch how it works
+        </ng-container>
+
+        <ng-container *ngIf="currentFilter === 'allReports'">
+          <mat-card class="mt-8">
+            <div class="flex-4 mobile-margin mat-h2">Download the Report</div>
+            <div class="flex gap-4 mb-1">
+              <div>
+                <mat-icon class="infoIcon ">info_outlined</mat-icon>
+              </div>
+              <div>Please click the download button to obtain the password-protected ZIP file containing all reports.
+                After
+                downloading, you will receive the password to access the file.</div>
             </div>
-          </div>
-        </div>
+            <div class="mt-4 mb-2">
+              <button mat-raised-button class="btn-reports-downlaod" (click)="downLoadReports($event)"
+                [ngClass]="{'disable-btn': !reportsAvailbale || !hassAccessToreports || reportsDownlaoding}"
+                [disabled]="!reportsAvailbale || !hassAccessToreports || reportsDownlaoding">All
+                Reports
+                <mat-icon>download_outlined</mat-icon></button>
+            </div>
+            <span *ngIf="lastUpdatedOn" class="updatedDate">Last updated on: {{lastUpdatedOn}}</span>
+
+            <ng-container *ngIf="showPasswordView">
+              <hr class="my-4" style="border-top: 0.1px solid #b9b9b9;">
+              <div class="flex-4 mobile-margin  mat-h2">Password to view these Reports</div>
+              <div class="flex gap-4">
+                <div>
+                  <mat-icon class="infoIcon">info_outlined</mat-icon>
+                </div>
+                <div>A unique password is generated for each download. After every refresh or login, the previous
+                  password is
+                  lost, and a new file with a new password is required.</div>
+                <div>
+                </div>
+              </div>
+              <div class="flex flex-col">
+                <label class="mt-4 password-lable">
+                  File Password
+                </label>
+                <div class="flex flex-middle password justify-between">
+                  <mat-form-field appearance="outline" class="margin-top-xs password-input">
+                    <input [type]="showPassword ? 'text' : 'password'" matInput [(ngModel)]="password" readonly>
+                    <mat-icon (click)="showPassword = !showPassword" class="eye-icon">
+                      {{showPassword ? 'visibility' : 'visibility_off'}}
+                    </mat-icon>
+                  </mat-form-field>
+                  <mat-icon class="copy-icon" (click)="copyToClipboard()">content_copy</mat-icon>
+                </div>
+              </div>
+            </ng-container>
+          </mat-card>
+
+          <ng-container *ngIf="showAdminsTable">
+            <ng-container *ngIf="!showLoaderOnTable; else loader">
+              <div class="mt-8">
+                <ws-app-admins-table [tableHeaders]="adminTableData" [tableData]="adminTableDataSource"
+                  (updateAccess)="updateAccess($event)"></ws-app-admins-table>
+              </div>
+              <!-- Removed after discussions with Himanshu -->
+              <!-- <div class="flex justify-end mt-4">
+                  <button mat-raised-button class="laodMoreBtn" (click)="getAdmins()">Load more...</button>
+                </div> -->
+            </ng-container>
+          </ng-container>
+        </ng-container>
       </mat-card-content>
     </mat-card>
-
-    <mat-card>
-      <div class="flex-4 mobile-margin mat-h2">Download the Report</div>
-      <div class="flex gap-4 mb-1">
-        <div>
-          <mat-icon class="infoIcon ">info_outlined</mat-icon>
-        </div>
-        <div>Please click the download button to obtain the password-protected ZIP file containing all reports. After
-          downloading, you will receive the password to access the file.</div>
-      </div>
-      <div class="mt-4 mb-2">
-        <button mat-raised-button class="btn-reports-downlaod" (click)="downLoadReports($event)"
-          [ngClass]="{'disable-btn': !reportsAvailbale || !hassAccessToreports || reportsDownlaoding}"
-          [disabled]="!reportsAvailbale || !hassAccessToreports || reportsDownlaoding">All
-          Reports
-          <mat-icon>download_outlined</mat-icon></button>
-      </div>
-      <span *ngIf="lastUpdatedOn" class="updatedDate">Last updated on: {{lastUpdatedOn}}</span>
-
-      <ng-container *ngIf="showPasswordView">
-        <hr class="my-4" style="border-top: 0.1px solid #b9b9b9;">
-        <div class="flex-4 mobile-margin  mat-h2">Password to view these Reports</div>
-        <div class="flex gap-4">
-          <div>
-            <mat-icon class="infoIcon">info_outlined</mat-icon>
-          </div>
-          <div>A unique password is generated for each download. After every refresh or login, the previous password is
-            lost, and a new file with a new password is required.</div>
-          <div>
-          </div>
-        </div>
-        <div class="flex flex-col">
-          <label class="mt-4 password-lable">
-            File Password
-          </label>
-          <div class="flex flex-middle password justify-between">
-            <mat-form-field appearance="outline" class="margin-top-xs password-input">
-              <input [type]="showPassword ? 'text' : 'password'" matInput [(ngModel)]="password" readonly>
-              <mat-icon (click)="showPassword = !showPassword" class="eye-icon">
-                {{showPassword ? 'visibility' : 'visibility_off'}}
-              </mat-icon>
-            </mat-form-field>
-            <mat-icon class="copy-icon" (click)="copyToClipboard()">content_copy</mat-icon>
-          </div>
-        </div>
-      </ng-container>
-    </mat-card>
-
-    <ng-container *ngIf="showAdminsTable">
-      <ng-container *ngIf="!showLoaderOnTable; else loader">
-        <div class="mt-8">
-          <ws-app-admins-table [tableHeaders]="adminTableData" [tableData]="adminTableDataSource"
-            (updateAccess)="updateAccess($event)"></ws-app-admins-table>
-        </div>
-        <!-- Removed after discussions with Himanshu -->
-        <!-- <div class="flex justify-end mt-4">
-        <button mat-raised-button class="laodMoreBtn" (click)="getAdmins()">Load more...</button>
-      </div> -->
-      </ng-container>
-    </ng-container>
   </div>
 </ng-container>
 <ng-container *ngIf="!noteLoaded || reportsDownlaoding">

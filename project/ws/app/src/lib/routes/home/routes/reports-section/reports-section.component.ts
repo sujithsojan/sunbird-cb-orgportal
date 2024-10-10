@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core'
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { MatDialog, MatSnackBar } from '@angular/material'
+import { MatDialog, MatPaginator, MatSnackBar, MatTableDataSource } from '@angular/material'
 import { DownloadReportService } from '../../services/download-report.service'
 import { DatePipe } from '@angular/common'
 import { mergeMap } from 'rxjs/operators'
@@ -12,6 +12,8 @@ import { TelemetryEvents } from '../../../../head/_services/telemetry.event.mode
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { environment } from '../../../../../../../../../src/environments/environment'
+import { SelectionModel } from '@angular/cdk/collections'
+import { LoaderService } from '../../../../../../../../../src/app/services/loader.service'
 
 @Component({
   selector: 'ws-app-reports-section',
@@ -19,13 +21,6 @@ import { environment } from '../../../../../../../../../src/environments/environ
   styleUrls: ['./reports-section.component.scss'],
 })
 export class ReportsSectionComponent implements OnInit {
-  // @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator | null = null
-  // btnList!: any
-  // tabledata!: ITableData
-  // dataSource: MatTableDataSource<any>
-  // reportSectionData: any
-  // lastUpdatedOn!: any
-
   configSvc!: any
   userDetails: any
   lastUpdatedOn: string | null = ''
@@ -42,6 +37,28 @@ export class ReportsSectionComponent implements OnInit {
   reportsAvailbale = false
   reportsDownlaoding = false
   teamUrl: any
+  panelOpenState = true
+  currentFilter = 'customReports'
+
+  orgListData: any = []
+  l1orgListData: any = []
+  customReportPwd = ''
+  showCustomReportPwd = false
+
+  displayedColumns: string[] = ['select', 'orgName', 'status', 'action']
+  dataSource = new MatTableDataSource<any>()
+  selection = new SelectionModel<string>(true, [])
+
+  @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator | null = null
+
+  @ViewChild(MatPaginator, { static: false }) set matPaginator(paginator: MatPaginator) {
+    this.paginator = paginator
+    this.setDataSourceAttributes()
+  }
+  setDataSourceAttributes() {
+    this.dataSource.paginator = this.paginator
+  }
+
   constructor(
     private activeRouter: ActivatedRoute,
     private downloadService: DownloadReportService,
@@ -50,6 +67,8 @@ export class ReportsSectionComponent implements OnInit {
     private events: EventService,
     private snackBar: MatSnackBar,
     private sanitizer: DomSanitizer,
+    private changeDetector: ChangeDetectorRef,
+    private loaderService: LoaderService
   ) {
     this.configSvc = this.activeRouter.parent && this.activeRouter.parent.snapshot.data.configService
     this.userDetails = this.configSvc.unMappedUser
@@ -62,6 +81,7 @@ export class ReportsSectionComponent implements OnInit {
     this.getReportInfo()
     this.setTableHeaders()
     this.getAdminTableData(getNoteDetails)
+    this.filterOrgsSearch()
   }
 
   sanitizeHtml(html: string): SafeHtml {
@@ -322,7 +342,7 @@ export class ReportsSectionComponent implements OnInit {
 
   copyToClipboard() {
     const dummyTextArea = document.createElement('textarea')
-    dummyTextArea.value = this.password
+    dummyTextArea.value = this.customReportPwd ? this.customReportPwd : this.password
     document.body.appendChild(dummyTextArea)
     dummyTextArea.select()
     document.execCommand('copy')
@@ -354,4 +374,144 @@ export class ReportsSectionComponent implements OnInit {
     })
   }
 
+  filter(key: string | 'timestamp' | 'best' | 'saved') {
+    if (key) {
+      this.currentFilter = key
+    }
+  }
+
+  filterOrgsSearch() {
+    const req = {
+      identifier: [this.configSvc.userProfile.rootOrgId],
+      parentType: this.configSvc.unMappedUser.rootOrg.organisationType === 16 ? 'ministry' : 'state',
+    }
+    return this.downloadService.searchOrgs(req).subscribe((response: any) => {
+      if (response && response.result && response.result.response) {
+        this.orgListData = response.result.response
+
+        if (this.orgListData && this.orgListData.length > 0) {
+          this.downloadService.getOrgsOfDepartment(this.orgListData[0].mapId).subscribe(res => {
+            if (res && res.result && res.result.response) {
+              const l1orgListData = res.result.response.content
+              this.l1orgListData = l1orgListData.filter((item: any) => item.sbOrgId !== null)
+            }
+            this.updateDataSource()
+            this.changeDetector.detectChanges()
+          })
+        } else {
+          this.orgListData = []
+          this.l1orgListData = []
+          this.openSnackbar('Something went wrong')
+        }
+      }
+    },                                                    (err: any) => {
+      if (err.error && err.error.params && err.error.params.errmsg) {
+        this.openSnackbar(err.error.params.errmsg)
+      } else {
+        this.openSnackbar('Something went wrong. Please try after sometime.')
+      }
+    })
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length
+    const numRows = this.dataSource.data.length
+    return numSelected === numRows
+  }
+
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear()
+    } else {
+      this.dataSource.data.forEach(row => this.selection.select(row))
+    }
+  }
+
+  toggleSelection(row: any) {
+    this.selection.toggle(row)
+  }
+
+  unselectAll() {
+    this.selection.clear()
+  }
+
+  updateDataSource(failedItems?: any[]) {
+    this.dataSource.data = [...this.orgListData]
+
+    if (this.l1orgListData && this.l1orgListData.length > 0) {
+      this.dataSource.data.push(...this.l1orgListData)
+    }
+
+    if (failedItems && failedItems.length > 0) {
+      failedItems.forEach((failedItem: any) => {
+        const index = this.dataSource.data.findIndex((existingItem: any) =>
+          existingItem.sbOrgId === failedItem.sbOrgId
+        )
+
+        if (index !== -1) {
+
+          if (JSON.stringify(this.dataSource.data[index]) !== JSON.stringify(failedItem)) {
+
+            this.dataSource.data[index] = { ...this.dataSource.data[index], ...failedItem }
+          }
+        }
+      })
+    }
+
+  }
+
+  downloadReportsForEach(event: MouseEvent, retryItem?: any) {
+    event.stopPropagation()
+    const failedItems: any[] = []
+    const items = retryItem ? retryItem : this.selection.selected
+
+    this.loaderService.changeLoaderState(true)
+
+    this.downloadService.downloadReportsForEachOrgId(this.configSvc.userProfile.rootOrgId, items).subscribe({
+      next: (responses: HttpResponse<Blob>[]) => {
+
+        responses.forEach((response: HttpResponse<Blob>, index: number) => {
+          const selectedItem: any = this.selection.selected[index]
+
+          if (response.status === 200) {
+
+            const password = response.headers.getAll('Password')
+            this.customReportPwd = password ? password[0] : ''
+            if (response.body) {
+              const contentType = response.headers.get('Content-Type')
+              const blob = new Blob([response.body], {
+                type: contentType ? contentType : 'application/octet-stream',
+              })
+              const blobUrl = window.URL.createObjectURL(blob)
+
+              const fileName = selectedItem.orgName || 'Reports'
+              const a = document.createElement('a')
+              a.href = blobUrl
+              a.download = `${fileName}.zip`
+              document.body.appendChild(a)
+              a.click()
+              document.body.removeChild(a)
+              // Clean up blob URL
+              window.URL.revokeObjectURL(blobUrl)
+            }
+          } else {
+            selectedItem.status = 'Failed'
+            failedItems.push(selectedItem)
+          }
+        })
+        // this.showCustomReportPwd = true
+        this.loaderService.changeLoaderState(false)
+        this.raiseTelemetry()
+        this.updateDataSource(failedItems)
+        this.changeDetector.detectChanges()
+      },
+    })
+  }
+
+  retryDownload(event: MouseEvent, item: any) {
+    event.stopPropagation()
+    item.status = 'pending'
+    const retryItem = [item]
+    this.downloadReportsForEach(event, retryItem)
+  }
 }
