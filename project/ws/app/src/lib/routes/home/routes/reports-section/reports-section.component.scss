@@ -208,6 +208,16 @@
   justify-content: center;
 }
 
+::ng-deep .mat-checkbox-checked .mat-checkbox-background,
+::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: #1b4ca1 !important;
+  border-color: #1b4ca1 !important;
+}
+
+::ng-deep .mat-checkbox-ripple .mat-ripple-element {
+  background-color:  #1b4ca1 !important;
+}
+
 .row-checkbox {
   display: flex;
   align-items: center;
