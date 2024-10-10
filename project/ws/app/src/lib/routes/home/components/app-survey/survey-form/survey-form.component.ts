@@ -52,7 +52,7 @@ export class SurveyFormComponent implements OnInit {
   }
 
   clickedOut(event: any) {
-    if (event.target.className.includes("main-survey")) {
+    if (event.target.className.includes('main-survey')) {
       this.isSurveyPopup = false
       if (this.localStorageFlag) {
         localStorage.setItem('surveyPopup', 'false')
