@@ -33,6 +33,26 @@ export class DownloadReportService {
     return this.http.get(`${API_END_POINTS.DOWNLOAD_REPORTS}`, { observe: 'response', responseType: 'blob' })
   }
 
+  downloadReportsAll(rootOrgId: any): Observable<HttpResponse<Blob>> {
+    const req = {
+      request: {
+        childId: [],
+      },
+    }
+    return this.http.post<Blob>(`${API_END_POINTS.DOWNLOAD_OPS_REPORTS}/${rootOrgId}`, req, {
+      responseType: 'blob' as 'json',
+      observe: 'response',
+    }).pipe(map((response: HttpResponse<Blob>) => response),
+            catchError((error: HttpErrorResponse) => {
+        const errorResponse: HttpResponse<Blob> = new HttpResponse({
+          status: error.status,
+          body: new Blob(),
+        })
+        return of(errorResponse)
+      })
+    )
+  }
+
   getAdminsList(filter: object): Observable<any> {
     return this.http.post<any>(`${API_END_POINTS.GET_ADMINS}`, filter).pipe(map(res => _.get(res, 'result.response')))
   }

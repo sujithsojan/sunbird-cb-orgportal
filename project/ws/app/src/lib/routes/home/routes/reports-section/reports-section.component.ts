@@ -275,7 +275,7 @@ export class ReportsSectionComponent implements OnInit {
   downLoadReports(event: MouseEvent) {
     event.stopPropagation()
     this.reportsDownlaoding = true
-    this.downloadService.downloadReports().subscribe({
+    this.downloadService.downloadReportsAll(this.configSvc.userProfile.rootOrgId).subscribe({
       next: (response: HttpResponse<Blob>) => {
         const password = response.headers.getAll('Password')
         this.password = password ? password[0] : ''
@@ -377,6 +377,7 @@ export class ReportsSectionComponent implements OnInit {
   filter(key: string | 'timestamp' | 'best' | 'saved') {
     if (key) {
       this.currentFilter = key
+      this.selection.clear()
     }
   }
 
@@ -463,18 +464,19 @@ export class ReportsSectionComponent implements OnInit {
   downloadReportsForEach(event: MouseEvent, retryItem?: any) {
     event.stopPropagation()
     const failedItems: any[] = []
+    const rootOrgId = this.configSvc.userProfile.rootOrgId
     const items = retryItem ? retryItem : this.selection.selected
-
     this.loaderService.changeLoaderState(true)
-
-    this.downloadService.downloadReportsForEachOrgId(this.configSvc.userProfile.rootOrgId, items).subscribe({
+    this.downloadService.downloadReportsForEachOrgId(rootOrgId, items).subscribe({
       next: (responses: HttpResponse<Blob>[]) => {
 
         responses.forEach((response: HttpResponse<Blob>, index: number) => {
-          const selectedItem: any = this.selection.selected[index]
+          const currentItem: any = items[index]
+          const selectedItem: any = this.selection.selected.find((item: any) =>
+            item.sbOrgId === currentItem.sbOrgId
+          )
 
           if (response.status === 200) {
-
             const password = response.headers.getAll('Password')
             this.customReportPwd = password ? password[0] : ''
             if (response.body) {
@@ -493,13 +495,13 @@ export class ReportsSectionComponent implements OnInit {
               document.body.removeChild(a)
               // Clean up blob URL
               window.URL.revokeObjectURL(blobUrl)
+              selectedItem.status = ''
             }
           } else {
             selectedItem.status = 'Failed'
             failedItems.push(selectedItem)
           }
         })
-        // this.showCustomReportPwd = true
         this.loaderService.changeLoaderState(false)
         this.raiseTelemetry()
         this.updateDataSource(failedItems)
@@ -507,10 +509,9 @@ export class ReportsSectionComponent implements OnInit {
       },
     })
   }
-
   retryDownload(event: MouseEvent, item: any) {
     event.stopPropagation()
-    item.status = 'pending'
+    item.status = 'Pending'
     const retryItem = [item]
     this.downloadReportsForEach(event, retryItem)
   }
