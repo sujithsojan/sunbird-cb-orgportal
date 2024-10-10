@@ -61,32 +61,30 @@ export class DownloadReportService {
   }
 
   downloadReportsForEachOrgId(rootOrgId: any, data: any[]): Observable<HttpResponse<Blob>[]> {
-    const apiCalls = data
-      .filter(item => item && item.sbOrgId)
-      .map((item: any) => {
-        const req = {
-          request: {
-            childId: rootOrgId === item.sbOrgId ? [] : [item.sbOrgId],
-          },
-        }
-        return this.http.post<Blob>(`${API_END_POINTS.DOWNLOAD_OPS_REPORTS}/${rootOrgId}`, req, {
-          responseType: 'blob' as 'json',
-          observe: 'response',
-        }).pipe(
-          catchError((error: HttpErrorResponse) => {
-            if (error.status === 500) {
-              return of(new HttpResponse({
-                status: 404,
-                body: { message: 'Report not found for the requested organization' },
-              }))
-            }
-            return of(error)
-          })
-        )
-      })
-
+    const apiCalls = data.filter(item => item && item.sbOrgId).map((item: any) => {
+      const req = {
+        request: {
+          childId: rootOrgId === item.sbOrgId ? [] : [item.sbOrgId],
+        },
+      }
+      return this.http.post<Blob>(`${API_END_POINTS.DOWNLOAD_OPS_REPORTS}/${rootOrgId}`, req, {
+        responseType: 'blob' as 'json',
+        observe: 'response',
+      }).pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 500) {
+            return of(new HttpResponse({
+              status: 404,
+              body: { message: 'Report not found for the requested organization' },
+            }))
+          }
+          return of(error)
+        })
+      )
+    })
     if (apiCalls.length > 0) {
       return forkJoin(apiCalls) as Observable<HttpResponse<Blob>[]>
     }
+    return of([] as HttpResponse<Blob>[]) as Observable<HttpResponse<Blob>[]>
   }
 }
