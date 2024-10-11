@@ -321,6 +321,7 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     const filtreq = {
       rootOrgId: this.rootOrgId,
       'profileDetails.profileStatus': 'VERIFIED',
+      status: 1,
     }
     if (this.getFilterGroup(query) && this.getFilterGroup(query) !== 'undefind') {
       Object.assign(filtreq, { 'profileDetails.professionalDetails.group': this.getFilterGroup(query) })
@@ -448,6 +449,7 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     const filtreq = {
       rootOrgId: this.rootOrgId,
       'profileDetails.profileStatus': 'NOT-VERIFIED',
+      status: 1,
     }
     if (this.getFilterGroup(query) && this.getFilterGroup(query) !== 'undefind') {
       Object.assign(filtreq, { 'profileDetails.professionalDetails.group': this.getFilterGroup(query) })
