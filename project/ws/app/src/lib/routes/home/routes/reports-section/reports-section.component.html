@@ -33,19 +33,8 @@
 
     <mat-card class="no-border mt-4">
       <mat-card-content>
-        <div class="flex flex-1 flex-row margin-fix">
-          <div class="flex flex-3 filter max-height-60">
-            <a class="filter-option"
-              [ngClass]="{'ws-mat-accent-border-active' : currentFilter === 'customReports', 'ws-mat-accent-border font-medium': currentFilter !== 'customReports'}"
-              mat-button (click)="filter('customReports')" role="button">Download Custom Reports</a>
 
-            <a class="filter-option"
-              [ngClass]="{'ws-mat-accent-border-active' : currentFilter === 'allReports', 'ws-mat-accent-border font-medium': currentFilter !== 'allReports'}"
-              mat-button (click)="filter('allReports')" role="button">Download All Reports</a>
-          </div>
-        </div>
-
-        <ng-container *ngIf="currentFilter === 'customReports'">
+        <ng-container>
           <mat-card class="mt-8">
             <ng-container>
               <div class="flex-4 mobile-margin  mat-h2">Password to view these Reports</div>
@@ -123,13 +112,13 @@
                 <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
               </table>
 
-              <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons="true"
+              <mat-paginator [pageSize]="20" [pageSizeOptions]="[20, 30, 40]" showFirstLastButtons="true"
                 aria-label="Select page"></mat-paginator>
             </div>
           </ng-container>
         </ng-container>
 
-        <ng-container *ngIf="currentFilter === 'allReports'">
+        <!-- <ng-container *ngIf="currentFilter === 'allReports'">
           <mat-card class="mt-8">
             <div class="flex-4 mobile-margin mat-h2">Download the Report</div>
             <div class="flex gap-4 mb-1">
@@ -178,22 +167,35 @@
               </div>
             </ng-container>
           </mat-card>
-
-          <ng-container *ngIf="showAdminsTable">
-            <ng-container *ngIf="!showLoaderOnTable; else loader">
-              <div class="mt-8">
-                <ws-app-admins-table [tableHeaders]="adminTableData" [tableData]="adminTableDataSource"
-                  (updateAccess)="updateAccess($event)"></ws-app-admins-table>
-              </div>
-              <!-- Removed after discussions with Himanshu -->
-              <!-- <div class="flex justify-end mt-4">
-                  <button mat-raised-button class="laodMoreBtn" (click)="getAdmins()">Load more...</button>
-                </div> -->
-            </ng-container>
-          </ng-container>
-        </ng-container>
+        </ng-container> -->
       </mat-card-content>
     </mat-card>
+
+    <div class="mt-8">
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelStateAccessCtrl = true" (closed)="panelStateAccessCtrl = false">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="flex-4 mobile-margin text-capitalize mat-h2 padding-10">Access Control to MDO Admins:</div>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="flex gap-10 mt-2">
+            <ng-container *ngIf="showAdminsTable">
+              <ng-container *ngIf="!showLoaderOnTable; else loader">
+                <div class="mt-8 full-width-table">
+                  <ws-app-admins-table [tableHeaders]="adminTableData" [tableData]="adminTableDataSource"
+                    (updateAccess)="updateAccess($event)"></ws-app-admins-table>
+                </div>
+                <!-- Removed after discussions with Himanshu -->
+                <!-- <div class="flex justify-end mt-4">
+                                                      <button mat-raised-button class="laodMoreBtn" (click)="getAdmins()">Load more...</button>
+                                                    </div> -->
+              </ng-container>
+            </ng-container>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
   </div>
 </ng-container>
 <ng-container *ngIf="!noteLoaded || reportsDownlaoding">
