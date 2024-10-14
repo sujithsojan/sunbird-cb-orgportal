@@ -12,7 +12,7 @@ const API_END_POINTS = {
   GET_ADMINS_ACCESSS_DETAILS: `/apis/proxies/v8/operationalreports/`,
   UPDATE_ACCESS: `/apis/proxies/v8/operationalreports/admin/grantaccess`,
   SEARCH_ORG: '/api/org/ext/v2/signup/search',
-  GET_ORGS_OF_DEPT: '/apis/public/v8/org/v1/list',
+  GET_ORGS_OF_DEPT: '/apis/public/v8/org/v2/list',
   DOWNLOAD_OPS_REPORTS: '/apis/proxies/v8/operationalreports/v2/download',
 }
 @Injectable({
