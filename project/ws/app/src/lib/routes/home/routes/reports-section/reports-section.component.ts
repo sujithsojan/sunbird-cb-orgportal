@@ -38,7 +38,7 @@ export class ReportsSectionComponent implements OnInit {
   reportsDownlaoding = false
   teamUrl: any
   panelOpenState = true
-  currentFilter = 'customReports'
+  panelStateAccessCtrl = true
 
   orgListData: any = []
   l1orgListData: any = []
@@ -272,39 +272,38 @@ export class ReportsSectionComponent implements OnInit {
     }
   }
 
-  downLoadReports(event: MouseEvent) {
-    event.stopPropagation()
-    this.reportsDownlaoding = true
-    this.downloadService.downloadReportsAll(this.configSvc.userProfile.rootOrgId).subscribe({
-      next: (response: HttpResponse<Blob>) => {
-        const password = response.headers.getAll('Password')
-        this.password = password ? password[0] : ''
-        if (response.body) {
-          const contentType = response.headers.get('Content-Type')
-          const blob = new Blob([response.body], {
-            type: contentType ? contentType : 'application/octet-stream',
-          })
-          const blobUrl = window.URL.createObjectURL(blob)
-          const a = document.createElement('a')
-          a.href = blobUrl
-          a.download = 'All Reports.zip'
-          document.body.appendChild(a)
-          a.click()
-          document.body.removeChild(a)
-          // Clean up blob URL
-          window.URL.revokeObjectURL(blobUrl)
-        }
-        this.showPasswordView = true
-        this.reportsDownlaoding = false
-        this.raiseTelemetry()
-      },
-      error: (error: HttpErrorResponse) => {
-        const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
-        this.openSnackbar(errorMessage)
-      },
-    })
-
-  }
+  // downLoadReports(event: MouseEvent) {
+  //   event.stopPropagation()
+  //   this.reportsDownlaoding = true
+  //   this.downloadService.downloadReports().subscribe({
+  //     next: (response: HttpResponse<Blob>) => {
+  //       const password = response.headers.getAll('Password')
+  //       this.password = password ? password[0] : ''
+  //       if (response.body) {
+  //         const contentType = response.headers.get('Content-Type')
+  //         const blob = new Blob([response.body], {
+  //           type: contentType ? contentType : 'application/octet-stream',
+  //         })
+  //         const blobUrl = window.URL.createObjectURL(blob)
+  //         const a = document.createElement('a')
+  //         a.href = blobUrl
+  //         a.download = 'All Reports.zip'
+  //         document.body.appendChild(a)
+  //         a.click()
+  //         document.body.removeChild(a)
+  //         // Clean up blob URL
+  //         window.URL.revokeObjectURL(blobUrl)
+  //       }
+  //       this.showPasswordView = true
+  //       this.reportsDownlaoding = false
+  //       this.raiseTelemetry()
+  //     },
+  //     error: (error: HttpErrorResponse) => {
+  //       const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
+  //       this.openSnackbar(errorMessage)
+  //     },
+  //   })
+  // }
 
   raiseTelemetry() {
     this.events.raiseInteractTelemetry(
@@ -318,6 +317,7 @@ export class ReportsSectionComponent implements OnInit {
   }
 
   updateAccess(rowData: any) {
+    this.panelStateAccessCtrl = true
     const formData = {
       request: {
         userId: rowData.userID,
@@ -331,6 +331,7 @@ export class ReportsSectionComponent implements OnInit {
           this.openSnackbar(_.get(response, 'result.message', 'Report access has been granted successfully'))
         }
         this.getAdminTableData()
+
       },
       error: (error: HttpErrorResponse) => {
         const errorMessage = _.get(error, 'error.message', 'Some thing went wrong')
@@ -372,13 +373,6 @@ export class ReportsSectionComponent implements OnInit {
     this.snackBar.open(primaryMsg, 'X', {
       duration,
     })
-  }
-
-  filter(key: string | 'timestamp' | 'best' | 'saved') {
-    if (key) {
-      this.currentFilter = key
-      this.selection.clear()
-    }
   }
 
   filterOrgsSearch() {
