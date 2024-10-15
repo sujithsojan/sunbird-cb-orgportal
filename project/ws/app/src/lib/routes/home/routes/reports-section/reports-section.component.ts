@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute } from '@angular/router'
-import { MatDialog, MatPaginator, MatSnackBar, MatTableDataSource } from '@angular/material'
+import { MatDialog, MatPaginator, MatSnackBar, MatSort, MatTableDataSource } from '@angular/material'
 import { DownloadReportService } from '../../services/download-report.service'
 import { DatePipe } from '@angular/common'
 import { mergeMap } from 'rxjs/operators'
@@ -34,6 +34,7 @@ export class ReportsSectionComponent implements OnInit {
   noteLoaded = false
   reportsNoteList: string[] = []
   hassAccessToreports = false
+  reportAccessExpireDate: any
   reportsAvailbale = false
   reportsDownlaoding = false
   teamUrl: any
@@ -57,6 +58,12 @@ export class ReportsSectionComponent implements OnInit {
   }
   setDataSourceAttributes() {
     this.dataSource.paginator = this.paginator
+  }
+
+  @ViewChild(MatSort, { static: false }) set matSort(sort: MatSort) {
+    if (!this.dataSource.sort) {
+      this.dataSource.sort = sort
+    }
   }
 
   constructor(
@@ -205,6 +212,7 @@ export class ReportsSectionComponent implements OnInit {
   //#endregion
 
   getNoteList(isMDOLeader: boolean, hasUsers: boolean, userAccessExpireDate: string) {
+    this.reportAccessExpireDate = userAccessExpireDate
     if (hasUsers) {
       if (isMDOLeader) {
         this.hassAccessToreports = true
@@ -228,13 +236,13 @@ export class ReportsSectionComponent implements OnInit {
           this.reportsNoteList = [
             `These reports contain Personally Identifiable Information (PII) data.
             Please use them cautiously.`,
-            `Your access to the report is available until ${this.datePipe.transform(userAccessExpireDate, 'dd/MM/yyyy')}.
+            `Your access to the report is available until ${this.datePipe.transform(userAccessExpireDate, 'dd-MMM-yyyy')}.
             Please contact your MDO Leader to renew your access.`,
           ]
         } else if (userAccessExpireDate < todayDate) {
           this.hassAccessToreports = false
           this.reportsNoteList = [
-            `Your access to reports expired on ${this.datePipe.transform(userAccessExpireDate, 'dd/MM/yyyy')}. Please
+            `Your access to reports expired on ${this.datePipe.transform(userAccessExpireDate, 'dd-MMM-yyyy')}. Please
             contact your MDO Leader to renew access.`,
           ]
         } else {
