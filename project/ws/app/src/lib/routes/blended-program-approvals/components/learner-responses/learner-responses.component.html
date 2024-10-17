@@ -1,0 +1,170 @@
+<div class="profile-container">
+  <div class="flex flex-1">
+    <a mat-buttom class="flex" href="javascript:void(0)" (click)="moveBack()" role="link">
+      <mat-icon class="m-auto padding-xxs">arrow_back</mat-icon>
+      <span id="basic-information" class="mat-button ws-mat-black60-text padding-left-0" i18n>Back</span>
+    </a>
+  </div>
+  <div class="flex flex-1 flex-column margin-top-m">
+    <div class="flex">
+      <mat-card class="box ws-mat-accent-border">
+        <div class="user-avatar ws-mat-primary-lite-background-on-day">
+          <div class="user-details">
+            <div class="left-user">
+              <ws-widget-avatar-photo *ngIf="getLearner?.name" class="user-image" [photoUrl]="getLearner?.profileImage"
+                [size]="'m'" [name]="getLearner?.name"></ws-widget-avatar-photo>
+              <div class="user-name">
+                <h2 class="pl-4 sm:pl-0 margin-remove">{{ getLearner?.name }}</h2>
+                <span class="mat-body-2 margin-remove pl-4 sm:pl-0">{{ getLearner?.department }}</span>
+              </div>
+            </div>
+            <div class="right-user" *ngIf="showActions">
+              <button (click)="onReject()" class="reject-btn cursor-pointer">Reject</button>
+              <button (click)="onApprove()" class="approve-btn cursor-pointer">Approve</button>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+    <div class="panel-body">
+      <div class="inner-body mat-body-2">
+        <div class="margin-bottom-m">
+          <span class="font-bold">Primary Details</span> <mat-icon
+            class="ws-mat-black40-text infoicon">info_outline</mat-icon>
+        </div>
+        <div class="flex flex-row margin-top-m">
+          <div class="md:w-1/3">
+            <label class="view-text-label">Group</label>
+            <p>
+              {{(userData?.profileDetails && userData?.profileDetails?.professionalDetails &&
+              userData?.profileDetails?.professionalDetails[0]?.group) ?
+              userData?.profileDetails?.professionalDetails[0]?.group : '-'}}
+              <mat-icon class="verified-icon margin-left-xs"
+                *ngIf="userData?.profileDetails?.profileGroupStatus === 'VERIFIED'">
+                check_circle</mat-icon>
+              <span *ngIf="userData?.profileDetails?.profileGroupStatus === 'VERIFIED'"
+                class="mat-caption status-text ws-mat-black40-text"> Verified</span>
+              <mat-icon class="nonverified-icon margin-left-xs"
+                *ngIf="userData?.profileDetails?.profileGroupStatus === 'NOT-VERIFIED'">
+                cancel</mat-icon>
+              <span *ngIf="userData?.profileDetails?.profileGroupStatus === 'NOT-VERIFIED'"
+                class="mat-caption status-text ws-mat-black40-text"> Non-verified</span>
+            </p>
+          </div>
+          <div class="md:w-1/2">
+            <label class="view-text-label">Designation</label>
+            <p>
+              {{(userData?.profileDetails && userData?.profileDetails?.professionalDetails &&
+              userData?.profileDetails?.professionalDetails[0]?.designation) ?
+              userData?.profileDetails?.professionalDetails[0]?.designation : '-'}}
+              <mat-icon class="verified-icon margin-left-xs"
+                *ngIf="userData?.profileDetails?.profileDesignationStatus === 'VERIFIED'">
+                check_circle</mat-icon>
+              <span *ngIf="userData?.profileDetails?.profileDesignationStatus === 'VERIFIED'"
+                class="mat-caption status-text ws-mat-black40-text"> Verified</span>
+              <mat-icon class="nonverified-icon margin-left-xs"
+                *ngIf="userData?.profileDetails?.profileDesignationStatus === 'NOT-VERIFIED'">
+                cancel</mat-icon>
+              <span *ngIf="userData?.profileDetails?.profileDesignationStatus === 'NOT-VERIFIED'"
+                class="mat-caption status-text ws-mat-black40-text"> Non-verified</span>
+            </p>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="inner-body margin-top-m mat-body-2">
+        <div class="margin-bottom-m">
+          <span class="font-bold">Other Details</span> <mat-icon
+            class="ws-mat-black40-text infoicon">info_outline</mat-icon>
+        </div>
+
+        <div class="flex flex-row margin-top-m">
+          <div class="md:w-1/4">
+            <label class="view-text-label">Email</label>
+            <p class="word-wrap">
+              {{(userData?.profileDetails && userData?.profileDetails?.personalDetails) ?
+              userData?.profileDetails?.personalDetails?.primaryEmail : '-'}}
+            </p>
+          </div>
+
+          <div class="md:w-1/4">
+            <label class="view-text-label">Mobile Number</label>
+            <p>
+              +91 {{(userData?.profileDetails && userData?.profileDetails?.personalDetails) ?
+              userData?.profileDetails?.personalDetails?.mobile : '-'}}
+            </p>
+          </div>
+          <div class="md:w-1/4">
+            <label class="view-text-label">Date of Birth</label>
+            <p>
+              {{(userData?.profileDetails && userData?.profileDetails?.personalDetails &&
+              userData?.profileDetails?.personalDetails?.dob)
+              ? userData?.profileDetails?.personalDetails?.dob
+              : '-'}}
+            </p>
+          </div>
+        </div>
+        <!-- Cader Related Code-->
+        <div class="flex flex-row margin-top-m">
+          <div class="md:w-1/4">
+            <label class="view-text-label">Are you a Cadre Employee?</label>
+            <p *ngIf="userData?.profileDetails?.hasOwnProperty('cadreDetails')">
+              {{userData?.profileDetails?.cadreDetails?.civilServiceType ? 'Yes': 'No'}}</p>
+            <p *ngIf="!(userData?.profileDetails?.hasOwnProperty('cadreDetails'))">-</p>
+          </div>
+
+          <div class="md:w-1/4" *ngIf="userData?.profileDetails?.cadreDetails?.civilServiceType">
+            <label class="view-text-label">Type of Civil Service</label>
+            <p>{{userData?.profileDetails?.cadreDetails?.civilServiceType ?
+              userData?.profileDetails?.cadreDetails?.civilServiceType: '-'}}</p>
+
+          </div>
+
+          <div class="md:w-1/4" *ngIf="userData?.profileDetails?.cadreDetails?.civilServiceType">
+            <label class="view-text-label">Service</label>
+            <p>{{userData?.profileDetails?.cadreDetails?.civilServiceName ?
+              userData?.profileDetails?.cadreDetails?.civilServiceName: '-'}}</p>
+
+          </div>
+          <div class="md:w-1/4" *ngIf="userData?.profileDetails?.cadreDetails?.civilServiceType &&
+                          (userData?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Administrative Office (IAS)' ||
+                          userData?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Police Service (IPS)' ||
+                          userData?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Forest Service (IFoS)')
+                          ">
+            <label class="view-text-label">Cadre</label>
+            <p>{{userData?.profileDetails?.cadreDetails?.cadreName ? userData?.profileDetails?.cadreDetails?.cadreName:
+              '-'}}
+            </p>
+
+          </div>
+        </div>
+        <div class="flex flex-row margin-top-m">
+          <div class="md:w-1/4" *ngIf="userData?.profileDetails?.cadreDetails?.civilServiceType">
+            <label class="view-text-label">Batch</label>
+            <p>{{userData?.profileDetails?.cadreDetails?.cadreBatch ?
+              userData?.profileDetails?.cadreDetails?.cadreBatch:
+              '-'}}
+            </p>
+
+          </div>
+
+          <div class="md:w-1/2" *ngIf="userData?.profileDetails?.cadreDetails?.civilServiceType">
+            <label class="view-text-label">Cadre Controlling Authority</label>
+            <p>{{userData?.profileDetails?.cadreDetails?.cadreControllingAuthorityName ?
+              userData?.profileDetails?.cadreDetails?.cadreControllingAuthorityName: '-'}}</p>
+
+          </div>
+        </div>
+        <!-- End of Cadre Related Code-->
+      </div>
+    </div>
+
+    <div class="flex flex-1 flex-column margin-top-m" *ngIf="formId">
+      <section #fullScreenContainer class="survey-container" *ngIf="latestData">
+        <lib-micro-survey class="view-report" [apiData]="apiData" [isReadOnly]="isReadOnly"
+          [surveyId]="latestData.formId" [applicationId]="latestData.applicationId"
+          [courseId]="latestData.dataObject.courseId"></lib-micro-survey>
+      </section>
+    </div>
+  </div>
+</div>

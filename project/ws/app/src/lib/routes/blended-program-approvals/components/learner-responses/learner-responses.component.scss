@@ -1,0 +1,433 @@
+@import 'ws-common';
+@import "ws-mixins";
+@import "ws-vars";
+
+::ng-deep.left-user .circle-m {
+  border-radius: 4px;
+  width: 50px!important;
+  height: 50px!important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ws-active-discuss-route:before {
+  content: "";
+  position: absolute;
+  border-color: #347bb6;
+  border-style: solid;
+  border-width: 0 0 0 4px;
+  height: inherit;
+}
+
+.profile-container {
+  @include breakpoint-xs {
+    margin: 16px 16px 0 16px;
+  }
+
+  .mat-drawer.mat-sidenav {
+    transform: none !important;
+    width: 260px;
+    border-right: 0 !important;
+    background: transparent !important;
+    box-shadow: none;
+    visibility: visible !important;
+  }
+
+  .mat-drawer-content.mat-sidenav-content {
+    margin-left: 260px !important;
+  }
+
+  .m-auto {
+    margin: auto;
+  }
+
+  .padding-left-0 {
+    padding-left: 0;
+  }
+
+  .box {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 220px;
+    box-shadow: 0px 1px 1px -1px rgba(0, 0, 0, 0.15),
+      0px 1px 1px 0px rgba(0, 0, 0, 0.1),
+      0px 1px 2px 0px rgba(0, 0, 0, 0.08);
+    border-radius: 5px;
+
+    @include breakpoint-lt-m {
+      width: 100%;
+      margin-right: 0px;
+
+      margin-bottom: 16px;
+    }
+
+    .interest-container {
+      margin: 16px;
+
+      .interest-chip {
+        background-color: transparent !important;
+        margin: 16px;
+      }
+    }
+
+    .user-image {
+      $size: 68px;
+      width: $size;
+      height: $size;
+      float: left;
+
+      @include breakpoint-xs {
+        $size: 48px;
+        width: $size;
+        height: $size;
+        font-size: $size;
+      }
+    }
+
+    .dark-card {
+      background: #f5f6fa !important;
+      color: rgba(0, 0, 0, .87) !important;
+    }
+  }
+
+  .description-container {
+    flex: 1;
+    box-sizing: border-box;
+
+    .learning-container {
+      @include breakpoint-gt-s {
+        height: 100%;
+      }
+    }
+
+    .badges-container {
+      min-height: 160px;
+      margin-bottom: 16px;
+    }
+
+    .badge {
+      $badge-padding: 16px;
+      $medium-badge-size: 90px;
+      padding: $badge-padding;
+      width: $medium-badge-size + 2 * $badge-padding;
+      padding-top: 0;
+      box-sizing: border-box;
+      text-align: center;
+
+      @include breakpoint-xs {
+        $badge-padding: 8px;
+        $medium-badge-size: 48px;
+        padding: $badge-padding;
+        width: $medium-badge-size + 2 * $badge-padding;
+      }
+
+      .medium-badge {
+        width: $medium-badge-size;
+        height: $medium-badge-size;
+        border-radius: 50%;
+        padding-top: 8px;
+      }
+    }
+  }
+
+  .learning-time {
+    width: 35%;
+    min-height: 150px;
+    box-sizing: border-box;
+    position: relative;
+
+    @include breakpoint-xs {
+      margin-left: 0px;
+      width: 100%;
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+
+    .title-no {
+      position: absolute;
+      top: 45%;
+    }
+  }
+
+  .most-used {
+    width: 100%;
+    box-sizing: border-box;
+
+    @include breakpoint-lt-m {
+      margin-left: 0px;
+      width: 100%;
+    }
+
+    @include breakpoint-m {
+      width: 100%;
+      margin-top: 16px;
+    }
+  }
+
+  .calendar-data {
+    width: 45%;
+    padding: 16px;
+
+    @include breakpoint-lt-m {
+      width: 100%;
+      margin: 4px;
+    }
+
+    @include breakpoint-m {
+      width: 100%;
+      margin: 4px;
+    }
+
+    .title-feature {
+      height: 16%;
+    }
+
+    .description-feature {
+      height: 84%;
+      align-content: space-between;
+
+      .img-feature {
+        height: 49%;
+        box-sizing: border-box;
+
+        .container {
+          position: relative;
+          width: 100%;
+          height: 100%;
+        }
+
+        .image {
+          display: block;
+          height: auto;
+          object-fit: cover;
+        }
+
+        .overlay {
+          position: absolute;
+          bottom: 0;
+          background: rgb(0, 0, 0);
+          background: rgba(0, 0, 0, 0.5);
+          width: 100%;
+          transition: 0.5s ease;
+          color: white;
+          padding: 8px 0px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .certificate-box {
+    .example-header-image {
+      background-size: cover;
+      width: 98px;
+      border-radius: calc(#{$size-s} - #{$size-xs}) !important;
+      height: 98px;
+      padding-right: 24px;
+    }
+
+    .margin-f {
+      margin: 0 0 1rem 0 !important;
+    }
+
+    .no-shadow {
+      box-shadow: none !important;
+    }
+
+    .subheading {
+      /* stylelint-disable */
+      font: 600 16px/24px Montserrat;
+      /* stylelint-enable */
+    }
+
+    .img-size {
+      height: 100px;
+      width: 100px;
+      padding-right: 24px;
+    }
+  }
+}
+
+mat-card.mt-2.mat-list-item.dark-card.mat-card {
+  background: #f5f6fa !important;
+}
+
+.container.sidenav {
+  display: flex;
+  flex-direction: row;
+  margin-top: 31px;
+}
+
+.mat-list-base .mat-list-item .mat-list-item-content,
+.mat-list-base .mat-list-option .mat-list-item-content {
+
+  padding: 13px 36px;
+}
+
+.mat-list-base .mat-list-item .mat-list-item-content,
+.mat-list-base .mat-list-option .mat-list-item-content {
+  min-width: 200px !important;
+}
+
+::ng-deep .panel-body {
+  padding: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 0px 0px 5px 5px;
+
+  .mat-radio-container {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .mat-radio-outer-circle,
+  .mat-radio-inner-circle {
+    height: 16px !important;
+    width: 16px !important;
+  }
+}
+
+.view-text-label {
+  width: 100%;
+  padding-bottom: 10px;
+  margin-bottom: 0;
+  color: rgba(0, 0, 0, .6);
+  display: block;
+  /* stylelint-disable */
+  font: 500 13px Lato;
+  /* stylelint-enable */
+}
+
+.infoicon {
+  font-size: 18px !important;
+  width: 20px;
+  height: 20px;
+  vertical-align: bottom;
+  margin-left: 5px;
+}
+
+::ng-deep .mat-dialog-container {
+  //padding: 0 !important;
+  overflow: unset !important;
+}
+
+.word-wrap {
+  word-wrap: break-word;
+}
+
+.status-text {
+  position: relative;
+  top: -2px;
+}
+
+.verified-icon {
+  color: #1D8923 !important;
+  vertical-align: sub !important;
+}
+
+.nonverified-icon {
+  color: #D13924 !important;
+  vertical-align: sub !important;
+}
+
+.notmyuser-icon {
+  color: #e99e38 !important;
+  vertical-align: sub !important;
+}
+
+
+
+
+::ng-deep.view-report .main-container {
+  width: auto !important;
+  overflow-y: auto !important;
+  max-height: auto !important;
+}
+
+::ng-deep.view-report .lib-container {
+  height: 100% !important;
+}
+
+::ng-deep.view-report .lib-container-2 {
+  height: auto;
+  min-height: unset !important;
+  padding: 0 !important;
+}
+
+.view-report {
+  width: 100%;
+}
+
+::ng-deep .main-lib-body {
+  border: 1px solid #d3d1d1;
+  border-radius: 5px;
+}
+
+.survey-container {
+  display: flex !important;
+}
+
+::ng-deep .header-container label {
+  display: none !important;
+}
+
+::ng-deep .header-container h1 {
+  margin-bottom: 0px;
+}
+
+::ng-deep.mat-card .mat-divider-horizontal {
+  position: relative !important;
+}
+
+::ng-deep.main-container-two {
+  padding: 16px !important;
+}
+
+::ng-deep.view-report .card {
+  padding: 0;
+}
+
+::ng-deep.view-report .custom-margin-top-4 {
+  margin-top: 0px !important;
+}
+
+.user-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-user {
+  display: flex;
+}
+
+.right-user {
+  display: flex;
+  gap: 10px;
+}
+
+.approve-btn {
+  width: auto;
+  border: 1px solid #0075B7;
+  border-radius: 4px;
+  background-color: #0075B7 !important;
+  color: white;
+  padding: 10px;
+  font-weight: 600;
+}
+
+.default-container {
+  border: 1px solid #d3d1d1;
+  padding: 16px;
+  border-radius: 4px;
+}
+
+.reject-btn {
+  width: auto;
+  border-radius: 4px;
+  background-color: transparent;
+  color: black;
+  padding: 10px;
+  border: none;
+}
