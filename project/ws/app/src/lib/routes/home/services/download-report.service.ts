@@ -14,6 +14,7 @@ const API_END_POINTS = {
   SEARCH_ORG: '/api/org/ext/v2/signup/search',
   GET_ORGS_OF_DEPT: '/apis/public/v8/org/v2/list',
   DOWNLOAD_OPS_REPORTS: '/apis/proxies/v8/operationalreports/v2/download',
+  GET_DEPARTMENT_TYPE: 'apis/proxies/v8/data/v1/system/settings/get/orgTypeConfig',
 }
 @Injectable({
   providedIn: 'root',
@@ -31,26 +32,6 @@ export class DownloadReportService {
 
   downloadReports(): Observable<HttpResponse<Blob>> {
     return this.http.get(`${API_END_POINTS.DOWNLOAD_REPORTS}`, { observe: 'response', responseType: 'blob' })
-  }
-
-  downloadReportsAll(rootOrgId: any): Observable<HttpResponse<Blob>> {
-    const req = {
-      request: {
-        childId: [],
-      },
-    }
-    return this.http.post<Blob>(`${API_END_POINTS.DOWNLOAD_OPS_REPORTS}/${rootOrgId}`, req, {
-      responseType: 'blob' as 'json',
-      observe: 'response',
-    }).pipe(map((response: HttpResponse<Blob>) => response),
-            catchError((error: HttpErrorResponse) => {
-        const errorResponse: HttpResponse<Blob> = new HttpResponse({
-          status: error.status,
-          body: new Blob(),
-        })
-        return of(errorResponse)
-      })
-    )
   }
 
   getAdminsList(filter: object): Observable<any> {
@@ -107,4 +88,9 @@ export class DownloadReportService {
     }
     return of([] as HttpResponse<Blob>[]) as Observable<HttpResponse<Blob>[]>
   }
+
+  getDepartmentType(): Observable<any> {
+    return this.http.get<any>(`${API_END_POINTS.GET_DEPARTMENT_TYPE}`)
+  }
+
 }
