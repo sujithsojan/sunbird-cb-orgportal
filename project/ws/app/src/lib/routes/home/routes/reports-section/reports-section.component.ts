@@ -395,10 +395,8 @@ export class ReportsSectionComponent implements OnInit {
           this.departmentType = targetObject.name.toLowerCase()
         }
       }
-    } catch (err: any) {
-      if (err.error && err.error.params && err.error.params.errmsg) {
-        this.openSnackbar(err.error.params.errmsg)
-      }
+    } catch (err) {
+      return
     }
   }
 
