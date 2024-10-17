@@ -45,6 +45,7 @@ export class ReportsSectionComponent implements OnInit {
   l1orgListData: any = []
   customReportPwd = ''
   showCustomReportPwd = false
+  departmentType: any
 
   displayedColumns: string[] = ['select', 'orgName', 'status', 'action']
   dataSource = new MatTableDataSource<any>()
@@ -383,29 +384,52 @@ export class ReportsSectionComponent implements OnInit {
     })
   }
 
-  filterOrgsSearch() {
+  async getSubDepartment() {
+    try {
+      const res = await this.downloadService.getDepartmentType().toPromise()
+      if (res && res.result && res.result.response && res.result.response.value) {
+        const department = JSON.parse(res.result.response.value)
+        const orgTypes = this.configSvc.unMappedUser.rootOrg.organisationType
+        const targetObject = department.fields.find((obj: any) => obj.value === orgTypes)
+        if (targetObject && targetObject.name) {
+          this.departmentType = targetObject.name.toLowerCase()
+        }
+      }
+    } catch (err: any) {
+      if (err.error && err.error.params && err.error.params.errmsg) {
+        this.openSnackbar(err.error.params.errmsg)
+      }
+    }
+  }
+
+  async filterOrgsSearch() {
+    const user = this.configSvc.userProfile
+    await this.getSubDepartment()
     const req = {
-      identifier: [this.configSvc.userProfile.rootOrgId],
-      parentType: this.configSvc.unMappedUser.rootOrg.organisationType === 16 ? 'ministry' : 'state',
+      identifier: [user.rootOrgId],
+      parentType: this.departmentType,
     }
     return this.downloadService.searchOrgs(req).subscribe((response: any) => {
-      if (response && response.result && response.result.response) {
+      if (response && response.result && response.result.response && response.result.response.length > 0) {
         this.orgListData = response.result.response
 
-        if (this.orgListData && this.orgListData.length > 0) {
-          this.downloadService.getOrgsOfDepartment(this.orgListData[0].mapId).subscribe(res => {
-            if (res && res.result && res.result.response) {
-              const l1orgListData = res.result.response.content
-              this.l1orgListData = l1orgListData.filter((item: any) => item.sbOrgId !== null)
-            }
-            this.updateDataSource()
-            this.changeDetector.detectChanges()
-          })
-        } else {
-          this.orgListData = []
-          this.l1orgListData = []
-          this.openSnackbar('Something went wrong')
-        }
+        this.downloadService.getOrgsOfDepartment(this.orgListData[0].mapId).subscribe(res => {
+          if (res && res.result && res.result.response) {
+            const l1orgListData = res.result.response.content
+            this.l1orgListData = l1orgListData.filter((item: any) => item.sbOrgId !== null && item.sbOrgId !== '')
+          } else {
+            this.l1orgListData = []
+          }
+          this.updateDataSource()
+          this.changeDetector.detectChanges()
+        })
+      } else {
+        this.orgListData.push({
+          orgName: user.departmentName,
+          sbOrgId: user.rootOrgId,
+        })
+        this.updateDataSource()
+        this.changeDetector.detectChanges()
       }
     },                                                    (err: any) => {
       if (err.error && err.error.params && err.error.params.errmsg) {
@@ -511,6 +535,7 @@ export class ReportsSectionComponent implements OnInit {
       },
     })
   }
+
   retryDownload(event: MouseEvent, item: any) {
     event.stopPropagation()
     item.status = 'Pending'
