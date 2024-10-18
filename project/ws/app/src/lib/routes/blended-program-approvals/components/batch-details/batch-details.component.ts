@@ -36,6 +36,8 @@ export class BatchDetailsComponent implements OnInit {
   learnerCount = 0
   clonedApprovalStatusUsers: any = []
   userscount: any
+  showUserDetails = false
+  selectedUser: any
 
   constructor(private router: Router, private activeRouter: ActivatedRoute,
     // tslint:disable-next-line:align
@@ -269,6 +271,7 @@ export class BatchDetailsComponent implements OnInit {
         },
       ],
     }
+    this.showUserDetails = false
     this.bpService.updateBlendedRequests(request).subscribe((_res: any) => {
       if (event.action === 'Approve') {
         this.newUsers = []
@@ -276,12 +279,14 @@ export class BatchDetailsComponent implements OnInit {
           this.openSnackbar(this.requestMesages())
         }
         this.getNewRequestsList()
+        this.showUserDetails = false
       } else {
         this.getLearnersList()
         this.openSnackbar('Request is removed successfully.')
         this.filter('rejected')
       }
-    },                                                      (error: any) => {
+      this.showUserDetails = false
+    }, (error: any) => {
       this.openSnackbar(_.get(error, 'error.params.errmsg') ||
         _.get(error, 'error.result.errmsg') ||
         'Something went wrong, please try again later!')
@@ -499,6 +504,18 @@ export class BatchDetailsComponent implements OnInit {
           }
         }
       })
+    }
+  }
+
+  onShowUser(user: any) {
+    this.showUserDetails = true
+    this.selectedUser = user
+  }
+
+  clickOnBack(event: any) {
+    if (event) {
+      this.showUserDetails = false
+      this.selectedUser = null
     }
   }
 }
