@@ -78,7 +78,7 @@
         </ng-container>
         <ng-container *ngIf="currentFilter === 'pending' && showUserDetails">
           <ws-app-learner-responses [selectedUser]="selectedUser" [contentData]="programData"
-            (clickBack)="clickOnBack($event)"></ws-app-learner-responses>
+            (actionClick)="onSubmit($event)" (clickBack)="clickOnBack($event)"></ws-app-learner-responses>
         </ng-container>
         <ng-container *ngIf="currentFilter === 'approved'">
           <div class="flex flex-1 flex-row margin-top-l" *ngIf="clonedApprovedUsers && clonedApprovedUsers.length > 0">

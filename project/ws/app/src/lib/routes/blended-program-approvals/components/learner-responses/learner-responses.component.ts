@@ -4,6 +4,9 @@ import { NSProfileDataV2 } from '../../../home/models/profile-v2.model'
 
 /* tslint:disable */
 import _ from 'lodash'
+import { RejectReasonDialogComponent } from '../reject-reason-dialog/reject-reason-dialog.component'
+import { MatDialog } from '@angular/material/dialog'
+import { DialogConfirmComponent } from '../../../../../../../../../src/app/component/dialog-confirm/dialog-confirm.component'
 
 @Component({
   selector: 'ws-app-learner-responses',
@@ -14,6 +17,7 @@ export class LearnerResponsesComponent implements OnInit {
   @Input() selectedUser: any
   @Input() contentData: any
   @Output() clickBack = new EventEmitter()
+  @Output() actionClick = new EventEmitter()
   userId!: any
   learner!: any
   formId: any
@@ -24,10 +28,9 @@ export class LearnerResponsesComponent implements OnInit {
   isReadOnly = true
   showSpinner = true
 
-  constructor(private bpService: BlendedApporvalService,) { }
+  constructor(private bpService: BlendedApporvalService, private dialogue: MatDialog) { }
 
   ngOnInit(): void {
-    console.log("batchData ", this.contentData)
     if (this.contentData) {
       this.formId = this.contentData.wfSurveyLink.split("surveys/")[1]
     }
@@ -41,7 +44,6 @@ export class LearnerResponsesComponent implements OnInit {
 
   fetchLearner() {
     this.bpService.getUserById(this.userId).subscribe((res: any) => {
-      console.log(res)
       this.userData = res
       this.learner = {
         department: _.get(res, 'profileDetails.employmentDetails.departmentName'),
@@ -53,7 +55,6 @@ export class LearnerResponsesComponent implements OnInit {
         userId: _.get(res, 'userId'),
         designation: _.get(res, 'profileDetails.professionalDetails[0].designation'),
       }
-      console.log("learner ", this.learner)
     })
   }
 
@@ -99,6 +100,45 @@ export class LearnerResponsesComponent implements OnInit {
       getAllApplications: `/apis/proxies/v8/forms/getAllApplications`,
       customizedHeader: {},
     }
+  }
+
+  onReject() {
+    const dialogRef = this.dialogue.open(RejectReasonDialogComponent, {
+      width: '950px',
+      disableClose: true,
+      data: {
+        title: 'Please provide the reason for rejecting the user from the batch',
+        buttonText: 'Reject',
+      },
+    })
+    dialogRef.afterClosed().subscribe((response: any) => {
+      if (response) {
+        const data = {
+          action: 'Reject',
+          userData: this.selectedUser,
+          comment: response.reason,
+        }
+        this.actionClick.emit(data)
+      }
+    })
+  }
+
+  onApprove() {
+    const dialogRef = this.dialogue.open(DialogConfirmComponent, {
+      data: {
+        title: 'Are you sure?',
+        body: `Please click <strong>Yes</strong> to approve this request.`,
+      },
+    })
+    dialogRef.afterClosed().subscribe((response: any) => {
+      if (response) {
+        const data = {
+          action: 'Approve',
+          userData: this.selectedUser,
+        }
+        this.actionClick.emit(data)
+      }
+    })
   }
 
 }

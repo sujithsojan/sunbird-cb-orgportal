@@ -271,6 +271,7 @@ export class BatchDetailsComponent implements OnInit {
         },
       ],
     }
+    this.showUserDetails = false
     this.bpService.updateBlendedRequests(request).subscribe((_res: any) => {
       if (event.action === 'Approve') {
         this.newUsers = []
@@ -278,11 +279,13 @@ export class BatchDetailsComponent implements OnInit {
           this.openSnackbar(this.requestMesages())
         }
         this.getNewRequestsList()
+        this.showUserDetails = false
       } else {
         this.getLearnersList()
         this.openSnackbar('Request is removed successfully.')
         this.filter('rejected')
       }
+      this.showUserDetails = false
     }, (error: any) => {
       this.openSnackbar(_.get(error, 'error.params.errmsg') ||
         _.get(error, 'error.result.errmsg') ||
@@ -505,7 +508,6 @@ export class BatchDetailsComponent implements OnInit {
   }
 
   onShowUser(user: any) {
-    console.log("user ", user)
     this.showUserDetails = true
     this.selectedUser = user
   }
