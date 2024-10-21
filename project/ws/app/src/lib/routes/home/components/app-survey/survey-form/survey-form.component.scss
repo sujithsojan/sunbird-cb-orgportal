@@ -15,9 +15,10 @@
 
 .survey-img-link {
     cursor: pointer;
-    width: 80%;
+    width: 100%;
     margin: auto;
     background-color: transparent !important;
+    justify-content: center;
 }
 .close-button {
     cursor: pointer;
@@ -70,7 +71,7 @@
   }
   .surver-inner {
     padding:0;
-    width: 100%;
+    width: 80%;
     overflow: hidden;
   }
 
@@ -83,6 +84,12 @@
     width: 100%;
     height: auto;
   }
+
+.surver-inner mat-icon {
+  background-color: white;
+  padding: 5px;
+  border-radius: 50%;
+}
 
 
 
