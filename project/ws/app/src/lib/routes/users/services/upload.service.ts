@@ -108,7 +108,7 @@ export class FileService {
   }
 
   validateFile(name: String) {
-    const allowedFormats = ['xlsx', 'csv']
+    const allowedFormats = ['csv']
     const ext = name.substring(name.lastIndexOf('.') + 1).toLowerCase()
     if (allowedFormats.indexOf(ext) > -1) {
       return true
