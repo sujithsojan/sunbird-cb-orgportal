@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { TrainingPlanService } from '../../services/traininig-plan.service'
 @Component({
@@ -8,7 +8,7 @@ import { TrainingPlanService } from '../../services/traininig-plan.service'
   styleUrls: ['./add-content-dialog.component.scss'],
 })
 export class AddContentDialogComponent implements OnInit {
-  contentForm!: FormGroup
+  contentForm!: UntypedFormGroup
   specialCharList = `( a-z/A-Z , 0-9 . - _ $ / \ : [ ]' ' !)`
   filteredCompetencies!: any[]
   allCompetencies: any = []
@@ -34,11 +34,11 @@ export class AddContentDialogComponent implements OnInit {
     private dialogRef: MatDialogRef<AddContentDialogComponent>,
     private trainingplanSvc: TrainingPlanService
   ) {
-    this.contentForm = new FormGroup({
-      competencyArea: new FormControl('', Validators.required),
-      provider: new FormControl('', Validators.required),
-      providerText: new FormControl(''),
-      contentdescription: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
+    this.contentForm = new UntypedFormGroup({
+      competencyArea: new UntypedFormControl('', Validators.required),
+      provider: new UntypedFormControl('', Validators.required),
+      providerText: new UntypedFormControl(''),
+      contentdescription: new UntypedFormControl('', [Validators.required, Validators.maxLength(1000)]),
     })
     this.contentForm.markAsPristine()
     this.contentForm.markAsUntouched()

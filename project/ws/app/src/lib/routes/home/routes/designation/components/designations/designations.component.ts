@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import * as _ from 'lodash'
 import { ITableData } from '@sunbird-cb/collection/lib/ui-org-table/interface/interfaces'
 import { DesignationsService } from '../../services/designations.service'
-import { FormControl } from '@angular/forms'
+import { UntypedFormControl } from '@angular/forms'
 import { delay } from 'rxjs/operators'
 import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
@@ -23,7 +23,7 @@ export class DesignationsComponent implements OnInit {
   configSvc: any
   loaderMsg = ''
   showCreateLoader = false
-  searchControl = new FormControl()
+  searchControl = new UntypedFormControl()
   frameworkDetails: any = {}
   organisationsList: any = []
   selectedOrganisation = ''

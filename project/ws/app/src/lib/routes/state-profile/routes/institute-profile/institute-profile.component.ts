@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { ActivatedRoute, Router } from '@angular/router'
@@ -21,8 +21,8 @@ import { OrgProfileService } from '../../services/org-profile.service'
     /* tslint:enable */
 })
 export class InstituteProfileComponent implements OnInit {
-    instituteProfileForm!: FormGroup
-    attachedOrgForm!: FormGroup
+    instituteProfileForm!: UntypedFormGroup
+    attachedOrgForm!: UntypedFormGroup
     private unsubscribe = new Subject<void>()
     isButtonActive: any
     public countryCodes: string[] = []
@@ -54,26 +54,26 @@ export class InstituteProfileComponent implements OnInit {
         private dialog: MatDialog,
         private route: ActivatedRoute
     ) {
-        this.instituteProfileForm = new FormGroup({
-            instituteName: new FormControl('', [Validators.required, Validators.pattern(this.namePatern)]),
-            fullAddress: new FormControl('', [Validators.required]),
-            buildingNo: new FormControl('', []),
-            stateName: new FormControl('', [Validators.required]),
-            pincode: new FormControl('', [Validators.required, Validators.pattern(this.pincodePattern)]),
-            establishmentYear: new FormControl('', [Validators.required, Validators.pattern(this.yearPattern)]),
-            stdCode: new FormControl('', [Validators.required]),
-            telephoneNo: new FormControl('', [Validators.required, Validators.pattern(this.phnNumberPattern)]),
-            countryCode: new FormControl('', [Validators.required]),
+        this.instituteProfileForm = new UntypedFormGroup({
+            instituteName: new UntypedFormControl('', [Validators.required, Validators.pattern(this.namePatern)]),
+            fullAddress: new UntypedFormControl('', [Validators.required]),
+            buildingNo: new UntypedFormControl('', []),
+            stateName: new UntypedFormControl('', [Validators.required]),
+            pincode: new UntypedFormControl('', [Validators.required, Validators.pattern(this.pincodePattern)]),
+            establishmentYear: new UntypedFormControl('', [Validators.required, Validators.pattern(this.yearPattern)]),
+            stdCode: new UntypedFormControl('', [Validators.required]),
+            telephoneNo: new UntypedFormControl('', [Validators.required, Validators.pattern(this.phnNumberPattern)]),
+            countryCode: new UntypedFormControl('', [Validators.required]),
             // tslint:disable-next-line: max-line-length
-            mobile: new FormControl('', [Validators.required, Validators.pattern(this.mobileNumberPattern)]),
-            email: new FormControl('', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]),
-            website: new FormControl('', [Validators.required, Validators.pattern(this.websitePattern)]),
+            mobile: new UntypedFormControl('', [Validators.required, Validators.pattern(this.mobileNumberPattern)]),
+            email: new UntypedFormControl('', [Validators.required, Validators.email, Validators.pattern(this.emailPattern)]),
+            website: new UntypedFormControl('', [Validators.required, Validators.pattern(this.websitePattern)]),
         })
 
-        this.attachedOrgForm = new FormGroup({
-            trainingInstitute: new FormControl('', []),
-            attachedTrainingInstitute: new FormControl('Attached training Institute', [Validators.required]),
-            trainingInstituteDetail: new FormControl('', []),
+        this.attachedOrgForm = new UntypedFormGroup({
+            trainingInstitute: new UntypedFormControl('', []),
+            attachedTrainingInstitute: new UntypedFormControl('Attached training Institute', [Validators.required]),
+            trainingInstituteDetail: new UntypedFormControl('', []),
         })
 
         // pre poluate form fields when data is available (edit mode)

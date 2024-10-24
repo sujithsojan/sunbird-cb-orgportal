@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router'
 import moment from 'moment'
-import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { UntypedFormGroup, UntypedFormControl, Validators } from '@angular/forms'
 import { UsersService } from '../../services/users.service'
 import { MatChipInputEvent } from '@angular/material/chips'
 import { MatSnackBar } from '@angular/material/snack-bar'
@@ -32,7 +32,7 @@ export class ViewUserComponent implements OnInit, AfterViewInit {
   profileData: any[] = []
   profileDataKeys: any[] = []
   wfHistory: any[] = []
-  updateUserRoleForm: FormGroup
+  updateUserRoleForm: UntypedFormGroup
   department: any = {}
   departmentName = ''
   rolesList: any = []
@@ -51,7 +51,7 @@ export class ViewUserComponent implements OnInit, AfterViewInit {
   isMdoAdmin = false
   isMdoLeader = false
   designationsMeta!: any
-  updateProfessionalForm: FormGroup
+  updateProfessionalForm: UntypedFormGroup
   selectedtags: any[] = []
   reqbody: any
   isTagsEdited = false
@@ -318,13 +318,13 @@ export class ViewUserComponent implements OnInit, AfterViewInit {
       }
     })
 
-    this.updateUserRoleForm = new FormGroup({
-      roles: new FormControl('', [Validators.required]),
+    this.updateUserRoleForm = new UntypedFormGroup({
+      roles: new UntypedFormControl('', [Validators.required]),
     })
 
-    this.updateProfessionalForm = new FormGroup({
-      designation: new FormControl('', []),
-      tags: new FormControl('', [Validators.pattern(this.namePatern)]),
+    this.updateProfessionalForm = new UntypedFormGroup({
+      designation: new UntypedFormControl('', []),
+      tags: new UntypedFormControl('', [Validators.pattern(this.namePatern)]),
     })
   }
 

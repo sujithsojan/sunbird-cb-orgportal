@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { FileService } from '../../services/upload.service'
 import { Observable, Subscription, interval } from 'rxjs'
 import { startWith, map, pairwise } from 'rxjs/operators'
@@ -60,7 +60,7 @@ export class UsersUploadComponent implements OnInit, AfterViewInit, OnDestroy {
   timeLeftforOTPEmail = 0
   timerSubscriptionEmail: Subscription | null = null
   OTP_TIMER_EMAIL = environment.resendOTPTIme
-  registrationForm!: FormGroup
+  registrationForm!: UntypedFormGroup
   disableBtn = false
   disableVerifyBtn = false
   disableEmailVerifyBtn = false
@@ -81,7 +81,7 @@ export class UsersUploadComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private fileService: FileService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
@@ -103,12 +103,12 @@ export class UsersUploadComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     })
 
-    this.registrationForm = new FormGroup({
-      otpType: new FormControl('email', [Validators.pattern(this.emailPattern)]),
+    this.registrationForm = new UntypedFormGroup({
+      otpType: new UntypedFormControl('email', [Validators.pattern(this.emailPattern)]),
       // tslint:disable-next-line:max-line-length
-      email: new FormControl({ value: '', disabled: true }, [Validators.pattern(this.emailPattern)]),
+      email: new UntypedFormControl({ value: '', disabled: true }, [Validators.pattern(this.emailPattern)]),
       // department: new FormControl('', [Validators.required, forbiddenNamesValidator(this.masterDepartments)]),
-      mobile: new FormControl('', [Validators.pattern(this.phoneNumberPattern), Validators.maxLength(12)]),
+      mobile: new UntypedFormControl('', [Validators.pattern(this.phoneNumberPattern), Validators.maxLength(12)]),
     })
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 import { MatTableDataSource } from '@angular/material/table'
-import { FormGroup } from '@angular/forms'
+import { UntypedFormGroup } from '@angular/forms'
 import { SelectionModel } from '@angular/cdk/collections'
 import { Router } from '@angular/router'
 
@@ -32,7 +32,7 @@ export class AdduserpopupComponent implements OnInit {
   statedata: {
     param: any, path: any
   } | undefined
-  form!: FormGroup
+  form!: UntypedFormGroup
   displayedColumns: string[] = ['select', 'name', 'email', 'mobile']
   dataSource = new MatTableDataSource<PeriodicElement>(this.usersListData)
   selection = new SelectionModel<PeriodicElement>(true, [])

@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
 /* tslint:disable */
 import _ from 'lodash'
@@ -12,7 +12,7 @@ import { BlendedApporvalService } from '../../services/blended-approval.service'
   styleUrls: ['./view-report-dialog.component.scss'],
 })
 export class ViewReportDialogComponent implements OnInit {
-  reasonForm!: FormGroup
+  reasonForm!: UntypedFormGroup
   apiData: any
   latestData: any
   isReadOnly = true
@@ -23,8 +23,8 @@ export class ViewReportDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private bpService: BlendedApporvalService,
   ) {
-    this.reasonForm = new FormGroup({
-      reason: new FormControl('', [Validators.required, Validators.maxLength(500)]),
+    this.reasonForm = new UntypedFormGroup({
+      reason: new UntypedFormControl('', [Validators.required, Validators.maxLength(500)]),
     })
   }
 

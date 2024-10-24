@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { OrgProfileService } from '../../services/org-profile.service'
 import { ConfigurationsService } from '@sunbird-cb/utils'
 /* tslint:disable*/
@@ -19,7 +19,7 @@ import { DialogBoxComponent } from '../../components/dialog-box/dialog-box.compo
     /* tslint:enable */
 })
 export class ConsultancyComponent implements OnInit {
-    consultancyForm!: FormGroup
+    consultancyForm!: UntypedFormGroup
     addedconsultancies: any[] = []
     @ViewChild('deleteTitleRef', { static: true })
     deleteTitleRef: ElementRef | null = null
@@ -36,13 +36,13 @@ export class ConsultancyComponent implements OnInit {
         private dialog: MatDialog,
         private snackBar: MatSnackBar,
     ) {
-        this.consultancyForm = new FormGroup({
-            projectName: new FormControl('', [Validators.required]),
-            programeStatus: new FormControl('Ongoing', [Validators.required]),
-            industrySponsored: new FormControl(true, [Validators.required]),
-            govtSponsored: new FormControl('', [Validators.required]),
-            otherSponsored: new FormControl('', [Validators.required]),
-            projectDetail: new FormControl('', [Validators.required]),
+        this.consultancyForm = new UntypedFormGroup({
+            projectName: new UntypedFormControl('', [Validators.required]),
+            programeStatus: new UntypedFormControl('Ongoing', [Validators.required]),
+            industrySponsored: new UntypedFormControl(true, [Validators.required]),
+            govtSponsored: new UntypedFormControl('', [Validators.required]),
+            otherSponsored: new UntypedFormControl('', [Validators.required]),
+            projectDetail: new UntypedFormControl('', [Validators.required]),
         })
 
         // If projects are added then only validation is required, so by default validation is true, so that user can go to next tab

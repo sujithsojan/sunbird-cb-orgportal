@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject, ViewChild } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MatTableDataSource } from '@angular/material/table'
 import { UploadService } from '../../services/upload.service'
@@ -26,7 +26,7 @@ export interface PeriodicElement {
 export class BudgetproofspopupComponent implements OnInit {
   @ViewChild('file') file: any
   uploadedFilesAssets: PeriodicElement[] = []
-  uploadform: FormGroup
+  uploadform: UntypedFormGroup
   sectioname: any
 
   // selectedFiles!: FileList
@@ -50,8 +50,8 @@ export class BudgetproofspopupComponent implements OnInit {
     private uploadService: UploadService,
   ) {
     this.sectioname = data.data
-    this.uploadform = new FormGroup({
-      files: new FormControl('', [Validators.required]),
+    this.uploadform = new UntypedFormGroup({
+      files: new UntypedFormControl('', [Validators.required]),
     })
 
     this.uploadService.getProfile().subscribe((userdata: any) => {

@@ -10,7 +10,7 @@ import { takeUntil } from 'rxjs/operators'
 import * as _ from 'lodash'
 /* tslint:enable */
 import { OtpService } from '../../../../users/services/otp.service'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { UsersService } from '../../../../users/services/users.service'
 
 @Component({
@@ -28,7 +28,7 @@ export class VerifyOtpComponent implements OnInit, OnDestroy {
   interval: any
   showResendOTP = false
   otpEntered = ''
-  otpSelectionForm!: FormGroup
+  otpSelectionForm!: UntypedFormGroup
   otpTypeSelected = false
   otpTypeSelectedValue: any
 
@@ -39,8 +39,8 @@ export class VerifyOtpComponent implements OnInit, OnDestroy {
     private otpService: OtpService,
     private usersService: UsersService
   ) {
-    this.otpSelectionForm = new FormGroup({
-      otpType: new FormControl('', [Validators.required]),
+    this.otpSelectionForm = new UntypedFormGroup({
+      otpType: new UntypedFormControl('', [Validators.required]),
     })
   }
 

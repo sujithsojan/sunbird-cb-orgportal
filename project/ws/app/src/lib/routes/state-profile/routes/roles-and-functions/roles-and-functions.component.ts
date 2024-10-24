@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators'
 import { OrgProfileService } from '../../services/org-profile.service'
 import { Subject } from 'rxjs'
@@ -18,7 +18,7 @@ import _ from 'lodash'
     /* tslint:enable */
 })
 export class RolesAndFunctionsComponent implements OnInit {
-    roleActivityForm!: FormGroup
+    roleActivityForm!: UntypedFormGroup
     instituteOtherRoleField: any = false
     private unsubscribe = new Subject<void>()
 
@@ -26,16 +26,16 @@ export class RolesAndFunctionsComponent implements OnInit {
         private orgSvc: OrgProfileService,
         private configSvc: ConfigurationsService,
     ) {
-        this.roleActivityForm = new FormGroup({
-            training: new FormControl(false, []),
-            research: new FormControl(false, []),
-            consultancy: new FormControl(false, []),
+        this.roleActivityForm = new UntypedFormGroup({
+            training: new UntypedFormControl(false, []),
+            research: new UntypedFormControl(false, []),
+            consultancy: new UntypedFormControl(false, []),
             // trainingResearch: new FormControl(false, [Validators.required]),
-            researchPublication: new FormControl(false, []),
+            researchPublication: new UntypedFormControl(false, []),
             // trainingConsultancy: new FormControl(false, [Validators.required]),
             // trainConsulResPublication: new FormControl(false, [Validators.required]),
-            other: new FormControl(false, []),
-            instituteOtherRole: new FormControl('', []),
+            other: new UntypedFormControl(false, []),
+            instituteOtherRole: new UntypedFormControl('', []),
         })
 
         // tslint:disable-next-line: no-non-null-assertion

@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { MdoInfoService } from '../../services/mdoinfo.service'
 import { preventHtmlAndJs } from '../../../validators/prevent-html-and-js.validator'
@@ -10,7 +10,7 @@ import { preventHtmlAndJs } from '../../../validators/prevent-html-and-js.valida
   styleUrls: ['./staffdetailspopup.component.scss'],
 })
 export class StaffdetailspopupComponent implements OnInit {
-  staffform: FormGroup
+  staffform: UntypedFormGroup
   designationsMeta: any = []
   formInputData: any
   addedposititons: any
@@ -19,10 +19,10 @@ export class StaffdetailspopupComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<StaffdetailspopupComponent>, @Inject(MAT_DIALOG_DATA) data: any,
     // tslint:disable-next-line:align
     private mdoinfoSrvc: MdoInfoService) {
-    this.staffform = new FormGroup({
-      designation: new FormControl('', [Validators.required]),
-      posfilled: new FormControl('', [Validators.required, preventHtmlAndJs()]),
-      posvacant: new FormControl('', [Validators.required, preventHtmlAndJs()]),
+    this.staffform = new UntypedFormGroup({
+      designation: new UntypedFormControl('', [Validators.required]),
+      posfilled: new UntypedFormControl('', [Validators.required, preventHtmlAndJs()]),
+      posvacant: new UntypedFormControl('', [Validators.required, preventHtmlAndJs()]),
     })
 
     if (data.data) {

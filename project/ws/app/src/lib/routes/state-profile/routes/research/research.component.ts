@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { OrgProfileService } from '../../services/org-profile.service'
 import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
@@ -27,8 +27,8 @@ export class ResearchComponent implements OnInit {
     deletePaperTitleRef: ElementRef | null = null
     @ViewChild('deletePaperBodyRef', { static: true })
     deletePaperBodyRef: ElementRef | null = null
-    researchProgramForm!: FormGroup
-    researchPaperForm!: FormGroup
+    researchProgramForm!: UntypedFormGroup
+    researchPaperForm!: UntypedFormGroup
     addedPrograms: any[] = []
     addedPapers: any[] = []
     editProgramValue: any
@@ -44,18 +44,18 @@ export class ResearchComponent implements OnInit {
         private router: Router,
         private dialog: MatDialog,
     ) {
-        this.researchProgramForm = new FormGroup({
-            projectName: new FormControl('', []),
-            programeStatus: new FormControl('Ongoing', [Validators.required]),
-            industrySponsored: new FormControl(true, [Validators.required]),
-            govtSponsored: new FormControl(false, [Validators.required]),
-            otherSponsored: new FormControl(false, [Validators.required]),
-            projectDetail: new FormControl('', []),
+        this.researchProgramForm = new UntypedFormGroup({
+            projectName: new UntypedFormControl('', []),
+            programeStatus: new UntypedFormControl('Ongoing', [Validators.required]),
+            industrySponsored: new UntypedFormControl(true, [Validators.required]),
+            govtSponsored: new UntypedFormControl(false, [Validators.required]),
+            otherSponsored: new UntypedFormControl(false, [Validators.required]),
+            projectDetail: new UntypedFormControl('', []),
         })
 
-        this.researchPaperForm = new FormGroup({
-            researchPaperName: new FormControl('', []),
-            researchPaperDetail: new FormControl('', []),
+        this.researchPaperForm = new UntypedFormGroup({
+            researchPaperName: new UntypedFormControl('', []),
+            researchPaperDetail: new UntypedFormControl('', []),
         })
         // setting this to true so that form validation is not required based on number added projects or papers
         this.orgSvc.updateFormStatus('research', true)
