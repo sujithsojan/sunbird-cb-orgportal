@@ -6,8 +6,8 @@ import { ConfigurationsService } from '@sunbird-cb/utils'
 import _ from 'lodash'
 import { Router } from '@angular/router'
 import { DialogConfirmComponent } from '../../../../../../../../../src/app/component/dialog-confirm/dialog-confirm.component'
-import { MatDialog } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { DialogBoxComponent } from '../../components/dialog-box/dialog-box.component'
 
 @Component({

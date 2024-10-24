@@ -6,7 +6,7 @@ import { Subject } from 'rxjs'
 import { ConfigurationsService } from '@sunbird-cb/utils'
 /* tslint:disable*/
 import _ from 'lodash'
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DialogBoxComponent } from '../../components/dialog-box/dialog-box.component'
 
 

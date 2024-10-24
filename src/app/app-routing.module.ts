@@ -403,8 +403,7 @@ const routes: Routes = [
     scrollPositionRestoration: 'top',
     urlUpdateStrategy: 'eager',
     onSameUrlNavigation: 'reload',
-    scrollOffset: [0, 80],
-    relativeLinkResolution: 'legacy',
+    scrollOffset: [0, 80]
 }),
   ],
   exports: [RouterModule],

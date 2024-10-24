@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { DialogConfirmComponent } from '../../../../../../../../../src/app/component/dialog-confirm/dialog-confirm.component'
 import { ViewReportDialogComponent } from '../view-report-dialog/view-report-dialog.component'
 import { RejectReasonDialogComponent } from '../reject-reason-dialog/reject-reason-dialog.component'

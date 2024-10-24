@@ -3,8 +3,8 @@ import { AbstractControl, UntypedFormControl, UntypedFormGroup, Validators } fro
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators'
 import { OrgProfileService } from '../../services/org-profile.service'
 import { Subject } from 'rxjs'
-import { MatChipInputEvent } from '@angular/material/chips'
-import { MatDialog } from '@angular/material/dialog'
+import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { COMMA, ENTER } from '@angular/cdk/keycodes'
 import { ConfigurationsService } from '@sunbird-cb/utils'
 /* tslint:disable*/

@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core'
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog'
 import { HttpErrorResponse } from '@angular/common/http'
-import { MatRadioChange } from '@angular/material/radio'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatLegacyRadioChange as MatRadioChange } from '@angular/material/legacy-radio'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
