@@ -20,31 +20,30 @@ import { AutocompleteModule } from '../autocomplete/autocomplete.module'
 import { WatCompPopupComponent } from './wat-comp-popup/wat-comp-popup.component'
 
 @NgModule({
-  declarations: [
-    CompetencyLabelsComponent, WatCompPopupComponent,
-  ],
-  imports: [
-    CommonModule,
-    AutocompleteModule,
-    MatCardModule,
-    MatIconModule,
-    CdkStepperModule,
-    CdkTableModule,
-    CdkTreeModule,
-    DragDropModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSnackBarModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatCheckboxModule,
-    FormsModule,
-    MatSelectModule,
-    MatRadioModule,
-  ],
-  entryComponents: [WatCompPopupComponent],
-  exports: [CompetencyLabelsComponent],
+    declarations: [
+        CompetencyLabelsComponent, WatCompPopupComponent,
+    ],
+    imports: [
+        CommonModule,
+        AutocompleteModule,
+        MatCardModule,
+        MatIconModule,
+        CdkStepperModule,
+        CdkTableModule,
+        CdkTreeModule,
+        DragDropModule,
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSnackBarModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatCheckboxModule,
+        FormsModule,
+        MatSelectModule,
+        MatRadioModule,
+    ],
+    exports: [CompetencyLabelsComponent]
 })
 export class CompetencyLabelsModule { }

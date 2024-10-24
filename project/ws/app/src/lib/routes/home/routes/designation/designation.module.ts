@@ -70,37 +70,33 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [
-    DesignationsComponent,
-    ImportDesignationComponent,
-    SelectedDesignationPopupComponent,
-    ConformationPopupComponent,
-    BulkUploadComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes),
-    FormsModule,
-    MatIconModule,
-    MatCardModule,
-    MatCheckboxModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-    MatSelectModule,
-    MatTableModule,
-    UIORGTableModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    PipeOrderByModule,
-  ],
-  entryComponents: [
-    SelectedDesignationPopupComponent,
-    ConformationPopupComponent,
-  ],
-  exports: [
-    RouterModule,
-  ],
+    declarations: [
+        DesignationsComponent,
+        ImportDesignationComponent,
+        SelectedDesignationPopupComponent,
+        ConformationPopupComponent,
+        BulkUploadComponent,
+    ],
+    imports: [
+        CommonModule,
+        RouterModule.forChild(routes),
+        FormsModule,
+        MatIconModule,
+        MatCardModule,
+        MatCheckboxModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatButtonModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        MatTableModule,
+        UIORGTableModule,
+        MatPaginatorModule,
+        MatDialogModule,
+        PipeOrderByModule,
+    ],
+    exports: [
+        RouterModule,
+    ]
 })
 export class DesignationModule { }

@@ -11,22 +11,21 @@ import { MatTooltipModule } from '@angular/material/tooltip'
 import { PipeSafeSanitizerModule } from '@sunbird-cb/utils'
 
 @NgModule({
-  declarations: [ProfileCertificateDialogComponent],
-  imports: [
-    CommonModule,
-    CommonModule,
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatDialogModule,
-    MatMenuModule,
-    MatSnackBarModule,
-    PipeSafeSanitizerModule,
-  ],
-  exports: [
-    ProfileCertificateDialogComponent,
-  ],
-  entryComponents: [ProfileCertificateDialogComponent],
+    declarations: [ProfileCertificateDialogComponent],
+    imports: [
+        CommonModule,
+        CommonModule,
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatDialogModule,
+        MatMenuModule,
+        MatSnackBarModule,
+        PipeSafeSanitizerModule,
+    ],
+    exports: [
+        ProfileCertificateDialogComponent,
+    ]
 })
 export class ProfileCertificateDialogModule { }

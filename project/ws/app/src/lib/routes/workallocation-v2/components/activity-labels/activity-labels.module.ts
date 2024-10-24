@@ -18,33 +18,30 @@ import { AutocompleteModule } from '../autocomplete/autocomplete.module'
 import { ComponentSharedModule } from '../component-shared.module'
 import { WatRolePopupComponent } from './wat-role-popup/wat-role-popup.component'
 @NgModule({
-  declarations: [
-    ActivityLabelsComponent,
-    WatRolePopupComponent,
-  ],
-  imports: [
-    CommonModule,
-    AutocompleteModule,
-    MatCardModule,
-    MatIconModule,
-    CdkStepperModule,
-    CdkTableModule,
-    CdkTreeModule,
-    DragDropModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatSnackBarModule,
-    ReactiveFormsModule,
-    ComponentSharedModule,
-    MatDialogModule,
-    MatCheckboxModule,
-    FormsModule,
-  ],
-  entryComponents: [WatRolePopupComponent],
-  exports: [ActivityLabelsComponent],
-  // providers: [{ provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
-  // { provide: MatDialogRef, useValue: {} },]
+    declarations: [
+        ActivityLabelsComponent,
+        WatRolePopupComponent,
+    ],
+    imports: [
+        CommonModule,
+        AutocompleteModule,
+        MatCardModule,
+        MatIconModule,
+        CdkStepperModule,
+        CdkTableModule,
+        CdkTreeModule,
+        DragDropModule,
+        MatAutocompleteModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatSnackBarModule,
+        ReactiveFormsModule,
+        ComponentSharedModule,
+        MatDialogModule,
+        MatCheckboxModule,
+        FormsModule,
+    ],
+    exports: [ActivityLabelsComponent]
 })
 export class ActivityLabelsModule { }

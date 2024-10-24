@@ -30,18 +30,15 @@ import { AllocationActionsComponent } from './components/allocation-actions/allo
 import { MatTabsModule } from '@angular/material/tabs'
 
 @NgModule({
-  declarations: [CreateWorkallocationComponent, DownloadAllocationComponent, UpdateWorkallocationComponent, AllocationActionsComponent],
-  imports: [
-    CommonModule, RouterModule, WorkallocationRoutingModule, BreadcrumbsOrgModule,
-    MatSidenavModule, MatListModule, ScrollspyLeftMenuModule, MatCardModule, FormsModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatGridListModule,
-    MatRadioModule, MatDialogModule, ReactiveFormsModule, MatSelectModule, MatProgressSpinnerModule,
-    MatExpansionModule, MatDividerModule, MatPaginatorModule, MatTableModule, WidgetResolverModule,
-    UIORGTableModule, ExportAsModule, MatMenuModule, MatTabsModule,
-  ],
-  entryComponents: [
-    AllocationActionsComponent,
-  ],
-  exports: [DownloadAllocationComponent],
+    declarations: [CreateWorkallocationComponent, DownloadAllocationComponent, UpdateWorkallocationComponent, AllocationActionsComponent],
+    imports: [
+        CommonModule, RouterModule, WorkallocationRoutingModule, BreadcrumbsOrgModule,
+        MatSidenavModule, MatListModule, ScrollspyLeftMenuModule, MatCardModule, FormsModule,
+        MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatGridListModule,
+        MatRadioModule, MatDialogModule, ReactiveFormsModule, MatSelectModule, MatProgressSpinnerModule,
+        MatExpansionModule, MatDividerModule, MatPaginatorModule, MatTableModule, WidgetResolverModule,
+        UIORGTableModule, ExportAsModule, MatMenuModule, MatTabsModule,
+    ],
+    exports: [DownloadAllocationComponent]
 })
 export class WorkallocationModule { }
