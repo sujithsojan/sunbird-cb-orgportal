@@ -286,7 +286,7 @@ export class BatchDetailsComponent implements OnInit {
         this.filter('rejected')
       }
       this.showUserDetails = false
-    }, (error: any) => {
+    },                                                      (error: any) => {
       this.openSnackbar(_.get(error, 'error.params.errmsg') ||
         _.get(error, 'error.result.errmsg') ||
         'Something went wrong, please try again later!')

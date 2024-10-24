@@ -75,7 +75,7 @@ export class FileService {
           fileSaver.saveAs(res.body, filename || 'sample.xlsx')
         }
 
-      }, () => (this.matSnackBar.open('Could not download the file')
+      },         () => (this.matSnackBar.open('Could not download the file')
       ))
   }
 

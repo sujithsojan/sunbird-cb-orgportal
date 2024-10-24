@@ -106,9 +106,9 @@ export class UsersCardComponent implements OnInit {
 
   loadUser(user: any) {
     this.programData.user = user
-    //const userId = user.user_id || user.wfInfo[0].userId
+    // const userId = user.user_id || user.wfInfo[0].userId
     // tslint:disable-next-line:max-line-length
-    //this.router.navigate([`/app/blended-approvals/${this.programData.programID}/batches/${this.programData.batchID}/${userId}`], { state: this.programData })
+    // this.router.navigate([`/app/blended-approvals/${this.programData.programID}/batches/${this.programData.batchID}/${userId}`], { state: this.programData })
     // this.router.navigate([`/app/blended-approvals/user-profile/${user.user_id}`], { state: user })
     // Logic to load the users-view component or navigate to its route
     // You can use Angular's Router or any other mechanism to load the component

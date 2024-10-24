@@ -433,7 +433,7 @@ export class ReportsSectionComponent implements OnInit {
         this.updateDataSource()
         this.changeDetector.detectChanges()
       }
-    }, (err: any) => {
+    },                                                    (err: any) => {
       if (err.error && err.error.params && err.error.params.errmsg) {
         this.openSnackbar(err.error.params.errmsg)
       } else {
