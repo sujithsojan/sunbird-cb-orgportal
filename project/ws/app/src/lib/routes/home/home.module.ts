@@ -30,9 +30,9 @@ import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/le
 import { MatSortModule } from '@angular/material/sort'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
-import { Ng2SearchPipeModule } from 'ng2-search-filter'
+// import { Ng2SearchPipeModule } from 'ng2-search-filter'
 import { NgxPaginationModule } from 'ngx-pagination'
-import { RainDashboardsModule } from '@sunbird-cb/rain-dashboards'
+// import { RainDashboardsModule } from '@sunbird-cb/rain-dashboards'
 
 import { ExportAsModule } from 'ngx-export-as'
 import { HomeRoutingModule } from './home.rounting.module'
@@ -153,7 +153,7 @@ import { BulkUploadOdcsComponent } from './routes/odcs-mapping/bulk-upload-odcs/
     ],
     imports: [
         CommonModule,
-        Ng2SearchPipeModule,
+        // Ng2SearchPipeModule,
         UIORGTableModule,
         WidgetResolverModule,
         ReactiveFormsModule,
@@ -193,7 +193,7 @@ import { BulkUploadOdcsComponent } from './routes/odcs-mapping/bulk-upload-odcs/
         WorkallocationModule,
         NgxPaginationModule,
         UIAdminTableModule,
-        RainDashboardsModule,
+        // RainDashboardsModule,
         MatTabsModule,
         MatTableModule,
         MatTooltipModule,

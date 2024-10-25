@@ -32,7 +32,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { InitResolver } from './resolvers/init-resolve.service'
 import { RouterModule } from '@angular/router'
 import { AvatarPhotoModule, BreadcrumbsOrgModule, LeftMenuModule, UIORGTableModule, ScrollspyLeftMenuModule } from '@sunbird-cb/collection'
-import { Ng2SearchPipeModule } from 'ng2-search-filter'
+// import { Ng2SearchPipeModule } from 'ng2-search-filter'
 import { ExportAsModule } from 'ngx-export-as'
 import { WorkallocationModule } from '../workallocation/workallocation.module'
 import { NgxPaginationModule } from 'ngx-pagination'
@@ -89,7 +89,7 @@ import { PipeAcsendingOrderModule } from '../pipes/pipe-ascendingorder/pipe-asce
     ],
     imports: [
         CommonModule,
-        Ng2SearchPipeModule,
+        // Ng2SearchPipeModule,
         UIORGTableModule,
         WidgetResolverModule,
         TrainingPlanRoutingModule,

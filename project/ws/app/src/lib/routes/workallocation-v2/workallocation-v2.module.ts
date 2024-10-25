@@ -40,7 +40,7 @@ import { DraftAllocationsComponent } from './routes/draft-allocations/draft-allo
 import { PublishedAllocationsComponent } from './routes/published-allocations/published-allocations.component'
 import { CompDetailModule } from './components/comp-details/comp-details.module'
 import { NgxPaginationModule } from 'ngx-pagination'
-import { Ng2SearchPipeModule } from 'ng2-search-filter'
+// import { Ng2SearchPipeModule } from 'ng2-search-filter'
 import { NgCircleProgressModule } from 'ng-circle-progress'
 import { UserWorkService } from './services/user-work.service'
 import { DebounceClickDirective } from './directive/DebounceClickDirective'
@@ -66,7 +66,8 @@ import { DisableButtonOnSubmitDirective } from './directive/DisableButtonOnSubmi
         MatRadioModule, MatDialogModule, MatSelectModule, MatProgressSpinnerModule,
         MatExpansionModule, MatDividerModule, MatPaginatorModule, MatTableModule, WidgetResolverModule,
         UIORGTableModule, ExportAsModule, MatMenuModule, MatTabsModule, MatProgressSpinnerModule, MatAutocompleteModule,
-        AutocompleteModule, ComponentSharedModule, NgxPaginationModule, Ng2SearchPipeModule,
+        AutocompleteModule, ComponentSharedModule, NgxPaginationModule,
+        // Ng2SearchPipeModule,
         NgCircleProgressModule.forRoot({}),
     ],
     providers: [WINDOW_PROVIDERS, WatStoreService, UserWorkService]
