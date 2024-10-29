@@ -10,14 +10,13 @@ describe('CompetencySummaryComponent', () => {
             v1: {
                 vKey: 'key',
                 vCompetencyArea: 'area',
-                vCompetencyTheme: 'theme'
-            }
-        }
+                vCompetencyTheme: 'theme',
+            },
+        },
     }
 
-
     const mockInitService: Partial<InitService> = {
-        configSvc: mockConfigService as ConfigurationsService
+        configSvc: mockConfigService as ConfigurationsService,
     }
 
     beforeEach(() => {
