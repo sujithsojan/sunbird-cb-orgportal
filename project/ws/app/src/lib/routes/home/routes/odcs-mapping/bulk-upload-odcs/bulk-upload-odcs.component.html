@@ -35,8 +35,9 @@
           <div class="flex flex-col items-center">
             <div class="text-primary cursor-pointer" (click)="fileInput.click()" (dblclick)="$event.preventDefault()">
               Browse files</div>
-            <input hidden type="file" #fileInput (click)="handleFileClick($event)" (change)="handleOnFileChange($event)"
-              name="file" placeholder="Choose file" (dblclick)="$event.preventDefault();" accept=".xlsx, .xls" />
+            <input hidden type="file" #fileInput (click)="handleFileClick($event)"
+              (change)="handleOnFileChange(fileInput.files)" name="file" placeholder="Choose file"
+              (dblclick)="$event.preventDefault();" accept=".xlsx, .xls" />
           </div>
           <div class="flex flex-col items-center margin-bottom-m">
             <div class="flex">{{bulkUploadConfig?.maxFileSizeText}}</div>

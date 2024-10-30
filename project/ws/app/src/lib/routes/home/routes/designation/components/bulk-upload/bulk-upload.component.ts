@@ -135,14 +135,14 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
       })
   }
 
-  handleOnFileChange(event: any): void {
+  handleOnFileChange(fileList: File[]): void {
     this.showFileError = false
-    const fileList = (<HTMLInputElement>event.target).files
-    if (fileList && fileList.length > 0) {
-      const file: File = fileList[0]
+    const file: File = fileList[0]
+    if (file) {
       this.fileName = file.name
+      const fileType = file.type
       this.fileSelected = file
-      if (this.fileService.validateFile(this.fileName)) {
+      if (this.fileService.validateExcelFile(fileType)) {
         this.verifyOTP(this.userProfile.email ? 'email' : 'phone')
         // this.showFileUploadProgress()
         // this.uploadCSVFile()

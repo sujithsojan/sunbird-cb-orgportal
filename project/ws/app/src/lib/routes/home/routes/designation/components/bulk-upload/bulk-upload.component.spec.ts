@@ -10,7 +10,7 @@ describe('BulkUploadComponent', () => {
     TestBed.configureTestingModule({
       declarations: [BulkUploadComponent],
     })
-    .compileComponents()
+      .compileComponents()
   }))
 
   beforeEach(() => {

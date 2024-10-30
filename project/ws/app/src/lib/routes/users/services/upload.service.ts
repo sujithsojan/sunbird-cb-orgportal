@@ -118,6 +118,14 @@ export class FileService {
     }
   }
 
+  validateExcelFile(type: string): boolean {
+    const allowedTypes = [
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    ]
+    return allowedTypes.includes(type)
+  }
+
   async getBulkUploadData() {
     return await this.http.get(`${API_ENDPOINTS.getBulkUploadData}`).toPromise()
   }
