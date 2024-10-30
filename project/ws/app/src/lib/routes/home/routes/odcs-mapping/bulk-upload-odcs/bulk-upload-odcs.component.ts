@@ -31,6 +31,7 @@ export class BulkUploadOdcsComponent implements OnInit, OnDestroy, AfterViewInit
 
   showFileError = false
   public fileName: any
+  public fileType: any
   fileSelected!: any
   userProfile: any
   fileUploadDialogInstance: any
@@ -138,9 +139,9 @@ export class BulkUploadOdcsComponent implements OnInit, OnDestroy, AfterViewInit
     const file: File = fileList[0]
     if (file) {
       this.fileName = file.name
-      const fileType = file.type
+      this.fileType = file.type
       this.fileSelected = file
-      if (this.fileService.validateExcelFile(fileType)) {
+      if (this.fileService.validateExcelFile(this.fileType)) {
         this.verifyOTP(this.userProfile.email ? 'email' : 'phone')
       } else {
         this.showFileError = true
@@ -166,7 +167,7 @@ export class BulkUploadOdcsComponent implements OnInit, OnDestroy, AfterViewInit
   }
 
   uploadCSVFile(): void {
-    if (this.fileService.validateFile(this.fileName)) {
+    if (this.fileService.validateExcelFile(this.fileType)) {
       if (this.fileSelected) {
         const formData: FormData = new FormData()
         formData.append('file', this.fileSelected)
