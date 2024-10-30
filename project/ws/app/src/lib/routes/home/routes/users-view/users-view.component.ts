@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import _ from 'lodash'
 /* tslint:enable */
 // import { environment } from 'src/environments/environment'
-import { PageEvent } from '@angular/material'
+import { PageEvent } from '@angular/material/paginator'
 import { EventService } from '@sunbird-cb/utils'
 import { NsContent } from '@sunbird-cb/collection'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
@@ -321,6 +321,7 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     const filtreq = {
       rootOrgId: this.rootOrgId,
       'profileDetails.profileStatus': 'VERIFIED',
+      status: 1,
     }
     if (this.getFilterGroup(query) && this.getFilterGroup(query) !== 'undefind') {
       Object.assign(filtreq, { 'profileDetails.professionalDetails.group': this.getFilterGroup(query) })
@@ -448,6 +449,7 @@ export class UsersViewComponent implements OnInit, OnDestroy {
     const filtreq = {
       rootOrgId: this.rootOrgId,
       'profileDetails.profileStatus': 'NOT-VERIFIED',
+      status: 1,
     }
     if (this.getFilterGroup(query) && this.getFilterGroup(query) !== 'undefind') {
       Object.assign(filtreq, { 'profileDetails.professionalDetails.group': this.getFilterGroup(query) })

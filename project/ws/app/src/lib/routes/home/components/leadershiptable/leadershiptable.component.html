@@ -57,7 +57,7 @@
                 <mat-header-cell *matHeaderCellDef class="clr-darkish-blue action-header">
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row" class="action-cell">
-                    <!-- <button type="button" mat-icon-button i18n-aria-label aria-label="action items"
+                    <!-- <button type="button" mat-icon-button  aria-label="action items"
                         (click)="updateData(row)" class="action-btn">
                         <mat-icon class="ws-mat-black60-text font-22">edit</mat-icon>
                     </button> -->
@@ -82,11 +82,11 @@
 <mat-menu #cardMenu="matMenu">
     <ng-template matMenuContent let-rowData="data">
         <!-- <button (click)="buttonClick('showOnKarma',rowData)" mat-menu-item name="channel-analytics-button"
-            class="ws-mat-primary-text" i18n-aria-label aria-label="Analytics">
+            class="ws-mat-primary-text"  aria-label="Analytics">
             <mat-icon>input</mat-icon> <span>Show on Karmayogi</span>
         </button>
         <button (click)="rowData && rowData.blocked ? buttonClick('unblock',rowData): buttonClick('block',rowData)"
-            mat-menu-item name="channel-analytics-button" class="ws-mat-primary-text" i18n-aria-label
+            mat-menu-item name="channel-analytics-button" class="ws-mat-primary-text"
             aria-label="Analytics">
             <mat-icon>block</mat-icon><span>{{rowData && rowData.blocked ? 'Unblock user':'Block user' }}</span>
         </button> -->

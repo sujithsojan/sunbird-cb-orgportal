@@ -3,12 +3,13 @@ import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angul
 import { NSWatActivity } from '../../models/activity-wot.model'
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms'
 // import { debounceTime } from 'rxjs/operators'
-import { inspect } from 'util'
+// import { inspect } from 'util'
 import { AllocationService } from '../../../workallocation/services/allocation.service'
 import { debounceTime, map, switchMap, takeUntil } from 'rxjs/operators'
 import { Observable, Subject } from 'rxjs'
 import { WatStoreService } from '../../services/wat.store.service'
-import { MatDialog, MatSnackBar } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations'
 import { WatRolePopupComponent } from './wat-role-popup/wat-role-popup.component'
 import { DialogConfirmComponent } from 'src/app/component/dialog-confirm/dialog-confirm.component'
@@ -91,7 +92,7 @@ export class ActivityLabelsComponent implements OnInit, OnDestroy, AfterViewInit
     return frmctrl
   }
   get getActivityForm() {
-    return JSON.stringify(inspect(this.activityForm.controls.groupsArray.value))
+    return JSON.stringify(JSON.stringify(this.activityForm.controls.groupsArray.value))
   }
 
   ngOnInit(): void {

@@ -3,7 +3,7 @@ import { BehaviorSubject, Subject, Observable } from 'rxjs'
 import { finalize } from 'rxjs/operators'
 import { HttpClient, HttpResponse } from '@angular/common/http'
 import * as fileSaver from 'file-saver'
-import { MatSnackBar } from '@angular/material'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 const API_ENDPOINTS = {
   // bulkUpload: `/apis/proxies/v8/user/v1/bulkupload`,
@@ -108,7 +108,7 @@ export class FileService {
   }
 
   validateFile(name: String) {
-    const allowedFormats = ['xlsx', 'csv']
+    const allowedFormats = ['csv']
     const ext = name.substring(name.lastIndexOf('.') + 1).toLowerCase()
     if (allowedFormats.indexOf(ext) > -1) {
       return true

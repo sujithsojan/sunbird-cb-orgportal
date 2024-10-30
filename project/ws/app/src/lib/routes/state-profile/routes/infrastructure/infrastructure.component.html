@@ -14,8 +14,7 @@
                 <div class="flex flex-col">
                     <div class="flex flex-col">
                         <label class=" margin-remove-bottom form-label flex mat-subheading required"
-                            i18n="Infrastructure details label|Label which explains the user to enter Infrastructure details"
-                            i18n-aria-label aria-label="Infrastructure details label">
+                            aria-label="Infrastructure details label">
                             Enter the infrastructure details here. If you do not have the exact numbers, it is ok to
                             fill in approximate numbers.
                         </label>
@@ -29,7 +28,6 @@
                                     oninput="this.value = Math.abs(this.value)" #builtupArea placeholder="in acres"
                                     class="flex flex-1" formControlName="builtupArea" />
                                 <mat-error [hidden]="false"
-                                    i18n="Built up area Error|Explains Built up area is required" i18n-aria-label
                                     aria-label="Built up area Error|Explains Built up area is required "
                                     *ngIf="infrastructureForm?.controls['builtupArea'].errors?.required">
                                     Built up area is mandatory
@@ -45,8 +43,6 @@
                                     class="flex flex-1" formControlName="academicArea" min="0"
                                     oninput="this.value = Math.abs(this.value)" />
                                 <mat-error [hidden]="false"
-                                    i18n="Academic perpose area  Error|Explains Academic perpose area is required"
-                                    i18n-aria-label
                                     aria-label="Academic perpose area Error|Explains Academic perpose area is required "
                                     *ngIf="infrastructureForm?.controls['academicArea'].errors?.required">
                                     Academic perpose area is mandatory
@@ -70,8 +66,8 @@
                                 <input matInput autocomplete="off" type="number" #hostelArea placeholder="in acres"
                                     class="flex flex-1" formControlName="hostelArea" min="0"
                                     oninput="this.value = Math.abs(this.value)" />
-                                <mat-error [hidden]="false" i18n="Hostel area Error|Explains Hostel area is required"
-                                    i18n-aria-label aria-label="Hostel area Error|Explains Hostel area is required "
+                                <mat-error [hidden]="false"
+                                    aria-label="Hostel area Error|Explains Hostel area is required "
                                     *ngIf="infrastructureForm?.controls['hostelArea'].errors?.required">
                                     Hostel area is mandatory
                                 </mat-error>
@@ -86,8 +82,6 @@
                                     class="flex flex-1" formControlName="computerLabArea" min="0"
                                     oninput="this.value = Math.abs(this.value)" />
                                 <mat-error [hidden]="false"
-                                    i18n="Computer lab area Error|Explains Computer lab area is required"
-                                    i18n-aria-label
                                     aria-label="Computer lab area Error|Explains Computer lab area is required "
                                     *ngIf="infrastructureForm?.controls['computerLabArea'].errors?.required">
                                     Computer lab area is mandatory
@@ -103,8 +97,6 @@
                                     placeholder="Enter number" class="flex flex-1" formControlName="computerSystemCount"
                                     min="0" oninput="this.value = Math.abs(this.value)" />
                                 <mat-error [hidden]="false"
-                                    i18n="Computer systems count Error|Explains Computer systems count is required"
-                                    i18n-aria-label
                                     aria-label="Computer systems count Error|Explains Computer systems count is required "
                                     *ngIf="infrastructureForm?.controls['computerSystemCount'].errors?.required">
                                     Computer systems count is mandatory
@@ -126,7 +118,6 @@
                                     oninput="this.value = Math.abs(this.value)" #totalCollection
                                     placeholder="Enter number" formControlName="totalCollection" class="flex flex-1" />
                                 <mat-error [hidden]="false"
-                                    i18n="Total collection Error|Explains Total collection is required" i18n-aria-label
                                     aria-label="Total collection Error|Explains Total collection is required "
                                     *ngIf="infrastructureForm?.controls['totalCollection'].errors?.required">
                                     Total collection is mandatory
@@ -143,8 +134,6 @@
                                     placeholder="Enter number" formControlName="periodicalsSubscribed"
                                     class="flex flex-1" />
                                 <mat-error [hidden]="false"
-                                    i18n="Periodicals subscribed Error|Explains Periodicals subscribed is required"
-                                    i18n-aria-label
                                     aria-label="Periodicals subscribed Error|Explains Periodicals subscribed is required "
                                     *ngIf="infrastructureForm?.controls['periodicalsSubscribed'].errors?.required">
                                     Number of periodicals subscribed is mandatory
@@ -163,8 +152,7 @@
                 <div class="flex flex-col">
                     <div class="flex flex-row justify-between">
                         <label class=" margin-remove-bottom form-label flex mat-h2 required"
-                            i18n="GPS coordinates label|Label which explains the user to enter GPS coordinates"
-                            i18n-aria-label aria-label="GPS coordinates label">
+                            aria-label="GPS coordinates label">
                             Latitude and longitude GPS coordinates
                         </label>
                         <a class="mat-subheading-2 hint_span margin-remove-bottom" type="button" tabindex="0"
@@ -179,8 +167,6 @@
                             <input matInput autocomplete="off" #latitudeLongitude placeholder="Type here"
                                 formControlName="latitudeLongitude" class="flex flex-1" />
                             <mat-error [hidden]="false"
-                                i18n="Latitude and longitude GPS coordinates Error|Explains Latitude and longitude GPS coordinates is required"
-                                i18n-aria-label
                                 aria-label="Latitude and longitude GPS coordinates Error|Explains Latitude and longitude GPS coordinates is required "
                                 *ngIf="infrastructureForm?.controls['latitudeLongitude'].errors?.required">
                                 Latitude and longitude GPS coordinates is mandatory
@@ -194,8 +180,8 @@
                         <input matInput autocomplete="off" #latitudeLongitude placeholder="Type here"
                             formControlName="latitudeLongitude" class="flex flex-1" />
                         <mat-error [hidden]="false"
-                            i18n="Latitude and longitude GPS coordinates Error|Explains Latitude and longitude GPS coordinates is required"
-                            i18n-aria-label
+
+
                             aria-label="Latitude and longitude GPS coordinates Error|Explains Latitude and longitude GPS coordinates is required "
                             *ngIf="instituteProfileForm?.controls['latitudeLongitude'].errors?.required">
                             Latitude and longitude GPS coordinates is mandatory

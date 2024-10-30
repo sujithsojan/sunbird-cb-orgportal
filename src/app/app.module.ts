@@ -1,37 +1,101 @@
 import { FullscreenOverlayContainer, OverlayContainer } from '@angular/cdk/overlay'
 import { APP_BASE_HREF, PlatformLocation } from '@angular/common'
 import { HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
-import { APP_INITIALIZER, Injectable, NgModule, ErrorHandler } from '@angular/core'
-import {
-  GestureConfig,
-  MatButtonModule,
-  MatCardModule,
-  MatDialogModule,
-  MatDividerModule,
-  MatExpansionModule,
-  MatIconModule,
-  MatMenuModule,
-  MatProgressBarModule,
-  MatRippleModule,
-  MatSliderModule,
-  MatToolbarModule,
-  MatTooltipModule,
-  MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,
-  MAT_SNACK_BAR_DEFAULT_OPTIONS,
-  MatInputModule,
-  MatFormFieldModule,
-  MatSelectModule,
-  MatDatepickerModule,
-  MatCheckboxModule,
-  MatNativeDateModule,
-  MatSortModule,
-  MatProgressSpinnerModule,
-} from '@angular/material'
-import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser'
+// Injectable
+import { APP_INITIALIZER, NgModule, ErrorHandler } from '@angular/core'
+import { MatButtonModule } from '@angular/material/button'
+import { MatCardModule } from '@angular/material/card'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+// GestureConfig,
+import { MatRippleModule, MatNativeDateModule } from '@angular/material/core'
+import { MatDatepickerModule } from '@angular/material/datepicker'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatDividerModule } from '@angular/material/divider'
+import { MatExpansionModule } from '@angular/material/expansion'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatIconModule } from '@angular/material/icon'
+import { MatInputModule } from '@angular/material/input'
+import { MatMenuModule } from '@angular/material/menu'
+import { MatProgressBarModule } from '@angular/material/progress-bar'
+import { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatSelectModule } from '@angular/material/select'
+import { MatSliderModule } from '@angular/material/slider'
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar'
+import { MatSortModule } from '@angular/material/sort'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatTooltipModule } from '@angular/material/tooltip'
+// HAMMER_GESTURE_CONFIG
+import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import {
-  BtnFeatureModule, ErrorResolverModule, TourModule, WIDGET_REGISTERED_MODULES,
+  TourModule,
   WIDGET_REGISTRATION_CONFIG, PipeContentRoutePipe, StickyHeaderModule,
+  AtGlanceModule,
+  AvatarPhotoModule,
+  BtnAppsModule,
+  BtnCallModule,
+  BtnCatalogModule,
+  BtnChannelAnalyticsModule,
+  BtnContentDownloadModule,
+  BtnContentFeedbackModule,
+  BtnContentLikeModule,
+  BtnContentMailMeModule,
+  BtnContentShareModule,
+  BtnFullscreenModule,
+  BtnGoalsModule,
+  BtnMailUserModule,
+  BtnPageBackNavModule,
+  BtnPageBackModule,
+  BtnPageBackModuleAdmin,
+  BtnPlaylistModule,
+  BtnPreviewModule,
+  BtnSettingsModule,
+  CardBreadcrumbModule,
+  CardChannelModule,
+  CardContentModule,
+  CardWelcomeModule,
+  CardNetworkModule,
+  CardHomeTopModule,
+  CardBrowseCourseModule,
+  ChannelHubModule,
+  ContentStripMultipleModule,
+  ContentStripSingleModule,
+  DiscussionForumModule,
+  ElementHtmlModule,
+  EmbeddedPageModule,
+  ErrorResolverModule,
+  GalleryViewModule,
+  GraphGeneralModule,
+  GridLayoutModule,
+  ImageMapResponsiveModule,
+  IntranetSelectorModule,
+  LayoutLinearModule,
+  LayoutTabModule,
+  PageModule,
+  PickerContentModule,
+  PlayerAmpModule,
+  PlayerAudioModule,
+  PlayerPdfModule,
+  PlayerSlidesModule,
+  PlayerVideoModule,
+  PlayerWebPagesModule,
+  PlayerYoutubeModule,
+  ReleaseNotesModule,
+  SelectorResponsiveModule,
+  SlidersMobModule,
+  SlidersModule,
+  TreeCatalogModule,
+  TreeModule,
+  CardHubsListModule,
+  CardNetworkHomeModule,
+  CardTableModule,
+  CardActivityModule,
+  BtnFeatureModule,
+  UIAdminTableModule,
+  LeftMenuModule,
+  UIORGTableModule,
+  BreadcrumbsOrgModule,
+  AuthorCardModule,
 } from '@sunbird-cb/collection'
 import { WidgetResolverModule } from '@sunbird-cb/resolver'
 import { LoggerService, PipeSafeSanitizerModule } from '@sunbird-cb/utils'
@@ -69,12 +133,14 @@ import { PublicLogoutModule } from './routes/public/public-logout/public-logout.
 import { LoaderService } from './services/loader.service'
 import { ConfirmationBoxComponent } from '../../project/ws/app/src/lib/routes/training-plan/components/confirmation-box/confirmation.box.component'
 
-@Injectable()
-export class HammerConfig extends GestureConfig {
-  buildHammer(element: HTMLElement) {
-    return new GestureConfig({ touchAction: 'pan-y' }).buildHammer(element)
-  }
-}
+/** Collection Library Modules */
+
+// @Injectable()
+// export class HammerConfig extends GestureConfig {
+//   buildHammer(element: HTMLElement) {
+//     return new GestureConfig({ touchAction: 'pan-y' }).buildHammer(element)
+//   }
+// }
 
 const appInitializer = (initSvc: InitService, logger: LoggerService) => async () => {
   try {
@@ -113,7 +179,6 @@ const getBaseHref = (platformLocation: PlatformLocation): string => {
     BrowserAnimationsModule,
     KeycloakAngularModule,
     AppRoutingModule,
-    ...WIDGET_REGISTERED_MODULES,
     WidgetResolverModule.forRoot(WIDGET_REGISTRATION_CONFIG),
     StickyHeaderModule,
     ErrorResolverModule,
@@ -147,6 +212,71 @@ const getBaseHref = (platformLocation: PlatformLocation): string => {
     TourModule,
     PublicLogoutModule,
     MatProgressSpinnerModule,
+    AtGlanceModule,
+    AvatarPhotoModule,
+    BtnAppsModule,
+    BtnCallModule,
+    BtnCatalogModule,
+    BtnChannelAnalyticsModule,
+    BtnContentDownloadModule,
+    BtnContentFeedbackModule,
+    BtnContentLikeModule,
+    BtnContentMailMeModule,
+    BtnContentShareModule,
+    BtnFullscreenModule,
+    BtnGoalsModule,
+    BtnMailUserModule,
+    BtnPageBackNavModule,
+    BtnPageBackModule,
+    BtnPageBackModuleAdmin,
+    BtnPlaylistModule,
+    BtnPreviewModule,
+    BtnSettingsModule,
+    CardBreadcrumbModule,
+    CardChannelModule,
+    CardContentModule,
+    CardWelcomeModule,
+    CardNetworkModule,
+    CardHomeTopModule,
+    CardBrowseCourseModule,
+    ChannelHubModule,
+    ContentStripMultipleModule,
+    ContentStripSingleModule,
+    DiscussionForumModule,
+    ElementHtmlModule,
+    EmbeddedPageModule,
+    ErrorResolverModule,
+    GalleryViewModule,
+    GraphGeneralModule,
+    GridLayoutModule,
+    ImageMapResponsiveModule,
+    IntranetSelectorModule,
+    LayoutLinearModule,
+    LayoutTabModule,
+    PageModule,
+    PickerContentModule,
+    PlayerAmpModule,
+    PlayerAudioModule,
+    PlayerPdfModule,
+    PlayerSlidesModule,
+    PlayerVideoModule,
+    PlayerWebPagesModule,
+    PlayerYoutubeModule,
+    ReleaseNotesModule,
+    SelectorResponsiveModule,
+    SlidersMobModule,
+    SlidersModule,
+    TreeCatalogModule,
+    TreeModule,
+    CardHubsListModule,
+    CardNetworkHomeModule,
+    CardTableModule,
+    CardActivityModule,
+    UIAdminTableModule,
+    LeftMenuModule,
+    UIORGTableModule,
+    BreadcrumbsOrgModule,
+    AuthorCardModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   exports: [
@@ -189,7 +319,7 @@ const getBaseHref = (platformLocation: PlatformLocation): string => {
       deps: [PlatformLocation],
     },
     { provide: OverlayContainer, useClass: FullscreenOverlayContainer },
-    { provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig },
+    // { provide: HAMMER_GESTURE_CONFIG, useClass: HammerConfig },
     { provide: ErrorHandler, useClass: GlobalErrorHandlingService },
     MatDatepickerModule, MatNativeDateModule,
     { provide: 'environment', useValue: environment },

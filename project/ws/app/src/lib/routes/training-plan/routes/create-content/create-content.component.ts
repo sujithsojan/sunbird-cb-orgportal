@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { TrainingPlanDataSharingService } from './../../services/training-plan-data-share.service'
-import { MatDialog } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog'
 // import { AddContentDialogComponent } from '../../components/add-content-dialog/add-content-dialog.component'
 import { Router } from '@angular/router'
 import { ConfirmationBoxComponent } from '../../components/confirmation-box/confirmation.box.component'

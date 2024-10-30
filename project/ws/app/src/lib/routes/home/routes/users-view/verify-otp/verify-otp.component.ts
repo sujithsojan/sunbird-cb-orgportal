@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject, OnDestroy, ViewChild, Output, EventEmitter } from '@angular/core'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
 import { HttpErrorResponse } from '@angular/common/http'
-import { MatRadioChange, MatSnackBar } from '@angular/material'
+import { MatRadioChange } from '@angular/material/radio'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
@@ -20,7 +21,7 @@ import { UsersService } from '../../../../users/services/users.service'
 export class VerifyOtpComponent implements OnInit, OnDestroy {
 
   private destroySubject$ = new Subject()
-  @ViewChild('timerDiv', { static: false }) timerDiv !: any
+  @ViewChild('timerDiv') timerDiv !: any
   @Output() resendOTP = new EventEmitter<string>()
   @Output() otpVerified = new EventEmitter<any>()
   timeLeft = 150
@@ -51,14 +52,14 @@ export class VerifyOtpComponent implements OnInit, OnDestroy {
     this.interval = setInterval(() => {
       if (this.timeLeft > 0) {
         this.timeLeft = this.timeLeft - 1
-        if (this.timerDiv) {
+        if (this.timerDiv && this.timerDiv.nativeElement) {
           this.timerDiv.nativeElement.innerHTML = `${Math.floor(this.timeLeft / 60)}m: ${this.timeLeft % 60}s`
         }
       } else {
         clearInterval(this.interval)
         this.showResendOTP = true
       }
-    },                          1000)
+    }, 1000)
   }
 
   handleCloseModal(): void {
@@ -86,7 +87,7 @@ export class VerifyOtpComponent implements OnInit, OnDestroy {
       .subscribe((_res: any) => {
         this.handleCloseModal()
         this.otpVerified.emit(true)
-      },         (error: HttpErrorResponse) => {
+      }, (error: HttpErrorResponse) => {
         if (!error.ok) {
           this.matSnackbar.open('Unable to verify OTP, please try again later!')
         }
@@ -99,7 +100,7 @@ export class VerifyOtpComponent implements OnInit, OnDestroy {
       .subscribe((_res: any) => {
         this.handleCloseModal()
         this.otpVerified.emit(true)
-      },         (error: HttpErrorResponse) => {
+      }, (error: HttpErrorResponse) => {
         if (!error.ok) {
           this.matSnackbar.open('Unable to verify OTP, please try again later!')
         }

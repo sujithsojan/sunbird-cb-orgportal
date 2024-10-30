@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { MatDialog, MatSnackBar } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { ActivatedRoute, Router } from '@angular/router'
 // tslint:disable-next-line:import-name
 import _ from 'lodash'
@@ -35,6 +36,8 @@ export class BatchDetailsComponent implements OnInit {
   learnerCount = 0
   clonedApprovalStatusUsers: any = []
   userscount: any
+  showUserDetails = false
+  selectedUser: any
 
   constructor(private router: Router, private activeRouter: ActivatedRoute,
     // tslint:disable-next-line:align
@@ -268,6 +271,7 @@ export class BatchDetailsComponent implements OnInit {
         },
       ],
     }
+    this.showUserDetails = false
     this.bpService.updateBlendedRequests(request).subscribe((_res: any) => {
       if (event.action === 'Approve') {
         this.newUsers = []
@@ -275,11 +279,13 @@ export class BatchDetailsComponent implements OnInit {
           this.openSnackbar(this.requestMesages())
         }
         this.getNewRequestsList()
+        this.showUserDetails = false
       } else {
         this.getLearnersList()
         this.openSnackbar('Request is removed successfully.')
         this.filter('rejected')
       }
+      this.showUserDetails = false
     },                                                      (error: any) => {
       this.openSnackbar(_.get(error, 'error.params.errmsg') ||
         _.get(error, 'error.result.errmsg') ||
@@ -498,6 +504,18 @@ export class BatchDetailsComponent implements OnInit {
           }
         }
       })
+    }
+  }
+
+  onShowUser(user: any) {
+    this.showUserDetails = true
+    this.selectedUser = user
+  }
+
+  clickOnBack(event: any) {
+    if (event) {
+      this.showUserDetails = false
+      this.selectedUser = null
     }
   }
 }

@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="flex-2 margin-left-m">
-          <button class="text-white ws-mat-primary-background" mat-raised-button color="primary" type="submit" i18n
+          <button class="text-white ws-mat-primary-background" mat-raised-button color="primary" type="submit"
             (click)="searchUsers(searchText)">
             <span class="text-white">Search</span>
           </button>
@@ -53,10 +53,10 @@
 
     <div mat-dialog-actions class="margin-top-m mat-dialog-actions">
       <button mat-raised-button type="button"
-        class="flex-auto-display mat-button-base margin-right-m ws-mat-default-text" i18n
+        class="flex-auto-display mat-button-base margin-right-m ws-mat-default-text"
         (click)="closeDiaogBox()">Cancel</button>
       <button class="text-white ws-mat-primary-background margin-right-m" mat-raised-button color="primary"
-        type="submit" i18n [disabled]="this.selection.selected.length === 0" (click)="addLearners()"><span
+        type="submit" [disabled]="this.selection.selected.length === 0" (click)="addLearners()"><span
           class="text-white">Nominate</span></button>
     </div>
   </div>

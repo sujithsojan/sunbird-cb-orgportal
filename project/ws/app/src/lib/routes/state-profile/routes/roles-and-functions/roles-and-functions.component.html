@@ -9,23 +9,22 @@
                 <div class="flex flex-col">
                     <div class="flex flex-col">
                         <label class=" margin-remove-bottom form-label flex mat-subheading-2 required"
-                            i18n="Full address label|Label which explains the user to enter Full address"
-                            i18n-aria-label aria-label="Full address label">
+                            aria-label="Full address label">
                             Select the roles and functions of the training institute (you can select more than one
                             option)
                         </label>
                     </div>
                     <div class="flex flex-row margin-top-m inline_box">
                         <div class="flex">
-                            <mat-checkbox #training formControlName="training" i18n-aria-label
-                                aria-label="Training input" class="checkbox_btn">
+                            <mat-checkbox #training formControlName="training" aria-label="Training input"
+                                class="checkbox_btn">
                                 Training
                             </mat-checkbox>
                         </div>
 
                         <div class="flex  right_inline_box">
-                            <mat-checkbox #research formControlName="research" i18n-aria-label
-                                aria-label="Research input" class="checkbox_btn">
+                            <mat-checkbox #research formControlName="research" aria-label="Research input"
+                                class="checkbox_btn">
                                 Research
                             </mat-checkbox>
                         </div>
@@ -33,13 +32,13 @@
 
                     <div class="flex flex-row margin-top-l inline_box">
                         <div class="flex">
-                            <mat-checkbox #consultancy formControlName="consultancy" i18n-aria-label
-                                aria-label="Consultancy input" class="checkbox_btn">
+                            <mat-checkbox #consultancy formControlName="consultancy" aria-label="Consultancy input"
+                                class="checkbox_btn">
                                 Consultancy
                             </mat-checkbox>
                         </div>
                         <div class="flex   right_inline_box">
-                            <mat-checkbox #researchPublication formControlName="researchPublication" i18n-aria-label
+                            <mat-checkbox #researchPublication formControlName="researchPublication"
                                 aria-label="Publication input" class="checkbox_btn">
                                 Publication
                             </mat-checkbox>
@@ -51,7 +50,7 @@
                     <!-- <div class="flex flex-row margin-top-m">
                         <div class="flex flex-1">
                             <mat-checkbox (click)="buttonSelect($event)" #researchPublication
-                                formControlName="researchPublication" i18n-aria-label
+                                formControlName="researchPublication"
                                 aria-label="Research and Publication input">
                                 Research and Publication
                             </mat-checkbox>
@@ -59,7 +58,7 @@
 
                         <div class="flex flex-1 ">
                             <mat-checkbox (click)="buttonSelect($event)" #trainingConsultancy
-                                formControlName="trainingConsultancy" i18n-aria-label
+                                formControlName="trainingConsultancy"
                                 aria-label="Training and consultancy input">
                                 Training and consultancy
                             </mat-checkbox>
@@ -68,8 +67,7 @@
 
                     <div class="flex flex-row margin-top-l inline_box">
                         <div class="flex">
-                            <mat-checkbox #other formControlName="other" i18n-aria-label aria-label="Other input"
-                                class="checkbox_btn">
+                            <mat-checkbox #other formControlName="other" aria-label="Other input" class="checkbox_btn">
                                 Other
                             </mat-checkbox>
 
@@ -79,16 +77,15 @@
                         <mat-form-field appearance="outline"
                             class="margin-top-xs other_form_field flex flex-1 full-width">
                             <!-- <input matInput autocomplete="off" #instituteOtherRole formControlName="instituteOtherRole"
-                                placeholder="Enter institute role " class="flex flex-1" i18n-aria-label
+                                placeholder="Enter institute role " class="flex flex-1"
                                 aria-label="Institute role input" /> -->
                             <textarea matInput autocomplete="off" #instituteOtherRole
                                 placeholder="Please specify other roles and functions" class="flex flex-1"
-                                formControlName="instituteOtherRole" i18n-aria-label
+                                formControlName="instituteOtherRole"
                                 aria-label="Please specify other roles and functions" [matTextareaAutosize]="true"
                                 [matAutosizeMaxRows]="10" [matAutosizeMinRows]="5" maxlength="200"></textarea>
                             <mat-hint align="end">{{ instituteOtherRole?.value.length }} /200 characters</mat-hint>
-                            <mat-error [hidden]="false" i18n="Institute Role Error|Explains Role is required"
-                                i18n-aria-label aria-label="Institute Role Error|Explains Role is required "
+                            <mat-error [hidden]="false" aria-label="Institute Role Error|Explains Role is required "
                                 *ngIf="instituteProfileForm?.controls['instituteOtherRole'].errors?.required">
                                 Institute other roles and functions field is mandatory
                             </mat-error>

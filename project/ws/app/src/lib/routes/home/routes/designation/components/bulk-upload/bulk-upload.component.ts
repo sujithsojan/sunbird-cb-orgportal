@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core'
-import { MatSnackBar, PageEvent, MatDialog } from '@angular/material'
+
 import { HttpErrorResponse } from '@angular/common/http'
 import { ActivatedRoute } from '@angular/router'
 // tslint:disable-next-line
@@ -11,6 +11,9 @@ import { UsersService } from '../../../../../users/services/users.service'
 import { FileProgressComponent } from '../../../users-view/file-progress/file-progress.component'
 import { VerifyOtpComponent } from '../../../users-view/verify-otp/verify-otp.component'
 import { IBulkUploadDesignationList } from '../../interface/interface'
+import { MatDialog } from '@angular/material/dialog'
+import { PageEvent } from '@angular/material/paginator'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'ws-app-bulk-upload',

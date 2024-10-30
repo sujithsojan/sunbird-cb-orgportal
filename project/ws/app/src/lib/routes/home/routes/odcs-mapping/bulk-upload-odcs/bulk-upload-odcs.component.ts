@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core'
-import { MatSnackBar, PageEvent, MatDialog } from '@angular/material'
 import { HttpErrorResponse } from '@angular/common/http'
 import { ActivatedRoute } from '@angular/router'
 // tslint:disable-next-line
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import { IBulkUploadDesignationList } from '../../designation/interface/interface'
@@ -11,6 +10,9 @@ import { FileService } from '../../../../users/services/upload.service'
 import { UsersService } from '../../../../users/services/users.service'
 import { FileProgressComponent } from '../../users-view/file-progress/file-progress.component'
 import { VerifyOtpComponent } from '../../users-view/verify-otp/verify-otp.component'
+import { MatDialog } from '@angular/material/dialog'
+import { PageEvent } from '@angular/material/paginator'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 @Component({
   selector: 'ws-app-bulk-upload-odcs',
@@ -45,7 +47,6 @@ export class BulkUploadOdcsComponent implements OnInit, OnDestroy, AfterViewInit
     public dialog: MatDialog,
     private usersService: UsersService,
     private activateRoute: ActivatedRoute,
-
   ) {
     this.configSvc = this.activateRoute.snapshot.data['configService']
     this.rootOrgId = _.get(this.configSvc, 'userProfile.rootOrgId')

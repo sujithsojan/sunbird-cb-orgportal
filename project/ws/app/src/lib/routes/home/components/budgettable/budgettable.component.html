@@ -39,7 +39,7 @@
                     <!-- <mat-icon>view_comfy</mat-icon> -->
                 </mat-header-cell>
                 <mat-cell *matCellDef="let row" class="action-cell">
-                    <button type="button" mat-icon-button i18n-aria-label aria-label="action items" [matMenuTriggerFor]="cardMenu"
+                    <button type="button" mat-icon-button aria-label="action items" [matMenuTriggerFor]="cardMenu"
                         [matMenuTriggerData]="{'data':row}" class="action-btn">
                         <mat-icon>more_horiz</mat-icon>
                     </button>
@@ -51,7 +51,8 @@
         </mat-table>
         <div class="flex text-center" *ngIf="dataSource.filteredData.length == 0">
             <mat-card class="margin-top-l margin-bottom-l flex-1" role="none">
-                <button type="button" mat-button class="create-btn mat-accent-border margin-bottom-m" (click)="uploadFilesClick('overallmdo')">Browse
+                <button type="button" mat-button class="create-btn mat-accent-border margin-bottom-m"
+                    (click)="uploadFilesClick('overallmdo')">Browse
                     for files</button>
                 <p class="ws-mat-black60-text">Or drag a file (csv, excel, docx, pdf) here</p>
             </mat-card>
@@ -63,16 +64,16 @@
 <mat-menu #cardMenu="matMenu">
     <ng-template matMenuContent let-rowData="data">
         <!-- <button (click)="buttonClick('showOnKarma',rowData)" mat-menu-item name="channel-analytics-button"
-            class="ws-mat-primary-text" i18n-aria-label aria-label="Analytics">
+            class="ws-mat-primary-text"  aria-label="Analytics">
             <mat-icon>input</mat-icon> <span>Show on Karmayogi</span>
         </button>
         <button (click)="rowData && rowData.blocked ? buttonClick('unblock',rowData): buttonClick('block',rowData)"
-            mat-menu-item name="channel-analytics-button" class="ws-mat-primary-text" i18n-aria-label
+            mat-menu-item name="channel-analytics-button" class="ws-mat-primary-text"
             aria-label="Analytics">
             <mat-icon>block</mat-icon><span>{{rowData && rowData.blocked ? 'Unblock user':'Block user' }}</span>
         </button> -->
         <button (click)="rowData && rowData.active ? buttonClick('deactive',rowData): buttonClick('active',rowData)"
-            mat-menu-item name="channel-analytics-button" class="ws-mat-primary-text" i18n-aria-label aria-label="Analytics">
+            mat-menu-item name="channel-analytics-button" class="ws-mat-primary-text" aria-label="Analytics">
             <mat-icon>edit_attributes</mat-icon>
             <span>Edit</span>
         </button>

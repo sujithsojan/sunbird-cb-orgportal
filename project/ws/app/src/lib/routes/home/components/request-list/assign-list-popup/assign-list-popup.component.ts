@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core'
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ProfileV2Service } from '../../../services/home.servive'
-import { MAT_DIALOG_DATA, MatDialogRef, MatTableDataSource } from '@angular/material'
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
+import { MatTableDataSource } from '@angular/material/table'
 import { ConfigResolveService } from '../../../resolvers/config-resolve.service'
 
 @Component({
