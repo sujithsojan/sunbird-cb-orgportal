@@ -148,23 +148,6 @@ export class BulkUploadOdcsComponent implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  // verifyOTP(contactType: string): void {
-  //   const dialogRef = this.dialog.open(VerifyOtpComponent, {
-  //     data: { type: contactType, email: this.userProfile.email, mobile: this.userProfile.mobile },
-  //     disableClose: true,
-  //     panelClass: 'common-modal',
-  //   })
-
-  //   dialogRef.componentInstance.resendOTP.subscribe((_cType: any) => {
-  //     this.generateAndVerifyOTP(_cType, 'resend')
-  //   })
-
-  //   dialogRef.componentInstance.otpVerified.subscribe((_data: boolean) => {
-  //     this.showFileUploadProgress()
-  //     this.uploadCSVFile()
-  //   })
-  // }
-
   verifyOTP(contactType: string): void {
     const dialogRef = this.dialog.open(VerifyOtpComponent, {
       data: { type: contactType, email: this.userProfile.email, mobile: this.userProfile.mobile },

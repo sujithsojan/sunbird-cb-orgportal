@@ -386,7 +386,7 @@ export class CreateRequestFormComponent implements OnInit {
   compAreaSelected(option: any) {
     this.resetCompSubfields()
     this.allCompetencies.forEach((val: any) => {
-      if (option.name === val.name && val.children.length) {
+      if (option.name === val.name && val.children && val.children.length) {
         this.seletedCompetencyArea = val
         this.allCompetencyTheme = val.children
         this.filteredallCompetencyTheme = this.allCompetencyTheme
@@ -398,7 +398,7 @@ export class CreateRequestFormComponent implements OnInit {
   compThemeSelected(option: any) {
     this.enableCompetencyAdd = false
     this.allCompetencyTheme.forEach((val: any) => {
-      if (option.name === val.name && val.children.length) {
+      if (option.name === val.name && val.children && val.children.length) {
         this.seletedCompetencyTheme = val
         this.allCompetencySubtheme = val.children
         this.filteredallCompetencySubtheme = this.allCompetencySubtheme
