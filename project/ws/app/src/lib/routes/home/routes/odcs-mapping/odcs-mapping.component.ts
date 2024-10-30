@@ -234,7 +234,7 @@ export class OdcsMappingComponent implements OnInit {
   }
 
   routeToBulkUpload() {
-    this.router.navigate(['/app/home/odcs-mapping-upload'])
+    this.router.navigate(['/app/home/odcs-upload'])
   }
 
 }

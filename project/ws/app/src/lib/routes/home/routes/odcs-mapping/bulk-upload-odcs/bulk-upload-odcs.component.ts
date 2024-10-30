@@ -132,22 +132,37 @@ export class BulkUploadOdcsComponent implements OnInit, OnDestroy, AfterViewInit
       })
   }
 
-  handleOnFileChange(event: any): void {
+  handleOnFileChange(fileList: File[]): void {
     this.showFileError = false
-    const fileList = (<HTMLInputElement>event.target).files
-    if (fileList && fileList.length > 0) {
-      const file: File = fileList[0]
+    const file: File = fileList[0]
+    if (file) {
       this.fileName = file.name
+      const fileType = file.type
       this.fileSelected = file
-      if (this.fileService.validateFile(this.fileName)) {
+      if (this.fileService.validateExcelFile(fileType)) {
         this.verifyOTP(this.userProfile.email ? 'email' : 'phone')
-        // this.showFileUploadProgress()
-        // this.uploadCSVFile()
       } else {
         this.showFileError = true
       }
     }
   }
+
+  // verifyOTP(contactType: string): void {
+  //   const dialogRef = this.dialog.open(VerifyOtpComponent, {
+  //     data: { type: contactType, email: this.userProfile.email, mobile: this.userProfile.mobile },
+  //     disableClose: true,
+  //     panelClass: 'common-modal',
+  //   })
+
+  //   dialogRef.componentInstance.resendOTP.subscribe((_cType: any) => {
+  //     this.generateAndVerifyOTP(_cType, 'resend')
+  //   })
+
+  //   dialogRef.componentInstance.otpVerified.subscribe((_data: boolean) => {
+  //     this.showFileUploadProgress()
+  //     this.uploadCSVFile()
+  //   })
+  // }
 
   verifyOTP(contactType: string): void {
     const dialogRef = this.dialog.open(VerifyOtpComponent, {
