@@ -380,7 +380,7 @@
                         <textarea matInput autocomplete="off" #trainingInstituteDetail
                             placeholder="Enter Attached training Institute details" class="flex flex-1"
                             formControlName="trainingInstituteDetail" aria-label=" Attached training Institute input"
-                            [matTextareaAutosize]="true" [matAutosizeMaxRows]="10" [matAutosizeMinRows]="5"
+                            [cdkTextareaAutosize]="true" [cdkAutosizeMaxRows]="10" [cdkAutosizeMinRows]="5"
                             maxlength="200" rows="5"></textarea>
                         <mat-hint align="end">{{ trainingInstituteDetail.value.length }} /200 characters</mat-hint>
                     </mat-form-field>
