@@ -8,7 +8,7 @@ describe('CertificationAndSkillsComponent', () => {
 
     const activeRoute: Partial<ActivatedRoute> = {}
     const router: Partial<Router> = {
-        events: of(new NavigationEnd(0, '', ''))
+        events: of(new NavigationEnd(0, '', '')),
     }
 
     beforeAll(() => {

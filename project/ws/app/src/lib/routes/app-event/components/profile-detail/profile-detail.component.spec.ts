@@ -13,7 +13,7 @@ describe('ProfileDetailComponent', () => {
     const dialog: Partial<MatDialog> = {}
     const valSvc: Partial<ValueService> = {}
     const router: Partial<Router> = {
-        getCurrentNavigation: jest.fn()
+        getCurrentNavigation: jest.fn(),
     }
 
     beforeAll(() => {

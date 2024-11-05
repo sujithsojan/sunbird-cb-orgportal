@@ -8,7 +8,7 @@ describe('BatchListComponent', () => {
     let component: BatchListComponent
 
     const router: Partial<Router> = {
-        getCurrentNavigation: jest.fn()
+        getCurrentNavigation: jest.fn(),
     }
     const activeRouter: Partial<ActivatedRoute> = {
         data: of({

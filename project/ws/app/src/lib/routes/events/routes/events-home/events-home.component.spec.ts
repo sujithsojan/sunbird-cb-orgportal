@@ -8,10 +8,10 @@ describe('EventsHomeComponent', () => {
     let component: EventsHomeComponent
 
     const valueSvc: Partial<ValueService> = {
-        isLtMedium$: of(true)
+        isLtMedium$: of(true),
     }
     const router: Partial<Router> = {
-        events: of(new NavigationEnd(0, '', ''))
+        events: of(new NavigationEnd(0, '', '')),
 
     }
     const activeRoute: Partial<ActivatedRoute> = {}

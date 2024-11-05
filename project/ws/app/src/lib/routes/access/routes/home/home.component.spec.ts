@@ -1,17 +1,16 @@
-import { Router, ActivatedRoute } from '@angular/router'
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
 import { ValueService } from '@sunbird-cb/utils'
 import { HomeComponent } from './home.component'
 import { of } from 'rxjs'
-import { NavigationEnd } from '@angular/router'
 
 describe('HomeComponent', () => {
     let component: HomeComponent
 
     const valueSvc: Partial<ValueService> = {
-        isLtMedium$: of(true)
+        isLtMedium$: of(true),
     }
     const router: Partial<Router> = {
-        events: of(new NavigationEnd(0, '', ''))
+        events: of(new NavigationEnd(0, '', '')),
     }
     const activeRoute: Partial<ActivatedRoute> = {}
 

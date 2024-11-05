@@ -3,8 +3,6 @@ import { SessionCardComponent } from './session-card.component'
 describe('SessionCardComponent', () => {
     let component: SessionCardComponent
 
-
-
     beforeAll(() => {
         component = new SessionCardComponent(
 

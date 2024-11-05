@@ -3,8 +3,6 @@ import { TncRendererComponent } from './tnc-renderer.component'
 describe('TncRendererComponent', () => {
     let component: TncRendererComponent
 
-
-
     beforeAll(() => {
         component = new TncRendererComponent(
 

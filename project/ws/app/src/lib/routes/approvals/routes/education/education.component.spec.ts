@@ -1,5 +1,4 @@
 
-
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { EducationComponent } from './education.component'
 import { of } from 'rxjs'
@@ -9,7 +8,7 @@ describe('EducationComponent', () => {
 
     const activeRoute: Partial<ActivatedRoute> = {}
     const router: Partial<Router> = {
-        events: of(new NavigationEnd(0, '', ''))
+        events: of(new NavigationEnd(0, '', '')),
     }
 
     beforeAll(() => {

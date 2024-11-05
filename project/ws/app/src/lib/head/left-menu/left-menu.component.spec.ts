@@ -2,7 +2,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
 import { LeftMenuComponent } from './left-menu.component'
 
-
 describe('LeftMenuComponent', () => {
     let component: LeftMenuComponent
 

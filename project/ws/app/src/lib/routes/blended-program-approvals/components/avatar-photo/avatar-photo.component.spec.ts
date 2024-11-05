@@ -3,8 +3,6 @@ import { AvatarPhotoComponent } from './avatar-photo.component'
 describe('AvatarPhotoComponent', () => {
     let component: AvatarPhotoComponent
 
-
-
     beforeAll(() => {
         component = new AvatarPhotoComponent(
 

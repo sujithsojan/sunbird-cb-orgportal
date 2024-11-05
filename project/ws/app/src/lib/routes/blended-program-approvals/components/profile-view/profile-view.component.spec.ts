@@ -6,7 +6,6 @@ import { WidgetUserService } from '@sunbird-cb/collection'
 import { ProfileViewComponent } from './profile-view.component'
 import { of } from 'rxjs'
 
-
 describe('ProfileViewComponent', () => {
     let component: ProfileViewComponent
 
@@ -52,10 +51,10 @@ describe('ProfileViewComponent', () => {
         component: null,
     } as unknown as ActivatedRoute
     const bpService: Partial<BlendedApporvalService> = {
-        getUserById: jest.fn().mockReturnValue(of({}))
+        getUserById: jest.fn().mockReturnValue(of({})),
     }
     const router: Partial<Router> = {
-        getCurrentNavigation: jest.fn()
+        getCurrentNavigation: jest.fn(),
     }
     const userSvc: Partial<WidgetUserService> = {}
 

@@ -4,8 +4,6 @@ import { PrivilegesComponent } from './privileges.component'
 describe('PrivilegesComponent', () => {
     let component: PrivilegesComponent
 
-
-
     beforeAll(() => {
         component = new PrivilegesComponent(
 

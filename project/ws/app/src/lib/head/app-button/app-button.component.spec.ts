@@ -1,10 +1,7 @@
-import { AppButtonComponent } from "./app-button.component"
-
+import { AppButtonComponent } from './app-button.component'
 
 describe('AppButtonComponent', () => {
     let component: AppButtonComponent
-
-
 
     beforeAll(() => {
         component = new AppButtonComponent(

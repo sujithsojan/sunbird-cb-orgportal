@@ -10,7 +10,7 @@ describe('HomeComponent', () => {
     const configSvc: Partial<ConfigurationsService> = {}
     const domSanitizer: Partial<DomSanitizer> = {}
     const router: Partial<Router> = {
-        events: of(new NavigationEnd(0, '', ''))
+        events: of(new NavigationEnd(0, '', '')),
     }
 
     beforeAll(() => {

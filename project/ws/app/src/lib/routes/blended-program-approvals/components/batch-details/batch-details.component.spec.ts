@@ -11,7 +11,7 @@ describe('BatchDetailsComponent', () => {
     let component: BatchDetailsComponent
 
     const router: Partial<Router> = {
-        getCurrentNavigation: jest.fn()
+        getCurrentNavigation: jest.fn(),
     }
     const activeRouter: Partial<ActivatedRoute> = {
         data: of({

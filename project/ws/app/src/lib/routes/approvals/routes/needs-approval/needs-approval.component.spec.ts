@@ -12,10 +12,10 @@ describe('NeedsApprovalComponent', () => {
 
     const needApprService: Partial<NeedApprovalsService> = {}
     const activeRoute: Partial<ActivatedRoute> = {
-        data: of({ pageData: { data: { profileData: {} } } })
+        data: of({ pageData: { data: { profileData: {} } } }),
     }
     const router: Partial<Router> = {
-        events: of(new NavigationEnd(0, '', ''))
+        events: of(new NavigationEnd(0, '', '')),
     }
     const events: Partial<EventService> = {}
     const dialog: Partial<MatDialog> = {}
