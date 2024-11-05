@@ -12,7 +12,7 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { ConfigurationsService, EventService } from '@sunbird-cb/utils'
 import * as moment from 'moment'
 /* tslint:disable */
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { TelemetryEvents } from '../../../../head/_services/telemetry.event.model'
 import { ProfileV2UtillService } from '../../../home/services/home-utill.service'
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core'

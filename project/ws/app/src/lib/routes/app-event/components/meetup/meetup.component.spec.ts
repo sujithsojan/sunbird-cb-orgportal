@@ -1,25 +1,26 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
 import { MeetupComponent } from './meetup.component'
+import { ConfigurationsService, ValueService } from '@sunbird-cb/utils'
 
 describe('MeetupComponent', () => {
-  let component: MeetupComponent
-  let fixture: ComponentFixture<MeetupComponent>
+    let component: MeetupComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [MeetupComponent],
+    const configSvc: Partial<ConfigurationsService> = {}
+    const valSvc: Partial<ValueService> = {}
+
+    beforeAll(() => {
+        component = new MeetupComponent(
+            configSvc as ConfigurationsService,
+            valSvc as ValueService
+        )
     })
-    .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(MeetupComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })

@@ -1,25 +1,26 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
+import { MatDialogRef } from '@angular/material/dialog'
 import { EventThumbnailComponent } from './event-thumbnail.component'
 
-describe('ParticipantsComponent', () => {
-  let component: EventThumbnailComponent
-  let fixture: ComponentFixture<EventThumbnailComponent>
+describe('EventThumbnailComponent', () => {
+    let component: EventThumbnailComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [EventThumbnailComponent],
+    const dialogRef: Partial<MatDialogRef<EventThumbnailComponent>> = {}
+    const data = {}
+
+    beforeAll(() => {
+        component = new EventThumbnailComponent(
+            dialogRef as MatDialogRef<EventThumbnailComponent>,
+            data as any
+        )
     })
-    .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(EventThumbnailComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })

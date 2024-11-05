@@ -1,25 +1,32 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
-
 import { CompetencySummaryComponent } from './competency-summary.component'
+import { InitService } from '../../../../../../../../../src/app/services/init.service'
+import { ConfigurationsService } from '@sunbird-cb/utils/lib/services/configurations.service'
 
 describe('CompetencySummaryComponent', () => {
-  let component: CompetencySummaryComponent
-  let fixture: ComponentFixture<CompetencySummaryComponent>
+    let component: CompetencySummaryComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [CompetencySummaryComponent],
+    const mockConfigService: Partial<ConfigurationsService> = {
+        competency: {
+            v1: {
+                vKey: 'key',
+                vCompetencyArea: 'area',
+                vCompetencyTheme: 'theme',
+            },
+        },
+    }
+
+    const mockInitService: Partial<InitService> = {
+        configSvc: mockConfigService as ConfigurationsService,
+    }
+
+    beforeEach(() => {
+        component = new CompetencySummaryComponent(mockInitService as InitService)
+        jest.clearAllMocks()
+        jest.resetAllMocks()
     })
-    .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(CompetencySummaryComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    it('should create an instance of CompetencySummaryComponent', () => {
+        expect(component).toBeTruthy()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
 })

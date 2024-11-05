@@ -1,10 +1,11 @@
-import { SessionCardComponent } from './session-card.component'
 
-describe('SessionCardComponent', () => {
-    let component: SessionCardComponent
+import { PrivilegesComponent } from './privileges.component'
+
+describe('PrivilegesComponent', () => {
+    let component: PrivilegesComponent
 
     beforeAll(() => {
-        component = new SessionCardComponent(
+        component = new PrivilegesComponent(
 
         )
     })
