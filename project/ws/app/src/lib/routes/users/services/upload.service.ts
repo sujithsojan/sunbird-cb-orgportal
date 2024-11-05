@@ -108,7 +108,7 @@ export class FileService {
   }
 
   validateFile(name: String) {
-    const allowedFormats = ['xlsx', 'csv']
+    const allowedFormats = ['csv']
     const ext = name.substring(name.lastIndexOf('.') + 1).toLowerCase()
     if (allowedFormats.indexOf(ext) > -1) {
       return true
@@ -116,6 +116,14 @@ export class FileService {
     } else {
       return false
     }
+  }
+
+  validateExcelFile(type: string): boolean {
+    const allowedTypes = [
+      'application/vnd.ms-excel',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    ]
+    return allowedTypes.includes(type)
   }
 
   async getBulkUploadData() {

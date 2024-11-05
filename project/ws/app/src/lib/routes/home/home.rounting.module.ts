@@ -390,10 +390,10 @@ const routes: Routes = [
         },
       },
       {
-        path: 'odcs-mapping-upload',
+        path: 'odcs-upload',
         component: BulkUploadOdcsComponent,
         data: {
-          pageId: 'home/odcs-mapping-upload',
+          pageId: 'home/odcs-upload',
           module: 'odcs-mapping',
           pageType: 'feature',
           pageKey: 'odcs',

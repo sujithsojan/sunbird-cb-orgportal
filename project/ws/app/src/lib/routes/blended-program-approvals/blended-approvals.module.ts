@@ -37,10 +37,11 @@ import { RejectReasonDialogComponent } from './components/reject-reason-dialog/r
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ViewReportDialogComponent } from './components/view-report-dialog/view-report-dialog.component'
 import { MicroSurveyModule } from '@sunbird-cb/micro-surveys'
+import { LearnerResponsesComponent } from './components/learner-responses/learner-responses.component'
 
 @NgModule({
   declarations: [BlendedHomeComponent, BatchListComponent, BatchDetailsComponent, UsersCardComponent, ProfileViewComponent,
-    SessionCardComponent, NominateUsersDialogComponent, RejectReasonDialogComponent, ViewReportDialogComponent],
+    SessionCardComponent, NominateUsersDialogComponent, RejectReasonDialogComponent, ViewReportDialogComponent, LearnerResponsesComponent],
   imports: [CommonModule, BlendedApprovalsRoutingModule, BreadcrumbsOrgModule, LeftMenuWithoutLogoModule, WidgetResolverModule,
     MatSidenavModule, MatButtonModule, MatIconModule, HomeModule, RouterModule, UIORGTableModule,
     MatCardModule, AvatarPhotoModule, MatListModule, PipeEmailModule, PipeOrderByModule, ProfileCertificateDialogModule,

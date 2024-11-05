@@ -250,9 +250,9 @@
               <div class="md:w-1/3">
                 <label class="margin-remove-bottom form-label">Mother Tongue</label>
                 <mat-form-field appearance="outline">
-                  <input id="language" matInput type="text" placeholder="Type here"="Mother Tongue"
-                    formControlName="domicileMedium" [matAutocomplete]="motherTongueAuto"
-                    aria-label="Domicile Medium (Mother Tongue)" #motherTongue maxlength="30" />
+                  <input id="language" matInput type="text" placeholder="Mother Tongue" formControlName="domicileMedium"
+                    [matAutocomplete]="motherTongueAuto" aria-label="Domicile Medium (Mother Tongue)" #motherTongue
+                    maxlength="30" />
                   <!-- <mat-error *ngIf="updateUserDataForm?.controls['domicileMedium'].errors?.forbiddenNames"
                      aria-label="Please choose a value from the list provided above.">
                     Please choose a value from the list provided above
@@ -704,11 +704,11 @@
             <div class="margin-bottom-m">
               <span class="font-bold">Primary Details</span> <mat-icon
                 class="ws-mat-black40-text infoicon">info_outline</mat-icon>
-              <p class="float-right mat-body-2" *ngIf="currentFilter === 'transfers'">
+              <!-- <p class="float-right mat-body-2" *ngIf="currentFilter === 'transfers'">
                 <mat-slide-toggle #toggleElement
                   (change)="confirmTransferRequest(notmyuserconfirm, appData, $event, panel)"
                   [checked]="appData.enableToggle">Approve transfer</mat-slide-toggle>
-              </p>
+              </p> -->
             </div>
             <div class="flex flex-row margin-top-m" *ngIf="appData?.needApprovalList?.length > 0">
               <ng-container *ngFor="let field of appData.needApprovalList">
@@ -899,9 +899,18 @@
                 {{currentFilter === 'transfers' ? 'Approve': 'Update'}}
               </span>
             </button>
-            <button mat-raised-button type="submit" (click)="onApprovalCancel(panel, appData)"
+            <!-- <button mat-raised-button type="submit" (click)="onApprovalCancel(panel, appData)"
               class="btn-success btn-responsive cancelbtn">
-              <span>Cancel </span>
+              <span i18n>
+                Cancel
+              </span>
+            </button> -->
+            <button mat-raised-button type="submit" *ngIf="currentFilter === 'transfers'"
+              (click)="confirmTransferRequest(notmyuserconfirm, appData, $event, panel)"
+              class="btn-success btn-responsive cancelbtn">
+              <span>
+                Reject
+              </span>
             </button>
           </div>
         </form>

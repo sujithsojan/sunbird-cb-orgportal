@@ -52,7 +52,7 @@
             </button>
           </div>
         </div>
-        <ng-container *ngIf="currentFilter === 'pending'">
+        <ng-container *ngIf="currentFilter === 'pending' && !showUserDetails">
           <div class="flex flex-1 flex-row margin-top-l" *ngIf="clonedNewUsers && clonedNewUsers.length > 0">
             <div class="flex-1">
               <div class="search">
@@ -69,12 +69,16 @@
           <div class="b-c box" *ngIf="newUsers && newUsers.length > 0">
             <div *ngFor="let user of newUsers">
               <ws-app-users-card [user]="user" [actions]="true" [programData]="linkData" (userClick)="onSubmit($event)"
-                [contentData]="programData" [type]="'newRequest'"></ws-app-users-card>
+                [contentData]="programData" [type]="'newRequest'" (showUser)="onShowUser($event)"></ws-app-users-card>
             </div>
           </div>
           <div class="b-c box" *ngIf="newUsers && newUsers.length == 0">
             <p class="padding-m">No new requests yet</p>
           </div>
+        </ng-container>
+        <ng-container *ngIf="currentFilter === 'pending' && showUserDetails">
+          <ws-app-learner-responses [selectedUser]="selectedUser" [contentData]="programData"
+            (actionClick)="onSubmit($event)" (clickBack)="clickOnBack($event)"></ws-app-learner-responses>
         </ng-container>
         <ng-container *ngIf="currentFilter === 'approved'">
           <div class="flex flex-1 flex-row margin-top-l" *ngIf="clonedApprovedUsers && clonedApprovedUsers.length > 0">
