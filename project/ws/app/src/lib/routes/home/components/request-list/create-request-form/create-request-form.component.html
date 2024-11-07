@@ -129,8 +129,8 @@
                   <mat-form-field appearance="outline" class="autocomplete-form" color="primary" [floatLabel]="'never'">
                     <mat-icon matPrefix class="search-home flex items-center justify-center">search</mat-icon>
                     <mat-label>Search</mat-label>
-                    <input type="search" #searchInput class="ml-2 flex-1"="search" [placeholder]="'Search'"
-                      i18-aria-label aria-label="Search" matInput formControlName="queryThemeControl" maxlength="50"
+                    <input type="search" #searchInput class="ml-2 flex-1" placeholder="Search" i18-aria-label
+                      aria-label="Search" matInput formControlName="queryThemeControl" maxlength="50"
                       (keyup)="updateQuery('theme')" />
                   </mat-form-field>
                   <button class="margin-top-s" mat-icon-button (click)="resetSearch('theme')">
@@ -140,8 +140,8 @@
                 <div>
                   <span class="display-inline-block complabels mat-caption cursor-pointer"
                     [ngClass]="{active: (seletedCompetencyTheme && option.identifier === seletedCompetencyTheme.identifier)}"
-                    (click)="compThemeSelected(option)" *ngFor="let option of filteredallCompetencyTheme">{{option.name
-                    | capitalize}}</span>
+                    (click)="compThemeSelected(option)"
+                    *ngFor="let option of filteredallCompetencyTheme">{{option?.additionalProperties?.displayName}}</span>
                 </div>
               </div>
 
@@ -151,8 +151,8 @@
                   <mat-form-field appearance="outline" class="autocomplete-form" color="primary" [floatLabel]="'never'">
                     <mat-icon matPrefix class="search-home flex items-center justify-center">search</mat-icon>
                     <mat-label>Search</mat-label>
-                    <input type="search" #searchInput class="ml-2 flex-1"="search" [placeholder]="'Search'"
-                      i18-aria-label aria-label="Search" matInput formControlName="querySubThemeControl" maxlength="50"
+                    <input type="search" #searchInput class="ml-2 flex-1" placeholder="Search" i18-aria-label
+                      aria-label="Search" matInput formControlName="querySubThemeControl" maxlength="50"
                       (keyup)="updateQuery('subtheme')" />
                   </mat-form-field>
                   <button class="margin-top-s" mat-icon-button (click)="resetSearch('subtheme')">
@@ -163,7 +163,7 @@
                   <span class="display-inline-block complabels mat-caption cursor-pointer"
                     [ngClass]="{active: (seletedCompetencySubTheme && option.identifier === seletedCompetencySubTheme.identifier)}"
                     (click)="compSubThemeSelected(option)"
-                    *ngFor="let option of filteredallCompetencySubtheme">{{option.name | capitalize}}</span>
+                    *ngFor="let option of filteredallCompetencySubtheme">{{option?.additionalProperties?.displayName}}</span>
                 </div>
               </div>
 

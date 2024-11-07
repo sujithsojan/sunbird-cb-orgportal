@@ -6,6 +6,9 @@ import { TrainingPlanDataSharingService } from './../../services/training-plan-d
 import _ from 'lodash'
 /* tslint:enable */
 import { LoaderService } from '../../../../../../../../../src/app/services/loader.service'
+import { InitService } from '../../../../../../../../../src/app/services/init.service'
+import { ICompentencyKeys } from '../../../home/interface/interfaces'
+import { environment } from '../../../../../../../../../src/environments/environment'
 @Component({
   selector: 'ws-app-search',
   templateUrl: './search.component.html',
@@ -23,14 +26,18 @@ export class SearchComponent implements OnInit {
   pageIndex = 0
   pageSize = 20
   isContentLive = false
+  compentencyKey!: ICompentencyKeys
+
   constructor(
     private trainingPlanService: TrainingPlanService,
     private route: ActivatedRoute,
     public tpdsSvc: TrainingPlanDataSharingService,
-    private loadingService: LoaderService
+    private loadingService: LoaderService,
+    private initService: InitService
   ) { }
 
   ngOnInit() {
+    this.compentencyKey = this.initService.configSvc.competency[environment.compentencyVersionKey]
     this.tpdsSvc.handleContentPageChange.subscribe((pageData: any) => {
       if (pageData) {
         this.pageIndex = pageData.pageIndex
@@ -138,9 +145,9 @@ export class SearchComponent implements OnInit {
             primaryCategory: [contentType === 'Moderated Course' ? 'Course' : contentType],
             /* tslint:disable */
             organisation: applyFilterObj && applyFilterObj['providers'] && applyFilterObj['providers'].length ? applyFilterObj['providers'] : [],
-            'competencies_v5.competencyArea': applyFilterObj && applyFilterObj['competencyArea'] && applyFilterObj['competencyArea'].length ? applyFilterObj['competencyArea'] : [],
-            'competencies_v5.competencyTheme': applyFilterObj && applyFilterObj['competencyTheme'] && applyFilterObj['competencyTheme'].length ? applyFilterObj['competencyTheme'] : [],
-            'competencies_v5.competencySubTheme': applyFilterObj && applyFilterObj['competencySubTheme'] && applyFilterObj['competencySubTheme'].length ? applyFilterObj['competencySubTheme'] : [],
+            [`${this.compentencyKey.vKey}.${this.compentencyKey.vCompetencyArea}`]: applyFilterObj && applyFilterObj[this.compentencyKey.vCompetencyArea] && applyFilterObj[this.compentencyKey.vCompetencyArea].length ? applyFilterObj[this.compentencyKey.vCompetencyArea] : [],
+            [`${this.compentencyKey.vKey}.${this.compentencyKey.vCompetencyTheme}`]: applyFilterObj && applyFilterObj[this.compentencyKey.vCompetencyTheme] && applyFilterObj[this.compentencyKey.vCompetencyTheme].length ? applyFilterObj[this.compentencyKey.vCompetencyTheme] : [],
+            [`${this.compentencyKey.vKey}.${this.compentencyKey.vCompetencySubTheme}`]: applyFilterObj && applyFilterObj[this.compentencyKey.vCompetencySubTheme] && applyFilterObj[this.compentencyKey.vCompetencySubTheme].length ? applyFilterObj[this.compentencyKey.vCompetencySubTheme] : [],
             /* tslint:enable */
           },
           offset: this.pageIndex,
@@ -151,7 +158,7 @@ export class SearchComponent implements OnInit {
             'gradeLevel', 'identifier', 'medium', 'resourceType',
             'primaryCategory', 'contentType', 'channel', 'organisation', 'trackable', 'posterImage',
             'idealScreenSize', 'learningMode', 'creatorLogo', 'duration', 'programDuration',
-            'version', 'avgRating', 'competencies_v5', 'secureSettings'],
+            'version', 'avgRating', `${this.compentencyKey.vKey}`, 'secureSettings'],
         },
       }
       this.trainingPlanService.getAllContent(filterObj).subscribe((res: any) => {
