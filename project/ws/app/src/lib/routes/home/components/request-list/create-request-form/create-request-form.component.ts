@@ -73,12 +73,12 @@ export class CreateRequestFormComponent implements OnInit {
   competencySubtheme!: FormControl
   compentencyKey!: ICompentencyKeys
   constructor(private formBuilder: FormBuilder,
-              private homeService: ProfileV2Service,
-              private activatedRouter: ActivatedRoute,
-              private snackBar: MatSnackBar,
-              private router: Router,
-              public dialog: MatDialog,
-              private initService: InitService,
+    private homeService: ProfileV2Service,
+    private activatedRouter: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    public dialog: MatDialog,
+    private initService: InitService,
   ) {
 
   }
@@ -157,9 +157,9 @@ export class CreateRequestFormComponent implements OnInit {
     const value = this.requestForm.controls[this.compentencyKey.vKey].value || []
     this.requestObjData.competencies.map((comp: any) => {
       const obj = {
-        competencyArea: comp.area,
-        competencyTheme: comp.sub_theme,
-        competencySubTheme: comp.theme,
+        competencyArea: comp.area || comp.select_area,
+        competencyTheme: comp.theme || comp.select_theme,
+        competencySubTheme: comp.sub_theme || comp.select_sub_theme,
       }
       value.push(obj)
     })
@@ -263,9 +263,27 @@ export class CreateRequestFormComponent implements OnInit {
 
   getFilterEntityV2() {
     this.homeService.getFilterEntityV2().subscribe((res: any) => {
-      if (res) {
+      if (res && res[0] && res[1]) {
         // this.competencyList = res
-        this.allCompetencies = res
+        const competencyArea = res[0]
+        const competencyThemes = res[1].terms.filter((term: any) => term.hasOwnProperty('associations'))
+
+        const structuredResult = competencyArea.terms.map((areaTerm: any) => {
+          const areaAssociations = areaTerm.associations || []
+
+          const themes = areaAssociations.map((association: any) => {
+            const theme = competencyThemes.find((themeTerm: any) => themeTerm.identifier === association.identifier)
+
+            return theme ? { ...theme } : null
+          }).filter((theme: any) => theme)
+          return {
+            ...areaTerm,
+            themes,
+          }
+        })
+
+        // this.allCompetencies = res
+        this.allCompetencies = structuredResult
         this.filteredallCompetencies = this.allCompetencies
       }
 
@@ -386,9 +404,9 @@ export class CreateRequestFormComponent implements OnInit {
   compAreaSelected(option: any) {
     this.resetCompSubfields()
     this.allCompetencies.forEach((val: any) => {
-      if (option.name === val.name && val.children && val.children.length) {
+      if (option.identifier === val.identifier) {
         this.seletedCompetencyArea = val
-        this.allCompetencyTheme = val.children
+        this.allCompetencyTheme = val.themes
         this.filteredallCompetencyTheme = this.allCompetencyTheme
 
       }
@@ -398,9 +416,9 @@ export class CreateRequestFormComponent implements OnInit {
   compThemeSelected(option: any) {
     this.enableCompetencyAdd = false
     this.allCompetencyTheme.forEach((val: any) => {
-      if (option.name === val.name && val.children && val.children.length) {
+      if (option.identifier === val.identifier) {
         this.seletedCompetencyTheme = val
-        this.allCompetencySubtheme = val.children
+        this.allCompetencySubtheme = val.associations
         this.filteredallCompetencySubtheme = this.allCompetencySubtheme
       }
     })
@@ -409,7 +427,7 @@ export class CreateRequestFormComponent implements OnInit {
   compSubThemeSelected(option: any) {
     this.enableCompetencyAdd = true
     this.allCompetencySubtheme.forEach((val: any) => {
-      if (option.name === val.name) {
+      if (option.identifier === val.identifier) {
         this.seletedCompetencySubTheme = val
       }
     })
@@ -456,11 +474,11 @@ export class CreateRequestFormComponent implements OnInit {
         competencyArea: this.seletedCompetencyArea.name,
         competencyAreaId: this.seletedCompetencyArea.identifier,
         competencyAreaDescription: this.seletedCompetencyArea.description,
-        competencyTheme: this.seletedCompetencyTheme.name,
+        competencyTheme: this.seletedCompetencyTheme.additionalProperties.displayName,
         competencyThemeId: this.seletedCompetencyTheme.identifier,
         competecnyThemeDescription: this.seletedCompetencyTheme.description,
-        competencyThemeType: this.seletedCompetencyTheme.refId,
-        competencySubTheme: this.seletedCompetencySubTheme.name,
+        competencyThemeType: this.seletedCompetencyTheme.refType,
+        competencySubTheme: this.seletedCompetencySubTheme.additionalProperties.displayName,
         competencySubThemeId: this.seletedCompetencySubTheme.identifier,
         competecnySubThemeDescription: this.seletedCompetencySubTheme.description,
       }
@@ -633,9 +651,9 @@ export class CreateRequestFormComponent implements OnInit {
           this.router.navigateByUrl('/app/home/request-list')
           this.snackBar.open('Request submitted successfully ')
         }
-      },         1000)
+      }, 1000)
     },
-                                                     (error: any) => {
+      (error: any) => {
         this.dialogRefs.close({ error })
         this.snackBar.open('Request Failed')
 
