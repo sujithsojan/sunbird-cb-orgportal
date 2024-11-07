@@ -1,25 +1,27 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
+import { ActivatedRoute } from '@angular/router'
+import { EventService } from '../../services/event.service'
 import { EventOverviewComponent } from './event-overview.component'
 
 describe('EventOverviewComponent', () => {
-  let component: EventOverviewComponent
-  let fixture: ComponentFixture<EventOverviewComponent>
+    let component: EventOverviewComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [EventOverviewComponent],
+    const activatedRoute: Partial<ActivatedRoute> = {}
+    const appEventSvc: Partial<EventService> = {}
+
+    beforeAll(() => {
+        component = new EventOverviewComponent(
+            activatedRoute as ActivatedRoute,
+            appEventSvc as EventService
+        )
     })
-    .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(EventOverviewComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })

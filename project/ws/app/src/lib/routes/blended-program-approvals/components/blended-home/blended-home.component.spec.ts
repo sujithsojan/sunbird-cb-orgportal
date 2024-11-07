@@ -1,25 +1,29 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
 import { BlendedHomeComponent } from './blended-home.component'
+import { of } from 'rxjs'
 
 describe('BlendedHomeComponent', () => {
-  let component: BlendedHomeComponent
-  let fixture: ComponentFixture<BlendedHomeComponent>
+    let component: BlendedHomeComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [BlendedHomeComponent],
+    const router: Partial<Router> = {
+        events: of(new NavigationEnd(0, '', '')),
+    }
+    const activeRoute: Partial<ActivatedRoute> = {}
+
+    beforeAll(() => {
+        component = new BlendedHomeComponent(
+            router as Router,
+            activeRoute as ActivatedRoute
+        )
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(BlendedHomeComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })

@@ -1,23 +1,24 @@
-import { ConfigurationsService } from '@sunbird-cb/utils'
-import { DomSanitizer } from '@angular/platform-browser'
-import { NavigationEnd, Router } from '@angular/router'
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
+import { ValueService } from '@sunbird-cb/utils'
 import { HomeComponent } from './home.component'
 import { of } from 'rxjs'
 
 describe('HomeComponent', () => {
     let component: HomeComponent
 
-    const configSvc: Partial<ConfigurationsService> = {}
-    const domSanitizer: Partial<DomSanitizer> = {}
+    const valueSvc: Partial<ValueService> = {
+        isLtMedium$: of(true),
+    }
     const router: Partial<Router> = {
         events: of(new NavigationEnd(0, '', '')),
     }
+    const activeRoute: Partial<ActivatedRoute> = {}
 
     beforeAll(() => {
         component = new HomeComponent(
-            configSvc as ConfigurationsService,
-            domSanitizer as DomSanitizer,
-            router as Router
+            valueSvc as ValueService,
+            router as Router,
+            activeRoute as ActivatedRoute
         )
     })
 

@@ -1,25 +1,37 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
-import { ParticipantsComponent } from './participants.component'
+import { ActivatedRoute, Router } from '@angular/router'
+import { MatDialog } from '@angular/material/dialog'
+import { EventService } from '@sunbird-cb/utils'
+import { EventListViewComponent, IContentShareData } from './event-list-view.component'
+import { ChangeDetectorRef } from '@angular/core'
 
-describe('ParticipantsComponent', () => {
-  let component: ParticipantsComponent
-  let fixture: ComponentFixture<ParticipantsComponent>
+describe('EventListViewComponent', () => {
+    let component: EventListViewComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ParticipantsComponent],
+    const router: Partial<Router> = {}
+    const matDialog: Partial<MatDialog> = {}
+    const events: Partial<EventService> = {}
+    const route: Partial<ActivatedRoute> = {}
+    const cd: Partial<ChangeDetectorRef> = {}
+    const content: Partial<IContentShareData> = {}
+
+    beforeAll(() => {
+        component = new EventListViewComponent(
+            router as Router,
+            matDialog as MatDialog,
+            events as EventService,
+            route as ActivatedRoute,
+            cd as ChangeDetectorRef,
+            content as IContentShareData
+        )
     })
-    .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ParticipantsComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })

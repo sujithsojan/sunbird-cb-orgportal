@@ -1,10 +1,10 @@
-import { SessionCardComponent } from './session-card.component'
 
-describe('SessionCardComponent', () => {
-    let component: SessionCardComponent
+import { AvatarPhotoComponent } from './avatar-photo.component'
+describe('AvatarPhotoComponent', () => {
+    let component: AvatarPhotoComponent
 
     beforeAll(() => {
-        component = new SessionCardComponent(
+        component = new AvatarPhotoComponent(
 
         )
     })
