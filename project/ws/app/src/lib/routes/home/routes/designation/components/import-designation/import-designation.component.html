@@ -60,7 +60,8 @@
           <div class="flex flex-4 custom-user-card items-center justify-center" [ngClass]="{'active-card': (designation?.selected && !designation?.isOrgDesignation),
               'disableCard': designation?.isOrgDesignation}">
             <div class="custom-user-desc">
-              <p>{{designation?.designation | titlecase}}</p>
+              <p [matTooltip]="designation?.designation" matTooltipPosition="above">{{designation?.designation |
+                titlecase}}</p>
             </div>
 
             <div class="check-action">
