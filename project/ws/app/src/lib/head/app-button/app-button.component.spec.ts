@@ -1,10 +1,10 @@
-import { SessionCardComponent } from './session-card.component'
+import { AppButtonComponent } from './app-button.component'
 
-describe('SessionCardComponent', () => {
-    let component: SessionCardComponent
+describe('AppButtonComponent', () => {
+    let component: AppButtonComponent
 
     beforeAll(() => {
-        component = new SessionCardComponent(
+        component = new AppButtonComponent(
 
         )
     })

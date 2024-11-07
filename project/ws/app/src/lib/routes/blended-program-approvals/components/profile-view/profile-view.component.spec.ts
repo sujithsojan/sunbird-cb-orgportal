@@ -1,16 +1,16 @@
 
+import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
 import { BlendedApporvalService } from '../../services/blended-approval.service'
-import { BatchListComponent } from './batch-list.component'
+import { WidgetUserService } from '@sunbird-cb/collection'
+import { ProfileViewComponent } from './profile-view.component'
 import { of } from 'rxjs'
 
-describe('BatchListComponent', () => {
-    let component: BatchListComponent
+describe('ProfileViewComponent', () => {
+    let component: ProfileViewComponent
 
-    const router: Partial<Router> = {
-        getCurrentNavigation: jest.fn(),
-    }
-    const activeRouter: Partial<ActivatedRoute> = {
+    const dialog: Partial<MatDialog> = {}
+    const route: Partial<ActivatedRoute> = {
         data: of({
             pageData: {
                 data: {
@@ -50,13 +50,21 @@ describe('BatchListComponent', () => {
         outlet: 'primary',
         component: null,
     } as unknown as ActivatedRoute
-    const bpService: Partial<BlendedApporvalService> = {}
+    const bpService: Partial<BlendedApporvalService> = {
+        getUserById: jest.fn().mockReturnValue(of({})),
+    }
+    const router: Partial<Router> = {
+        getCurrentNavigation: jest.fn(),
+    }
+    const userSvc: Partial<WidgetUserService> = {}
 
     beforeAll(() => {
-        component = new BatchListComponent(
+        component = new ProfileViewComponent(
+            dialog as MatDialog,
+            route as ActivatedRoute,
+            bpService as BlendedApporvalService,
             router as Router,
-            activeRouter as ActivatedRoute,
-            bpService as BlendedApporvalService
+            userSvc as WidgetUserService
         )
     })
 

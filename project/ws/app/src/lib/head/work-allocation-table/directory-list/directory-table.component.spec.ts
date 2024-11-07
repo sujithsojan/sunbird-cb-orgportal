@@ -1,17 +1,14 @@
 
-import { MatDialog } from '@angular/material/dialog'
 import { Router } from '@angular/router'
-import { UsersCardComponent } from './users-card.component'
+import { UIDirectoryTableComponent } from './directory-table.component'
 
-describe('UsersCardComponent', () => {
-    let component: UsersCardComponent
+describe('UIDirectoryTableComponent', () => {
+    let component: UIDirectoryTableComponent
 
-    const dialogue: Partial<MatDialog> = {}
     const router: Partial<Router> = {}
 
     beforeAll(() => {
-        component = new UsersCardComponent(
-            dialogue as MatDialog,
+        component = new UIDirectoryTableComponent(
             router as Router
         )
     })

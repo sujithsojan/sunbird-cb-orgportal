@@ -10,7 +10,7 @@ import { ConfigurationsService } from '@sunbird-cb/utils'
 export class SurveyFormComponent implements OnInit {
   surveyPopupData: any
   surveyPopup: any
-  isSurveyPopup = true
+  isSurveyPopup = false
   widgetData: any
   userRead: any
   isTourDone: any

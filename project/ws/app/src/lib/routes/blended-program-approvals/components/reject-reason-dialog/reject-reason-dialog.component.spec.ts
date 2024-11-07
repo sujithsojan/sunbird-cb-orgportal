@@ -1,25 +1,26 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
+import { MatDialogRef } from '@angular/material/dialog'
 import { RejectReasonDialogComponent } from './reject-reason-dialog.component'
 
 describe('RejectReasonDialogComponent', () => {
-  let component: RejectReasonDialogComponent
-  let fixture: ComponentFixture<RejectReasonDialogComponent>
+    let component: RejectReasonDialogComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [RejectReasonDialogComponent],
+    const dialogRef: Partial<MatDialogRef<RejectReasonDialogComponent>> = {}
+    const data = {}
+
+    beforeAll(() => {
+        component = new RejectReasonDialogComponent(
+            dialogRef as MatDialogRef<RejectReasonDialogComponent>,
+            data as any
+        )
     })
-    .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(RejectReasonDialogComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })

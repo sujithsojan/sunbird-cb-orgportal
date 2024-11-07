@@ -1,25 +1,26 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
+import { MatDialogRef } from '@angular/material/dialog'
 import { ViewUsersComponent } from './view-users.component'
 
 describe('ViewUsersComponent', () => {
-  let component: ViewUsersComponent
-  let fixture: ComponentFixture<ViewUsersComponent>
+    let component: ViewUsersComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ViewUsersComponent],
+    const dialogRef: Partial<MatDialogRef<ViewUsersComponent>> = {}
+    const data = {}
+
+    beforeAll(() => {
+        component = new ViewUsersComponent(
+            dialogRef as MatDialogRef<ViewUsersComponent>,
+            data as any
+        )
     })
-    .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ViewUsersComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })
