@@ -35,7 +35,7 @@ import { AvatarPhotoModule, BreadcrumbsOrgModule, LeftMenuModule, UIORGTableModu
 // import { Ng2SearchPipeModule } from 'ng2-search-filter'
 import { ExportAsModule } from 'ngx-export-as'
 import { WorkallocationModule } from '../workallocation/workallocation.module'
-import { NgxPaginationModule } from 'ngx-pagination'
+// import { NgxPaginationModule } from 'ngx-pagination'
 import { UIAdminTableModule } from '../../head/work-allocation-table/ui-admin-table.module'
 import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table'
 import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip'
@@ -127,7 +127,7 @@ import { PipeAcsendingOrderModule } from '../pipes/pipe-ascendingorder/pipe-asce
         MatRadioModule,
         ExportAsModule,
         WorkallocationModule,
-        NgxPaginationModule,
+        // NgxPaginationModule,
         UIAdminTableModule,
         MatTabsModule,
         MatTableModule,

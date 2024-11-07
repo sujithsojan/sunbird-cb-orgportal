@@ -57,12 +57,12 @@ export class CreateWorkallocationComponent implements OnInit {
   config: ExportAsConfig = {
     type: 'pdf',
     elementIdOrContent: 'mytable',
-    options: {
-      jsPDF: {
-        orientation: 'landscape',
-      },
-      pdfCallbackFn: this.pdfCallbackFn, // to add header and footer
-    },
+    // options: {
+    //   jsPDF: {
+    //     orientation: 'landscape',
+    //   },
+    //   pdfCallbackFn: this.pdfCallbackFn, // to add header and footer
+    // },
   }
   activitieslist: any[] = []
   showPublishButton = false

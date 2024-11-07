@@ -31,7 +31,7 @@ import { MatSortModule } from '@angular/material/sort'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
 // import { Ng2SearchPipeModule } from 'ng2-search-filter'
-import { NgxPaginationModule } from 'ngx-pagination'
+// import { NgxPaginationModule } from 'ngx-pagination'
 // import { RainDashboardsModule } from '@sunbird-cb/rain-dashboards'
 
 import { ExportAsModule } from 'ngx-export-as'
@@ -191,7 +191,7 @@ import { BulkUploadOdcsComponent } from './routes/odcs-mapping/bulk-upload-odcs/
         MatRadioModule,
         ExportAsModule,
         WorkallocationModule,
-        NgxPaginationModule,
+        // NgxPaginationModule,
         UIAdminTableModule,
         // RainDashboardsModule,
         MatTabsModule,
