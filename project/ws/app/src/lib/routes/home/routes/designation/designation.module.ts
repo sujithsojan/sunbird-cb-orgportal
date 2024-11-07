@@ -20,7 +20,7 @@ import { ConformationPopupComponent } from './dialog-boxes/conformation-popup/co
 import { PageResolve, PipeOrderByModule } from '@sunbird-cb/utils'
 import { ConfigResolveService } from '../../resolvers/config-resolve.service'
 import { BulkUploadComponent } from './components/bulk-upload/bulk-upload.component'
-
+import { MatTooltipModule } from '@angular/material/tooltip'
 const routes: Routes = [
   {
     path: '',
@@ -94,6 +94,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatDialogModule,
     PipeOrderByModule,
+    MatTooltipModule
   ],
   entryComponents: [
     SelectedDesignationPopupComponent,
