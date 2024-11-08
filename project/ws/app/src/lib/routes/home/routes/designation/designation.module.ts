@@ -94,7 +94,7 @@ const routes: Routes = [
     MatPaginatorModule,
     MatDialogModule,
     PipeOrderByModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   entryComponents: [
     SelectedDesignationPopupComponent,
