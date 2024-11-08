@@ -2,6 +2,9 @@ import { Component, ChangeDetectorRef, Input, ElementRef, EventEmitter, OnInit, 
 import { TrainingPlanService } from './../../services/traininig-plan.service'
 import { FormControl } from '@angular/forms'
 import { TrainingPlanDataSharingService } from '../../services/training-plan-data-share.service'
+import { ICompentencyKeys } from '../../../home/interface/interfaces'
+import { InitService } from '../../../../../../../../../src/app/services/init.service'
+import { environment } from '../../../../../../../../../src/environments/environment'
 @Component({
   selector: 'ws-app-filter',
   templateUrl: './filter.component.html',
@@ -31,18 +34,29 @@ export class FilterComponent implements OnInit, AfterContentChecked {
   competencyList: any = []
   competencyThemeList: any[] = []
   competencySubThemeList: any[] = []
-  filterObj: any = { competencyArea: [], competencyTheme: [], competencySubTheme: [], providers: [] }
+  filterObj: any
   assigneeFilterObj: any = { group: [], designation: [] }
   searchThemeControl = new FormControl()
   searchSubThemeControl = new FormControl()
   searchProviderControl = new FormControl()
   @ViewChildren('checkboxes') checkboxes!: QueryList<ElementRef>
+  compentencyKey!: ICompentencyKeys
   constructor(
     private cdref: ChangeDetectorRef,
     private trainingPlanService: TrainingPlanService,
-    private tpdsSvc: TrainingPlanDataSharingService) { }
+    private tpdsSvc: TrainingPlanDataSharingService,
+    private initService: InitService
+  ) { }
 
   ngOnInit() {
+    this.compentencyKey = this.initService.configSvc.competency[environment.compentencyVersionKey]
+    this.filterObj = {
+      [this.compentencyKey.vCompetencyArea]: [],
+      [this.compentencyKey.vCompetencyTheme]: [],
+      [this.compentencyKey.vCompetencySubTheme]: [],
+      providers: [],
+
+    }
     this.tpdsSvc.filterToggle.subscribe((data: any) => {
       if (data && data.status) {
         if (data.from === 'content') {
@@ -153,8 +167,8 @@ export class FilterComponent implements OnInit, AfterContentChecked {
           citem.children.map((themechild: any) => {
             themechild['parent'] = ctype.id
           })
-          if (this.filterObj['competencyArea']) {
-            this.filterObj['competencyArea'].push(citem.name)
+          if (this.filterObj[this.compentencyKey.vCompetencyArea]) {
+            this.filterObj[this.compentencyKey.vCompetencyArea].push(citem.name)
           }
           this.competencyThemeList = this.competencyThemeList.concat(citem.children)
         }
@@ -167,27 +181,27 @@ export class FilterComponent implements OnInit, AfterContentChecked {
         }
       })
 
-      if (this.filterObj['competencyArea'] &&
-        this.filterObj['competencyArea'].indexOf(ctype.id) > -1) {
-        const index = this.filterObj['competencyArea'].findIndex((x: any) => x === ctype.id)
-        this.filterObj['competencyArea'].splice(index, 1)
+      if (this.filterObj[this.compentencyKey.vCompetencyArea] &&
+        this.filterObj[this.compentencyKey.vCompetencyArea].indexOf(ctype.id) > -1) {
+        const index = this.filterObj[this.compentencyKey.vCompetencyArea].findIndex((x: any) => x === ctype.id)
+        this.filterObj[this.compentencyKey.vCompetencyArea].splice(index, 1)
       }
-      if (this.filterObj['competencyTheme']) {
+      if (this.filterObj[this.compentencyKey.vCompetencyTheme]) {
         this.competencyThemeList.map(sitem => {
           if (sitem.parent === ctype.id) {
-            if (this.filterObj['competencyTheme'].indexOf(sitem.name) > -1) {
-              const index = this.filterObj['competencyTheme'].findIndex((x: any) => x === sitem.name)
-              this.filterObj['competencyTheme'].splice(index, 1)
+            if (this.filterObj[this.compentencyKey.vCompetencyTheme].indexOf(sitem.name) > -1) {
+              const index = this.filterObj[this.compentencyKey.vCompetencyTheme].findIndex((x: any) => x === sitem.name)
+              this.filterObj[this.compentencyKey.vCompetencyTheme].splice(index, 1)
             }
           }
         })
       }
-      if (this.filterObj['competencySubTheme']) {
+      if (this.filterObj[this.compentencyKey.vCompetencySubTheme]) {
         this.competencySubThemeList.map(ssitem => {
           if (ssitem.parentType === ctype.id) {
-            if (this.filterObj['competencySubTheme'].indexOf(ssitem.name) > -1) {
-              const index = this.filterObj['competencySubTheme'].findIndex((x: any) => x === ssitem.name)
-              this.filterObj['competencySubTheme'].splice(index, 1)
+            if (this.filterObj[this.compentencyKey.vCompetencySubTheme].indexOf(ssitem.name) > -1) {
+              const index = this.filterObj[this.compentencyKey.vCompetencySubTheme].findIndex((x: any) => x === ssitem.name)
+              this.filterObj[this.compentencyKey.vCompetencySubTheme].splice(index, 1)
             }
           }
         })
@@ -219,8 +233,8 @@ export class FilterComponent implements OnInit, AfterContentChecked {
             subthemechild['parent'] = csitem.name
           })
           this.competencySubThemeList = this.competencySubThemeList.concat(csitem.children)
-          if (this.filterObj['competencyTheme']) {
-            this.filterObj['competencyTheme'].push(cstype.name)
+          if (this.filterObj[this.compentencyKey.vCompetencyTheme]) {
+            this.filterObj[this.compentencyKey.vCompetencyTheme].push(cstype.name)
           }
 
         }
@@ -235,10 +249,10 @@ export class FilterComponent implements OnInit, AfterContentChecked {
       this.competencySubThemeList = this.competencySubThemeList.filter(sitem => {
         return sitem.parent !== cstype.name
       })
-      if (this.filterObj['competencyTheme'] &&
-        this.filterObj['competencyTheme'].indexOf(cstype.name) > -1) {
-        const index = this.filterObj['competencyTheme'].findIndex((x: any) => x === cstype.name)
-        this.filterObj['competencyTheme'].splice(index, 1)
+      if (this.filterObj[this.compentencyKey.vCompetencyTheme] &&
+        this.filterObj[this.compentencyKey.vCompetencyTheme].indexOf(cstype.name) > -1) {
+        const index = this.filterObj[this.compentencyKey.vCompetencyTheme].findIndex((x: any) => x === cstype.name)
+        this.filterObj[this.compentencyKey.vCompetencyTheme].splice(index, 1)
       }
       this.searchSubThemeControl.reset()
     }
@@ -251,8 +265,8 @@ export class FilterComponent implements OnInit, AfterContentChecked {
           cstlitem['selected'] = true
         }
       })
-      if (this.filterObj['competencySubTheme']) {
-        this.filterObj['competencySubTheme'].push(csttype.name)
+      if (this.filterObj[this.compentencyKey.vCompetencySubTheme]) {
+        this.filterObj[this.compentencyKey.vCompetencySubTheme].push(csttype.name)
       }
 
     } else {
@@ -261,10 +275,10 @@ export class FilterComponent implements OnInit, AfterContentChecked {
           cstlitem['selected'] = false
         }
       })
-      if (this.filterObj['competencySubTheme'] &&
-        this.filterObj['competencySubTheme'].indexOf(csttype.name) > -1) {
-        const index = this.filterObj['competencySubTheme'].findIndex((x: any) => x === csttype.name)
-        this.filterObj['competencySubTheme'].splice(index, 1)
+      if (this.filterObj[this.compentencyKey.vCompetencySubTheme] &&
+        this.filterObj[this.compentencyKey.vCompetencySubTheme].indexOf(csttype.name) > -1) {
+        const index = this.filterObj[this.compentencyKey.vCompetencySubTheme].findIndex((x: any) => x === csttype.name)
+        this.filterObj[this.compentencyKey.vCompetencySubTheme].splice(index, 1)
       }
     }
 
@@ -283,7 +297,12 @@ export class FilterComponent implements OnInit, AfterContentChecked {
 
   clearFilter() {
     if (this.from === 'content') {
-      this.filterObj = { competencyArea: [], competencyTheme: [], competencySubTheme: [], providers: [] }
+      this.filterObj = {
+        [this.compentencyKey.vCompetencyArea]: [],
+        [this.compentencyKey.vCompetencyTheme]: [],
+        [this.compentencyKey.vCompetencySubTheme]: [],
+        providers: [],
+      }
       this.selectedProviders = []
       this.competencyThemeList = []
       this.competencySubThemeList = []

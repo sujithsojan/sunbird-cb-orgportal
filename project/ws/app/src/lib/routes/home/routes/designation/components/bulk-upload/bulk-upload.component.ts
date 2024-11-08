@@ -218,7 +218,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
         clearInterval(this.interval)
         this.getBulkStatusList()
       }
-    }, 1000)
+    },                          1000)
   }
 
 }
