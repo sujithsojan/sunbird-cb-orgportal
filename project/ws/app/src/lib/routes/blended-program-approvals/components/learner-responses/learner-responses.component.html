@@ -103,7 +103,86 @@
               : '-'}}
             </p>
           </div>
+          <div class="md:w-1/4">
+            <label class="view-text-label">Gender</label>
+            <p>
+              {{(userData?.profileDetails && userData?.profileDetails?.personalDetails &&
+              userData?.profileDetails?.personalDetails?.gender)
+              ? userData?.profileDetails?.personalDetails?.gender
+              : '-'}}
+            </p>
+          </div>
+
         </div>
+        <div class="flex flex-row margin-top-m">
+          <div class="md:w-1/4">
+            <label class="view-text-label">Employee ID</label>
+            <p>
+              {{(userData?.profileDetails && userData?.profileDetails?.employmentDetails &&
+              userData?.profileDetails?.employmentDetails?.employeeCode)
+              ? userData?.profileDetails?.employmentDetails?.employeeCode
+              : '-'}}
+            </p>
+          </div>
+          <div class="md:w-1/4">
+            <label class="view-text-label">Mother Tongue</label>
+            <p>
+              {{(userData?.profileDetails && userData?.profileDetails?.personalDetails &&
+              userData?.profileDetails?.personalDetails?.domicileMedium)
+              ? userData?.profileDetails?.personalDetails?.domicileMedium
+              : '-'}}
+            </p>
+          </div>
+          <div class="md:w-1/4">
+            <label class="view-text-label">Category</label>
+            <p>
+              {{(userData?.profileDetails && userData?.profileDetails?.personalDetails &&
+              userData?.profileDetails?.personalDetails?.category)
+              ? userData?.profileDetails?.personalDetails?.category
+              : '-'}}
+            </p>
+          </div>
+          <div class="md:w-1/4">
+            <label class="view-text-label">Office Pin Code</label>
+            <p>
+              {{(userData?.profileDetails && userData?.profileDetails?.personalDetails &&
+              userData?.profileDetails?.personalDetails?.pincode)
+              ? userData?.profileDetails?.personalDetails?.pincode
+              : '-'}}
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-row margin-top-m">
+          <div class="md:w-1/4">
+            <label class="view-text-label">eHRMS ID/External System ID</label>
+            <p>
+              {{(userData?.profileDetails && userData?.profileDetails?.additionalProperties &&
+              userData?.profileDetails?.additionalProperties?.externalSystemId)
+              ? userData?.profileDetails?.additionalProperties?.externalSystemId
+              : '-'}}
+            </p>
+          </div>
+          <div class="md:w-1/4">
+            <label class="view-text-label">Date of Retirement</label>
+            <p>
+              {{(userData?.profileDetails && userData?.profileDetails?.additionalProperties &&
+              userData?.profileDetails?.additionalProperties?.externalSystemDor)
+              ? userData?.profileDetails?.additionalProperties?.externalSystemDor
+              : '-'}}
+            </p>
+          </div>
+          <div class="md:w-1/4">
+            <label class="view-text-label">Tags</label>
+            <p>
+              {{(userData?.profileDetails && userData?.profileDetails?.additionalProperties &&
+              userData?.profileDetails?.additionalProperties?.tag?.length)
+              ? userData?.profileDetails?.additionalProperties?.tag.join(", ")
+              : '-'}}
+            </p>
+          </div>
+        </div>
+
         <!-- Cader Related Code-->
         <div class="flex flex-row margin-top-m">
           <div class="md:w-1/4">
