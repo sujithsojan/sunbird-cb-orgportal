@@ -72,7 +72,7 @@ export class CompetencySummaryComponent implements OnInit, OnChanges {
     }
     // let competencyThemeObj = {};
 
-    if (this.selectedCardData) {
+    if (this.selectedCardData && this.compentencyKey && this.compentencyKey.vKey) {
       let fObj = { competencyTheme: '', count: 0 }
       this.selectedCardData.map((sitem: any) => {
         if (sitem && sitem[this.compentencyKey.vKey]) {
