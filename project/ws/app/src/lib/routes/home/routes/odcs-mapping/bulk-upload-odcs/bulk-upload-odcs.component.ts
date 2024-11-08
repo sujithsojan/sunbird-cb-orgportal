@@ -152,7 +152,7 @@ export class BulkUploadOdcsComponent implements OnInit, OnDestroy, AfterViewInit
   verifyOTP(contactType: string): void {
     const dialogRef = this.dialog.open(VerifyOtpComponent, {
       data: { type: contactType, email: this.userProfile.email, mobile: this.userProfile.mobile },
-      disableClose: true,
+      disableClose: false,
       panelClass: 'common-modal',
     })
 
@@ -214,6 +214,6 @@ export class BulkUploadOdcsComponent implements OnInit, OnDestroy, AfterViewInit
         clearInterval(this.interval)
         this.getBulkStatusList()
       }
-    },                          1000)
+    }, 1000)
   }
 }
