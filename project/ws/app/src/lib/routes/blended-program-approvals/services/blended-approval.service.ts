@@ -20,7 +20,7 @@ const API_END_POINTS = {
   BLENDED_USER_COUNT: `apis/proxies/v8/workflow/blendedprogram/enrol/status/count`,
   BPREPORT_STATUS: 'apis/proxies/v8/bp/v1/bpreport/status',
   GENERATE_REPORT: `apis/proxies/v8/bp/v1/generate/report`,
-  DOWNLOAD_REPORT: `apis/proxies/v8/bp/v1/bpreport/download/`
+  DOWNLOAD_REPORT: `apis/proxies/v8/bp/v1/bpreport/download/`,
 }
 
 @Injectable({
