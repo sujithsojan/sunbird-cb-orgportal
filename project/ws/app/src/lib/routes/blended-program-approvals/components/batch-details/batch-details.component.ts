@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import _ from 'lodash'
 import { BlendedApporvalService } from '../../services/blended-approval.service'
 import { TelemetryEvents } from '../../../../head/_services/telemetry.event.model'
-import { EventService } from '@sunbird-cb/utils'
+import { ConfigurationsService, EventService } from '@sunbird-cb/utils'
 import { NominateUsersDialogComponent } from '../nominate-users-dialog/nominate-users-dialog.component'
 import moment from 'moment'
 import { NsContent } from '../../../../head/_services/widget-content.model'
@@ -39,8 +39,8 @@ export class BatchDetailsComponent implements OnInit {
   userscount: any
   showUserDetails = false
   selectedUser: any
-  fetchStatus: boolean = true
-  checkSurveyLink: boolean = false
+  fetchStatus = true
+  checkSurveyLink = false
   reportStatusList: any[] = []
 
   tabledata: ITableData = {
@@ -58,16 +58,17 @@ export class BatchDetailsComponent implements OnInit {
     sortState: 'asc',
     needUserMenus: false,
   }
+  userDetails: any
 
-  constructor(private router: Router, private activeRouter: ActivatedRoute,
-    // tslint:disable-next-line:align
+  constructor(
+    private router: Router,
+    private activeRouter: ActivatedRoute,
     private bpService: BlendedApporvalService,
-    // tslint:disable-next-line:align
     private snackBar: MatSnackBar,
-    // tslint:disable-next-line:align
     private events: EventService,
-    // tslint:disable-next-line:align
-    private dialogue: MatDialog) {
+    private dialogue: MatDialog,
+    public configSvc: ConfigurationsService,
+  ) {
     const currentState = this.router.getCurrentNavigation()
     if (currentState && currentState.extras.state) {
       this.batchData = currentState.extras.state
@@ -82,7 +83,9 @@ export class BatchDetailsComponent implements OnInit {
     }
   }
 
-  ngOnInit() { }
+  async ngOnInit() {
+    this.userDetails = await this.bpService.getUserById('').toPromise().catch(_error => { })
+  }
 
   filter(key: 'pending' | 'approved' | 'rejected' | 'sessions' | 'approvalStatus' | 'reportStatus') {
     this.approvedUsers = []
@@ -551,7 +554,7 @@ export class BatchDetailsComponent implements OnInit {
       this.getBpReportStatus()
     }
     if (evt.action === 'downloadReport') {
-      this.getBpReportStatus()
+      this.downloadReport()
     }
   }
 
@@ -559,17 +562,17 @@ export class BatchDetailsComponent implements OnInit {
     const batchDetails = this.batchData
     const req = {
       request: {
-        orgId: this.programData.channel || '',
+        orgId: this.userDetails.rootOrgId || '',
         courseId: this.programData.identifier || '',
-        batchId: batchDetails.batchId || ''
-      }
+        batchId: batchDetails.batchId || '',
+      },
     }
     const resData: any = await this.bpService.getBpReportStatusApi(req).toPromise().catch(_error => { })
     if (!resData) {
       this.fetchStatus = false
       this.snackBar.open('Something went wrong while fetching the report status. Please try again after sometime.')
       this.reportStatusList = []
-    } else if (!resData.result && Object.keys(resData.result).length <= 0) {
+    } else if (Object.keys(resData.result).length <= 0) {
       this.reportStatusList = []
     } else {
       this.reportStatusList = resData.result.content
@@ -577,7 +580,7 @@ export class BatchDetailsComponent implements OnInit {
       this.reportStatusList[0]['name'] = 'Enrollment Request Report'
       this.reportStatusList[0]['SlNo'] = '1'
       if (this.reportStatusList[0]['status'].toLowerCase() === 'completed') {
-        this.tabledata.actions = [{ icon: 'cloud_download', label: 'Download', name: 'download', type: 'link', disabled: false }]
+        this.tabledata.actions = [{ icon: 'cloud_download', label: 'Download', name: 'downloadReport', type: 'link', disabled: false }]
       } else if (this.reportStatusList[0]['status'].toLowerCase() === 'in-progress' ||
         this.reportStatusList[0]['status'].toLowerCase() === 'failed') {
         this.tabledata.actions = [{ icon: 'refresh', label: 'Refresh', name: 'refreshStatus', type: 'link', disabled: false }]
@@ -588,11 +591,11 @@ export class BatchDetailsComponent implements OnInit {
     const batchDetails = this.batchData
     const reqBody = {
       request: {
-        orgId: this.programData.channel || '',
+        orgId: this.userDetails.rootOrgId || '',
         courseId: this.programData.identifier || '',
         batchId: batchDetails.batchId || '',
         surveyId: this.programData.wfSurveyLink.split('/')[this.programData.wfSurveyLink.split('/').length - 1] || '',
-      }
+      },
     }
     const resData: any = await this.bpService.generateBpReport(reqBody).toPromise().catch(_error => { })
     if (resData && resData.params && resData.params.status.toLowerCase() === 'success') {
@@ -609,8 +612,10 @@ export class BatchDetailsComponent implements OnInit {
     const downloadUrl = this.reportStatusList[0].downloadLink.split('gcpbpreports/')
     [this.reportStatusList[0].downloadLink.split('gcpbpreports/').length - 1]
     const fileExtension = downloadUrl.split('.').pop()?.toLowerCase()
+    const roleName = this.userDetails.roles.includes("MDO_LEADER") ? "MDO_LEADER" :
+      this.userDetails.roles.includes("MDO_LEADER") ? "MDO_ADMIN" : ''
     // tslint:disable-next-line: max-line-length
-    const fileName = `Program_Coordinator_${batchDetails.name.split(' ').join('')}_Enrollment_Requests_Report_${this.formatDate(this.reportStatusList[0].lastReportGeneratedOn)}.${fileExtension}`
+    const fileName = `_Enrollment_Requests_Report_${roleName}_${batchDetails.name.split(' ').join('')}_Enrollment_Requests_Report_${this.formatDate(this.reportStatusList[0].lastReportGeneratedOn)}.${fileExtension}`
     await this.bpService.downloadReport(downloadUrl, fileName)
   }
 
