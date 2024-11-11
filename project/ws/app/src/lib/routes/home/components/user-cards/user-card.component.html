@@ -1000,7 +1000,7 @@
         <span *ngIf="currentUserStatus === 'NOT-MY-USER'">You are about to remove this user from your
           organization. The user will lose all learning access and be moved out of
           your organization in 48 hours unless you reverse the action from the "Not My Users" tab.</span>
-        <span *ngIf="currentUserStatus !== 'NOT-MY-USER'">Are you sure you want to update?</span>
+        <!-- <span *ngIf="currentUserStatus !== 'NOT-MY-USER'">Are you sure you want to update?</span> -->
       </div>
       <div mat-dialog-actions class="flex-center margin-top-s">
         <button mat-raised-button type="submit" [mat-dialog-close]="false"
