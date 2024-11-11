@@ -99,7 +99,7 @@
             <p>
               {{(userData?.profileDetails && userData?.profileDetails?.personalDetails &&
               userData?.profileDetails?.personalDetails?.dob)
-              ? (userData?.profileDetails?.personalDetails?.dob | date: 'd MMM yyyy')
+              ? (getDateFromText(userData?.profileDetails?.personalDetails?.dob) | date: 'd MMM yyyy')
               : '-'}}
             </p>
           </div>
