@@ -73,12 +73,12 @@ export class CreateRequestFormComponent implements OnInit {
   competencySubtheme!: FormControl
   compentencyKey!: ICompentencyKeys
   constructor(private formBuilder: FormBuilder,
-    private homeService: ProfileV2Service,
-    private activatedRouter: ActivatedRoute,
-    private snackBar: MatSnackBar,
-    private router: Router,
-    public dialog: MatDialog,
-    private initService: InitService,
+              private homeService: ProfileV2Service,
+              private activatedRouter: ActivatedRoute,
+              private snackBar: MatSnackBar,
+              private router: Router,
+              public dialog: MatDialog,
+              private initService: InitService,
   ) {
 
   }
@@ -673,9 +673,9 @@ export class CreateRequestFormComponent implements OnInit {
           this.router.navigateByUrl('/app/home/request-list')
           this.snackBar.open('Request submitted successfully ')
         }
-      }, 1000)
+      },         1000)
     },
-      (error: any) => {
+                                                     (error: any) => {
         this.dialogRefs.close({ error })
         this.snackBar.open('Request Failed')
 
