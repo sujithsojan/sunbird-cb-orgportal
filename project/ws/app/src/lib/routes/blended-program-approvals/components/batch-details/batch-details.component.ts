@@ -589,11 +589,14 @@ export class BatchDetailsComponent implements OnInit {
   }
   async generateReport() {
     const batchDetails = this.batchData
+    const roleName = this.userDetails.roles.includes("MDO_LEADER") ? "MDO_LEADER" :
+      this.userDetails.roles.includes("MDO_ADMIN") ? "MDO_ADMIN" : ''
     const reqBody = {
       request: {
         orgId: this.userDetails.rootOrgId || '',
         courseId: this.programData.identifier || '',
         batchId: batchDetails.batchId || '',
+        reportRequester: roleName,
         surveyId: this.programData.wfSurveyLink.split('/')[this.programData.wfSurveyLink.split('/').length - 1] || '',
       },
     }
@@ -612,10 +615,8 @@ export class BatchDetailsComponent implements OnInit {
     const downloadUrl = this.reportStatusList[0].downloadLink.split('gcpbpreports/')
     [this.reportStatusList[0].downloadLink.split('gcpbpreports/').length - 1]
     const fileExtension = downloadUrl.split('.').pop()?.toLowerCase()
-    const roleName = this.userDetails.roles.includes("MDO_LEADER") ? "MDO_LEADER" :
-      this.userDetails.roles.includes("MDO_LEADER") ? "MDO_ADMIN" : ''
     // tslint:disable-next-line: max-line-length
-    const fileName = `_Enrollment_Requests_Report_${roleName}_${batchDetails.name.split(' ').join('')}_Enrollment_Requests_Report_${this.formatDate(this.reportStatusList[0].lastReportGeneratedOn)}.${fileExtension}`
+    const fileName = `MDO_${batchDetails.name.split(' ').join('')}_Enrollment_Requests_Report_${this.formatDate(this.reportStatusList[0].lastReportGeneratedOn)}.${fileExtension}`
     await this.bpService.downloadReport(downloadUrl, fileName)
   }
 
