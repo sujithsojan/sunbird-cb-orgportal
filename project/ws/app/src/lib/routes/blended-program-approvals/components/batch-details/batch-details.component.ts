@@ -589,11 +589,14 @@ export class BatchDetailsComponent implements OnInit {
   }
   async generateReport() {
     const batchDetails = this.batchData
+    const roleName = this.userDetails.roles.includes("MDO_LEADER") ? "MDO_LEADER" :
+      this.userDetails.roles.includes("MDO_ADMIN") ? "MDO_ADMIN" : ''
     const reqBody = {
       request: {
         orgId: this.userDetails.rootOrgId || '',
         courseId: this.programData.identifier || '',
         batchId: batchDetails.batchId || '',
+        reportRequester: roleName,
         surveyId: this.programData.wfSurveyLink.split('/')[this.programData.wfSurveyLink.split('/').length - 1] || '',
       },
     }
