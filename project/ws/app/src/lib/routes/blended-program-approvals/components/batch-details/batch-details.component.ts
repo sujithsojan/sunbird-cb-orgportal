@@ -560,11 +560,14 @@ export class BatchDetailsComponent implements OnInit {
 
   async getBpReportStatus() {
     const batchDetails = this.batchData
+    const roleName = this.userDetails.roles.includes("MDO_LEADER") ? "MDO_LEADER" :
+      this.userDetails.roles.includes("MDO_ADMIN") ? "MDO_ADMIN" : ''
     const req = {
       request: {
         orgId: this.userDetails.rootOrgId || '',
         courseId: this.programData.identifier || '',
         batchId: batchDetails.batchId || '',
+        reportRequester: roleName,
       },
     }
     const resData: any = await this.bpService.getBpReportStatusApi(req).toPromise().catch(_error => { })
