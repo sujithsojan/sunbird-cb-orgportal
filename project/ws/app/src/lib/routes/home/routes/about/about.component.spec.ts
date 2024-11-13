@@ -1,10 +1,7 @@
-import { AboutComponent } from "./about.component"
-
+import { AboutComponent } from './about.component'
 
 describe('AboutComponent', () => {
     let component: AboutComponent
-
-
 
     beforeAll(() => {
         component = new AboutComponent(

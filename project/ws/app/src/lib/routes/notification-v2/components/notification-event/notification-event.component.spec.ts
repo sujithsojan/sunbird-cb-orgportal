@@ -1,10 +1,13 @@
-import { AdminsTableComponent } from './admins-table.component'
+import { NotificationEventComponent } from "./notification-event.component"
 
-describe('AdminsTableComponent', () => {
-    let component: AdminsTableComponent
+
+describe('NotificationEventComponent', () => {
+    let component: NotificationEventComponent
+
+
 
     beforeAll(() => {
-        component = new AdminsTableComponent(
+        component = new NotificationEventComponent(
 
         )
     })

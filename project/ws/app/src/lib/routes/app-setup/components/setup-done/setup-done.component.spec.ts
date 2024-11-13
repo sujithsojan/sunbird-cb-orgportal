@@ -36,4 +36,3 @@ describe('SetupDoneComponent', () => {
         expect(component).toBeTruthy()
     })
 })
-

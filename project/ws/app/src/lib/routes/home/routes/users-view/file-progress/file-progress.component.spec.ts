@@ -1,10 +1,13 @@
-import { AdminsTableComponent } from './admins-table.component'
+import { FileProgressComponent } from "./file-progress.component"
 
-describe('AdminsTableComponent', () => {
-    let component: AdminsTableComponent
+
+describe('FileProgressComponent', () => {
+    let component: FileProgressComponent
+
+
 
     beforeAll(() => {
-        component = new AdminsTableComponent(
+        component = new FileProgressComponent(
 
         )
     })

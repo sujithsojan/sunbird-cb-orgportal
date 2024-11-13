@@ -1,14 +1,14 @@
 
 import { ConfigurationsService } from '@sunbird-cb/utils'
-import { QuickTourComponent } from './quick-tour.component'
+import { AboutVideoComponent } from './about-video.component'
 
-describe('QuickTourComponent', () => {
-    let component: QuickTourComponent
+describe('AboutVideoComponent', () => {
+    let component: AboutVideoComponent
 
     const configSvc: Partial<ConfigurationsService> = {}
 
     beforeAll(() => {
-        component = new QuickTourComponent(
+        component = new AboutVideoComponent(
             configSvc as ConfigurationsService
         )
     })
