@@ -1,25 +1,28 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
-
+import { MatDialogRef } from '@angular/material/dialog'
+import { DomSanitizer } from '@angular/platform-browser'
 import { CompetencyViewComponent } from './competency-view.component'
 
 describe('CompetencyViewComponent', () => {
-  let component: CompetencyViewComponent
-  let fixture: ComponentFixture<CompetencyViewComponent>
+    let component: CompetencyViewComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [CompetencyViewComponent],
+    const dialogRef: Partial<MatDialogRef<CompetencyViewComponent>> = {}
+    const sanitized: Partial<DomSanitizer> = {}
+    const dData: any = {}
+
+    beforeAll(() => {
+        component = new CompetencyViewComponent(
+            dialogRef as MatDialogRef<CompetencyViewComponent>,
+            sanitized as DomSanitizer,
+            dData as undefined
+        )
     })
-    .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(CompetencyViewComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })
