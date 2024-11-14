@@ -16,5 +16,10 @@
       "kebab-case",
       "lib"
     ]
+  },
+  "linterOptions": {
+    "exclude": [
+      "**/*.spec.ts"
+    ]
   }
 }

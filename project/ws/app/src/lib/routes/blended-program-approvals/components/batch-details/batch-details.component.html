@@ -44,6 +44,11 @@
               details
               <!-- <span *ngIf="rejectedUsers" class="ws-mat-black60-text">({{rejectedUsers.length}})</span> -->
             </a>
+            <a class="filter-option cursor-pointer" [ngClass]="{'ws-mat-accent-border-active font-bold' : currentFilter === 'reportStatus',
+              'ws-mat-accent-border font-medium':currentFilter !== 'reportStatus'}" mat-button
+              (click)="filter('reportStatus')" role="button">Report
+              <!-- <span *ngIf="rejectedUsers" class="ws-mat-black60-text">({{rejectedUsers.length}})</span> -->
+            </a>
           </div>
           <div class="flex-2 right-align margin-top-l" *ngIf="currentFilter === 'approved' && allowToNominate()">
             <button type="button" mat-button class="add-nomine-btn" (click)="onNominateUsersClick('nominateUsers')"
@@ -140,6 +145,75 @@
           <div class="b-c box" *ngIf="sessionDetails && sessionDetails.length == 0">
             <p class="padding-m">No sessions yet</p>
           </div>
+        </ng-container>
+        <ng-container *ngIf="currentFilter === 'reportStatus'">
+          <ng-container>
+            <ng-container *ngIf="checkSurveyLink">
+              <div class="card-container">
+                <mat-card class="mat-elevation-z2 main_info_card margin-bottom-m">
+                  <div class="flex flex-col justify-start">
+                    <mat-card-title>
+                      <p class="mat-h2 margin-remove main_heading_text">Download Report</p>
+                    </mat-card-title>
+                    <mat-card-content>
+                      <!-- <p class="mat-body-2" *ngIf="currentContent.details?.subTitle">{{currentContent.details?.subTitle}}</p> -->
+                      <ng-container>
+                        <div class="flex gap-3 flex-middle mb-5">
+                          <mat-icon class="mat-icon ws-mat-black60-text">error_outline</mat-icon>
+                          <p class="mat-body-1 margin-remove">
+                            Click "Generate Report" to view details of all participants requesting enrollment in this
+                            batch of the
+                            blended program.
+                          </p>
+                        </div>
+                        <div class="flex gap-3 flex-middle mb-5">
+                          <mat-icon class="mat-icon ws-mat-black60-text">error_outline</mat-icon>
+                          <p class="mat-body-1 margin-remove">
+                            Report generation may take some time. Once ready, click "Download". If it's still
+                            processing, use the
+                            "Refresh" button.
+                          </p>
+                        </div>
+                      </ng-container>
+                      <ng-container>
+                        <div>
+                          <button mat-button class="text-white ws-mat-primary-background" type="button"
+                            (click)="generateReport()"
+                            [ngClass]="{disabled: reportStatusList[0]?.status.toLowerCase() === 'in-progress'}"
+                            [disabled]="reportStatusList[0]?.status.toLowerCase() === 'in-progress'">Generate
+                            Report</button>
+                          <p class="mat-small margin-remove-bottom margin-top-xs" *ngIf="reportStatusList?.length > 0">
+                            Last generated on: {{reportStatusList[0]?.lastReportGeneratedOn | date: 'MMM dd, yyyy H:mm'
+                            }}</p>
+                        </div>
+                      </ng-container>
+                    </mat-card-content>
+                  </div>
+                </mat-card>
+              </div>
+
+              <ng-container *ngIf="reportStatusList?.length > 0">
+                <ws-widget-org-user-table [isSearchBar]="false" [tableData]="tabledata" [data]="reportStatusList"
+                  (actionsClick)="actionsClick($event)">
+                </ws-widget-org-user-table>
+              </ng-container>
+
+              <ng-container *ngIf="!reportStatusList?.length">
+                <div class="text-center margin-m">
+                  <img class="block mx-auto mb-3" src="/assets/instances/eagle/app_logos/allocation_empty.svg"
+                    alt="No Report Generated">
+                  <span class="block mat-subheading-2 mt-3">No Report Generated</span>
+                </div>
+              </ng-container>
+            </ng-container>
+            <ng-container *ngIf="!checkSurveyLink">
+              <div class="text-center margin-m">
+                <img class="block mx-auto mb-3" src="/assets/instances/eagle/app_logos/allocation_empty.svg"
+                  alt="No Report Generated">
+                <span class="block mat-subheading-2 mt-3">No survey link added to this blended program.</span>
+              </div>
+            </ng-container>
+          </ng-container>
         </ng-container>
       </ng-container>
     </mat-card-content>

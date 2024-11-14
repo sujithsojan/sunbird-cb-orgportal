@@ -18,6 +18,9 @@ const API_END_POINTS = {
   NOMINATE_LEARNERS: '/apis/proxies/v8/workflow/blendedprogram/admin/enrol',
   REMOVE_LEARNER: '/apis/proxies/v8/workflow/blendedprogram/remove/mdo',
   BLENDED_USER_COUNT: `apis/proxies/v8/workflow/blendedprogram/enrol/status/count`,
+  BPREPORT_STATUS: 'apis/proxies/v8/bp/v1/bpreport/status',
+  GENERATE_REPORT: `apis/proxies/v8/bp/v1/generate/report`,
+  DOWNLOAD_REPORT: `apis/proxies/v8/bp/v1/bpreport/download/`,
 }
 
 @Injectable({
@@ -80,5 +83,22 @@ export class BlendedApporvalService {
     return this.http
       .post(API_END_POINTS.BLENDED_USER_COUNT, req)
       .toPromise()
+  }
+
+  getBpReportStatusApi(reqBody: any) {
+    return this.http.post<null>(API_END_POINTS.BPREPORT_STATUS, reqBody)
+  }
+  generateBpReport(reqBody: any) {
+    return this.http.post<null>(API_END_POINTS.GENERATE_REPORT, reqBody)
+  }
+  downloadReport(fileUrl: string, fileName: string) {
+    this.http.get(`${API_END_POINTS.DOWNLOAD_REPORT}${fileUrl}`, { responseType: 'blob' }).subscribe((response: Blob) => {
+      const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+      const link = document.createElement('a')
+      link.href = window.URL.createObjectURL(blob)
+      link.download = fileName
+      link.click()
+      window.URL.revokeObjectURL(link.href)
+    })
   }
 }

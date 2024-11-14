@@ -20,7 +20,8 @@ const API_END_POINTS = {
   GET_MY_DEPARTMENT_ALL: '/apis/protected/v8/portal/mdo/mydepartment?allUsers=true',
   GET_USER_DETAILS: `/apis/protected/v8/user/details?ts='${Date.now()}`,
   GET_FILTER_ENTITY: 'apis/proxies/v8/competency/v4/search',
-  GET_FILTER_ENTITY_V2: 'apis/proxies/v8/searchBy/v2/competency',
+  // GET_FILTER_ENTITY_V2: 'apis/proxies/v8/searchBy/v2/competency',
+  GET_FILTER_ENTITY_V2: 'apis/proxies/v8/framework/v1/read/kcmfinal_fw',
   GET_REQUEST_TYPE_LIST: '/apis/proxies/v8/org/v1/search',
   CREATE_DEMAND_REQUEST: '/apis/proxies/v8/demand/content/create',
   GET_REQUEST_DATA: '/apis/proxies/v8/demand/content/search',
@@ -67,7 +68,7 @@ export class ProfileV2Service {
   }
 
   getFilterEntityV2(): Observable<any> {
-    return this.http.get<any>(`${API_END_POINTS.GET_FILTER_ENTITY_V2}`).pipe(map(res => _.get(res, 'result.content')))
+    return this.http.get<any>(`${API_END_POINTS.GET_FILTER_ENTITY_V2}`).pipe(map(res => _.get(res, 'result.framework.categories')))
   }
 
   getRequestTypeList(request: any): Observable<any> {

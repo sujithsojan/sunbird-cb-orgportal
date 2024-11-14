@@ -27,3 +27,7 @@
   font-weight: 700;
   // width: 220px;
 }
+
+.importBtn:disabled {
+  opacity: 0.6;
+}

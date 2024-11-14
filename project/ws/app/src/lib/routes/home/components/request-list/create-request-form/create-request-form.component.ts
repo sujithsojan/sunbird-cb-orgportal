@@ -94,7 +94,11 @@ export class CreateRequestFormComponent implements OnInit {
     this.competencyTheme = new UntypedFormControl('')
     this.competencySubtheme = new UntypedFormControl('')
 
-    this.getFilterEntityV2()
+    if (this.compentencyKey.vKey === 'competencies_v5') {
+      this.getFilterEntity()
+    } else {
+      this.getFilterEntityV2()
+    }
 
     this.activatedRouter.queryParams.subscribe(params => {
       if (params['id']) {
@@ -157,9 +161,9 @@ export class CreateRequestFormComponent implements OnInit {
     const value = this.requestForm.controls[this.compentencyKey.vKey].value || []
     this.requestObjData.competencies.map((comp: any) => {
       const obj = {
-        competencyArea: comp.area,
-        competencyTheme: comp.sub_theme,
-        competencySubTheme: comp.theme,
+        competencyArea: comp.area || comp.select_area,
+        competencyTheme: comp.theme || comp.select_theme,
+        competencySubTheme: comp.sub_theme || comp.select_sub_theme,
       }
       value.push(obj)
     })
@@ -253,9 +257,9 @@ export class CreateRequestFormComponent implements OnInit {
     }
     this.homeService.getFilterEntity(filterObj).subscribe((res: any) => {
       if (res) {
-        // this.competencyList = res
-        // this.allCompetencies = res
-        // this.filteredallCompetencies = this.allCompetencies
+        this.competencyList = res
+        this.allCompetencies = res
+        this.filteredallCompetencies = this.allCompetencies
       }
 
     })
@@ -263,9 +267,27 @@ export class CreateRequestFormComponent implements OnInit {
 
   getFilterEntityV2() {
     this.homeService.getFilterEntityV2().subscribe((res: any) => {
-      if (res) {
+      if (res && res[0] && res[1]) {
         // this.competencyList = res
-        this.allCompetencies = res
+        const competencyArea = res[0]
+        const competencyThemes = res[1].terms.filter((term: any) => term.hasOwnProperty('associations'))
+
+        const structuredResult = competencyArea.terms.map((areaTerm: any) => {
+          const areaAssociations = areaTerm.associations || []
+
+          const themes = areaAssociations.map((association: any) => {
+            const theme = competencyThemes.find((themeTerm: any) => themeTerm.identifier === association.identifier)
+
+            return theme ? { ...theme } : null
+          }).filter((theme: any) => theme)
+          return {
+            ...areaTerm,
+            themes,
+          }
+        })
+
+        // this.allCompetencies = res
+        this.allCompetencies = structuredResult
         this.filteredallCompetencies = this.allCompetencies
       }
 
@@ -386,9 +408,9 @@ export class CreateRequestFormComponent implements OnInit {
   compAreaSelected(option: any) {
     this.resetCompSubfields()
     this.allCompetencies.forEach((val: any) => {
-      if (option.name === val.name && val.children && val.children.length) {
+      if (option.name === val.name) {
         this.seletedCompetencyArea = val
-        this.allCompetencyTheme = val.children
+        this.allCompetencyTheme = val.themes || val.children
         this.filteredallCompetencyTheme = this.allCompetencyTheme
 
       }
@@ -398,9 +420,9 @@ export class CreateRequestFormComponent implements OnInit {
   compThemeSelected(option: any) {
     this.enableCompetencyAdd = false
     this.allCompetencyTheme.forEach((val: any) => {
-      if (option.name === val.name && val.children && val.children.length) {
+      if ((option.identifier && option.identifier === val.identifier) || (option.name && option.name === val.name)) {
         this.seletedCompetencyTheme = val
-        this.allCompetencySubtheme = val.children
+        this.allCompetencySubtheme = val.associations || val.children
         this.filteredallCompetencySubtheme = this.allCompetencySubtheme
       }
     })
@@ -409,7 +431,7 @@ export class CreateRequestFormComponent implements OnInit {
   compSubThemeSelected(option: any) {
     this.enableCompetencyAdd = true
     this.allCompetencySubtheme.forEach((val: any) => {
-      if (option.name === val.name) {
+      if ((option.identifier && option.identifier === val.identifier) || (option.name && option.name === val.name)) {
         this.seletedCompetencySubTheme = val
       }
     })
@@ -452,17 +474,35 @@ export class CreateRequestFormComponent implements OnInit {
 
   addCompetency() {
     if (this.seletedCompetencyArea && this.seletedCompetencyTheme && this.seletedCompetencySubTheme) {
-      const obj = {
-        competencyArea: this.seletedCompetencyArea.name,
-        competencyAreaId: this.seletedCompetencyArea.identifier,
-        competencyAreaDescription: this.seletedCompetencyArea.description,
-        competencyTheme: this.seletedCompetencyTheme.name,
-        competencyThemeId: this.seletedCompetencyTheme.identifier,
-        competecnyThemeDescription: this.seletedCompetencyTheme.description,
-        competencyThemeType: this.seletedCompetencyTheme.refId,
-        competencySubTheme: this.seletedCompetencySubTheme.name,
-        competencySubThemeId: this.seletedCompetencySubTheme.identifier,
-        competecnySubThemeDescription: this.seletedCompetencySubTheme.description,
+      let obj: any
+      if (this.compentencyKey.vKey === 'competencies_v5') {
+        obj = {
+          competencyArea: this.seletedCompetencyArea.name,
+          competencyAreaId: this.seletedCompetencyArea.id,
+          competencyAreaDescription: this.seletedCompetencyArea.description,
+          competencyTheme: this.seletedCompetencyTheme.name,
+          competencyThemeId: this.seletedCompetencyTheme.id,
+          competecnyThemeDescription: this.seletedCompetencyTheme.description,
+          competencyThemeType: this.seletedCompetencyTheme.additionalProperties.themeType,
+          competencySubTheme: this.seletedCompetencySubTheme.name,
+          competencySubThemeId: this.seletedCompetencySubTheme.id,
+          competecnySubThemeDescription: this.seletedCompetencySubTheme.description,
+        }
+
+      } else {
+
+        obj = {
+          competencyArea: this.seletedCompetencyArea.name,
+          competencyAreaId: this.seletedCompetencyArea.identifier,
+          competencyAreaDescription: this.seletedCompetencyArea.description,
+          competencyTheme: this.seletedCompetencyTheme.additionalProperties.displayName,
+          competencyThemeId: this.seletedCompetencyTheme.identifier,
+          competecnyThemeDescription: this.seletedCompetencyTheme.description,
+          competencyThemeType: this.seletedCompetencyTheme.refType,
+          competencySubTheme: this.seletedCompetencySubTheme.additionalProperties.displayName,
+          competencySubThemeId: this.seletedCompetencySubTheme.identifier,
+          competecnySubThemeDescription: this.seletedCompetencySubTheme.description,
+        }
       }
 
       const value = this.requestForm.controls[this.compentencyKey.vKey].value || []

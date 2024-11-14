@@ -141,4 +141,18 @@ export class LearnerResponsesComponent implements OnInit {
     })
   }
 
+  public getDateFromText(dateString: string): any {
+    if (dateString) {
+      const sv: string[] = dateString.split('T')
+      if (sv && sv.length > 1) {
+        return sv[0]
+      }
+      const splitValues: string[] = dateString.split('-')
+      const [dd, mm, yyyy] = splitValues
+      const dateToBeConverted = dd.length !== 4 ? `${yyyy}-${mm}-${dd}` : `${dd}-${mm}-${yyyy}`
+      return new Date(dateToBeConverted)
+    }
+    return ''
+  }
+
 }

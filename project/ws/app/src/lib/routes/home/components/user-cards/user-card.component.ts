@@ -15,7 +15,7 @@ import { MatLegacyPaginator as MatPaginator, LegacyPageEvent as PageEvent } from
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 import { COMMA, ENTER } from '@angular/cdk/keycodes'
 // tslint:disable-next-line
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { RolesService } from '../../../users/services/roles.service'
 import { ActivatedRoute } from '@angular/router'
 import { Observable, Subscription } from 'rxjs'
@@ -31,7 +31,8 @@ import { TelemetryEvents } from '../../../../head/_services/telemetry.event.mode
 import { DatePipe } from '@angular/common'
 
 // const EMAIL_PATTERN = /^[a-zA-Z0-9](\.?[a-zA-Z0-9_]+)*@[a-zA-Z0-9]*.[a-zA-Z]{2,}$/
-const EMAIL_PATTERN = /^[a-zA-Z0-9]+[a-zA-Z0-9._-]*[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,4}$/
+// const EMAIL_PATTERN = /^[a-zA-Z0-9]+[a-zA-Z0-9._-]*[a-zA-Z0-9]+@[a-zA-Z0-9]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,4}$/
+const EMAIL_PATTERN = /^[a-zA-Z0-9]+[a-zA-Z0-9._-]*[a-zA-Z0-9]+@[a-zA-Z0-9]+([-a-zA-Z0-9]*[a-zA-Z0-9]+)?(\.[a-zA-Z0-9-]+)*\.[a-zA-Z]{2,4}$/
 
 @Component({
   selector: 'ws-widget-user-card',
