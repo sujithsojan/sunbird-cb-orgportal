@@ -66,13 +66,13 @@ export class RequestListComponent implements OnInit {
   fullProfile: any
   rootOrgId: any
   constructor(private sanitizer: DomSanitizer,
-    private homeService: ProfileV2Service,
-    private datePipe: DatePipe,
-    private activeRoute: ActivatedRoute,
-    private dialog: MatDialog,
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private loaderService: LoaderService,
+              private homeService: ProfileV2Service,
+              private datePipe: DatePipe,
+              private activeRoute: ActivatedRoute,
+              private dialog: MatDialog,
+              private router: Router,
+              private snackBar: MatSnackBar,
+              private loaderService: LoaderService,
   ) { }
   requestList: any[] = [
     `You can request new content by filling out the request form. You will have the option to choose your content provider and
@@ -244,7 +244,7 @@ export class RequestListComponent implements OnInit {
       if (res) {
         setTimeout(() => {
           this.getRequestList()
-        }, 1000)
+        },         1000)
       }
 
       this.snackBar.open('Marked as Invalid')
@@ -266,7 +266,7 @@ export class RequestListComponent implements OnInit {
       if (_res && _res.data === 'confirmed') {
         setTimeout(() => {
           this.getRequestList()
-        }, 1000)
+        },         1000)
         this.snackBar.open('Assigned submitted Successfully')
       } else {
         // this.snackBar.open('error')
@@ -287,7 +287,7 @@ export class RequestListComponent implements OnInit {
       if (_res && _res.data === 'confirmed') {
         setTimeout(() => {
           this.getRequestList()
-        }, 1000)
+        },         1000)
 
         this.snackBar.open('Re-assign submitted Successfully')
       } else {
