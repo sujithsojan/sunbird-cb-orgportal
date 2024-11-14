@@ -1,26 +1,26 @@
 import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { MdoInfoService } from '../../services/mdoinfo.service'
-import { Router } from '@angular/router'
-import { ProfileV2UtillService } from '../../services/home-utill.service'
-import { AdmintableComponent } from './admintable.component'
+import { ConfigurationsService } from '@sunbird-cb/utils'
+import { ActivatedRoute } from '@angular/router'
+import { BudgetComponent } from './budget.component'
 
-describe('AdmintableComponent', () => {
-    let component: AdmintableComponent
+describe('BudgetComponent', () => {
+    let component: BudgetComponent
 
-    const dialog: Partial<MatDialog> = {}
     const snackBar: Partial<MatSnackBar> = {}
+    const dialog: Partial<MatDialog> = {}
+    const configSvc: Partial<ConfigurationsService> = {}
     const mdoinfoSrvc: Partial<MdoInfoService> = {}
-    const router: Partial<Router> = {}
-    const profileUtilSvc: Partial<ProfileV2UtillService> = {}
+    const activeRoute: Partial<ActivatedRoute> = {}
 
     beforeAll(() => {
-        component = new AdmintableComponent(
-            dialog as MatDialog,
+        component = new BudgetComponent(
             snackBar as MatSnackBar,
+            dialog as MatDialog,
+            configSvc as ConfigurationsService,
             mdoinfoSrvc as MdoInfoService,
-            router as Router,
-            profileUtilSvc as ProfileV2UtillService
+            activeRoute as ActivatedRoute
         )
     })
 

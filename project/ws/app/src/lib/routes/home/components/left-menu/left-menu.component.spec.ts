@@ -1,7 +1,6 @@
 import { EventService } from '@sunbird-cb/utils'
 import { LeftMenuComponent } from './left-menu.component'
 
-
 describe('LeftMenuComponent', () => {
     let component: LeftMenuComponent
 

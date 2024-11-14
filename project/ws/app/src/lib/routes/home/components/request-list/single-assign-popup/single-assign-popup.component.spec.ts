@@ -9,7 +9,7 @@ describe('SingleAssignPopupComponent', () => {
     let component: SingleAssignPopupComponent
 
     const fb: Partial<FormBuilder> = {
-        group: jest.fn()
+        group: jest.fn(),
     }
     const homeService: Partial<ProfileV2Service> = {}
     const data: any = {}

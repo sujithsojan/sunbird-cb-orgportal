@@ -1,10 +1,13 @@
-import { AdminsTableComponent } from './admins-table.component'
+import { UserCreationComponent } from "./user-creation.component"
 
-describe('AdminsTableComponent', () => {
-    let component: AdminsTableComponent
+
+describe('UserCreationComponent', () => {
+    let component: UserCreationComponent
+
+
 
     beforeAll(() => {
-        component = new AdminsTableComponent(
+        component = new UserCreationComponent(
 
         )
     })

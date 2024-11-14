@@ -1,4 +1,4 @@
-import { BudgettableComponent } from "./budgettable.component"
+import { BudgettableComponent } from './budgettable.component'
 
 describe('BudgettableComponent', () => {
     let component: BudgettableComponent

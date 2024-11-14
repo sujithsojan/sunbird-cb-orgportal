@@ -3,7 +3,7 @@
 	name: 'test-environment',
 	sitePath: '/test-site-path',
 	karmYogiPath: '/test-karm-yogi-path',
-	cbpPath: '/test-cbp-path'
+	cbpPath: '/test-cbp-path',
 }
 
 // Now import dependencies

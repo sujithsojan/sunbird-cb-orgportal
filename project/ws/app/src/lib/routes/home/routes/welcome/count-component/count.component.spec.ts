@@ -1,10 +1,14 @@
-import { AdminsTableComponent } from './admins-table.component'
+import '@angular/compiler'
+import { CountComponent } from "./count.component"
 
-describe('AdminsTableComponent', () => {
-    let component: AdminsTableComponent
+
+describe('CountComponent', () => {
+    let component: CountComponent
+
+
 
     beforeAll(() => {
-        component = new AdminsTableComponent(
+        component = new CountComponent(
 
         )
     })

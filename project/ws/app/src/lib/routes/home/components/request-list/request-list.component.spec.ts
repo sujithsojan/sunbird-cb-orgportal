@@ -7,7 +7,6 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { LoaderService } from '../../../../../../../../../src/app/services/loader.service'
 import { RequestListComponent } from './request-list.component'
 
-
 describe('RequestListComponent', () => {
     let component: RequestListComponent
 

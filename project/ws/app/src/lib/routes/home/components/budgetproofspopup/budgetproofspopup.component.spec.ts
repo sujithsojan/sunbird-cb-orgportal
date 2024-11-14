@@ -9,7 +9,7 @@ describe('BudgetproofspopupComponent', () => {
     const dialogRef: Partial<MatDialogRef<BudgetproofspopupComponent>> = {}
     const data: any = {}
     const uploadService: Partial<UploadService> = {
-        getProfile: jest.fn(() => of({}))
+        getProfile: jest.fn(() => of({})),
     }
 
     beforeAll(() => {

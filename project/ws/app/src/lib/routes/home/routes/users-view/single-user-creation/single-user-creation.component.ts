@@ -10,7 +10,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes'
 import { Subject } from 'rxjs'
 import { debounceTime, distinctUntilChanged, startWith, takeUntil } from 'rxjs/operators'
 /* tslint:disable */
-import _ from 'lodash'
+import * as _ from 'lodash'
 /* tslint:enable */
 import { UsersService } from '../../../../users/services/users.service'
 import { RolesService } from '../../../../users/services/roles.service'
