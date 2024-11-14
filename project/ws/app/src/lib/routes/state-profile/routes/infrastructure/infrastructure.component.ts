@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { ConfigurationsService } from '@sunbird-cb/utils'
 import { Subject } from 'rxjs'
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators'
@@ -7,7 +7,7 @@ import { OrgProfileService } from '../../services/org-profile.service'
 /* tslint:disable*/
 import _ from 'lodash'
 import { DialogBoxComponent } from '../../components/dialog-box/dialog-box.component'
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 
 @Component({
     selector: 'ws-app-infrastructure',
@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
     /* tslint:enable */
 })
 export class InfrastructureComponent implements OnInit {
-    infrastructureForm!: FormGroup
+    infrastructureForm!: UntypedFormGroup
     addedOrgs: any[] = []
     private unsubscribe = new Subject<void>()
 
@@ -27,15 +27,15 @@ export class InfrastructureComponent implements OnInit {
         private configSvc: ConfigurationsService,
         private dialog: MatDialog,
     ) {
-        this.infrastructureForm = new FormGroup({
-            builtupArea: new FormControl('', [Validators.required]),
-            academicArea: new FormControl('', [Validators.required]),
-            hostelArea: new FormControl('', [Validators.required]),
-            computerLabArea: new FormControl('', [Validators.required]),
-            computerSystemCount: new FormControl('', [Validators.required]),
-            totalCollection: new FormControl('', [Validators.required]),
-            periodicalsSubscribed: new FormControl(false, [Validators.required]),
-            latitudeLongitude: new FormControl('', [Validators.required]),
+        this.infrastructureForm = new UntypedFormGroup({
+            builtupArea: new UntypedFormControl('', [Validators.required]),
+            academicArea: new UntypedFormControl('', [Validators.required]),
+            hostelArea: new UntypedFormControl('', [Validators.required]),
+            computerLabArea: new UntypedFormControl('', [Validators.required]),
+            computerSystemCount: new UntypedFormControl('', [Validators.required]),
+            totalCollection: new UntypedFormControl('', [Validators.required]),
+            periodicalsSubscribed: new UntypedFormControl(false, [Validators.required]),
+            latitudeLongitude: new UntypedFormControl('', [Validators.required]),
         })
 
         // pre poluate form fields when data is available (edit mode)

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { debounceTime } from 'rxjs/operators'
 import { TrainingPlanDataSharingService } from '../../services/training-plan-data-share.service'
 import { Subscription } from 'rxjs'
@@ -13,11 +13,11 @@ export class AddPlanInformationComponent implements OnInit, OnDestroy {
 
   @Output() planTitleInvalid = new EventEmitter<any>()
 
-  contentForm!: FormGroup
+  contentForm!: UntypedFormGroup
   private subscr: Subscription = new Subscription()
   specialCharList = `( a-z/A-Z , 0-9 . _ - $ / \ : [ ]' ' !)`
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private tpdsSvc: TrainingPlanDataSharingService
   ) { }
 
@@ -29,7 +29,7 @@ export class AddPlanInformationComponent implements OnInit, OnDestroy {
     }
     this.contentForm = this.formBuilder.group({
       name:
-        new FormControl('', [Validators.required, Validators.pattern(noSpecialChar), Validators.minLength(10)]),
+        new UntypedFormControl('', [Validators.required, Validators.pattern(noSpecialChar), Validators.minLength(10)]),
     })
 
     this.subscr = this.subscr.add(this.contentForm.controls['name'].valueChanges.pipe(debounceTime(500)).subscribe((_ele: any) => {

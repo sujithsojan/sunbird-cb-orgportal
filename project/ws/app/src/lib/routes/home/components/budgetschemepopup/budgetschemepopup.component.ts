@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
+import { MatLegacyDialogRef as MatDialogRef, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog'
 import { preventHtmlAndJs } from '../../../validators/prevent-html-and-js.validator'
 
 @Component({
@@ -9,18 +9,18 @@ import { preventHtmlAndJs } from '../../../validators/prevent-html-and-js.valida
   styleUrls: ['./budgetschemepopup.component.scss'],
 })
 export class BudgetschemepopupComponent implements OnInit {
-  schemeform: FormGroup
+  schemeform: UntypedFormGroup
   formInputData: any
   yearsList = []
   selectedYear: any
   allocatedbudget: any
 
   constructor(private dialogRef: MatDialogRef<BudgetschemepopupComponent>, @Inject(MAT_DIALOG_DATA) data: any) {
-    this.schemeform = new FormGroup({
-      budgetyear: new FormControl({ value: '', disabled: true }),
-      schemename: new FormControl('', [Validators.required, preventHtmlAndJs()]),
-      budgetallocated: new FormControl({ value: '', disabled: true }, [Validators.required]),
-      budgetutilized: new FormControl('', [Validators.required, preventHtmlAndJs()]),
+    this.schemeform = new UntypedFormGroup({
+      budgetyear: new UntypedFormControl({ value: '', disabled: true }),
+      schemename: new UntypedFormControl('', [Validators.required, preventHtmlAndJs()]),
+      budgetallocated: new UntypedFormControl({ value: '', disabled: true }, [Validators.required]),
+      budgetutilized: new UntypedFormControl('', [Validators.required, preventHtmlAndJs()]),
     })
 
     this.yearsList = data.yearlist

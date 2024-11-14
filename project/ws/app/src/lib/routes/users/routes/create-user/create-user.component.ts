@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, HostListener, ViewChild, ElementRef } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router'
 import { UsersService } from '../../services/users.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 import { ILeftMenu } from '@sunbird-cb/collection'
 import { NsWidgetResolver } from '@sunbird-cb/resolver'
 import { ValueService } from '@sunbird-cb/utils'
@@ -26,7 +26,7 @@ export class CreateUserComponent implements OnInit, OnDestroy {
   private defaultSideNavBarOpenedSubscription: any
   public screenSizeIsLtMedium = false
   isLtMedium$ = this.valueSvc.isLtMedium$
-  createUserForm: FormGroup
+  createUserForm: UntypedFormGroup
   namePatern = `^[a-zA-Z\\s\\']{1,32}$`
   department: any = {}
   departmentName = ''
@@ -171,13 +171,13 @@ export class CreateUserComponent implements OnInit, OnDestroy {
         this.breadcrumbs = { titles: [{ title: 'Users', url: '/app/home/users' }, { title: 'Active', url: 'none' }, { title: 'New User', url: 'none' }] }
       }
     })
-    this.createUserForm = new FormGroup({
-      fname: new FormControl('', [Validators.required]),
+    this.createUserForm = new UntypedFormGroup({
+      fname: new UntypedFormControl('', [Validators.required]),
       // lname: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
-      mobileNumber: new FormControl('', [Validators.required, Validators.pattern(this.phoneNumberPattern), Validators.maxLength(12)]),
-      department: new FormControl(''),
-      roles: new FormControl('', [Validators.required]),
+      email: new UntypedFormControl('', [Validators.required, Validators.email]),
+      mobileNumber: new UntypedFormControl('', [Validators.required, Validators.pattern(this.phoneNumberPattern), Validators.maxLength(12)]),
+      department: new UntypedFormControl(''),
+      roles: new UntypedFormControl('', [Validators.required]),
     })
   }
 

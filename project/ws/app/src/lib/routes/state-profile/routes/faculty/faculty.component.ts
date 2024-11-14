@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators'
 import { OrgProfileService } from '../../services/org-profile.service'
 import { Subject } from 'rxjs'
 import { ConfigurationsService } from '@sunbird-cb/utils'
 /* tslint:disable*/
 import _ from 'lodash'
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { DialogBoxComponent } from '../../components/dialog-box/dialog-box.component'
 
 
@@ -19,7 +19,7 @@ import { DialogBoxComponent } from '../../components/dialog-box/dialog-box.compo
     /* tslint:enable */
 })
 export class FacultyComponent implements OnInit {
-    facultyForm!: FormGroup
+    facultyForm!: UntypedFormGroup
     private unsubscribe = new Subject<void>()
 
     constructor(
@@ -27,11 +27,11 @@ export class FacultyComponent implements OnInit {
         private configSvc: ConfigurationsService,
         private dialog: MatDialog
     ) {
-        this.facultyForm = new FormGroup({
-            regularFacultyCount: new FormControl('', [Validators.required]),
-            adhocFacultyCount: new FormControl('', [Validators.required]),
-            guestFacultyCount: new FormControl('', [Validators.required]),
-            otherCount: new FormControl('', []),
+        this.facultyForm = new UntypedFormGroup({
+            regularFacultyCount: new UntypedFormControl('', [Validators.required]),
+            adhocFacultyCount: new UntypedFormControl('', [Validators.required]),
+            guestFacultyCount: new UntypedFormControl('', [Validators.required]),
+            otherCount: new UntypedFormControl('', []),
         })
 
         // pre poluate form fields when data is available (edit mode)

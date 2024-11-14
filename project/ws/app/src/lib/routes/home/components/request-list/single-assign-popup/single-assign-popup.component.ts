@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
-import { MatTableDataSource } from '@angular/material/table'
-import { MatPaginator } from '@angular/material/paginator'
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog'
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table'
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator'
 import { ProfileV2Service } from '../../../services/home.servive'
 import { ConfigResolveService } from '../../../resolvers/config-resolve.service'
 
@@ -13,7 +13,7 @@ import { ConfigResolveService } from '../../../resolvers/config-resolve.service'
 })
 export class SingleAssignPopupComponent implements OnInit {
 
-  requestForm!: FormGroup
+  requestForm!: UntypedFormGroup
   displayedColumns: string[] = ['select', 'name']
   providerList: any[] = []
   providerCount: any
@@ -37,15 +37,15 @@ export class SingleAssignPopupComponent implements OnInit {
     this.dataSource.paginator = this.paginator
   }
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private homeService: ProfileV2Service,
               @Inject(MAT_DIALOG_DATA) public data: any,
               private configService: ConfigResolveService,
               public dialogRef: MatDialogRef<SingleAssignPopupComponent>,
   ) {
     this.requestForm = this.fb.group({
-      assignee: new FormControl('', Validators.required),
-      orgSearch: new FormControl(''),
+      assignee: new UntypedFormControl('', Validators.required),
+      orgSearch: new UntypedFormControl(''),
 
     })
   }

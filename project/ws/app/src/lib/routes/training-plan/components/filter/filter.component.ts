@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef, Input, ElementRef, EventEmitter, OnInit, Output, QueryList, ViewChildren, ChangeDetectionStrategy, AfterContentChecked } from '@angular/core'
 import { TrainingPlanService } from './../../services/traininig-plan.service'
-import { FormControl } from '@angular/forms'
+import { UntypedFormControl } from '@angular/forms'
 import { TrainingPlanDataSharingService } from '../../services/training-plan-data-share.service'
 import { ICompentencyKeys } from '../../../home/interface/interfaces'
 import { InitService } from '../../../../../../../../../src/app/services/init.service'
@@ -36,9 +36,9 @@ export class FilterComponent implements OnInit, AfterContentChecked {
   competencySubThemeList: any[] = []
   filterObj: any
   assigneeFilterObj: any = { group: [], designation: [] }
-  searchThemeControl = new FormControl()
-  searchSubThemeControl = new FormControl()
-  searchProviderControl = new FormControl()
+  searchThemeControl = new UntypedFormControl()
+  searchSubThemeControl = new UntypedFormControl()
+  searchProviderControl = new UntypedFormControl()
   @ViewChildren('checkboxes') checkboxes!: QueryList<ElementRef>
   compentencyKey!: ICompentencyKeys
   constructor(

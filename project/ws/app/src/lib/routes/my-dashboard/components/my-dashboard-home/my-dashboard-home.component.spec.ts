@@ -1,25 +1,27 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
+import { Router } from '@angular/router'
+import { ConfigurationsService } from '@sunbird-cb/utils'
 import { MyDashboardHomeComponent } from './my-dashboard-home.component'
 
 describe('MyDashboardHomeComponent', () => {
-  let component: MyDashboardHomeComponent
-  let fixture: ComponentFixture<MyDashboardHomeComponent>
+    let component: MyDashboardHomeComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [MyDashboardHomeComponent],
+    const router: Partial<Router> = {}
+    const configSvc: Partial<ConfigurationsService> = {}
+
+    beforeAll(() => {
+        component = new MyDashboardHomeComponent(
+            router as Router,
+            configSvc as ConfigurationsService
+        )
     })
-    .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(MyDashboardHomeComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core'
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms'
+import { AbstractControl, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { debounceTime, switchMap, takeUntil } from 'rxjs/operators'
 import { OrgProfileService } from '../../services/org-profile.service'
 import { Subject } from 'rxjs'
-import { MatChipInputEvent } from '@angular/material/chips'
-import { MatDialog } from '@angular/material/dialog'
+import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { COMMA, ENTER } from '@angular/cdk/keycodes'
 import { ConfigurationsService } from '@sunbird-cb/utils'
 /* tslint:disable*/
@@ -20,7 +20,7 @@ import { DialogBoxComponent } from '../../components/dialog-box/dialog-box.compo
     /* tslint:enable */
 })
 export class TrainingRogramsComponent implements OnInit {
-    trainingProgramForm!: FormGroup
+    trainingProgramForm!: UntypedFormGroup
     selectedSubjects: any[] = []
     separatorKeysCodes: number[] = [ENTER, COMMA]
     isTraining = false
@@ -30,14 +30,14 @@ export class TrainingRogramsComponent implements OnInit {
         private configSvc: ConfigurationsService,
         private dialog: MatDialog,
     ) {
-        this.trainingProgramForm = new FormGroup({
-            subjectName: new FormControl('', []),
-            conductDigitalPrograms: new FormControl('Yes', [Validators.required]),
-            prepareDigitalContent: new FormControl('Yes', [Validators.required]),
-            videoCount: new FormControl('', [Validators.required]),
-            pptCount: new FormControl('', [Validators.required]),
-            otherMaterialCount: new FormControl('', [Validators.required]),
-            otherInfo: new FormControl('', []),
+        this.trainingProgramForm = new UntypedFormGroup({
+            subjectName: new UntypedFormControl('', []),
+            conductDigitalPrograms: new UntypedFormControl('Yes', [Validators.required]),
+            prepareDigitalContent: new UntypedFormControl('Yes', [Validators.required]),
+            videoCount: new UntypedFormControl('', [Validators.required]),
+            pptCount: new UntypedFormControl('', [Validators.required]),
+            otherMaterialCount: new UntypedFormControl('', [Validators.required]),
+            otherInfo: new UntypedFormControl('', []),
         })
 
         this.trainingProgramForm.valueChanges

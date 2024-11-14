@@ -9,7 +9,7 @@ import _ from 'lodash'
 import { Subscription } from 'rxjs'
 import { StepService } from '../../services/step.service'
 import { IATIOnbaording, OrgProfileService } from '../../services/org-profile.service'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 @Component({
   selector: 'ws-app-state-profile-home',
   templateUrl: './state-profile-home.component.html',

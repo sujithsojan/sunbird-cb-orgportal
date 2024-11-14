@@ -95,7 +95,7 @@
                     <mat-form-field appearance="outline" class="form_field flex flex-1 full-width">
                         <textarea matInput autocomplete="off" #projectDetail formControlName="projectDetail"
                             aria-label="Project detail input" placeholder="Enter project details " class="flex flex-1"
-                            row="5" [matTextareaAutosize]="true" [matAutosizeMaxRows]="10" [matAutosizeMinRows]="5"
+                            row="5" [cdkTextareaAutosize]="true" [cdkAutosizeMaxRows]="10" [cdkAutosizeMinRows]="5"
                             maxlength="200"></textarea>
                         <mat-hint align="end" class="margin-top-l">{{ projectDetail.value.length }} /200 characters
                         </mat-hint>
@@ -185,8 +185,8 @@
                     <mat-form-field appearance="outline" class="margin-top-xs form_field flex flex-1 full-width">
                         <textarea matInput autocomplete="off" #researchPaperDetail formControlName="researchPaperDetail"
                             aria-label="Research paper detail input" placeholder="Enter Research paper details "
-                            class="flex flex-1" [matTextareaAutosize]="true" [matAutosizeMaxRows]="10"
-                            [matAutosizeMinRows]="5" maxlength="200" rows="5"></textarea>
+                            class="flex flex-1" [cdkTextareaAutosize]="true" [cdkAutosizeMaxRows]="10"
+                            [cdkAutosizeMinRows]="5" maxlength="200" rows="5"></textarea>
                         <mat-hint align="end" class="margin-top-l">{{ researchPaperDetail.value.length }} /200
                             characters</mat-hint>
                         <mat-error [hidden]="false"
