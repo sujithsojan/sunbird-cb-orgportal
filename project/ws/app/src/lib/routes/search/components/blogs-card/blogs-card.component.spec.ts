@@ -1,13 +1,13 @@
-import { AutocompleteComponent } from "./autocomplete.component"
+import { BlogsCardComponent } from "./blogs-card.component"
 
 
-describe('AutocompleteComponent', () => {
-    let component: AutocompleteComponent
+describe('BlogsCardComponent', () => {
+    let component: BlogsCardComponent
 
 
 
     beforeAll(() => {
-        component = new AutocompleteComponent(
+        component = new BlogsCardComponent(
 
         )
     })

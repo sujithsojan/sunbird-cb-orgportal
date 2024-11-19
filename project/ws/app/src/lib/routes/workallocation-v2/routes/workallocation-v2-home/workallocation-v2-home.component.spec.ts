@@ -1,13 +1,13 @@
-import { AutocompleteComponent } from "./autocomplete.component"
+import { WorkallocationV2HomeComponent } from "./workallocation-v2-home.component"
 
 
-describe('AutocompleteComponent', () => {
-    let component: AutocompleteComponent
+describe('WorkallocationV2HomeComponent', () => {
+    let component: WorkallocationV2HomeComponent
 
 
 
     beforeAll(() => {
-        component = new AutocompleteComponent(
+        component = new WorkallocationV2HomeComponent(
 
         )
     })
