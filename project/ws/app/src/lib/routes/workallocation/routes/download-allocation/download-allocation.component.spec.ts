@@ -1,13 +1,13 @@
-import { AutocompleteComponent } from "./autocomplete.component"
+import { DownloadAllocationComponent } from "./download-allocation.component"
 
 
-describe('AutocompleteComponent', () => {
-    let component: AutocompleteComponent
+describe('DownloadAllocationComponent', () => {
+    let component: DownloadAllocationComponent
 
 
 
     beforeAll(() => {
-        component = new AutocompleteComponent(
+        component = new DownloadAllocationComponent(
 
         )
     })

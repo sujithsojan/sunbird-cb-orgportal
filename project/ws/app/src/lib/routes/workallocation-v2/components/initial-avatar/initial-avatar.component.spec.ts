@@ -1,13 +1,13 @@
-import { AutocompleteComponent } from "./autocomplete.component"
+import { InitialAvatarComponent } from "./initial-avatar.component"
 
 
-describe('AutocompleteComponent', () => {
-    let component: AutocompleteComponent
+describe('InitialAvatarComponent', () => {
+    let component: InitialAvatarComponent
 
 
 
     beforeAll(() => {
-        component = new AutocompleteComponent(
+        component = new InitialAvatarComponent(
 
         )
     })

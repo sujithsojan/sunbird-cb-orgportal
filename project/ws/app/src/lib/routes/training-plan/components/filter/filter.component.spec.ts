@@ -1,7 +1,13 @@
-
+(window as any)['env'] = {
+    name: 'test-environment',
+    sitePath: '/test-site-path',
+    karmYogiPath: '/test-karm-yogi-path',
+    cbpPath: '/test-cbp-path'
+}
 import { ChangeDetectorRef } from '@angular/core'
-import { TrainingPlanService } from '../../../training-plan/services/traininig-plan.service'
-import { UsersService } from '../../../users/services/users.service'
+import { TrainingPlanService } from './../../services/traininig-plan.service'
+import { TrainingPlanDataSharingService } from '../../services/training-plan-data-share.service'
+import { InitService } from '../../../../../../../../../src/app/services/init.service'
 import { FilterComponent } from './filter.component'
 
 describe('FilterComponent', () => {
@@ -9,13 +15,15 @@ describe('FilterComponent', () => {
 
     const cdref: Partial<ChangeDetectorRef> = {}
     const trainingPlanService: Partial<TrainingPlanService> = {}
-    const usersSvc: Partial<UsersService> = {}
+    const tpdsSvc: Partial<TrainingPlanDataSharingService> = {}
+    const initService: Partial<InitService> = {}
 
     beforeAll(() => {
         component = new FilterComponent(
             cdref as ChangeDetectorRef,
             trainingPlanService as TrainingPlanService,
-            usersSvc as UsersService
+            tpdsSvc as TrainingPlanDataSharingService,
+            initService as InitService
         )
     })
 

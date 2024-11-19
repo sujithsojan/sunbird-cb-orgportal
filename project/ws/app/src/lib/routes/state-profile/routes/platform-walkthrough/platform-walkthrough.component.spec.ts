@@ -1,13 +1,13 @@
-import { AutocompleteComponent } from "./autocomplete.component"
+import { PlatformWalkthroughComponent } from "./platform-walkthrough.component"
 
 
-describe('AutocompleteComponent', () => {
-    let component: AutocompleteComponent
+describe('PlatformWalkthroughComponent', () => {
+    let component: PlatformWalkthroughComponent
 
 
 
     beforeAll(() => {
-        component = new AutocompleteComponent(
+        component = new PlatformWalkthroughComponent(
 
         )
     })

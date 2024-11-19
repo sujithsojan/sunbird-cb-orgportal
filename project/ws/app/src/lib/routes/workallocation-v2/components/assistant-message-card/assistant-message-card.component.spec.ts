@@ -1,25 +1,24 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
 
+import { WatStoreService } from '../../services/wat.store.service'
 import { AssistantMessageCardComponent } from './assistant-message-card.component'
 
 describe('AssistantMessageCardComponent', () => {
-  let component: AssistantMessageCardComponent
-  let fixture: ComponentFixture<AssistantMessageCardComponent>
+    let component: AssistantMessageCardComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [AssistantMessageCardComponent],
+    const watStore: Partial<WatStoreService> = {}
+
+    beforeAll(() => {
+        component = new AssistantMessageCardComponent(
+            watStore as WatStoreService
+        )
     })
-      .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AssistantMessageCardComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })

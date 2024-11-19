@@ -1,13 +1,13 @@
-import { AutocompleteComponent } from "./autocomplete.component"
+import { WelcomeOnboardComponent } from "./welcome-onboard.component"
 
 
-describe('AutocompleteComponent', () => {
-    let component: AutocompleteComponent
+describe('WelcomeOnboardComponent', () => {
+    let component: WelcomeOnboardComponent
 
 
 
     beforeAll(() => {
-        component = new AutocompleteComponent(
+        component = new WelcomeOnboardComponent(
 
         )
     })

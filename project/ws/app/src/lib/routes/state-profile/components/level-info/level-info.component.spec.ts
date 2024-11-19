@@ -1,13 +1,13 @@
-import { AutocompleteComponent } from "./autocomplete.component"
+import { LevelInfoComponent } from "./level-info.component"
 
 
-describe('AutocompleteComponent', () => {
-    let component: AutocompleteComponent
+describe('LevelInfoComponent', () => {
+    let component: LevelInfoComponent
 
 
 
     beforeAll(() => {
-        component = new AutocompleteComponent(
+        component = new LevelInfoComponent(
 
         )
     })

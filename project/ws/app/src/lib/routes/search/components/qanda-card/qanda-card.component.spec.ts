@@ -1,13 +1,13 @@
-import { AutocompleteComponent } from "./autocomplete.component"
+import { QandaCardComponent } from "./qanda-card.component"
 
 
-describe('AutocompleteComponent', () => {
-    let component: AutocompleteComponent
+describe('QandaCardComponent', () => {
+    let component: QandaCardComponent
 
 
 
     beforeAll(() => {
-        component = new AutocompleteComponent(
+        component = new QandaCardComponent(
 
         )
     })
