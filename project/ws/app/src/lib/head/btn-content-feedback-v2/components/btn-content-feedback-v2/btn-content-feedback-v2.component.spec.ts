@@ -1,17 +1,17 @@
-
-import { DomSanitizer } from '@angular/platform-browser'
+import '@angular/compiler'
+import { MatDialog } from '@angular/material/dialog'
 import { ConfigurationsService } from '@sunbird-cb/utils'
-import { AppPublicNavBarComponent } from './app-public-nav-bar.component'
+import { BtnContentFeedbackV2Component } from './btn-content-feedback-v2.component'
 
-describe('AppPublicNavBarComponent', () => {
-    let component: AppPublicNavBarComponent
+describe('BtnContentFeedbackV2Component', () => {
+    let component: BtnContentFeedbackV2Component
 
-    const domSanitizer: Partial<DomSanitizer> = {}
+    const dialog: Partial<MatDialog> = {}
     const configSvc: Partial<ConfigurationsService> = {}
 
     beforeAll(() => {
-        component = new AppPublicNavBarComponent(
-            domSanitizer as DomSanitizer,
+        component = new BtnContentFeedbackV2Component(
+            dialog as MatDialog,
             configSvc as ConfigurationsService
         )
     })

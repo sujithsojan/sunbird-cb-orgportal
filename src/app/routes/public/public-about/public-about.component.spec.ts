@@ -10,7 +10,7 @@ describe('PublicAboutComponent', () => {
     let component: PublicAboutComponent
 
     const breakpointObserver: Partial<BreakpointObserver> = {
-        observe: jest.fn(() => of())
+        observe: jest.fn(() => of()),
     }
     const domSanitizer: Partial<DomSanitizer> = {}
     const configSvc: Partial<ConfigurationsService> = {}

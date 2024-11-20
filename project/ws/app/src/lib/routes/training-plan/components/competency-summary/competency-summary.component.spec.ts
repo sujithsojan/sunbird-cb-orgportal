@@ -1,3 +1,9 @@
+(window as any)['env'] = {
+    name: 'test-environment',
+    sitePath: '/test-site-path',
+    karmYogiPath: '/test-karm-yogi-path',
+    cbpPath: '/test-cbp-path',
+}
 import { CompetencySummaryComponent } from './competency-summary.component'
 import { InitService } from '../../../../../../../../../src/app/services/init.service'
 import { ConfigurationsService } from '@sunbird-cb/utils/lib/services/configurations.service'

@@ -13,7 +13,7 @@ describe('AppNavBarComponent', () => {
     const configSvc: Partial<ConfigurationsService> = {}
     const tourService: Partial<CustomTourService> = {}
     const router: Partial<Router> = {
-        events: of()
+        events: of(),
     }
 
     beforeAll(() => {
