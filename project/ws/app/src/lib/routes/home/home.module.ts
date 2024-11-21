@@ -100,6 +100,7 @@ import { MentorManageComponent } from './routes/mentor-manage/mentor-manage.comp
 import { SurveyFormComponent } from './components/app-survey/survey-form/survey-form.component'
 import { CapitalizePipe } from './pipe/capitalize.pipe'
 import { BulkUploadOdcsComponent } from './routes/odcs-mapping/bulk-upload-odcs/bulk-upload-odcs.component'
+import { GroupsGradeComponent } from './components/groups-grade/groups-grade.component'
 
 @NgModule({
   declarations: [
@@ -150,6 +151,7 @@ import { BulkUploadOdcsComponent } from './routes/odcs-mapping/bulk-upload-odcs/
     SurveyFormComponent,
     CapitalizePipe,
     BulkUploadOdcsComponent,
+    GroupsGradeComponent,
   ],
   imports: [
     CommonModule,

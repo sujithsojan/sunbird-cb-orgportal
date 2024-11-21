@@ -30,6 +30,7 @@ import { CreateRequestFormComponent } from './components/request-list/create-req
 import { OdcsMappingComponent } from './routes/odcs-mapping/odcs-mapping.component'
 import { MentorManageComponent } from './routes/mentor-manage/mentor-manage.component'
 import { BulkUploadOdcsComponent } from './routes/odcs-mapping/bulk-upload-odcs/bulk-upload-odcs.component'
+import { GroupsGradeComponent } from './components/groups-grade/groups-grade.component'
 const routes: Routes = [
   {
     path: '',
@@ -110,7 +111,7 @@ const routes: Routes = [
       //         pageType: 'feature',
       //         pageKey: 'users-view',
       //       },
-      //     },
+      //     },BulkUploadComponent
       //   ],
       // },
       {
@@ -401,6 +402,23 @@ const routes: Routes = [
         resolve: {
           configService: ConfigResolveService,
           pageData: PageResolve,
+        },
+      },
+      {
+        path: 'onboarding',
+        loadChildren: () => import('./routes/onboarding/onboarding.module').then(m => m.OnboardingModule
+        ),
+      },
+      {
+        path: 'manage-groups-grade',
+        component: GroupsGradeComponent,
+        data: {
+          pageId: 'groups-grade',
+          pageType: 'feature',
+          pageKey: '',
+        },
+        resolve: {
+          configService: ConfigResolveService,
         },
       },
     ],

@@ -1,0 +1,63 @@
+<div class="flex flex-4 flex-column">
+  <mat-card>
+    <mat-card-title class="flex-4 mobile-margin text-capitalize">
+      <span class="mat-subheading-1">{{this.onBoardingConfig?.featureInformation?.title}}</span>
+    </mat-card-title>
+    <div class="my-4">
+      <mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <div class="font-semibold text-lg">Note:</div>
+            </mat-panel-title>
+            <mat-panel-description class="justify-end">
+              <mat-icon *ngIf="!panelOpenState">keyboard_arrow_up</mat-icon>
+              <mat-icon *ngIf="panelOpenState">keyboard_arrow_down</mat-icon>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div class="flex gap-10">
+            <div class="section-1 mt-1">
+              <!-- <div class="flex-4 mobile-margin text-capitalize mat-h2">Note:</div> -->
+              <ng-container *ngFor="let note of onboardingNoteList">
+                <div class="flex gap-4 mb-4">
+                  <div>
+                    <mat-icon class="infoIcon">error_outline</mat-icon>
+                  </div>
+                  <div [innerHTML]="sanitizeHtml(note)"></div>
+                </div>
+              </ng-container>
+            </div>
+            <div class="reportsDemo flex justify-end section-2">
+              <div class="reportsDemoVideo flex flex-column flex-middle justify-center" (click)="openVideoPopup()">
+                <mat-icon class="video_icon mb-2">play_circle</mat-icon>
+                <div>
+                  Watch how it works
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <mat-card-content>
+      <div class="flex flex-1 flex-row margin-fix">
+        <div class="flex flex-3 filter max-height-60 ">
+          <a class="filter-option" [ngClass]="{'ws-mat-accent-border-active' : currentRoute === 'bulk-creation'}"
+            mat-button (click)="routeTo('/bulk-creation')" role="button">Bulk Creation
+          </a>
+          <a class="filter-option" [ngClass]="{'ws-mat-accent-border-active' : currentRoute === 'self-registration'}"
+            mat-button (click)="routeTo('/self-registration')" role="button">Custom Registration
+            Link</a>
+          <a class="filter-option" [ngClass]="{'ws-mat-accent-border-active' : currentRoute === 'single-user'}"
+            mat-button (click)="routeTo('/single-user')" role="button">Individual Creation
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-card-content>
+
+  </mat-card>
+</div>
