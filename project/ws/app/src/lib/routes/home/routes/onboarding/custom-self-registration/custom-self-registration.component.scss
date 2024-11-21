@@ -1,0 +1,35 @@
+.fw-montserrat {
+  font-family: Montserrat;
+}
+
+.badge {
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 19.5px;
+  font-family: Montserrat;
+
+  &.active {
+    color: #1d8923;
+    background: #1d892329;
+  }
+  &.in-active {
+    color: #00000099;
+    background: #00000029;
+  }
+}
+
+.form-wrapper {
+  border: 1px solid #00000029;
+  border-radius: 12px;
+}
+
+.wrapper-card {
+  background: #0000000a;
+  border: 1px solid #00000014;
+}
+
+.bg-inherit {
+  background: inherit !important;
+}
