@@ -5,7 +5,7 @@ import _ from 'lodash'
 /* tslint:enable */
 import { LoaderService } from '../../../../../../../../../src/app/services/loader.service'
 import { UsersService } from '../../../users/services/users.service'
-import { MatDialog } from '@angular/material/dialog'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 @Component({
   selector: 'ws-app-searchuser',
   templateUrl: './search.component.html',

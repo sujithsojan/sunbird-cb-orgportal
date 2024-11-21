@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core'
-import { ActivatedRouteSnapshot, Resolve } from '@angular/router'
+import { ActivatedRouteSnapshot } from '@angular/router'
 import { Observable } from 'rxjs'
 import { TrainingPlanService } from '../services/traininig-plan.service'
 import { map, retry } from 'rxjs/operators'
 @Injectable()
 export class UpdatePlanResolveService
-  implements
-  Resolve<Observable<any>> {
+   {
   constructor(
     private tpSvc: TrainingPlanService,
   ) { }

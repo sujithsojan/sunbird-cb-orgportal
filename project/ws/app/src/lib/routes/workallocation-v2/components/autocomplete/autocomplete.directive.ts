@@ -5,7 +5,7 @@ import { AutocompleteComponent } from './autocomplete/autocomplete.component'
 import { TemplatePortal } from '@angular/cdk/portal'
 import { debounceTime, filter, takeUntil } from 'rxjs/operators'
 import { NgControl } from '@angular/forms'
-import { untilDestroyed } from 'ngx-take-until-destroy'
+// import { untilDestroyed } from 'ngx-take-until-destroy'
 
 @Directive({
   selector: '[wsAppAutocomplete]',
@@ -28,8 +28,7 @@ export class AutocompleteDirective implements OnInit, OnDestroy {
 
   ngOnInit() {
     fromEvent(this.origin, 'focus').pipe(
-      debounceTime(1000),
-      untilDestroyed(this)
+      debounceTime(1000)
       // tslint:disable-next-line: deprecation
     ).subscribe(() => {
       // if (this.control && this.control.value && this.control.value.length >= 3) {

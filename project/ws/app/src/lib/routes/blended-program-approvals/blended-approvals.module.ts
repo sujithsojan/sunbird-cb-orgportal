@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { MatListModule } from '@angular/material/list'
+import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list'
 import { CommonModule } from '@angular/common'
 import {
   AvatarPhotoModule,
@@ -11,17 +11,17 @@ import { WidgetResolverModule } from '@sunbird-cb/resolver'
 import { HomeModule } from '../home/home.module'
 import { RouterModule } from '@angular/router'
 import { MatBadgeModule } from '@angular/material/badge'
-import { MatButtonModule } from '@angular/material/button'
-import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatDialogModule } from '@angular/material/dialog'
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button'
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox'
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog'
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field'
 import { MatIconModule } from '@angular/material/icon'
-import { MatInputModule } from '@angular/material/input'
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input'
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatSortModule } from '@angular/material/sort'
-import { MatTableModule } from '@angular/material/table'
-import { MatCardModule } from '@angular/material/card'
+import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table'
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card'
 import { BatchDetailsComponent } from './components/batch-details/batch-details.component'
 import { BatchListComponent } from './components/batch-list/batch-list.component'
 import { BlendedHomeComponent } from './components/blended-home/blended-home.component'
@@ -40,15 +40,14 @@ import { MicroSurveyModule } from '@sunbird-cb/micro-surveys'
 import { LearnerResponsesComponent } from './components/learner-responses/learner-responses.component'
 
 @NgModule({
-  declarations: [BlendedHomeComponent, BatchListComponent, BatchDetailsComponent, UsersCardComponent, ProfileViewComponent,
-    SessionCardComponent, NominateUsersDialogComponent, RejectReasonDialogComponent, ViewReportDialogComponent, LearnerResponsesComponent],
-  imports: [CommonModule, BlendedApprovalsRoutingModule, BreadcrumbsOrgModule, LeftMenuWithoutLogoModule, WidgetResolverModule,
-    MatSidenavModule, MatButtonModule, MatIconModule, HomeModule, RouterModule, UIORGTableModule,
-    MatCardModule, AvatarPhotoModule, MatListModule, PipeEmailModule, PipeOrderByModule, ProfileCertificateDialogModule,
-    MatBadgeModule, MatTableModule, MatCheckboxModule, MatSortModule, FormsModule, ReactiveFormsModule,
-    MatFormFieldModule, MatDialogModule, MatInputModule, MicroSurveyModule, MatProgressSpinnerModule],
-  exports: [],
-  providers: [],
-  entryComponents: [NominateUsersDialogComponent, RejectReasonDialogComponent, ViewReportDialogComponent],
+    declarations: [BlendedHomeComponent, BatchListComponent, BatchDetailsComponent, UsersCardComponent, ProfileViewComponent,
+        SessionCardComponent, NominateUsersDialogComponent, RejectReasonDialogComponent, ViewReportDialogComponent, LearnerResponsesComponent],
+    imports: [CommonModule, BlendedApprovalsRoutingModule, BreadcrumbsOrgModule, LeftMenuWithoutLogoModule, WidgetResolverModule,
+        MatSidenavModule, MatButtonModule, MatIconModule, HomeModule, RouterModule, UIORGTableModule,
+        MatCardModule, AvatarPhotoModule, MatListModule, PipeEmailModule, PipeOrderByModule, ProfileCertificateDialogModule,
+        MatBadgeModule, MatTableModule, MatCheckboxModule, MatSortModule, FormsModule, ReactiveFormsModule,
+        MatFormFieldModule, MatDialogModule, MatInputModule, MicroSurveyModule, MatProgressSpinnerModule],
+    exports: [],
+    providers: []
 })
 export class BlendedApprovalsModule { }

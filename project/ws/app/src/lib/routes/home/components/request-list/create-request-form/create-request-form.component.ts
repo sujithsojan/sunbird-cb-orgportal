@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { ProfileV2Service } from '../../../services/home.servive'
 import { ActivatedRoute, Router } from '@angular/router'
-import { MatDialog } from '@angular/material/dialog'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 import { CompetencyViewComponent } from '../competency-view/competency-view.component'
 import { ConfirmationBoxComponent } from '../../../../training-plan/components/confirmation-box/confirmation.box.component'
 /* tslint:disable */
@@ -21,7 +21,7 @@ import { InitService } from '../../../../../../../../../../src/app/services/init
   styleUrls: ['./create-request-form.component.scss'],
 })
 export class CreateRequestFormComponent implements OnInit {
-  requestForm!: FormGroup
+  requestForm!: UntypedFormGroup
   specialCharList = `( a-z/A-Z , 0-9 . _ - $ / \ : [ ]' ' !)`
   // tslint:disable-next-line:max-line-length
   noSpecialChar = new RegExp(/^[\u0900-\u097F\u0980-\u09FF\u0C00-\u0C7F\u0B80-\u0BFF\u0C80-\u0CFF\u0D00-\u0D7F\u0A80-\u0AFF\u0B00-\u0B7F\u0A00-\u0A7Fa-zA-Z0-9()$[\]\\.:,_/ -]*$/)
@@ -67,12 +67,12 @@ export class CreateRequestFormComponent implements OnInit {
   isHideData = false
   isCompetencyHide = false
 
-  competencyCtrl!: FormControl
-  competencyArea!: FormControl
-  competencyTheme!: FormControl
-  competencySubtheme!: FormControl
+  competencyCtrl!: UntypedFormControl
+  competencyArea!: UntypedFormControl
+  competencyTheme!: UntypedFormControl
+  competencySubtheme!: UntypedFormControl
   compentencyKey!: ICompentencyKeys
-  constructor(private formBuilder: FormBuilder,
+  constructor(private formBuilder: UntypedFormBuilder,
               private homeService: ProfileV2Service,
               private activatedRouter: ActivatedRoute,
               private snackBar: MatSnackBar,
@@ -90,9 +90,9 @@ export class CreateRequestFormComponent implements OnInit {
     this.getRequestTypeList()
     this.fullProfile = _.get(this.activatedRouter.snapshot, 'data.configService')
     this.userId = this.fullProfile.userProfile.userId
-    this.competencyArea = new FormControl('')
-    this.competencyTheme = new FormControl('')
-    this.competencySubtheme = new FormControl('')
+    this.competencyArea = new UntypedFormControl('')
+    this.competencyTheme = new UntypedFormControl('')
+    this.competencySubtheme = new UntypedFormControl('')
 
     if (this.compentencyKey.vKey === 'competencies_v5') {
       this.getFilterEntity()
@@ -113,20 +113,20 @@ export class CreateRequestFormComponent implements OnInit {
 
   initFromGroup() {
     this.requestForm = this.formBuilder.group({
-      TitleName: new FormControl('', [Validators.required, Validators.pattern(this.noSpecialChar), Validators.minLength(10)]),
-      Objective: new FormControl('', [Validators.required, Validators.pattern(this.noSpecialChar)]),
-      userType: new FormControl('', [Validators.pattern(this.noSpecialChar)]),
-      learningMode: new FormControl(''),
-      compArea: new FormControl(''),
-      referenceLink: new FormControl('', [preventHtmlAndJs()]),
-      requestType: new FormControl('', Validators.required),
-      assignee: new FormControl(''),
-      providers: new FormControl([[]]),
-      providerText: new FormControl(''),
-      queryThemeControl: new FormControl(''),
-      querySubThemeControl: new FormControl(''),
+      TitleName: new UntypedFormControl('', [Validators.required, Validators.pattern(this.noSpecialChar), Validators.minLength(10)]),
+      Objective: new UntypedFormControl('', [Validators.required, Validators.pattern(this.noSpecialChar)]),
+      userType: new UntypedFormControl('', [Validators.pattern(this.noSpecialChar)]),
+      learningMode: new UntypedFormControl(''),
+      compArea: new UntypedFormControl(''),
+      referenceLink: new UntypedFormControl('', [preventHtmlAndJs()]),
+      requestType: new UntypedFormControl('', Validators.required),
+      assignee: new UntypedFormControl(''),
+      providers: new UntypedFormControl([[]]),
+      providerText: new UntypedFormControl(''),
+      queryThemeControl: new UntypedFormControl(''),
+      querySubThemeControl: new UntypedFormControl(''),
       [this.compentencyKey.vKey]: [],
-      assigneeText: new FormControl(''),
+      assigneeText: new UntypedFormControl(''),
     })
 
   }
@@ -560,7 +560,7 @@ export class CreateRequestFormComponent implements OnInit {
   }
 
   onProviderRemoved(provider: any) {
-    const compThemeControl = this.requestForm.get('providers') as FormControl | null
+    const compThemeControl = this.requestForm.get('providers') as UntypedFormControl | null
     if (compThemeControl) {
       const themes = compThemeControl.value
       if (themes) {

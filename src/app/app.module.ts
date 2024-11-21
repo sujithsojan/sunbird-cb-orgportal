@@ -3,27 +3,27 @@ import { APP_BASE_HREF, PlatformLocation } from '@angular/common'
 import { HttpClientJsonpModule, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 // Injectable
 import { APP_INITIALIZER, NgModule, ErrorHandler } from '@angular/core'
-import { MatButtonModule } from '@angular/material/button'
-import { MatCardModule } from '@angular/material/card'
-import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button'
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card'
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox'
 // GestureConfig,
 import { MatRippleModule, MatNativeDateModule } from '@angular/material/core'
 import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatDialogModule } from '@angular/material/dialog'
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog'
 import { MatDividerModule } from '@angular/material/divider'
 import { MatExpansionModule } from '@angular/material/expansion'
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field'
 import { MatIconModule } from '@angular/material/icon'
-import { MatInputModule } from '@angular/material/input'
-import { MatMenuModule } from '@angular/material/menu'
-import { MatProgressBarModule } from '@angular/material/progress-bar'
-import { MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { MatSelectModule } from '@angular/material/select'
-import { MatSliderModule } from '@angular/material/slider'
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar'
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input'
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu'
+import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar'
+import { MAT_LEGACY_PROGRESS_SPINNER_DEFAULT_OPTIONS as MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner'
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select'
+import { MatLegacySliderModule as MatSliderModule } from '@angular/material/legacy-slider'
+import { MAT_LEGACY_SNACK_BAR_DEFAULT_OPTIONS as MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/legacy-snack-bar'
 import { MatSortModule } from '@angular/material/sort'
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip'
 // HAMMER_GESTURE_CONFIG
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -101,7 +101,7 @@ import { WidgetResolverModule } from '@sunbird-cb/resolver'
 import { LoggerService, PipeSafeSanitizerModule } from '@sunbird-cb/utils'
 import { SearchModule } from '@ws/app/src/public-api'
 import 'hammerjs'
-import { KeycloakAngularModule } from 'keycloak-angular'
+// import { KeycloakAngularModule } from 'keycloak-angular'
 import { AppRoutingModule } from './app-routing.module'
 import { InitService } from './services/init.service'
 import { GlobalErrorHandlingService } from './services/global-error-handling.service'
@@ -177,7 +177,7 @@ const getBaseHref = (platformLocation: PlatformLocation): string => {
     HttpClientModule,
     HttpClientJsonpModule,
     BrowserAnimationsModule,
-    KeycloakAngularModule,
+    // KeycloakAngularModule,
     AppRoutingModule,
     WidgetResolverModule.forRoot(WIDGET_REGISTRATION_CONFIG),
     StickyHeaderModule,
@@ -283,11 +283,6 @@ const getBaseHref = (platformLocation: PlatformLocation): string => {
     TncComponent,
   ],
   bootstrap: [RootComponent],
-  entryComponents: [
-    DialogConfirmComponent,
-    LoginComponent,
-    ConfirmationBoxComponent,
-  ],
   providers: [
     { provide: 'environment', useValue: environment },
     {
@@ -324,7 +319,7 @@ const getBaseHref = (platformLocation: PlatformLocation): string => {
     MatDatepickerModule, MatNativeDateModule,
     { provide: 'environment', useValue: environment },
     LoaderService,
-  ],
+  ]
 })
 
 export class AppModule { }

@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 import { ActivatedRoute, Router } from '@angular/router'
 // tslint:disable-next-line:import-name
 import _ from 'lodash'
 import { BlendedApporvalService } from '../../services/blended-approval.service'
 import { TelemetryEvents } from '../../../../head/_services/telemetry.event.model'
-import { EventService } from '@sunbird-cb/utils'
+import { ConfigurationsService, EventService } from '@sunbird-cb/utils'
 import { NominateUsersDialogComponent } from '../nominate-users-dialog/nominate-users-dialog.component'
 import moment from 'moment'
 import { NsContent } from '../../../../head/_services/widget-content.model'
 import { DialogConfirmComponent } from '../../../../../../../../../src/app/component/dialog-confirm/dialog-confirm.component'
+import { ITableData } from '@sunbird-cb/collection/lib/ui-org-table/interface/interfaces'
 @Component({
   selector: 'ws-app-batch-details',
   templateUrl: './batch-details.component.html',
@@ -38,16 +39,36 @@ export class BatchDetailsComponent implements OnInit {
   userscount: any
   showUserDetails = false
   selectedUser: any
+  fetchStatus = true
+  checkSurveyLink = false
+  reportStatusList: any[] = []
 
-  constructor(private router: Router, private activeRouter: ActivatedRoute,
-    // tslint:disable-next-line:align
+  tabledata: ITableData = {
+    actions: [],
+    columns: [
+      { displayName: 'Sl.No', key: 'SlNo' },
+      { displayName: 'Name', key: 'name' },
+      { displayName: 'Requested On', key: 'requestedon' },
+      // { displayName: 'Learners', key: 'learners', isList: true },
+      { displayName: 'Status', key: 'status', isList: true },
+    ],
+    needCheckBox: false,
+    needHash: false,
+    sortColumn: 'fullname',
+    sortState: 'asc',
+    needUserMenus: false,
+  }
+  userDetails: any
+
+  constructor(
+    private router: Router,
+    private activeRouter: ActivatedRoute,
     private bpService: BlendedApporvalService,
-    // tslint:disable-next-line:align
     private snackBar: MatSnackBar,
-    // tslint:disable-next-line:align
     private events: EventService,
-    // tslint:disable-next-line:align
-    private dialogue: MatDialog) {
+    private dialogue: MatDialog,
+    public configSvc: ConfigurationsService,
+  ) {
     const currentState = this.router.getCurrentNavigation()
     if (currentState && currentState.extras.state) {
       this.batchData = currentState.extras.state
@@ -62,9 +83,11 @@ export class BatchDetailsComponent implements OnInit {
     }
   }
 
-  ngOnInit() { }
+  async ngOnInit() {
+    this.userDetails = await this.bpService.getUserById('').toPromise().catch(_error => { })
+  }
 
-  filter(key: 'pending' | 'approved' | 'rejected' | 'sessions' | 'approvalStatus') {
+  filter(key: 'pending' | 'approved' | 'rejected' | 'sessions' | 'approvalStatus' | 'reportStatus') {
     this.approvedUsers = []
     this.rejectedUsers = []
     this.newUsers = []
@@ -88,6 +111,10 @@ export class BatchDetailsComponent implements OnInit {
       case 'approvalStatus':
         this.currentFilter = 'approvalStatus'
         this.getApprovalStatusList()
+        break
+      case 'reportStatus':
+        this.currentFilter = 'reportStatus'
+        this.getBpReportStatus()
         break
       default:
         break
@@ -141,6 +168,9 @@ export class BatchDetailsComponent implements OnInit {
   getBPDetails(programID: any) {
     this.bpService.getBlendedProgramsDetails(programID).subscribe((res: any) => {
       this.programData = res.result.content
+      if (this.programData && this.programData.wfSurveyLink && this.programData.wfSurveyLink.length) {
+        this.checkSurveyLink = true
+      }
       if (!this.batchData) {
         this.programData.batches.forEach((b: any) => {
           if (b.batchId === this.batchID) {
@@ -286,7 +316,7 @@ export class BatchDetailsComponent implements OnInit {
         this.filter('rejected')
       }
       this.showUserDetails = false
-    },                                                      (error: any) => {
+    }, (error: any) => {
       this.openSnackbar(_.get(error, 'error.params.errmsg') ||
         _.get(error, 'error.result.errmsg') ||
         'Something went wrong, please try again later!')
@@ -517,5 +547,89 @@ export class BatchDetailsComponent implements OnInit {
       this.showUserDetails = false
       this.selectedUser = null
     }
+  }
+
+  actionsClick(evt: any) {
+    if (evt.action === 'refreshStatus') {
+      this.getBpReportStatus()
+    }
+    if (evt.action === 'downloadReport') {
+      this.downloadReport()
+    }
+  }
+
+  async getBpReportStatus() {
+    const batchDetails = this.batchData
+    const roleName = this.userDetails.roles.includes("MDO_LEADER") ? "MDO_LEADER" :
+      this.userDetails.roles.includes("MDO_ADMIN") ? "MDO_ADMIN" : ''
+    const req = {
+      request: {
+        orgId: this.userDetails.rootOrgId || '',
+        courseId: this.programData.identifier || '',
+        batchId: batchDetails.batchId || '',
+        reportRequester: roleName,
+      },
+    }
+    const resData: any = await this.bpService.getBpReportStatusApi(req).toPromise().catch(_error => { })
+    if (!resData) {
+      this.fetchStatus = false
+      this.snackBar.open('Something went wrong while fetching the report status. Please try again after sometime.')
+      this.reportStatusList = []
+    } else if (Object.keys(resData.result).length <= 0) {
+      this.reportStatusList = []
+    } else {
+      this.reportStatusList = resData.result.content
+      this.reportStatusList[0]['requestedon'] = this.reportStatusList[0]['lastReportGeneratedOn']
+      this.reportStatusList[0]['name'] = 'Enrollment Request Report'
+      this.reportStatusList[0]['SlNo'] = '1'
+      if (this.reportStatusList[0]['status'].toLowerCase() === 'completed') {
+        this.tabledata.actions = [{ icon: 'cloud_download', label: 'Download', name: 'downloadReport', type: 'link', disabled: false }]
+      } else if (this.reportStatusList[0]['status'].toLowerCase() === 'in-progress' ||
+        this.reportStatusList[0]['status'].toLowerCase() === 'failed') {
+        this.tabledata.actions = [{ icon: 'refresh', label: 'Refresh', name: 'refreshStatus', type: 'link', disabled: false }]
+      }
+    }
+  }
+  async generateReport() {
+    const batchDetails = this.batchData
+    const roleName = this.userDetails.roles.includes("MDO_LEADER") ? "MDO_LEADER" :
+      this.userDetails.roles.includes("MDO_ADMIN") ? "MDO_ADMIN" : ''
+    const reqBody = {
+      request: {
+        orgId: this.userDetails.rootOrgId || '',
+        courseId: this.programData.identifier || '',
+        batchId: batchDetails.batchId || '',
+        reportRequester: roleName,
+        surveyId: this.programData.wfSurveyLink.split('/')[this.programData.wfSurveyLink.split('/').length - 1] || '',
+      },
+    }
+    const resData: any = await this.bpService.generateBpReport(reqBody).toPromise().catch(_error => { })
+    if (resData && resData.params && resData.params.status.toLowerCase() === 'success') {
+      this.reportStatusList = []
+      this.getBpReportStatus()
+    } else {
+      this.snackBar.open('Something went wrong while generating the report. Please try again after sometime.')
+      this.reportStatusList = []
+    }
+  }
+
+  async downloadReport() {
+    const batchDetails = this.batchData
+    const downloadUrl = this.reportStatusList[0].downloadLink.split('gcpbpreports/')
+    [this.reportStatusList[0].downloadLink.split('gcpbpreports/').length - 1]
+    const fileExtension = downloadUrl.split('.').pop()?.toLowerCase()
+    // tslint:disable-next-line: max-line-length
+    const fileName = `MDO_${batchDetails.name.split(' ').join('')}_Enrollment_Requests_Report_${this.formatDate(this.reportStatusList[0].lastReportGeneratedOn)}.${fileExtension}`
+    await this.bpService.downloadReport(downloadUrl, fileName)
+  }
+
+  formatDate(item: string): string {
+    const date = new Date(item)
+    const day = date.getDate().toString().padStart(2, '0')  // Get day and pad with leading zero if needed
+    const month = (date.getMonth() + 1).toString().padStart(2, '0')  // Get month (0-indexed, so add 1)
+    const year = date.getFullYear()  // Get full year
+    // const hour = date.getHours()
+    // const minutes = date.getMinutes()
+    return `${day}-${month}-${year}`
   }
 }

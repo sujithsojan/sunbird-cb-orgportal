@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, SimpleChanges, OnChanges } from '@angular/core'
 import { SelectionModel } from '@angular/cdk/collections'
-import { MatTableDataSource } from '@angular/material/table'
-import { MatDialogConfig, MatDialog } from '@angular/material/dialog'
-import { MatPaginator } from '@angular/material/paginator'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table'
+import { MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 import { MatSort } from '@angular/material/sort'
 import { ITableData, IColums } from '../../interface/interfaces'
 import * as _ from 'lodash'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { StaffdetailspopupComponent } from '../../components/staffdetailspopup/staffdetailspopup.component'
 import { ActivatedRoute } from '@angular/router'
 import { MdoInfoService } from '../../services/mdoinfo.service'
@@ -20,7 +20,7 @@ import { preventHtmlAndJs } from '../../../validators/prevent-html-and-js.valida
   styleUrls: ['./staff.component.scss'],
 })
 export class StaffComponent implements OnInit, OnChanges {
-  staffdata: FormGroup
+  staffdata: UntypedFormGroup
   tableData: ITableData = {
     actions: [],
     columns: [
@@ -56,10 +56,10 @@ export class StaffComponent implements OnInit, OnChanges {
   constructor(private snackBar: MatSnackBar, public dialog: MatDialog, private activeRoute: ActivatedRoute,
     // tslint:disable-next-line:align
     private configSvc: ConfigurationsService, private mdoinfoSrvc: MdoInfoService) {
-    this.staffdata = new FormGroup({
-      totalpositions: new FormControl({ value: '', disabled: true }),
-      posfilled: new FormControl('', [Validators.required, preventHtmlAndJs()]),
-      posvacant: new FormControl('', [Validators.required, preventHtmlAndJs()]),
+    this.staffdata = new UntypedFormGroup({
+      totalpositions: new UntypedFormControl({ value: '', disabled: true }),
+      posfilled: new UntypedFormControl('', [Validators.required, preventHtmlAndJs()]),
+      posvacant: new UntypedFormControl('', [Validators.required, preventHtmlAndJs()]),
     })
     this.dataSource = new MatTableDataSource<any>()
     this.dataSource.paginator = this.paginator

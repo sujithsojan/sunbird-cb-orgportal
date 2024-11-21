@@ -131,7 +131,7 @@ const routes: Routes = [
       },
       {
         path: 'users',
-        redirectTo: 'users/allusers',
+        // redirectTo: 'users/allusers',
         component: UsersViewComponent,
         resolve: {
           usersList: UsersListResolve,
@@ -308,15 +308,15 @@ const routes: Routes = [
         },
         component: WorkallocationComponent,
       },
-      {
-        path: 'workallocation',
-        redirectTo: 'workallocation/draft', pathMatch: 'full',
-        data: {
-          pageId: 'workallocation',
-          module: 'Work Allocation',
-        },
-        component: WorkallocationComponent,
-      },
+      // {
+      //   path: 'workallocation',
+      //   redirectTo: 'workallocation/draft', pathMatch: 'full',
+      //   data: {
+      //     pageId: 'workallocation',
+      //     module: 'Work Allocation',
+      //   },
+      //   component: WorkallocationComponent,
+      // },
       {
         path: 'blended-approvals',
         component: BlendedApprovalsComponent,

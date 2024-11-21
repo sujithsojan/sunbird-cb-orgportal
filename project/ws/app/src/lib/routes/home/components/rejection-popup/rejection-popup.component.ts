@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core'
-import { FormControl, Validators } from '@angular/forms'
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
+import { UntypedFormControl, Validators } from '@angular/forms'
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog'
 import * as _ from 'lodash'
 
 @Component({
@@ -11,7 +11,7 @@ import * as _ from 'lodash'
 export class RejectionPopupComponent implements OnInit {
 
   rejectionsDetails: any
-  reason: FormControl = new FormControl(null, [Validators.required, Validators.maxLength(100)])
+  reason: UntypedFormControl = new UntypedFormControl(null, [Validators.required, Validators.maxLength(100)])
 
   constructor(
     private dialogRef: MatDialogRef<RejectionPopupComponent>,

@@ -2,7 +2,7 @@ import {
   Component, ChangeDetectorRef, Input, ElementRef, EventEmitter, OnInit,
   Output, QueryList, ViewChildren, ChangeDetectionStrategy, AfterContentChecked,
 } from '@angular/core'
-import { FormControl } from '@angular/forms'
+import { UntypedFormControl } from '@angular/forms'
 import { TrainingPlanService } from '../../../training-plan/services/traininig-plan.service'
 import { UsersService } from '../../../users/services/users.service'
 @Component({
@@ -32,9 +32,9 @@ export class FilterComponent implements OnInit, AfterContentChecked {
     roles: [],
     tags: [],
   }
-  searchThemeControl = new FormControl()
-  searchSubThemeControl = new FormControl()
-  searchProviderControl = new FormControl()
+  searchThemeControl = new UntypedFormControl()
+  searchSubThemeControl = new UntypedFormControl()
+  searchProviderControl = new UntypedFormControl()
   @ViewChildren('checkboxes') checkboxes!: QueryList<ElementRef>
   groupSearchKey = ''
   designationSearchKey = ''

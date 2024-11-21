@@ -5,32 +5,32 @@ import { MatGridListModule } from '@angular/material/grid-list'
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDividerModule } from '@angular/material/divider'
 import { WidgetResolverModule } from '@sunbird-cb/resolver'
-import { MatAutocompleteModule } from '@angular/material/autocomplete'
-import { MatButtonModule } from '@angular/material/button'
-import { MatCheckboxModule } from '@angular/material/checkbox'
-import { MatChipsModule } from '@angular/material/chips'
+import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete'
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button'
+import { MatLegacyCheckboxModule as MatCheckboxModule } from '@angular/material/legacy-checkbox'
+import { MatLegacyChipsModule as MatChipsModule } from '@angular/material/legacy-chips'
 import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatDialogModule, MAT_DIALOG_DATA } from '@angular/material/dialog'
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatLegacyDialogModule as MatDialogModule, MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA } from '@angular/material/legacy-dialog'
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field'
 import { MatIconModule } from '@angular/material/icon'
-import { MatInputModule } from '@angular/material/input'
-import { MatListModule } from '@angular/material/list'
-import { MatProgressBarModule } from '@angular/material/progress-bar'
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
-import { MatRadioModule } from '@angular/material/radio'
-import { MatSelectModule } from '@angular/material/select'
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input'
+import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list'
+import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar'
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner'
+import { MatLegacyRadioModule as MatRadioModule } from '@angular/material/legacy-radio'
+import { MatLegacySelectModule as MatSelectModule } from '@angular/material/legacy-select'
 import { MatSidenavModule } from '@angular/material/sidenav'
-import { MatSlideToggleModule } from '@angular/material/slide-toggle'
-import { MatTabsModule } from '@angular/material/tabs'
-import { MatMenuModule } from '@angular/material/menu'
-import { MatPaginatorModule } from '@angular/material/paginator'
-import { MatCardModule } from '@angular/material/card'
-import { MatTableModule } from '@angular/material/table'
-import { MatTooltipModule } from '@angular/material/tooltip'
+import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle'
+import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs'
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu'
+import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator'
+import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card'
+import { MatLegacyTableModule as MatTableModule } from '@angular/material/legacy-table'
+import { MatLegacyTooltipModule as MatTooltipModule } from '@angular/material/legacy-tooltip'
 import { MatSortModule } from '@angular/material/sort'
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { RouterModule } from '@angular/router'
-import { Ng2SearchPipeModule } from 'ng2-search-filter'
+// import { Ng2SearchPipeModule } from 'ng2-search-filter'
 import { NgxPaginationModule } from 'ngx-pagination'
 import { RainDashboardsModule } from '@sunbird-cb/rain-dashboards'
 
@@ -151,11 +151,11 @@ import { GroupsGradeComponent } from './components/groups-grade/groups-grade.com
     SurveyFormComponent,
     CapitalizePipe,
     BulkUploadOdcsComponent,
-    GroupsGradeComponent,
+    GroupsGradeComponent
   ],
   imports: [
     CommonModule,
-    Ng2SearchPipeModule,
+    // Ng2SearchPipeModule,
     UIORGTableModule,
     WidgetResolverModule,
     ReactiveFormsModule,
@@ -212,22 +212,6 @@ import { GroupsGradeComponent } from './components/groups-grade/groups-grade.com
     TaxonomyEditorModule,
     ImageResponsiveModule,
   ],
-  entryComponents: [
-    AdduserpopupComponent,
-    StaffdetailspopupComponent,
-    BudgetschemepopupComponent,
-    BudgetproofspopupComponent,
-    ReportsVideoComponent,
-    UserCardComponent,
-    SearchComponent,
-    FilterComponent,
-    RejectionPopupComponent,
-    VerifyOtpComponent,
-    FileProgressComponent,
-    CompetencyViewComponent,
-    AssignListPopupComponent,
-    SingleAssignPopupComponent,
-  ],
   providers: [
     { provide: 'environment', useValue: environment },
     { provide: MAT_DIALOG_DATA, useValue: {} },
@@ -237,7 +221,7 @@ import { GroupsGradeComponent } from './components/groups-grade/groups-grade.com
     TrainingPlanDashboardService,
     UsersService,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class HomeModule {
 

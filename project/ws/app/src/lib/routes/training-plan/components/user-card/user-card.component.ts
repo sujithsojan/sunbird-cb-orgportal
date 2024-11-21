@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output, OnInit, ChangeDetectorRef, ViewChild, OnChanges } from '@angular/core'
-import { MatPaginator, PageEvent } from '@angular/material/paginator'
-import { MatTableDataSource } from '@angular/material/table'
+import { MatLegacyPaginator as MatPaginator, LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator'
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table'
 import { TrainingPlanDataSharingService } from '../../services/training-plan-data-share.service'
 @Component({
   selector: 'ws-app-user-card',

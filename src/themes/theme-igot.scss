@@ -1,4 +1,4 @@
-@use '~@angular/material' as mat;
+@use '@angular/material' as mat;
 @import './theme-mixins';
 // Plus imports for other components in your app.
 // @include mat-core();
@@ -83,54 +83,34 @@ $background-color: mat.define-palette(mat.$blue-palette);
 $theme-background: mat.define-palette(mat.$blue-palette);
 
 .theme-igot {
-  &.day-mode {
-    $theme: mat.define-light-theme($theme-primary, $theme-accent, $theme-warn);
-    // -or- Can set colour by hex value too
-    $custom-background-color: #fff;
-    $background: map-get($theme, background);
-    $background: map_merge(
-      $background,
-      (
-        background: $custom-background-color,
-      )
-    );
-    $theme: map_merge(
-      $theme,
-      (
-        background: $background,
-      )
-    );
-    // Include the theme styles for only specified components.
-    // @include mat-core-theme($candy-app-theme);
-    // @include mat-button-theme($candy-app-theme);
-    // @include mat-checkbox-theme($candy-app-theme);
-    // @include mat-core($custom-typography);
-    // @include angular-material-typography($custom-typography);
-    @include mat.all-component-themes($theme);
-    @include theme-based-configurations($theme);
-    $background: $background-color;
-  }
+    &.day-mode {
+        $theme: mat.define-light-theme($theme-primary, $theme-accent, $theme-warn);
+        // -or- Can set colour by hex value too
+        $custom-background-color: #fff;
+        $background: map-get($theme, background);
+        $background: map_merge($background, (background: $custom-background-color));
+        $theme: map_merge($theme, (background: $background));
+        // Include the theme styles for only specified components.
+        // @include mat-core-theme($candy-app-theme);
+        // @include mat-button-theme($candy-app-theme);
+        // @include mat-checkbox-theme($candy-app-theme);
+        // @include mat-core($custom-typography);
+        // @include angular-material-typography($custom-typography);
+        @include mat.all-legacy-component-themes($theme);
+        @include theme-based-configurations($theme);
+        $background: $background-color;
+    }
 
   &.night-mode {
     $theme: mat.define-dark-theme($theme-primary, $theme-accent, $theme-warn);
     $custom-background-color: rgba(0, 0, 0, 0.87);
 
-    $background: map-get($theme, background);
-    $background: map_merge(
-      $background,
-      (
-        background: $custom-background-color,
-      )
-    );
-    $theme: map_merge(
-      $theme,
-      (
-        background: $background,
-      )
-    );
-    // @include angular-material-typography($custom-typography);
-    @include mat.all-component-themes($theme);
-    @include theme-based-configurations($theme);
-    $background: $background-color;
-  }
+        $background: map-get($theme, background);
+        $background: map_merge($background, (background: $custom-background-color));
+        $theme: map_merge($theme, (background: $background));
+        // @include angular-material-typography($custom-typography);
+        @include mat.all-legacy-component-themes($theme);
+        @include theme-based-configurations($theme);
+        $background: $background-color;
+    }
 }

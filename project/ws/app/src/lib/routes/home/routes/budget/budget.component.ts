@@ -1,14 +1,14 @@
 import { Component, OnInit, ViewChild, SimpleChanges, OnChanges } from '@angular/core'
 import { SelectionModel } from '@angular/cdk/collections'
-import { MatTableDataSource } from '@angular/material/table'
-import { MatDialogConfig, MatDialog } from '@angular/material/dialog'
-import { MatPaginator } from '@angular/material/paginator'
-import { MatSelectChange } from '@angular/material/select'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table'
+import { MatLegacyDialogConfig as MatDialogConfig, MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator'
+import { MatLegacySelectChange as MatSelectChange } from '@angular/material/legacy-select'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 import { MatSort } from '@angular/material/sort'
 import { ITableData, IColums } from '../../interface/interfaces'
 import * as _ from 'lodash'
-import { FormControl, FormGroup, Validators } from '@angular/forms'
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms'
 import { BudgetschemepopupComponent } from '../../components/budgetschemepopup/budgetschemepopup.component'
 import { BudgetproofspopupComponent } from '../../components/budgetproofspopup/budgetproofspopup.component'
 import { MdoInfoService } from '../../services/mdoinfo.service'
@@ -22,7 +22,7 @@ import { preventHtmlAndJs } from '../../../validators/prevent-html-and-js.valida
   styleUrls: ['./budget.component.scss'],
 })
 export class BudgetComponent implements OnInit, OnChanges {
-  budgetdata: FormGroup
+  budgetdata: UntypedFormGroup
   scehemetableData: ITableData = {
     actions: [],
     columns: [
@@ -94,11 +94,11 @@ export class BudgetComponent implements OnInit, OnChanges {
   constructor(private snackBar: MatSnackBar, public dialog: MatDialog, private configSvc: ConfigurationsService,
     // tslint:disable-next-line:align
     private mdoinfoSrvc: MdoInfoService, private activeRoute: ActivatedRoute) {
-    this.budgetdata = new FormGroup({
-      budgetyear: new FormControl('', [Validators.required]),
-      salarybudget: new FormControl('', [Validators.required, preventHtmlAndJs()]),
-      trainingbudget: new FormControl('', [Validators.required, preventHtmlAndJs()]),
-      budgetutilized: new FormControl('', [Validators.required, preventHtmlAndJs()]),
+    this.budgetdata = new UntypedFormGroup({
+      budgetyear: new UntypedFormControl('', [Validators.required]),
+      salarybudget: new UntypedFormControl('', [Validators.required, preventHtmlAndJs()]),
+      trainingbudget: new UntypedFormControl('', [Validators.required, preventHtmlAndJs()]),
+      budgetutilized: new UntypedFormControl('', [Validators.required, preventHtmlAndJs()]),
     })
     // this.dataSource1 = new MatTableDataSource<any>()
     this.dataSource = new MatTableDataSource<any>()

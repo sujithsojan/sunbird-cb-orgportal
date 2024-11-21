@@ -9,7 +9,7 @@
     <div class=" odcs-title py-6 bg-white">
       <div class="flex flex-between w-full mt-3">
         <h1 class="mat-heading-1">{{odcConfig?.mainHeading}}</h1>
-        <button mat-raised-button class="importBtn" (click)="routeToBulkUpload()" type="button">
+        <button mat-raised-button class="importBtn" (click)="routeToBulkUpload()" type="button" [disabled]="true">
           {{odcConfig?.bulkUploadConfig?.mainHeading}}
         </button>
       </div>

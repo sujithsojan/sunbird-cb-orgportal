@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { DesignationsService } from '../../services/designations.service'
-import { MatDialog } from '@angular/material/dialog'
-import { PageEvent } from '@angular/material/paginator'
-import { MatSnackBar } from '@angular/material/snack-bar'
-import { FormControl } from '@angular/forms'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
+import { UntypedFormControl } from '@angular/forms'
 import { catchError, delay, map } from 'rxjs/operators'
 import { SelectedDesignationPopupComponent } from '../../dialog-boxes/selected-designation-popup/selected-designation-popup.component'
 import { forkJoin, of, Subscription } from 'rxjs'
@@ -29,7 +29,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
   configSvc: any
   loaderMsg = ''
   showCreateLoader = false
-  searchControl = new FormControl()
+  searchControl = new UntypedFormControl()
   igotDesignationsList: any = []
   selectedDesignationsList: any = []
   orgDesignationsList: any = []

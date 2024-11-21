@@ -99,7 +99,7 @@
             <p>
               {{(userData?.profileDetails && userData?.profileDetails?.personalDetails &&
               userData?.profileDetails?.personalDetails?.dob)
-              ? userData?.profileDetails?.personalDetails?.dob
+              ? (getDateFromText(userData?.profileDetails?.personalDetails?.dob) | date: 'd MMM yyyy')
               : '-'}}
             </p>
           </div>
@@ -145,9 +145,9 @@
           <div class="md:w-1/4">
             <label class="view-text-label">Office Pin Code</label>
             <p>
-              {{(userData?.profileDetails && userData?.profileDetails?.personalDetails &&
-              userData?.profileDetails?.personalDetails?.pincode)
-              ? userData?.profileDetails?.personalDetails?.pincode
+              {{(userData?.profileDetails && userData?.profileDetails?.employmentDetails &&
+              userData?.profileDetails?.employmentDetails?.pinCode)
+              ? userData?.profileDetails?.employmentDetails?.pinCode
               : '-'}}
             </p>
           </div>

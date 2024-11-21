@@ -13,11 +13,11 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { environment } from '../../../../../../../../../src/environments/environment'
 import { SelectionModel } from '@angular/cdk/collections'
 import { LoaderService } from '../../../../../../../../../src/app/services/loader.service'
-import { MatDialog } from '@angular/material/dialog'
-import { MatPaginator } from '@angular/material/paginator'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
+import { MatLegacyPaginator as MatPaginator } from '@angular/material/legacy-paginator'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 import { MatSort } from '@angular/material/sort'
-import { MatTableDataSource } from '@angular/material/table'
+import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/material/legacy-table'
 
 @Component({
   selector: 'ws-app-reports-section',

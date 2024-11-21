@@ -1,15 +1,15 @@
 import { DatePipe } from '@angular/common'
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core'
-import { Validators, FormGroup, FormBuilder, FormControl } from '@angular/forms'
-import { MatRadioChange } from '@angular/material/radio'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { Validators, UntypedFormGroup, UntypedFormBuilder, UntypedFormControl } from '@angular/forms'
+import { MatLegacyRadioChange as MatRadioChange } from '@angular/material/legacy-radio'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 import { MatSort } from '@angular/material/sort'
 import { ActivatedRoute } from '@angular/router'
 import { Observable, Subscription, interval } from 'rxjs'
 import { startWith, pairwise, map } from 'rxjs/operators'
 import { MatPaginator } from '@angular/material/paginator'
 import { MatTableDataSource } from '@angular/material/table'
-import { environment } from 'src/environments/environment'
+import { environment } from '../../../../../../../../../src/environments/environment'
 import { FileService } from '../../../users/services/upload.service'
 import { UsersService } from '../../../users/services/users.service'
 import { ITableData } from '@sunbird-cb/collection/lib/ui-org-table/interface/interfaces'
@@ -62,7 +62,7 @@ export class ProfleApprovalBulkUploadComponent implements OnInit, OnDestroy, Aft
   timeLeftforOTPEmail = 0
   timerSubscriptionEmail: Subscription | null = null
   OTP_TIMER_EMAIL = environment.resendOTPTIme
-  registrationForm!: FormGroup
+  registrationForm!: UntypedFormGroup
   disableBtn = false
   disableVerifyBtn = false
   disableEmailVerifyBtn = false
@@ -83,7 +83,7 @@ export class ProfleApprovalBulkUploadComponent implements OnInit, OnDestroy, Aft
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private fileService: FileService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
@@ -107,12 +107,12 @@ export class ProfleApprovalBulkUploadComponent implements OnInit, OnDestroy, Aft
       }
     })
 
-    this.registrationForm = new FormGroup({
-      otpType: new FormControl('email', [Validators.pattern(this.emailPattern)]),
+    this.registrationForm = new UntypedFormGroup({
+      otpType: new UntypedFormControl('email', [Validators.pattern(this.emailPattern)]),
       // tslint:disable-next-line:max-line-length
-      email: new FormControl({ value: '', disabled: true }, [Validators.pattern(this.emailPattern)]),
+      email: new UntypedFormControl({ value: '', disabled: true }, [Validators.pattern(this.emailPattern)]),
       // department: new FormControl('', [Validators.required, forbiddenNamesValidator(this.masterDepartments)]),
-      mobile: new FormControl('', [Validators.pattern(this.phoneNumberPattern), Validators.maxLength(12)]),
+      mobile: new UntypedFormControl('', [Validators.pattern(this.phoneNumberPattern), Validators.maxLength(12)]),
     })
   }
 

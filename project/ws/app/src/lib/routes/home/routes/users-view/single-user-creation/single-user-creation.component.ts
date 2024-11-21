@@ -1,16 +1,16 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms'
 import { MomentDateAdapter } from '@angular/material-moment-adapter'
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core'
-import { MatCheckboxChange } from '@angular/material/checkbox'
-import { MatChipInputEvent } from '@angular/material/chips'
-import { MatSnackBar } from '@angular/material/snack-bar'
+import { MatLegacyCheckboxChange as MatCheckboxChange } from '@angular/material/legacy-checkbox'
+import { MatLegacyChipInputEvent as MatChipInputEvent } from '@angular/material/legacy-chips'
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
 import { HttpErrorResponse } from '@angular/common/http'
 import { COMMA, ENTER } from '@angular/cdk/keycodes'
 import { Subject } from 'rxjs'
 import { debounceTime, distinctUntilChanged, startWith, takeUntil } from 'rxjs/operators'
 /* tslint:disable */
-import _ from 'lodash'
+import * as _ from 'lodash'
 /* tslint:enable */
 import { UsersService } from '../../../../users/services/users.service'
 import { RolesService } from '../../../../users/services/roles.service'
@@ -57,24 +57,24 @@ export class SingleUserCreationComponent implements OnInit, AfterViewInit, OnDes
   displayLoader = false
   // emailRegix = `^[\\w\-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$`
   userCreationForm = this.formBuilder.group({
-    email: new FormControl('', [Validators.required, Validators.pattern(EMAIL_PATTERN)]),
-    firstName: new FormControl('', [Validators.required, Validators.pattern(this.namePatern)]),
-    phone: new FormControl('', [Validators.required, Validators.pattern(MOBILE_PATTERN), Validators.minLength(10)]),
-    channel: new FormControl(''),
-    designation: new FormControl('', [Validators.required]),
-    group: new FormControl('', [Validators.required]),
-    dob: new FormControl(''),
-    domicileMedium: new FormControl(''),
-    gender: new FormControl(''),
-    pincode: new FormControl('', [Validators.pattern(PIN_CODE_PATTERN)]),
-    category: new FormControl(''),
-    tags: new FormControl([]),
-    roles: new FormControl([], [Validators.required]),
+    email: new UntypedFormControl('', [Validators.required, Validators.pattern(EMAIL_PATTERN)]),
+    firstName: new UntypedFormControl('', [Validators.required, Validators.pattern(this.namePatern)]),
+    phone: new UntypedFormControl('', [Validators.required, Validators.pattern(MOBILE_PATTERN), Validators.minLength(10)]),
+    channel: new UntypedFormControl(''),
+    designation: new UntypedFormControl('', [Validators.required]),
+    group: new UntypedFormControl('', [Validators.required]),
+    dob: new UntypedFormControl(''),
+    domicileMedium: new UntypedFormControl(''),
+    gender: new UntypedFormControl(''),
+    pincode: new UntypedFormControl('', [Validators.pattern(PIN_CODE_PATTERN)]),
+    category: new UntypedFormControl(''),
+    tags: new UntypedFormControl([]),
+    roles: new UntypedFormControl([], [Validators.required]),
   })
   today = new Date()
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private usersService: UsersService,
     private matSnackBar: MatSnackBar,
     private rolesService: RolesService,
