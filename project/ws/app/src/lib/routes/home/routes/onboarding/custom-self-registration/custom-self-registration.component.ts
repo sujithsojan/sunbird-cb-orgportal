@@ -89,7 +89,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
         window.URL.revokeObjectURL(url)
       })
       .catch(() => {
-        window.open(QRLink, '_blank')
+        window.open(qrLink, '_blank')
       })
   }
 

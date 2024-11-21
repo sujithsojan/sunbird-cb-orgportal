@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ReportsVideoComponent } from '../reports-video/reports-video.component'
 import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
-import { OnBoardingConfig } from './interface/onboarding.interface'
+import { IOnBoardingConfig } from './interface/onboarding.interface'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { Subscription } from 'rxjs'
 
@@ -15,7 +15,7 @@ export class OnboardingComponent implements OnInit, OnDestroy {
   onboardingNoteList: string[] = []
   configSvc: any
   currentRoute = 'self-registration'
-  onBoardingConfig: OnBoardingConfig | undefined
+  onBoardingConfig: IOnBoardingConfig | undefined
   routeSubscription: Subscription = new Subscription()
   panelOpenState = false
   constructor(
