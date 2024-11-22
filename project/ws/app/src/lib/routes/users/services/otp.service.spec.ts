@@ -1,14 +1,14 @@
 
 import { HttpClient } from '@angular/common/http'
-import { TncPublicResolverService } from './tnc-public-resolver.service'
+import { OtpService } from './otp.service'
 
-describe('TncPublicResolverService', () => {
-    let component: TncPublicResolverService
+describe('OtpService', () => {
+    let component: OtpService
 
     const http: Partial<HttpClient> = {}
 
     beforeAll(() => {
-        component = new TncPublicResolverService(
+        component = new OtpService(
             http as HttpClient
         )
     })

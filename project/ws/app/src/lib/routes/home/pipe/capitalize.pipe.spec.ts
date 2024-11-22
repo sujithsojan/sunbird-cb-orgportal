@@ -1,10 +1,13 @@
-import { GlobalErrorHandlingService } from './global-error-handling.service'
+import { CapitalizePipe } from "./capitalize.pipe"
 
-describe('GlobalErrorHandlingService', () => {
-    let component: GlobalErrorHandlingService
+
+describe('CapitalizePipe', () => {
+    let component: CapitalizePipe
+
+
 
     beforeAll(() => {
-        component = new GlobalErrorHandlingService(
+        component = new CapitalizePipe(
 
         )
     })

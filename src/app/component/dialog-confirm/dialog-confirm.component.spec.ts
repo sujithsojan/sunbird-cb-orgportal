@@ -1,7 +1,6 @@
 
 import { MatDialogRef } from '@angular/material/dialog'
-import { DialogConfirmComponent } from './dialog-confirm.component'
-import { IPopData } from './dialog-confirm.component'
+import { DialogConfirmComponent, IPopData } from './dialog-confirm.component'
 
 describe('DialogConfirmComponent', () => {
     let component: DialogConfirmComponent

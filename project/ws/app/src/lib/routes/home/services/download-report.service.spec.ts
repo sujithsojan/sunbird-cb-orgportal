@@ -1,16 +1,16 @@
 
 import { HttpClient } from '@angular/common/http'
 import { ConfigurationsService } from '@sunbird-cb/utils'
-import { TncAppResolverService } from './tnc-app-resolver.service'
+import { DownloadReportService } from './download-report.service'
 
-describe('TncAppResolverService', () => {
-    let component: TncAppResolverService
+describe('DownloadReportService', () => {
+    let component: DownloadReportService
 
     const http: Partial<HttpClient> = {}
     const configSvc: Partial<ConfigurationsService> = {}
 
     beforeAll(() => {
-        component = new TncAppResolverService(
+        component = new DownloadReportService(
             http as HttpClient,
             configSvc as ConfigurationsService
         )

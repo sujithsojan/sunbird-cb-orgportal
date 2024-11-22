@@ -1,18 +1,18 @@
 
 import { HttpClient } from '@angular/common/http'
 import { ConfigurationsService } from '@sunbird-cb/utils'
-import { TncAppResolverService } from './tnc-app-resolver.service'
+import { ApprovalsService } from './approvals.service'
 
-describe('TncAppResolverService', () => {
-    let component: TncAppResolverService
+describe('ApprovalsService', () => {
+    let component: ApprovalsService
 
     const http: Partial<HttpClient> = {}
-    const configSvc: Partial<ConfigurationsService> = {}
+    const configSrv: Partial<ConfigurationsService> = {}
 
     beforeAll(() => {
-        component = new TncAppResolverService(
+        component = new ApprovalsService(
             http as HttpClient,
-            configSvc as ConfigurationsService
+            configSrv as ConfigurationsService
         )
     })
 

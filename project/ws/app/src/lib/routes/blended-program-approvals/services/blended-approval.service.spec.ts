@@ -1,14 +1,15 @@
 
 import { HttpClient } from '@angular/common/http'
-import { TncPublicResolverService } from './tnc-public-resolver.service'
+import { BlendedApporvalService } from './blended-approval.service'
 
-describe('TncPublicResolverService', () => {
-    let component: TncPublicResolverService
+
+describe('BlendedApporvalService', () => {
+    let component: BlendedApporvalService
 
     const http: Partial<HttpClient> = {}
 
     beforeAll(() => {
-        component = new TncPublicResolverService(
+        component = new BlendedApporvalService(
             http as HttpClient
         )
     })

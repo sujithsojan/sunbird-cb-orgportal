@@ -1,3 +1,4 @@
+// tslint:disable
 (window as any)['env'] = {
 	name: 'test-environment',
 	sitePath: '/test-site-path',
@@ -29,7 +30,7 @@ describe('RootComponent', () => {
 	const valueSvc: Partial<ValueService> = {}
 	const telemetrySvc: Partial<TelemetryService> = {}
 	const mobileAppsSvc: Partial<MobileAppsService> = {
-		init: jest.fn()
+		init: jest.fn(),
 	}
 	const rootSvc: Partial<RootService> = {}
 	const btnBackSvc: Partial<BreadcrumbsOrgService> = {}

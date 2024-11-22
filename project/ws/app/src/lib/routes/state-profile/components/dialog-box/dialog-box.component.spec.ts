@@ -1,4 +1,4 @@
-
+// tslint:disable
 import { MatDialogRef } from '@angular/material/dialog'
 import { DialogBoxComponent } from './dialog-box.component'
 
