@@ -12,7 +12,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations'
 import { WatRolePopupComponent } from './wat-role-popup/wat-role-popup.component'
-import { DialogConfirmComponent } from 'src/app/component/dialog-confirm/dialog-confirm.component'
+import { DialogConfirmComponent } from '../../../../../../../../../src/app/component/dialog-confirm/dialog-confirm.component'
 // tslint:disable
 import * as _ from 'lodash'
 // tslint:enable

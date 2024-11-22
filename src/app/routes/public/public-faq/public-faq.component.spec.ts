@@ -9,7 +9,7 @@ describe('PublicFaqComponent', () => {
 
     const route: Partial<ActivatedRoute> = {}
     const valueSvc: Partial<ValueService> = {
-        isLtMedium$: of()
+        isLtMedium$: of(),
     }
     const configSvc: Partial<ConfigurationsService> = {}
 

@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router'
 import { ConfigurationsService } from '@sunbird-cb/utils'
 import { LoginComponent } from './login.component'
 
-
 describe('LoginComponent', () => {
     let component: LoginComponent
 

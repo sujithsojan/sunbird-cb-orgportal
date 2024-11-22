@@ -8,7 +8,7 @@ describe('AppFooterComponent', () => {
 
     const configSvc: Partial<ConfigurationsService> = {}
     const valueSvc: Partial<ValueService> = {
-        isXSmall$: of()
+        isXSmall$: of(),
     }
 
     beforeAll(() => {

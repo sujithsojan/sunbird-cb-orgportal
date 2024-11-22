@@ -38,7 +38,7 @@ describe('FeaturesComponent', () => {
                 },
             },
             queryParamMap: {
-                get: jest.fn()
+                get: jest.fn(),
             },
             url: [],
             params: {},
@@ -58,7 +58,7 @@ describe('FeaturesComponent', () => {
     const tour: Partial<CustomTourService> = {}
     const respondSvc: Partial<SubapplicationRespondService> = {}
     const valueSvc: Partial<ValueService> = {
-        isXSmall$: of()
+        isXSmall$: of(),
     }
 
     beforeAll(() => {
