@@ -1,14 +1,15 @@
 
 import { HttpClient } from '@angular/common/http'
-import { TncPublicResolverService } from './tnc-public-resolver.service'
+import { TrainingPlanDashboardService } from './training-plan-dashboard.service'
 
-describe('TncPublicResolverService', () => {
-    let component: TncPublicResolverService
+
+describe('TrainingPlanDashboardService', () => {
+    let component: TrainingPlanDashboardService
 
     const http: Partial<HttpClient> = {}
 
     beforeAll(() => {
-        component = new TncPublicResolverService(
+        component = new TrainingPlanDashboardService(
             http as HttpClient
         )
     })

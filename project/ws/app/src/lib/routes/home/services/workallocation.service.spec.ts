@@ -1,18 +1,18 @@
 
 import { HttpClient } from '@angular/common/http'
 import { ConfigurationsService } from '@sunbird-cb/utils'
-import { TncAppResolverService } from './tnc-app-resolver.service'
+import { WorkallocationService } from './workallocation.service'
 
-describe('TncAppResolverService', () => {
-    let component: TncAppResolverService
+describe('WorkallocationService', () => {
+    let component: WorkallocationService
 
     const http: Partial<HttpClient> = {}
-    const configSvc: Partial<ConfigurationsService> = {}
+    const configService: Partial<ConfigurationsService> = {}
 
     beforeAll(() => {
-        component = new TncAppResolverService(
+        component = new WorkallocationService(
             http as HttpClient,
-            configSvc as ConfigurationsService
+            configService as ConfigurationsService
         )
     })
 

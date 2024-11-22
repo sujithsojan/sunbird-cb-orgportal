@@ -1,10 +1,10 @@
-import { GlobalErrorHandlingService } from './global-error-handling.service'
+import { LoaderService } from './loader.service'
 
-describe('GlobalErrorHandlingService', () => {
-    let component: GlobalErrorHandlingService
+describe('LoaderService', () => {
+    let component: LoaderService
 
     beforeAll(() => {
-        component = new GlobalErrorHandlingService(
+        component = new LoaderService(
 
         )
     })

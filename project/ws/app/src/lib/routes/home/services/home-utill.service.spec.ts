@@ -1,14 +1,14 @@
 
 import { HttpClient } from '@angular/common/http'
-import { TncPublicResolverService } from './tnc-public-resolver.service'
+import { ProfileV2UtillService } from './home-utill.service'
 
-describe('TncPublicResolverService', () => {
-    let component: TncPublicResolverService
+describe('ProfileV2UtillService', () => {
+    let component: ProfileV2UtillService
 
     const http: Partial<HttpClient> = {}
 
     beforeAll(() => {
-        component = new TncPublicResolverService(
+        component = new ProfileV2UtillService(
             http as HttpClient
         )
     })

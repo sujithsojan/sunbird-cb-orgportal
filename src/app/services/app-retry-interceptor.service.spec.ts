@@ -1,10 +1,10 @@
-import { GlobalErrorHandlingService } from './global-error-handling.service'
+import { AppRetryInterceptorService } from './app-retry-interceptor.service'
 
-describe('GlobalErrorHandlingService', () => {
-    let component: GlobalErrorHandlingService
+describe('AppRetryInterceptorService', () => {
+    let component: AppRetryInterceptorService
 
     beforeAll(() => {
-        component = new GlobalErrorHandlingService(
+        component = new AppRetryInterceptorService(
 
         )
     })

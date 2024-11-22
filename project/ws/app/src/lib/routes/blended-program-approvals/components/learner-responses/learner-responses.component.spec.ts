@@ -1,25 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
 
+import { BlendedApporvalService } from '../../services/blended-approval.service'
+import { MatDialog } from '@angular/material/dialog'
 import { LearnerResponsesComponent } from './learner-responses.component'
 
 describe('LearnerResponsesComponent', () => {
-  let component: LearnerResponsesComponent
-  let fixture: ComponentFixture<LearnerResponsesComponent>
+    let component: LearnerResponsesComponent
+    const bpService: Partial<BlendedApporvalService> = {}
+    const dialogue: Partial<MatDialog> = {}
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [LearnerResponsesComponent],
+    beforeAll(() => {
+        component = new LearnerResponsesComponent(
+            bpService as BlendedApporvalService,
+            dialogue as MatDialog
+        )
     })
-      .compileComponents()
-  })
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LearnerResponsesComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })

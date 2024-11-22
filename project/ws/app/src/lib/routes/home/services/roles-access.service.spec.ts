@@ -1,14 +1,14 @@
 
 import { HttpClient } from '@angular/common/http'
-import { TncPublicResolverService } from './tnc-public-resolver.service'
+import { RolesAccessService } from './roles-access.service'
 
-describe('TncPublicResolverService', () => {
-    let component: TncPublicResolverService
+describe('RolesAccessService', () => {
+    let component: RolesAccessService
 
     const http: Partial<HttpClient> = {}
 
     beforeAll(() => {
-        component = new TncPublicResolverService(
+        component = new RolesAccessService(
             http as HttpClient
         )
     })

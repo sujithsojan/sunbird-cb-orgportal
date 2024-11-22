@@ -1,14 +1,15 @@
 
 import { HttpClient } from '@angular/common/http'
-import { TncPublicResolverService } from './tnc-public-resolver.service'
+import { MdoInfoService } from './mdoinfo.service'
 
-describe('TncPublicResolverService', () => {
-    let component: TncPublicResolverService
+
+describe('MdoInfoService', () => {
+    let component: MdoInfoService
 
     const http: Partial<HttpClient> = {}
 
     beforeAll(() => {
-        component = new TncPublicResolverService(
+        component = new MdoInfoService(
             http as HttpClient
         )
     })

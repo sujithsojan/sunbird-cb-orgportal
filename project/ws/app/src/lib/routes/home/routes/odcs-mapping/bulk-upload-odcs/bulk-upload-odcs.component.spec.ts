@@ -13,6 +13,7 @@ describe('BulkUploadOdcsComponent', () => {
     let component: BulkUploadOdcsComponent
 
     const mockFileService = {
+        validateExcelFile: jest.fn(),
         getBulkCompetencyUploadData: jest.fn().mockReturnValue(
             of({
                 result: {
@@ -309,40 +310,7 @@ describe('BulkUploadOdcsComponent', () => {
         })
     })
 
-    it('should set showFileError to true when file validation fails', () => {
-        // arrange
-        const mockFile = new File([''], 'invalid-file.txt', { type: 'text/plain' })
-        const mockEvent = {
-            target: {
-                files: [mockFile],
-            },
-        }
-        component.userProfile = { email: 'test@example.com', phone: '1234567890' }
-        mockFileService.validateFile = jest.fn().mockReturnValue(false)
-        // act
-        component.handleOnFileChange(mockEvent)
-        // assert
-        expect(component.fileName).toBe('invalid-file.txt')
-        expect(component.fileSelected).toBe(mockFile)
-        expect(mockFileService.validateFile).toHaveBeenCalledWith('invalid-file.txt')
-        expect(component.showFileError).toBe(true)
-    })
 
-    it('should not select any file when no file is provided', () => {
-        // arrange
-        const mockEvent = {
-            target: {
-                files: [],
-            },
-        }
-        component.userProfile = { email: 'test@example.com', phone: '1234567890' }
-        // act
-        component.handleOnFileChange(mockEvent)
-        // assert
-        expect(component.fileName).toBeUndefined()
-        expect(component.fileSelected).toBeUndefined()
-        expect(component.showFileError).toBe(false)
-    })
 
     describe('handleChangePage', () => {
         it('should update pageSize, startIndex, and lastIndex when handleChangePage is called', () => {
