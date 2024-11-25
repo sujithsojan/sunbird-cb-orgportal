@@ -6,7 +6,7 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { ActivatedRoute, Router } from '@angular/router'
 import { EventService } from '@sunbird-cb/utils'
 // tslint:disable
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { delay } from 'rxjs/operators'
 import { DialogConfirmComponent } from '../../../../../../../../../src/app/component/dialog-confirm/dialog-confirm.component'
 import { TelemetryEvents } from '../../../../head/_services/telemetry.event.model'

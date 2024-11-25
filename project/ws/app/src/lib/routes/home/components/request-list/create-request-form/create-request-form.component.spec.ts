@@ -1,4 +1,9 @@
-
+(window as any)['env'] = {
+    name: 'test-environment',
+    sitePath: '/test-site-path',
+    karmYogiPath: '/test-karm-yogi-path',
+    cbpPath: '/test-cbp-path',
+}
 import { FormBuilder } from '@angular/forms'
 import { ProfileV2Service } from '../../../services/home.servive'
 import { ActivatedRoute, Router } from '@angular/router'
