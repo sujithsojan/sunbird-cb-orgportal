@@ -9,14 +9,16 @@ import { MatIconModule } from '@angular/material/icon'
 import { CustomSelfRegistrationComponent } from './custom-self-registration/custom-self-registration.component'
 import { MatButtonModule } from '@angular/material/button'
 import { ReactiveFormsModule } from '@angular/forms'
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field'
 import { MatDatepickerModule } from '@angular/material/datepicker'
-import { MatInputModule } from '@angular/material/input'
+import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input'
 import { LoadingPopupComponent } from './loading-popup/loading-popup.component'
 import { BulkUploadComponent } from '../users-view/bulk-upload/bulk-upload.component'
 import { UsersListResolve } from '../../resolvers/users-list-resolve.service'
 import { SingleUserCreationComponent } from '../users-view/single-user-creation/single-user-creation.component'
 import { MatExpansionModule } from '@angular/material/expansion'
+import { MatDialogModule } from '@angular/material/dialog'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
 
 const routes: Routes = [
   {
@@ -97,6 +99,10 @@ const routes: Routes = [
     MatDatepickerModule,
     MatInputModule,
     MatExpansionModule,
+    MatDialogModule,
+    MatSnackBarModule
+
   ],
+  providers: [MatDialogModule]
 })
 export class OnboardingModule { }
