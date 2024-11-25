@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'
 import { OnboardingComponent } from './onboarding.component'
 import { ConfigResolveService } from '../../resolvers/config-resolve.service'
 import { PageResolve } from '@sunbird-cb/utils'
-import { RouterModule } from '@angular/router'
+import { RouterModule, Routes } from '@angular/router'
 import { MatCardModule } from '@angular/material/card'
 import { MatIconModule } from '@angular/material/icon'
 import { CustomSelfRegistrationComponent } from './custom-self-registration/custom-self-registration.component'
@@ -18,7 +18,7 @@ import { UsersListResolve } from '../../resolvers/users-list-resolve.service'
 import { SingleUserCreationComponent } from '../users-view/single-user-creation/single-user-creation.component'
 import { MatExpansionModule } from '@angular/material/expansion'
 
-const routes = [
+const routes: Routes = [
   {
     path: '',
     component: OnboardingComponent,
