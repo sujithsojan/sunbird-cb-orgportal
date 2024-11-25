@@ -33,7 +33,7 @@
     </div>
     <div class="flex flex-row flex-1 justify-end">
         <div class="flex flex-end" *ngIf="!isApprovals && currentFilter === 'allusers'">
-            <button mat-button type="button" class="search-btn" [routerLink]="['/app/home/user-creation']"
+            <button mat-button type="button" class="search-btn" [routerLink]="['/app/home/onboarding/bulk-creation']"
                 [ngClass]="{'disable': isContentLive}">Create user</button>
         </div>
         <div class="flex flex-end margin-right-s" *ngIf="isApprovals && showApproveALL">
