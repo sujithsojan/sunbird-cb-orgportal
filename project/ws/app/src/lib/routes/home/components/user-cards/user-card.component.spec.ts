@@ -1,4 +1,3 @@
-// Mocking window environment variables before imports
 (window as any)['env'] = {
 	name: 'test-environment',
 	sitePath: '/test-site-path',
@@ -6,7 +5,6 @@
 	cbpPath: '/test-cbp-path',
 }
 
-// Now import dependencies
 import { ChangeDetectorRef } from '@angular/core'
 import { UsersService } from '../../../users/services/users.service'
 import { MatDialog } from '@angular/material/dialog'

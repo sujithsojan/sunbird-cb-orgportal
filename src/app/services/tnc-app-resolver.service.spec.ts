@@ -1,12 +1,27 @@
-import { TestBed } from '@angular/core/testing'
 
+import { HttpClient } from '@angular/common/http'
+import { ConfigurationsService } from '@sunbird-cb/utils'
 import { TncAppResolverService } from './tnc-app-resolver.service'
 
 describe('TncAppResolverService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}))
+    let component: TncAppResolverService
 
-  it('should be created', () => {
-    const service: TncAppResolverService = TestBed.inject(TncAppResolverService)
-    expect(service).toBeTruthy()
-  })
+    const http: Partial<HttpClient> = {}
+    const configSvc: Partial<ConfigurationsService> = {}
+
+    beforeAll(() => {
+        component = new TncAppResolverService(
+            http as HttpClient,
+            configSvc as ConfigurationsService
+        )
+    })
+
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
+
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })

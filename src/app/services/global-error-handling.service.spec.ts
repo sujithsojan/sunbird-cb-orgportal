@@ -1,12 +1,20 @@
-import { TestBed } from '@angular/core/testing'
-
 import { GlobalErrorHandlingService } from './global-error-handling.service'
 
 describe('GlobalErrorHandlingService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}))
+    let component: GlobalErrorHandlingService
 
-  it('should be created', () => {
-    const service: GlobalErrorHandlingService = TestBed.inject(GlobalErrorHandlingService)
-    expect(service).toBeTruthy()
-  })
+    beforeAll(() => {
+        component = new GlobalErrorHandlingService(
+
+        )
+    })
+
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
+
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })
