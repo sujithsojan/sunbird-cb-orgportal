@@ -1,28 +1,34 @@
 <div class="self-registration-wrapper">
   <div class="flex">
-    <div class="w-1/2 p-6 relative form-wrapper">
-      <ng-container *ngIf="!framewordId">
-        <img src="/assets/icons/bg-blur-self-registration.png" alt="icon" class="w-full">
-        <div class="nodata absolute inset-0 flex items-center justify-center">
-          <div class="flex flex-column items-center justify-center">
-            <img src="/assets/icons/empty_data.svg" alt="icon" class="mx-auto">
-            <span class="font-bold text-sm my-4 block">No designation has been imported from iGOT master.</span>
-            <button mat-flat-button class="mat-btn-outline" (click)="navigateTo('/app/home/org-designations')">Start
-              Importing</button>
-          </div>
-        </div>
-      </ng-container>
-      <ng-container *ngIf="framewordId">
-        <form [formGroup]="selfRegistrationForm">
-          <div class="create-registration-link">
-            <div class="flex gap-2 mb-8">
-              <span class="font-semibold fw-montserrat text-lg">Link Status -</span>
-              <div class="badge flex items-center"
-                [ngClass]="checkRegistrationStatus(configSvc.orgReadData.enddateregistration) ? 'active':'in-active'">
-                {{checkRegistrationStatus(configSvc.orgReadData.enddateregistration) ?
-                'Active': 'None'}}</div>
+
+    <ng-container *ngIf="!customRegistrationLinks">
+      <div class="w-1/2 p-6 relative form-wrapper">
+        <ng-container *ngIf="!framewordId">
+          <img src="/assets/icons/bg-blur-self-registration.png" alt="icon" class="w-full">
+          <div class="nodata absolute inset-0 flex items-center justify-center">
+            <div class="flex flex-column items-center justify-center">
+              <img src="/assets/icons/empty_data.svg" alt="icon" class="mx-auto">
+              <span class="font-bold text-sm my-4 block">No designation has been imported from iGOT master.</span>
+              <button mat-flat-button class="mat-btn-outline" (click)="navigateTo('/app/home/org-designations')">Start
+                Importing</button>
             </div>
-            <div class="flex flex-column gap-1 w-full mat-field-rounded">
+          </div>
+        </ng-container>
+        <ng-container *ngIf="framewordId">
+          <form [formGroup]="selfRegistrationForm"
+            [ngClass]="{'h-full flex justify-center items-center': !customRegistrationLinks?.registrationLink}">
+            <div class="create-registration-link">
+              <div class="flex gap-2 mb-8">
+                <ng-container *ngIf="customRegistrationLinks?.registrationLink">
+                  <span class="font-semibold fw-montserrat text-lg">Link Status -</span>
+                  <div class="badge flex items-center"
+                    [ngClass]="checkRegistrationStatus(configSvc.orgReadData.enddateregistration) ? 'active':'in-active'">
+                    {{checkRegistrationStatus(configSvc.orgReadData.enddateregistration) ?
+                    'Active': 'None'}}</div>
+                </ng-container>
+              </div>
+
+              <!-- <div class="flex flex-column gap-1 w-full mat-field-rounded">
               <div class="flex items-center gap-1 required">
                 <span class="lable">Start Date</span>
               </div>
@@ -32,8 +38,8 @@
                 <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
                 <mat-datepicker #startDate></mat-datepicker>
               </mat-form-field>
-            </div>
-            <div class="flex flex-column gap-1 w-full mat-field-rounded">
+            </div> -->
+              <!-- <div class="flex flex-column gap-1 w-full mat-field-rounded">
               <div class="flex items-center gap-1 required">
                 <span class="lable">End Date</span>
               </div>
@@ -43,22 +49,24 @@
                 <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
                 <mat-datepicker #endDate></mat-datepicker>
               </mat-form-field>
+            </div> -->
             </div>
-          </div>
-          <div class="flex items-center justify-center mt-4">
-            <ng-container *ngIf="!customRegistrationLinks">
-              <button mat-flat-button class="mat-btn-flat" (click)="generateRegistrationLink()"
-                [disabled]="selfRegistrationForm.invalid">Generate Link</button>
-            </ng-container>
-            <ng-container *ngIf="customRegistrationLinks">
-              <button mat-flat-button class="mat-btn-outline" (click)="generateRegistrationLink()"
-                [disabled]="selfRegistrationForm.invalid">Publish New
-                Link</button>
-            </ng-container>
-          </div>
-        </form>
-      </ng-container>
-    </div>
+            <div class="flex items-center justify-center mt-4">
+              <ng-container *ngIf="!customRegistrationLinks">
+                <button mat-flat-button class="mat-btn-flat" (click)="generateRegistrationLink()"
+                  [disabled]="selfRegistrationForm.invalid">Generate Link</button>
+              </ng-container>
+              <ng-container *ngIf="customRegistrationLinks">
+                <button mat-flat-button class="mat-btn-outline" (click)="generateRegistrationLink()"
+                  [disabled]="selfRegistrationForm.invalid">Publish New
+                  Link</button>
+              </ng-container>
+            </div>
+          </form>
+        </ng-container>
+      </div>
+    </ng-container>
+
     <div class="w-1/2" [ngClass]="customRegistrationLinks ? 'px-4': 'p-4'">
       <ng-container *ngIf="!customRegistrationLinks">
         <img src="/assets/icons/bg-blur-self-registration-1.png" alt="icon">
@@ -71,24 +79,24 @@
               <div class="flex gap-3 items-center">
                 <mat-icon class="mr-2">link</mat-icon>
                 <a class="brand-color cursor-pointer underline bg-inherit text-sm"
-                  [href]="customRegistrationLinks.registrationLink"
-                  target="_blank">{{customRegistrationLinks.registrationLink}}</a>
+                  [href]="customRegistrationLinks?.registrationLink"
+                  target="_blank">{{customRegistrationLinks?.registrationLink}}</a>
               </div>
             </div>
 
             <div class="actions-buttons flex gap-4 items-center justify-center mt-4">
               <button mat-flat-button class="mat-btn-outline"
-                (click)="copyLinkToClipboard(customRegistrationLinks.registrationLink);selectedButtonCode('copyLink')"
+                (click)="copyLinkToClipboard(customRegistrationLinks?.registrationLink);selectedButtonCode('copyLink')"
                 [ngClass]=" {'button-active': selectedButton==='copyLink' }">Copy Link</button>
               <button mat-stroked-button class="mat-btn-outline"
-                (click)="sendViaEmail(customRegistrationLinks.registrationLink);selectedButtonCode('shareViaMail')"
+                (click)="sendViaEmail(customRegistrationLinks?.registrationLink);selectedButtonCode('shareViaMail')"
                 [ngClass]="{'button-active': selectedButton === 'shareViaMail'}">
                 <mat-icon class="mr-2"> email</mat-icon>
                 <span>Share on Mail</span>
               </button>
 
               <button mat-stroked-button class="mat-btn-outline"
-                (click)="sendViaWhatsApp(customRegistrationLinks.registrationLink);selectedButtonCode('shareViaWhatsapp')"
+                (click)="sendViaWhatsApp(customRegistrationLinks?.registrationLink);selectedButtonCode('shareViaWhatsapp')"
                 [ngClass]="{'button-active': selectedButton === 'shareViaWhatsapp'}">
                 <img src="/assets/icons/whatsapp.svg" alt="icon" class="mr-2" width="24" height="24">
                 <span>Share on Whats app</span>
@@ -99,22 +107,22 @@
           <div class="wrapper-card py-4 px-12 rounded-lg mt-4">
             <div class="flex justify-between">
               <div class="qr-scanner-cont flex items-center">
-                <img [src]="customRegistrationLinks.qrRegistrationLink" alt="qr-scanner" width="115" height="115">
+                <img [src]="customRegistrationLinks?.qrRegistrationLink" alt="qr-scanner" width="115" height="115">
               </div>
               <div class="flex flex-column items-center justify-center gap-2">
                 <button mat-flat-button class="mat-btn-outline"
-                  (click)="downloadQRCode(customRegistrationLinks.qrRegistrationLink);selectedButtonCode('downloadQR')"
+                  (click)="downloadQRCode(customRegistrationLinks?.qrRegistrationLink);selectedButtonCode('downloadQR')"
                   [ngClass]="{'button-active': selectedButton === 'downloadQR'}">Download
                   QR</button>
                 <button mat-stroked-button class="mat-btn-outline"
-                  (click)="sendViaEmail(customRegistrationLinks.qrRegistrationLink);selectedButtonCode('shareViaMailQR')"
+                  (click)="sendViaEmail(customRegistrationLinks?.qrRegistrationLink);selectedButtonCode('shareViaMailQR')"
                   [ngClass]=" {'button-active': selectedButton==='shareViaMailQR' }">
                   <mat-icon class="mr-2"> email</mat-icon>
                   <span>Share on Mail</span>
                 </button>
 
                 <button mat-stroked-button class="mat-btn-outline"
-                  (click)="sendViaWhatsApp(customRegistrationLinks.qrRegistrationLink);selectedButtonCode('shareViaWhatsappQR')"
+                  (click)="sendViaWhatsApp(customRegistrationLinks?.qrRegistrationLink);selectedButtonCode('shareViaWhatsappQR')"
                   [ngClass]=" {'button-active': selectedButton==='shareViaWhatsappQR' }">
                   <img src="/assets/icons/whatsapp.svg" alt="icon" class="mr-2" width="24" height="24">
                   <span>Share on Whats app</span>
