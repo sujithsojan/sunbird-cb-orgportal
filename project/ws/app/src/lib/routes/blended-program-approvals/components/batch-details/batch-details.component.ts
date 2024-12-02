@@ -316,7 +316,7 @@ export class BatchDetailsComponent implements OnInit {
         this.filter('rejected')
       }
       this.showUserDetails = false
-    }, (error: any) => {
+    },                                                      (error: any) => {
       this.openSnackbar(_.get(error, 'error.params.errmsg') ||
         _.get(error, 'error.result.errmsg') ||
         'Something went wrong, please try again later!')
@@ -560,8 +560,8 @@ export class BatchDetailsComponent implements OnInit {
 
   async getBpReportStatus() {
     const batchDetails = this.batchData
-    const roleName = this.userDetails.roles.includes("MDO_LEADER") ? "MDO_LEADER" :
-      this.userDetails.roles.includes("MDO_ADMIN") ? "MDO_ADMIN" : ''
+    const roleName = this.userDetails.roles.includes('MDO_LEADER') ? 'MDO_LEADER' :
+      this.userDetails.roles.includes('MDO_ADMIN') ? 'MDO_ADMIN' : ''
     const req = {
       request: {
         orgId: this.userDetails.rootOrgId || '',
@@ -592,8 +592,8 @@ export class BatchDetailsComponent implements OnInit {
   }
   async generateReport() {
     const batchDetails = this.batchData
-    const roleName = this.userDetails.roles.includes("MDO_LEADER") ? "MDO_LEADER" :
-      this.userDetails.roles.includes("MDO_ADMIN") ? "MDO_ADMIN" : ''
+    const roleName = this.userDetails.roles.includes('MDO_LEADER') ? 'MDO_LEADER' :
+      this.userDetails.roles.includes('MDO_ADMIN') ? 'MDO_ADMIN' : ''
     const reqBody = {
       request: {
         orgId: this.userDetails.rootOrgId || '',

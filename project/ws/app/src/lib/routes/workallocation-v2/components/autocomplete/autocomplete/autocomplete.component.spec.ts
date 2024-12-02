@@ -1,25 +1,23 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing'
+import { AutocompleteComponent } from "./autocomplete.component"
 
-import { AutocompleteComponent } from './autocomplete.component'
 
 describe('AutocompleteComponent', () => {
-  let component: AutocompleteComponent
-  let fixture: ComponentFixture<AutocompleteComponent>
+    let component: AutocompleteComponent
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [AutocompleteComponent],
+
+
+    beforeAll(() => {
+        component = new AutocompleteComponent(
+
+        )
     })
-    .compileComponents()
-  }))
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(AutocompleteComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
+    beforeEach(() => {
+        jest.clearAllMocks()
+        jest.resetAllMocks()
+    })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
-  })
+    it('should create a instance of component', () => {
+        expect(component).toBeTruthy()
+    })
 })

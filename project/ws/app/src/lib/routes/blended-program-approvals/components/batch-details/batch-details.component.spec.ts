@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { ActivatedRoute, ActivatedRouteSnapshot, Router } from '@angular/router'
 import { BlendedApporvalService } from '../../services/blended-approval.service'
-import { EventService } from '@sunbird-cb/utils'
+import { ConfigurationsService, EventService } from '@sunbird-cb/utils'
 import { BatchDetailsComponent } from './batch-details.component'
 import { of } from 'rxjs'
 
@@ -57,6 +57,7 @@ describe('BatchDetailsComponent', () => {
     const snackBar: Partial<MatSnackBar> = {}
     const events: Partial<EventService> = {}
     const dialogue: Partial<MatDialog> = {}
+    const configSvc: Partial<ConfigurationsService> = {}
 
     beforeAll(() => {
         component = new BatchDetailsComponent(
@@ -65,7 +66,8 @@ describe('BatchDetailsComponent', () => {
             bpService as BlendedApporvalService,
             snackBar as MatSnackBar,
             events as EventService,
-            dialogue as MatDialog
+            dialogue as MatDialog,
+            configSvc as ConfigurationsService
         )
     })
 

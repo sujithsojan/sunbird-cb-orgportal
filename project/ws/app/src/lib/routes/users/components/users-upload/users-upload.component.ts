@@ -11,7 +11,7 @@ import { MatLegacyTableDataSource as MatTableDataSource } from '@angular/materia
 import { environment } from 'src/environments/environment'
 import { ActivatedRoute } from '@angular/router'
 // tslint:disable-next-line
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { ITableData } from '@sunbird-cb/collection/lib/ui-org-table/interface/interfaces'
 import { DatePipe } from '@angular/common'
 import { UsersService } from '../../services/users.service'
