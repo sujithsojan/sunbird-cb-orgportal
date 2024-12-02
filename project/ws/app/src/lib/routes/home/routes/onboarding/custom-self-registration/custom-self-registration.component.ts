@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ICustomRegistrationQRCodeResponse, IOnBoardingConfig } from '../interface/onboarding.interface'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormGroup } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Clipboard } from '@angular/cdk/clipboard'
 import { LoadingPopupComponent } from '../loading-popup/loading-popup.component'
@@ -17,7 +17,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
   configSvc: any
   onboardingConfig: IOnBoardingConfig | undefined
   selfRegistrationForm!: FormGroup
-  customRegistrationLinks!: ICustomRegistrationQRCodeResponse
+  customRegistrationLinks: ICustomRegistrationQRCodeResponse | any
   rootOrdId = ''
   framewordId = ''
   todayDate = new Date()
@@ -43,16 +43,17 @@ export class CustomSelfRegistrationComponent implements OnInit {
     if (
       this.framewordId &&
       this.configSvc.orgReadData &&
-      this.configSvc?.orgReadData?.startdateregistration &&
-      this.configSvc.orgReadData?.enddateregistration
+      this.configSvc?.orgReadData?.registrationlink
     ) {
-      this.selfRegistrationForm.get('startDate')?.setValue(new Date(this.configSvc.orgReadData.startdateregistration))
-      this.selfRegistrationForm.get('endDate')?.setValue(new Date(this.configSvc.orgReadData.enddateregistration))
+      // this.selfRegistrationForm.get('startDate')?.setValue(new Date(this.configSvc.orgReadData.startdateregistration))
+      // this.selfRegistrationForm.get('endDate')?.setValue(new Date(this.configSvc.orgReadData.enddateregistration))
       const links = {
         registrationLink: this.configSvc.orgReadData.registrationlink,
         qrRegistrationLink: this.configSvc.orgReadData.qrregistrationlink,
       }
       this.customRegistrationLinks = links
+    } else {
+      this.customRegistrationLinks = undefined
     }
   }
 
@@ -62,8 +63,8 @@ export class CustomSelfRegistrationComponent implements OnInit {
 
   initializeForm(): void {
     this.selfRegistrationForm = this.formBuilder.group({
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
+      startDate: [''],
+      endDate: [''],
     })
   }
 
@@ -114,22 +115,23 @@ export class CustomSelfRegistrationComponent implements OnInit {
     const dialogRef = this.dialog.open(LoadingPopupComponent, {
       autoFocus: false,
       width: '365px',
+      height: '201px',
       maxWidth: '80vw',
       maxHeight: '90vh',
       disableClose: true,
     })
 
     const payload = {
-      registrationStartDate: (Math.floor(this.selfRegistrationForm.controls['startDate'].value.getTime())),
-      registrationEndDate: (Math.floor(this.selfRegistrationForm.controls['endDate'].value.getTime())),
+      // registrationStartDate: (Math.floor(this.selfRegistrationForm.controls['startDate'].value.getTime())),
+      // registrationEndDate: (Math.floor(this.selfRegistrationForm.controls['endDate'].value.getTime())),
       orgId: this.rootOrdId,
     }
     this.onboardingService.generateSelfRegistrationQRCode(payload).subscribe({
       next: (response: any) => {
         if (response.result && Object.keys(response.result).length > 0 && response.responseCode === 'OK') {
           this.customRegistrationLinks = response.result
-          this.configSvc.orgReadData.enddateregistration = new Date(this.selfRegistrationForm.controls['endDate'].value)
-          this.configSvc.orgReadData.startdateregistration = new Date(this.selfRegistrationForm.controls['startDate'].value)
+          // this.configSvc.orgReadData.enddateregistration = new Date(this.selfRegistrationForm.controls['endDate'].value)
+          // this.configSvc.orgReadData.startdateregistration = new Date(this.selfRegistrationForm.controls['startDate'].value)
           dialogRef.close()
 
         } else if (response?.params?.errmsg) {
@@ -147,12 +149,13 @@ export class CustomSelfRegistrationComponent implements OnInit {
     })
   }
 
-  checkRegistrationStatus(endDateRegistration: string): boolean {
-    if (!endDateRegistration) { return false }
+  checkRegistrationStatus(_endDateRegistration: string): boolean {
+    // if (!endDateRegistration) { return false }
 
-    const endDate = new Date(endDateRegistration)
-    const today = new Date()
-    return today <= endDate
+    // const endDate = new Date(endDateRegistration)
+    // const today = new Date()
+    // return today <= endDate
+    return true
   }
 
   selectedButtonCode(type: string) {

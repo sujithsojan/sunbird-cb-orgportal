@@ -94,7 +94,7 @@
 
 ::ng-deep .custom-leftmenu .mat-expansion-panel:not([class*=mat-elevation-z]) {
     background: transparent !important;
-    margin-bottom: 8px !important;
+    // margin-bottom: 8px !important;
 }
 
 
@@ -117,7 +117,7 @@
 }
 
 ::ng-deep .menuPannel .mat-expansion-panel-header {
-  padding: 8px 24px !important;
+  padding: 16px 24px !important;
   height: unset !important;
   background: transparent !important;
   font: 400 16px/24px Lato !important;

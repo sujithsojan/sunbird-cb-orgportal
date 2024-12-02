@@ -89,7 +89,7 @@
   }
 }
 
-::ng-deep .mat-expansion-panel-header {
+:host ::ng-deep .mat-expansion-panel-header {
   min-height: 48px !important;
   height: inherit !important;
 }
