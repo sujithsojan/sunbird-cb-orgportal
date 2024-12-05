@@ -1,7 +1,7 @@
 <div class="self-registration-wrapper">
   <div class="flex">
 
-    <ng-container *ngIf="!customRegistrationLinks">
+    <ng-container>
       <div class="w-1/2 p-6 relative form-wrapper">
         <ng-container *ngIf="!framewordId">
           <img src="/assets/icons/bg-blur-self-registration.png" alt="icon" class="w-full">
@@ -15,41 +15,40 @@
           </div>
         </ng-container>
         <ng-container *ngIf="framewordId">
-          <form [formGroup]="selfRegistrationForm"
-            [ngClass]="{'h-full flex justify-center items-center': !customRegistrationLinks?.registrationLink}">
+          <form [formGroup]="selfRegistrationForm">
             <div class="create-registration-link">
               <div class="flex gap-2 mb-8">
                 <ng-container *ngIf="customRegistrationLinks?.registrationLink">
                   <span class="font-semibold fw-montserrat text-lg">Link Status -</span>
                   <div class="badge flex items-center"
-                    [ngClass]="checkRegistrationStatus(configSvc.orgReadData.enddateregistration) ? 'active':'in-active'">
-                    {{checkRegistrationStatus(configSvc.orgReadData.enddateregistration) ?
+                    [ngClass]="latestRegisteredData.status && latestRegisteredData.status === 'active' ? 'active':'in-active'">
+                    {{latestRegisteredData.status && latestRegisteredData.status === 'active' ?
                     'Active': 'None'}}</div>
                 </ng-container>
               </div>
 
-              <!-- <div class="flex flex-column gap-1 w-full mat-field-rounded">
-              <div class="flex items-center gap-1 required">
-                <span class="lable">Start Date</span>
+              <div class="flex flex-column gap-1 w-full mat-field-rounded">
+                <div class="flex items-center gap-1 required">
+                  <span class="lable">Start Date</span>
+                </div>
+                <mat-form-field appearance="outline">
+                  <input matInput [matDatepicker]="startDate" [min]="todayDate" placeholder="Enter Start Date"
+                    formControlName="startDate">
+                  <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                  <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
               </div>
-              <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="startDate" [min]="todayDate" placeholder="Enter Start Date"
-                  formControlName="startDate">
-                <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-                <mat-datepicker #startDate></mat-datepicker>
-              </mat-form-field>
-            </div> -->
-              <!-- <div class="flex flex-column gap-1 w-full mat-field-rounded">
-              <div class="flex items-center gap-1 required">
-                <span class="lable">End Date</span>
+              <div class="flex flex-column gap-1 w-full mat-field-rounded">
+                <div class="flex items-center gap-1 required">
+                  <span class="lable">End Date</span>
+                </div>
+                <mat-form-field appearance="outline">
+                  <input matInput [matDatepicker]="endDate" placeholder="Enter End Date" formControlName="endDate"
+                    [min]="selfRegistrationForm.get('startDate')?.value">
+                  <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                  <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
               </div>
-              <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="endDate" placeholder="Enter End Date" formControlName="endDate"
-                  [min]="selfRegistrationForm.get('startDate')?.value">
-                <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-                <mat-datepicker #endDate></mat-datepicker>
-              </mat-form-field>
-            </div> -->
             </div>
             <div class="flex items-center justify-center mt-4">
               <ng-container *ngIf="!customRegistrationLinks">
@@ -86,20 +85,17 @@
 
             <div class="actions-buttons flex gap-4 items-center justify-center mt-4">
               <button mat-flat-button class="mat-btn-outline"
-                (click)="copyLinkToClipboard(customRegistrationLinks?.registrationLink);selectedButtonCode('copyLink')"
-                [ngClass]=" {'button-active': selectedButton==='copyLink' }">Copy Link</button>
-              <button mat-stroked-button class="mat-btn-outline"
-                (click)="sendViaEmail(customRegistrationLinks?.registrationLink);selectedButtonCode('shareViaMail')"
-                [ngClass]="{'button-active': selectedButton === 'shareViaMail'}">
+                (click)="copyLinkToClipboard(customRegistrationLinks?.registrationLink)">Copy Link</button>
+              <button mat-flat-button class="mat-btn-outline"
+                (click)="sendViaEmail(customRegistrationLinks?.registrationLink)">
                 <mat-icon class="mr-2"> email</mat-icon>
                 <span>Share on Mail</span>
               </button>
 
-              <button mat-stroked-button class="mat-btn-outline"
-                (click)="sendViaWhatsApp(customRegistrationLinks?.registrationLink);selectedButtonCode('shareViaWhatsapp')"
-                [ngClass]="{'button-active': selectedButton === 'shareViaWhatsapp'}">
+              <button mat-flat-button class="mat-btn-outline"
+                (click)="sendViaWhatsApp(customRegistrationLinks?.registrationLink)">
                 <img src="/assets/icons/whatsapp.svg" alt="icon" class="mr-2" width="24" height="24">
-                <span>Share on Whats app</span>
+                <span>Share on Whatsapp</span>
               </button>
             </div>
           </div>
@@ -111,30 +107,28 @@
               </div>
               <div class="flex flex-column items-center justify-center gap-2">
                 <button mat-flat-button class="mat-btn-outline"
-                  (click)="downloadQRCode(customRegistrationLinks?.qrRegistrationLink);selectedButtonCode('downloadQR')"
-                  [ngClass]="{'button-active': selectedButton === 'downloadQR'}">Download
+                  (click)="downloadQRCode(customRegistrationLinks?.qrRegistrationLink)">Download
                   QR</button>
-                <button mat-stroked-button class="mat-btn-outline"
-                  (click)="sendViaEmail(customRegistrationLinks?.qrRegistrationLink);selectedButtonCode('shareViaMailQR')"
-                  [ngClass]=" {'button-active': selectedButton==='shareViaMailQR' }">
+                <button mat-flat-button class="mat-btn-outline"
+                  (click)="sendViaEmail(customRegistrationLinks?.qrRegistrationLink);">
                   <mat-icon class="mr-2"> email</mat-icon>
                   <span>Share on Mail</span>
                 </button>
 
-                <button mat-stroked-button class="mat-btn-outline"
-                  (click)="sendViaWhatsApp(customRegistrationLinks?.qrRegistrationLink);selectedButtonCode('shareViaWhatsappQR')"
-                  [ngClass]=" {'button-active': selectedButton==='shareViaWhatsappQR' }">
+                <button mat-flat-button class="mat-btn-outline"
+                  (click)="sendViaWhatsApp(customRegistrationLinks?.qrRegistrationLink)">
                   <img src="/assets/icons/whatsapp.svg" alt="icon" class="mr-2" width="24" height="24">
-                  <span>Share on Whats app</span>
+                  <span>Share on Whatsapp</span>
                 </button>
               </div>
             </div>
           </div>
 
           <div class="wrapper-card p-4 rounded-lg mt-4">
-            <div class="flex gap-4">
+            <div class="flex gap-4 items-center">
               <img src="/assets/icons/users.svg" alt="users" width="32" height="32">
-              <span class="text-sm">Number of Users Onboarded: <strong class="ml-1">2,231</strong></span>
+              <span class="text-sm">Number of Users Onboarded: <strong
+                  class="ml-1">{{numberOfUsersOnboarded}}</strong></span>
             </div>
           </div>
         </div>

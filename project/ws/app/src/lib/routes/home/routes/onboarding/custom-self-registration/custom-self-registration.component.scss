@@ -33,3 +33,22 @@
 .bg-inherit {
   background: inherit !important;
 }
+
+:host ::ng-deep .mat-btn-outline:hover {
+  background-color: #1b4ca1 !important;
+  color: #fff !important;
+
+  mat-icon,
+  span {
+    color: #fff !important;
+  }
+
+  img {
+    filter: brightness(0) invert(1);
+  }
+}
+
+:host ::ng-deep .mdc-button__label {
+  display: flex;
+  align-items: center;
+}

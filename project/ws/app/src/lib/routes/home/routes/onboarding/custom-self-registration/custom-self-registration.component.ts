@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { ActivatedRoute, Router } from '@angular/router'
-import { ICustomRegistrationQRCodeResponse, IOnBoardingConfig } from '../interface/onboarding.interface'
-import { FormBuilder, FormGroup } from '@angular/forms'
+import { ICustomRegistrationQRCodeResponse, IOnBoardingConfig, IRegisteredLinksList } from '../interface/onboarding.interface'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { Clipboard } from '@angular/cdk/clipboard'
 import { LoadingPopupComponent } from '../loading-popup/loading-popup.component'
@@ -21,8 +21,9 @@ export class CustomSelfRegistrationComponent implements OnInit {
   rootOrdId = ''
   framewordId = ''
   todayDate = new Date()
-  selectedButton = ''
-
+  registeredLinksList: IRegisteredLinksList[] = []
+  numberOfUsersOnboarded = 0
+  latestRegisteredData: IRegisteredLinksList | any = {}
   constructor(
     public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
@@ -40,21 +41,32 @@ export class CustomSelfRegistrationComponent implements OnInit {
     this.framewordId = this.configSvc.orgReadData.frameworkid
     this.initializeForm()
 
-    if (
-      this.framewordId &&
-      this.configSvc.orgReadData &&
-      this.configSvc?.orgReadData?.registrationlink
-    ) {
-      // this.selfRegistrationForm.get('startDate')?.setValue(new Date(this.configSvc.orgReadData.startdateregistration))
-      // this.selfRegistrationForm.get('endDate')?.setValue(new Date(this.configSvc.orgReadData.enddateregistration))
-      const links = {
-        registrationLink: this.configSvc.orgReadData.registrationlink,
-        qrRegistrationLink: this.configSvc.orgReadData.qrregistrationlink,
-      }
-      this.customRegistrationLinks = links
-    } else {
-      this.customRegistrationLinks = undefined
+    if (this.framewordId && this.configSvc.orgReadData) {
+      this.getlistOfRegisterationLinks()
     }
+  }
+
+  getlistOfRegisterationLinks() {
+    this.onboardingService.getListOfRegisteedLinks({ orgId: this.rootOrdId }).subscribe({
+      next: (response: any) => {
+        if (response.result && response.result.qrCodeDataForOrg.length) {
+          this.registeredLinksList = response.result.qrCodeDataForOrg
+          this.latestRegisteredData = this.registeredLinksList[this.registeredLinksList.length - 1]
+          this.selfRegistrationForm.get('startDate')?.setValue(new Date(this.latestRegisteredData.startDate))
+          this.selfRegistrationForm.get('endDate')?.setValue(new Date(this.latestRegisteredData.endDate))
+          this.customRegistrationLinks = {
+            registrationLink: this.latestRegisteredData.url,
+            qrRegistrationLink: this.latestRegisteredData.qrCodeImagePath,
+          }
+          this.numberOfUsersOnboarded = this.latestRegisteredData.numberOfUsersOnboarded
+        } else {
+          this.customRegistrationLinks = undefined
+        }
+      },
+      error: () => {
+
+      },
+    })
   }
 
   navigateTo(route: string): void {
@@ -63,14 +75,14 @@ export class CustomSelfRegistrationComponent implements OnInit {
 
   initializeForm(): void {
     this.selfRegistrationForm = this.formBuilder.group({
-      startDate: [''],
-      endDate: [''],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
     })
   }
 
   copyLinkToClipboard(link: string): void {
     this.clipboard.copy(link)
-    this.snackbar.open('Copied!')
+    this.snackbar.open('Copied!', '', { panelClass: ['success'] })
   }
 
   downloadQRCode(qrLink: string) {
@@ -96,18 +108,18 @@ export class CustomSelfRegistrationComponent implements OnInit {
 
   sendViaEmail(link: string): void {
     if (!link) { return }
-    const message = `Register for ${this.configSvc.orgReadData.orgName} by clicking below ${link} `
+    const message = `Register for ${this.configSvc.orgReadData.orgName} by clicking the link below:\n\n${link + ' '}`
     const subject = encodeURIComponent('Self Registration Link')
-    const body = encodeURIComponent(`Self Registration Link: ${message}`)
+    const body = encodeURIComponent(message)
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`
     window.open(mailtoLink, '_self')
   }
 
   sendViaWhatsApp(link: string): void {
-    if (!link) { return }
-    const message = `Register for ${this.configSvc.orgReadData.orgName} by clicking below ${link} `
+    const message = `Register for ${this.configSvc.orgReadData.orgName} by clicking the link below:\n\n${link + ' '}`
+
     const encodedLink = encodeURIComponent(message)
-    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedLink}`
+    const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedLink} `
     window.open(whatsappUrl, '_blank')
   }
 
@@ -122,24 +134,25 @@ export class CustomSelfRegistrationComponent implements OnInit {
     })
 
     const payload = {
-      // registrationStartDate: (Math.floor(this.selfRegistrationForm.controls['startDate'].value.getTime())),
-      // registrationEndDate: (Math.floor(this.selfRegistrationForm.controls['endDate'].value.getTime())),
+      registrationStartDate: (Math.floor(this.selfRegistrationForm.controls['startDate'].value.getTime())),
+      registrationEndDate: (Math.floor(this.selfRegistrationForm.controls['endDate'].value.getTime())),
       orgId: this.rootOrdId,
     }
     this.onboardingService.generateSelfRegistrationQRCode(payload).subscribe({
       next: (response: any) => {
         if (response.result && Object.keys(response.result).length > 0 && response.responseCode === 'OK') {
           this.customRegistrationLinks = response.result
-          // this.configSvc.orgReadData.enddateregistration = new Date(this.selfRegistrationForm.controls['endDate'].value)
-          // this.configSvc.orgReadData.startdateregistration = new Date(this.selfRegistrationForm.controls['startDate'].value)
+          this.latestRegisteredData.endDate = new Date(this.selfRegistrationForm.controls['endDate'].value)
+          this.latestRegisteredData.startDate = new Date(this.selfRegistrationForm.controls['startDate'].value)
+          this.latestRegisteredData.status = 'active'
           dialogRef.close()
 
         } else if (response?.params?.errmsg) {
-          this.snackbar.open(response?.params?.errmsg, '', { duration: 3000 })
+          this.snackbar.open(response?.params?.errmsg, 'X', { duration: 3000, panelClass: ['error'] })
           dialogRef.close()
 
         } else {
-          this.snackbar.open('Oops! We couldn\'t generate the link or QR code.Please try again', '', { duration: 3000 })
+          this.snackbar.open('Oops! We couldn\'t generate the link or QR code.Please try again', 'X', { duration: 3000, panelClass: ['error'] })
           dialogRef.close()
         }
       },
@@ -149,17 +162,12 @@ export class CustomSelfRegistrationComponent implements OnInit {
     })
   }
 
-  checkRegistrationStatus(_endDateRegistration: string): boolean {
-    // if (!endDateRegistration) { return false }
+  checkRegistrationStatus(endDateRegistration: string): boolean {
+    if (!endDateRegistration) { return false }
 
-    // const endDate = new Date(endDateRegistration)
-    // const today = new Date()
-    // return today <= endDate
-    return true
-  }
-
-  selectedButtonCode(type: string) {
-    this.selectedButton = type
+    const endDate = new Date(endDateRegistration)
+    const today = new Date()
+    return today <= endDate
   }
 
 }
