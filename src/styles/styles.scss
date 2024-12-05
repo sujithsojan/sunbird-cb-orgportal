@@ -841,3 +841,7 @@ h3.shepherd-title {
 .active-radio-button .mat-radio-button .mat-radio-container .mat-radio-outer-circle {
   border-color: #1b4ca1 !important;
 }
+
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-shape: 8px
+}
