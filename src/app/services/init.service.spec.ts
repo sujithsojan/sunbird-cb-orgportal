@@ -1,3 +1,4 @@
+/* tslint:disable:indent */
 (window as any)['env'] = {
 	name: 'test-environment',
 	sitePath: '/test-site-path',
