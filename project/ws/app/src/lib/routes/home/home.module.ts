@@ -223,7 +223,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core'
     UsersService,
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 
 })
 export class HomeModule {
