@@ -7,6 +7,8 @@ import { MatSnackBar } from '@angular/material/snack-bar'
 import { Clipboard } from '@angular/cdk/clipboard'
 import { LoadingPopupComponent } from '../loading-popup/loading-popup.component'
 import { OnboardingService } from '../../../services/onboarding.service'
+import { DesignationsService } from '../../designation/services/designations.service'
+import _ from 'lodash'
 
 @Component({
   selector: 'ws-app-custom-self-registration',
@@ -24,6 +26,8 @@ export class CustomSelfRegistrationComponent implements OnInit {
   registeredLinksList: IRegisteredLinksList[] = []
   numberOfUsersOnboarded = 0
   latestRegisteredData: IRegisteredLinksList | any = {}
+  designationsList: any[] = []
+  isLoading = false
   constructor(
     public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
@@ -32,6 +36,8 @@ export class CustomSelfRegistrationComponent implements OnInit {
     private snackbar: MatSnackBar,
     private clipboard: Clipboard,
     private onboardingService: OnboardingService,
+    private designationsService: DesignationsService,
+
   ) { }
 
   ngOnInit(): void {
@@ -42,7 +48,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
     this.initializeForm()
 
     if (this.framewordId && this.configSvc.orgReadData) {
-      this.getlistOfRegisterationLinks()
+      this.getFrameworkInfo(this.framewordId)
     }
   }
 
@@ -62,6 +68,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
         } else {
           this.customRegistrationLinks = undefined
         }
+        this.isLoading = false
       },
       error: () => {
 
@@ -170,4 +177,28 @@ export class CustomSelfRegistrationComponent implements OnInit {
     return today <= endDate
   }
 
+  getFrameworkInfo(frameworkid: string) {
+    this.isLoading = true
+    this.designationsService.getFrameworkInfo(frameworkid)
+      .subscribe({
+        next: (frameworkResponse) => {
+          const frameworkDetails = _.get(frameworkResponse, 'result.framework')
+          const categoriesOfFramework = _.get(frameworkDetails, 'categories', [])
+          const organisationsList = this.getTermsByCode(categoriesOfFramework, 'org')
+          this.designationsList = _.get(organisationsList, '[0].children', [])
+          if (this.designationsList.length && this.designationsList.length > 0) {
+            this.getlistOfRegisterationLinks()
+          } else {
+            this.isLoading = false
+          }
+        }
+      })
+  }
+
+  private getTermsByCode(categories: any[], code: string) {
+    const selectedCategory = categories.filter(
+      (category: any) => category.code === code
+    )
+    return _.get(selectedCategory, '[0].terms', [])
+  }
 }

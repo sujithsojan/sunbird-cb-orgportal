@@ -101,6 +101,7 @@ import { SurveyFormComponent } from './components/app-survey/survey-form/survey-
 import { CapitalizePipe } from './pipe/capitalize.pipe'
 import { BulkUploadOdcsComponent } from './routes/odcs-mapping/bulk-upload-odcs/bulk-upload-odcs.component'
 import { GroupsGradeComponent } from './components/groups-grade/groups-grade.component'
+import { MAT_DATE_LOCALE } from '@angular/material/core'
 
 @NgModule({
   declarations: [
@@ -220,8 +221,10 @@ import { GroupsGradeComponent } from './components/groups-grade/groups-grade.com
     UploadService,
     TrainingPlanDashboardService,
     UsersService,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+
 })
 export class HomeModule {
 

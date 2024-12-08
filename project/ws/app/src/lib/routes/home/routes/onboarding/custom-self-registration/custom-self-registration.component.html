@@ -2,68 +2,76 @@
   <div class="flex">
 
     <ng-container>
-      <div class="w-1/2 p-6 relative form-wrapper">
-        <ng-container *ngIf="!framewordId">
-          <img src="/assets/icons/bg-blur-self-registration.png" alt="icon" class="w-full">
-          <div class="nodata absolute inset-0 flex items-center justify-center">
-            <div class="flex flex-column items-center justify-center">
-              <img src="/assets/icons/empty_data.svg" alt="icon" class="mx-auto">
-              <span class="font-bold text-sm my-4 block">No designation has been imported from iGOT master.</span>
-              <button mat-flat-button class="mat-btn-outline" (click)="navigateTo('/app/home/org-designations')">Start
-                Importing</button>
+      <ng-container *ngIf="!isLoading">
+        <div class="w-1/2 p-6 relative form-wrapper">
+          <ng-container *ngIf="!framewordId || this.designationsList.length === 0">
+            <img src="/assets/icons/bg-blur-self-registration.png" alt="icon" class="w-full">
+            <div class="nodata absolute inset-0 flex items-center justify-center">
+              <div class="flex flex-column items-center justify-center">
+                <img src="/assets/icons/empty_data.svg" alt="icon" class="mx-auto">
+                <span class="font-bold text-sm my-4 block">No designation has been imported from iGOT master.</span>
+                <button mat-flat-button class="mat-btn-outline" (click)="navigateTo('/app/home/org-designations')">Start
+                  Importing</button>
+              </div>
             </div>
-          </div>
-        </ng-container>
-        <ng-container *ngIf="framewordId">
-          <form [formGroup]="selfRegistrationForm">
-            <div class="create-registration-link">
-              <div class="flex gap-2 mb-8">
-                <ng-container *ngIf="customRegistrationLinks?.registrationLink">
-                  <span class="font-semibold fw-montserrat text-lg">Link Status -</span>
-                  <div class="badge flex items-center"
-                    [ngClass]="latestRegisteredData.status && latestRegisteredData.status === 'active' ? 'active':'in-active'">
-                    {{latestRegisteredData.status && latestRegisteredData.status === 'active' ?
-                    'Active': 'None'}}</div>
+          </ng-container>
+          <ng-container *ngIf="framewordId && this.designationsList.length > 0">
+            <form [formGroup]="selfRegistrationForm">
+              <div class="create-registration-link">
+                <div class="flex gap-2 mb-8">
+                  <ng-container *ngIf="customRegistrationLinks?.registrationLink">
+                    <span class="font-semibold fw-montserrat text-lg">Link Status -</span>
+                    <div class="badge flex items-center"
+                      [ngClass]="latestRegisteredData.status && latestRegisteredData.status === 'active' ? 'active':'in-active'">
+                      {{latestRegisteredData.status && latestRegisteredData.status === 'active' ?
+                      'Active': 'None'}}</div>
+                  </ng-container>
+                </div>
+
+                <div class="flex flex-column gap-1 w-full mat-field-rounded">
+                  <div class="flex items-center gap-1 required">
+                    <span class="lable">Start Date</span>
+                  </div>
+                  <mat-form-field appearance="outline">
+                    <input matInput [matDatepicker]="startDate" [min]="todayDate" placeholder="Enter Start Date"
+                      formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="flex flex-column gap-1 w-full mat-field-rounded">
+                  <div class="flex items-center gap-1 required">
+                    <span class="lable">End Date</span>
+                  </div>
+                  <mat-form-field appearance="outline">
+                    <input matInput [matDatepicker]="endDate" placeholder="Enter End Date" formControlName="endDate"
+                      [min]="selfRegistrationForm.get('startDate')?.value">
+                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                    <mat-datepicker #endDate></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="flex items-center justify-center mt-4">
+                <ng-container *ngIf="!customRegistrationLinks">
+                  <button mat-flat-button class="mat-btn-flat" (click)="generateRegistrationLink()"
+                    [disabled]="selfRegistrationForm.invalid">Generate Link</button>
+                </ng-container>
+                <ng-container *ngIf="customRegistrationLinks">
+                  <button mat-flat-button class="mat-btn-outline" (click)="generateRegistrationLink()"
+                    [disabled]="selfRegistrationForm.invalid">Publish New
+                    Link</button>
                 </ng-container>
               </div>
+            </form>
+          </ng-container>
+        </div>
+      </ng-container>
 
-              <div class="flex flex-column gap-1 w-full mat-field-rounded">
-                <div class="flex items-center gap-1 required">
-                  <span class="lable">Start Date</span>
-                </div>
-                <mat-form-field appearance="outline">
-                  <input matInput [matDatepicker]="startDate" [min]="todayDate" placeholder="Enter Start Date"
-                    formControlName="startDate">
-                  <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
-                  <mat-datepicker #startDate></mat-datepicker>
-                </mat-form-field>
-              </div>
-              <div class="flex flex-column gap-1 w-full mat-field-rounded">
-                <div class="flex items-center gap-1 required">
-                  <span class="lable">End Date</span>
-                </div>
-                <mat-form-field appearance="outline">
-                  <input matInput [matDatepicker]="endDate" placeholder="Enter End Date" formControlName="endDate"
-                    [min]="selfRegistrationForm.get('startDate')?.value">
-                  <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-                  <mat-datepicker #endDate></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="flex items-center justify-center mt-4">
-              <ng-container *ngIf="!customRegistrationLinks">
-                <button mat-flat-button class="mat-btn-flat" (click)="generateRegistrationLink()"
-                  [disabled]="selfRegistrationForm.invalid">Generate Link</button>
-              </ng-container>
-              <ng-container *ngIf="customRegistrationLinks">
-                <button mat-flat-button class="mat-btn-outline" (click)="generateRegistrationLink()"
-                  [disabled]="selfRegistrationForm.invalid">Publish New
-                  Link</button>
-              </ng-container>
-            </div>
-          </form>
-        </ng-container>
-      </div>
+      <ng-container *ngIf="isLoading">
+        <div class="flex items-center mx-auto">
+          <mat-spinner [diameter]="30" [strokeWidth]="3"></mat-spinner>
+        </div>
+      </ng-container>
     </ng-container>
 
     <div class="w-1/2" [ngClass]="customRegistrationLinks ? 'px-4': 'p-4'">
@@ -77,7 +85,7 @@
             <div class="flex justify-between">
               <div class="flex gap-3 items-center">
                 <mat-icon class="mr-2">link</mat-icon>
-                <a class="brand-color cursor-pointer underline bg-inherit text-sm"
+                <a class="brand-color cursor-pointer underline bg-inherit text-sm break-word-link"
                   [href]="customRegistrationLinks?.registrationLink"
                   target="_blank">{{customRegistrationLinks?.registrationLink}}</a>
               </div>
