@@ -17,7 +17,8 @@
 <ng-container *ngFor="let menu of menulist; let mi = index">
   <ng-container *ngIf="menu.subMenu">
     <mat-accordion [multi]="true" class="custom-leftmenu">
-      <mat-expansion-panel class="menuPannel bg-gray-accordian" hideToggle="true" [expanded]="false" #example>
+      <mat-expansion-panel class="menuPannel bg-gray-accordian" hideToggle="true" [expanded]="menu.defaultExpanded"
+        #example>
         <mat-expansion-panel-header>
           <mat-panel-title>
             <mat-panel-description>

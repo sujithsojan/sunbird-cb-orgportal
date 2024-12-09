@@ -19,6 +19,7 @@ import { SingleUserCreationComponent } from '../users-view/single-user-creation/
 import { MatExpansionModule } from '@angular/material/expansion'
 import { MatDialogModule } from '@angular/material/dialog'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner'
 
 const routes: Routes = [
   {
@@ -100,7 +101,8 @@ const routes: Routes = [
     MatInputModule,
     MatExpansionModule,
     MatDialogModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
 
   ],
   providers: [MatDialogModule]
