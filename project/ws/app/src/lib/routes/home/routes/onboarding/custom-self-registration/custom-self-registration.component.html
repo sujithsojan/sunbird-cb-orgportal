@@ -4,7 +4,7 @@
     <ng-container>
       <ng-container *ngIf="!isLoading">
         <div class="w-1/2 p-6 relative form-wrapper">
-          <ng-container *ngIf="!framewordId || this.designationsList.length === 0">
+          <ng-container *ngIf="!framewordId || this.designationsList?.length === 0">
             <img src="/assets/icons/bg-blur-self-registration.png" alt="icon" class="w-full">
             <div class="nodata absolute inset-0 flex items-center justify-center">
               <div class="flex flex-column items-center justify-center">
@@ -15,15 +15,15 @@
               </div>
             </div>
           </ng-container>
-          <ng-container *ngIf="framewordId && this.designationsList.length > 0">
+          <ng-container *ngIf="framewordId && this.designationsList?.length > 0">
             <form [formGroup]="selfRegistrationForm">
               <div class="create-registration-link">
                 <div class="flex gap-2 mb-8">
                   <ng-container *ngIf="customRegistrationLinks?.registrationLink">
                     <span class="font-semibold fw-montserrat text-lg">Link Status -</span>
                     <div class="badge flex items-center"
-                      [ngClass]="latestRegisteredData.status && latestRegisteredData.status === 'active' ? 'active':'in-active'">
-                      {{latestRegisteredData.status && latestRegisteredData.status === 'active' ?
+                      [ngClass]="latestRegisteredData?.status && latestRegisteredData?.status === 'active' ? 'active':'in-active'">
+                      {{latestRegisteredData?.status && latestRegisteredData?.status === 'active' ?
                       'Active': 'None'}}</div>
                   </ng-container>
                 </div>
@@ -54,11 +54,11 @@
               <div class="flex items-center justify-center mt-4">
                 <ng-container *ngIf="!customRegistrationLinks">
                   <button mat-flat-button class="mat-btn-flat" (click)="generateRegistrationLink()"
-                    [disabled]="selfRegistrationForm.invalid">Generate Link</button>
+                    [disabled]="selfRegistrationForm?.invalid">Generate Link</button>
                 </ng-container>
                 <ng-container *ngIf="customRegistrationLinks">
                   <button mat-flat-button class="mat-btn-outline" (click)="generateRegistrationLink()"
-                    [disabled]="selfRegistrationForm.invalid">Publish New
+                    [disabled]="selfRegistrationForm?.invalid">Publish New
                     Link</button>
                 </ng-container>
               </div>

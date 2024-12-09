@@ -186,7 +186,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
           const categoriesOfFramework = _.get(frameworkDetails, 'categories', [])
           const organisationsList = this.getTermsByCode(categoriesOfFramework, 'org')
           this.designationsList = _.get(organisationsList, '[0].children', [])
-          if (this.designationsList.length && this.designationsList.length > 0) {
+          if (this.designationsList?.length && this.designationsList?.length > 0) {
             this.getlistOfRegisterationLinks()
           } else {
             this.isLoading = false
