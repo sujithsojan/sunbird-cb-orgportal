@@ -62,7 +62,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
           this.selfRegistrationForm.get('endDate')?.setValue(new Date(this.latestRegisteredData.endDate))
           this.customRegistrationLinks = {
             registrationLink: this.latestRegisteredData.url,
-            qrRegistrationLink: this.latestRegisteredData.qrCodeImagePath,
+            qrRegistrationLink: this.latestRegisteredData.qrCodeImagePath.replace('portal', 'mdo')
           }
           this.numberOfUsersOnboarded = this.latestRegisteredData.numberOfUsersOnboarded
         } else {
@@ -148,7 +148,10 @@ export class CustomSelfRegistrationComponent implements OnInit {
     this.onboardingService.generateSelfRegistrationQRCode(payload).subscribe({
       next: (response: any) => {
         if (response.result && Object.keys(response.result).length > 0 && response.responseCode === 'OK') {
-          this.customRegistrationLinks = response.result
+          this.customRegistrationLinks = {
+            registrationLink: response.result.registrationLink,
+            qrRegistrationLink: response.result.qrRegistrationLink.replace('portal', 'mdo')
+          }
           this.latestRegisteredData.endDate = new Date(this.selfRegistrationForm.controls['endDate'].value)
           this.latestRegisteredData.startDate = new Date(this.selfRegistrationForm.controls['startDate'].value)
           this.latestRegisteredData.status = 'active'
