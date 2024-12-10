@@ -197,6 +197,7 @@ iframe {
 }
 
 mat-toolbar {
+
   &.mat-toolbar-row,
   &.mat-toolbar-single-row {
     // height: 56px;
@@ -488,7 +489,7 @@ h3.shepherd-title {
 //   overflow: hidden;
 // }
 
-.checkbox-sidenav > div.mat-drawer-inner-container {
+.checkbox-sidenav>div.mat-drawer-inner-container {
   height: auto !important;
   overflow: hidden !important;
 }
@@ -692,6 +693,7 @@ h3.shepherd-title {
 }
 
 .bulk-upload-wrapper {
+
   .bulk-container,
   .file-container {
     box-shadow: 0px 1px 5px 0px #0000001f, 0px 2px 2px 0px #00000024, 0px 3px 1px -2px #00000033;
@@ -759,6 +761,7 @@ h3.shepherd-title {
   }
 
   @media screen and (max-width: 641px) {
+
     :host ::ng-deep .common-modal,
     ::ng-deep .progress-modal {
       max-width: 90vw !important;
@@ -797,6 +800,7 @@ h3.shepherd-title {
   background-color: #1b4ca1 !important;
   border-radius: 9999px !important;
   font-weight: 700;
+
   mat-icon {
     color: #1b4ca1;
   }
@@ -842,6 +846,8 @@ h3.shepherd-title {
   border-color: #1b4ca1 !important;
 }
 
-.mat-mdc-dialog-container {
-  --mdc-dialog-container-shape: 8px
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  border-radius: 8px !important;
+  box-shadow: 0px 8px 24px 0px #0000003d !important;
+  padding: 0 24px;
 }

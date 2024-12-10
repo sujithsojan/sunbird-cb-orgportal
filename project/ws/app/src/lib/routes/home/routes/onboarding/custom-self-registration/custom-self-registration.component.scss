@@ -57,4 +57,8 @@
 .break-word-link {
   max-width: 470px;
   word-wrap: break-word;
+
+  @media (max-width: 1380px) {
+    max-width: 410px;
+  }
 }

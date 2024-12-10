@@ -1,8 +1,79 @@
-<div class="flex items-center justify-center h-full">
-  <div class="flex flex-col w-48 gap-4 items-center justify-center">
-    <div class="flex flex-col gap-2 w-full items-center">
-      <div class="font-semibold">Generating Link</div>
+<ng-container *ngIf="data.type === 'delete'">
+  <div class="info-dialog-wrapper">
+    <div class="text-center mt-8">
+      <!-- <img src="/assets/icons/collections/i-icon-large.svg" alt="i-icon" class="mb-4"> -->
+      <i class="mb-4">
+        <svg width="56" height="57" viewBox="0 0 56 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M28.0001 40.1667C28.6612 40.1667 29.2154 39.9431 29.6626 39.4959C30.1098 39.0487 30.3334 38.4945 30.3334 37.8334C30.3334 37.1723 30.1098 36.6181 29.6626 36.1709C29.2154 35.7237 28.6612 35.5001 28.0001 35.5001C27.339 35.5001 26.7848 35.7237 26.3376 36.1709C25.8904 36.6181 25.6667 37.1723 25.6667 37.8334C25.6667 38.4945 25.8904 39.0487 26.3376 39.4959C26.7848 39.9431 27.339 40.1667 28.0001 40.1667ZM25.6667 30.8334H30.3334V16.8334H25.6667V30.8334ZM28.0001 51.8334C24.7723 51.8334 21.739 51.2209 18.9001 49.9959C16.0612 48.7709 13.5917 47.1084 11.4917 45.0084C9.39175 42.9084 7.72925 40.439 6.50425 37.6001C5.27925 34.7612 4.66675 31.7279 4.66675 28.5001C4.66675 25.2723 5.27925 22.239 6.50425 19.4001C7.72925 16.5612 9.39175 14.0917 11.4917 11.9917C13.5917 9.89175 16.0612 8.22925 18.9001 7.00425C21.739 5.77925 24.7723 5.16675 28.0001 5.16675C31.2279 5.16675 34.2612 5.77925 37.1001 7.00425C39.939 8.22925 42.4084 9.89175 44.5084 11.9917C46.6084 14.0917 48.2709 16.5612 49.4959 19.4001C50.7209 22.239 51.3334 25.2723 51.3334 28.5001C51.3334 31.7279 50.7209 34.7612 49.4959 37.6001C48.2709 40.439 46.6084 42.9084 44.5084 45.0084C42.4084 47.1084 39.939 48.7709 37.1001 49.9959C34.2612 51.2209 31.2279 51.8334 28.0001 51.8334ZM28.0001 47.1667C33.2112 47.1667 37.6251 45.3584 41.2417 41.7417C44.8584 38.1251 46.6667 33.7112 46.6667 28.5001C46.6667 23.289 44.8584 18.8751 41.2417 15.2584C37.6251 11.6417 33.2112 9.83341 28.0001 9.83341C22.789 9.83341 18.3751 11.6417 14.7584 15.2584C11.1417 18.8751 9.33341 23.289 9.33341 28.5001C9.33341 33.7112 11.1417 38.1251 14.7584 41.7417C18.3751 45.3584 22.789 47.1667 28.0001 47.1667Z"
+            fill="#F3962F" />
+        </svg>
+
+      </i>
+      <ng-container *ngIf="data.type === 'delete'">
+        <p class="new-color text-base">Are you sure you want to delete this.</p>
+      </ng-container>
     </div>
-    <img src="/assets/icons/vega.svg" alt="CSV file logo" />
+    <div class="actions flex justify-center items-center gap-4 my-6">
+      <ng-container *ngIf="data.type === 'delete'">
+        <button mat-stroked-button (click)="rejected()" class="mat-btn-outline" cdkFocusInitial i18n>No</button>
+        <button mat-flat-button (click)="confirmed()" class="new-bg-color text-white" i18n> Yes </button>
+      </ng-container>
+    </div>
   </div>
-</div>
+</ng-container>
+
+<ng-container *ngIf="data.type === 'generate-link-loader'">
+  <div class="info-dialog-wrapper">
+    <div class="text-center mt-12">
+      <p class="text-xl mt-6 font-semibold">Generating link...</p>
+      <img src="/assets/icons/vega.svg" alt="i-icon" class="my-4">
+
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="data.type === 'import-igot-master-create'">
+  <div class="info-dialog-wrapper">
+    <div class="text-center mt-8">
+      <i class="mb-4">
+        <svg width="56" height="57" viewBox="0 0 56 57" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M28.0001 40.1667C28.6612 40.1667 29.2154 39.9431 29.6626 39.4959C30.1098 39.0487 30.3334 38.4945 30.3334 37.8334C30.3334 37.1723 30.1098 36.6181 29.6626 36.1709C29.2154 35.7237 28.6612 35.5001 28.0001 35.5001C27.339 35.5001 26.7848 35.7237 26.3376 36.1709C25.8904 36.6181 25.6667 37.1723 25.6667 37.8334C25.6667 38.4945 25.8904 39.0487 26.3376 39.4959C26.7848 39.9431 27.339 40.1667 28.0001 40.1667ZM25.6667 30.8334H30.3334V16.8334H25.6667V30.8334ZM28.0001 51.8334C24.7723 51.8334 21.739 51.2209 18.9001 49.9959C16.0612 48.7709 13.5917 47.1084 11.4917 45.0084C9.39175 42.9084 7.72925 40.439 6.50425 37.6001C5.27925 34.7612 4.66675 31.7279 4.66675 28.5001C4.66675 25.2723 5.27925 22.239 6.50425 19.4001C7.72925 16.5612 9.39175 14.0917 11.4917 11.9917C13.5917 9.89175 16.0612 8.22925 18.9001 7.00425C21.739 5.77925 24.7723 5.16675 28.0001 5.16675C31.2279 5.16675 34.2612 5.77925 37.1001 7.00425C39.939 8.22925 42.4084 9.89175 44.5084 11.9917C46.6084 14.0917 48.2709 16.5612 49.4959 19.4001C50.7209 22.239 51.3334 25.2723 51.3334 28.5001C51.3334 31.7279 50.7209 34.7612 49.4959 37.6001C48.2709 40.439 46.6084 42.9084 44.5084 45.0084C42.4084 47.1084 39.939 48.7709 37.1001 49.9959C34.2612 51.2209 31.2279 51.8334 28.0001 51.8334ZM28.0001 47.1667C33.2112 47.1667 37.6251 45.3584 41.2417 41.7417C44.8584 38.1251 46.6667 33.7112 46.6667 28.5001C46.6667 23.289 44.8584 18.8751 41.2417 15.2584C37.6251 11.6417 33.2112 9.83341 28.0001 9.83341C22.789 9.83341 18.3751 11.6417 14.7584 15.2584C11.1417 18.8751 9.33341 23.289 9.33341 28.5001C9.33341 33.7112 11.1417 38.1251 14.7584 41.7417C18.3751 45.3584 22.789 47.1667 28.0001 47.1667Z"
+            fill="#F3962F" />
+        </svg>
+
+      </i>
+      <ng-container>
+        <span class="brand-color text-base max-w-456 block">No designation has been imported from iGOT master.</span>
+        <p class="brand-color text-base max-w-456">Please import designations and follow back the same process to
+          generate Custom self registration Link</p>
+      </ng-container>
+    </div>
+    <div class="actions flex justify-center items-center gap-4 my-6">
+      <ng-container>
+        <button mat-stroked-button (click)="rejected()" class="mat-btn-outline" i18n>Cancel</button>
+        <button mat-flat-button (click)="confirmed()" class="mat-btn-flat" i18n> Start Importing </button>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="data.type === 'import-igot-master-review'">
+  <div class="info-dialog-wrapper">
+    <div class="text-center mt-8">
+      <img src="/assets/icons/i-icon-large.svg" alt="i-icon" class="mb-4">
+      <ng-container>
+        <span class="brand-color text-base max-w-456 block">Please review the Designation Master to continue.</span>
+        <p class="brand-color text-base max-w-456">Once completed, follow the same steps to generate a personalized
+          self-registration link.</p>
+      </ng-container>
+    </div>
+    <div class="actions flex justify-center items-center gap-4 my-6">
+      <ng-container>
+        <button mat-stroked-button (click)="rejected()" class="mat-btn-outline" i18n>Review designations</button>
+        <button mat-flat-button (click)="confirmed()" class="mat-btn-flat" i18n> Continue</button>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
