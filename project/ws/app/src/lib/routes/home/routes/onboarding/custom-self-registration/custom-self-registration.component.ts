@@ -28,6 +28,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
   latestRegisteredData: IRegisteredLinksList | any = {}
   designationsList: any[] = []
   isLoading = false
+  dialogRef: any
   constructor(
     public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
@@ -55,7 +56,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
   getlistOfRegisterationLinks() {
     this.onboardingService.getListOfRegisteedLinks({ orgId: this.rootOrdId }).subscribe({
       next: (response: any) => {
-        if (response.result && response.result.qrCodeDataForOrg.length) {
+        if (response.result && Array.isArray(response.result?.qrCodeDataForOrg) && response.result?.qrCodeDataForOrg.length > 0) {
           this.registeredLinksList = response.result.qrCodeDataForOrg
           this.latestRegisteredData = this.registeredLinksList[this.registeredLinksList.length - 1]
           this.selfRegistrationForm.get('startDate')?.setValue(new Date(this.latestRegisteredData.startDate))
@@ -138,6 +139,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
       maxWidth: '80vw',
       maxHeight: '90vh',
       disableClose: true,
+      data: { type: 'generate-link-loader' }
     })
 
     const payload = {
@@ -203,5 +205,44 @@ export class CustomSelfRegistrationComponent implements OnInit {
       (category: any) => category.code === code
     )
     return _.get(selectedCategory, '[0].terms', [])
+  }
+
+  startImporting() {
+    if (this.designationsList?.length && this.designationsList?.length === 0) {
+      this.dialogRef = this.dialog.open(LoadingPopupComponent, {
+        autoFocus: false,
+        width: '504px',
+        height: '270px',
+        maxWidth: '80vw',
+        maxHeight: '90vh',
+        disableClose: true,
+        data: { type: 'import-igot-master-review' },
+      })
+    } else {
+      this.dialogRef = this.dialog.open(LoadingPopupComponent, {
+        autoFocus: false,
+        width: '504px',
+        height: '270px',
+        maxWidth: '80vw',
+        maxHeight: '90vh',
+        disableClose: true,
+        data: { type: 'import-igot-master-create' }
+      })
+    }
+    this.subscribeToAfterClosedModal()
+
+  }
+
+  subscribeToAfterClosedModal() {
+    this.dialogRef.afterClosed().subscribe((result: any) => {
+      if (result && result.hasOwnProperty('reviewImporting') && !result.reviewImporting) {
+        this.navigateTo('/app/home/org-designations')
+      }
+      else if (result && result.reviewImporting || result.startImporting) {
+        this.navigateTo('/app/home/org-designations')
+      }
+      else return
+
+    })
   }
 }
