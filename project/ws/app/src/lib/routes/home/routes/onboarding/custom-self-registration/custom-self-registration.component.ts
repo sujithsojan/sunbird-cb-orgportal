@@ -56,7 +56,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
   getlistOfRegisterationLinks() {
     this.onboardingService.getListOfRegisteedLinks({ orgId: this.rootOrdId }).subscribe({
       next: (response: any) => {
-        if (response.result && Array.isArray(response.result?.qrCodeDataForOrg) && response.result.qrCodeDataForOrg.length > 0) {
+        if (response.result && Array.isArray(response.result?.qrCodeDataForOrg) && response.result?.qrCodeDataForOrg.length > 0) {
           this.registeredLinksList = response.result.qrCodeDataForOrg
           this.latestRegisteredData = this.registeredLinksList[this.registeredLinksList.length - 1]
           this.selfRegistrationForm.get('startDate')?.setValue(new Date(this.latestRegisteredData.startDate))

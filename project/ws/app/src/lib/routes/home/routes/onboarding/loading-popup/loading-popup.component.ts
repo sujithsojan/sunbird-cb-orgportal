@@ -16,13 +16,13 @@ export class LoadingPopupComponent implements OnInit {
 
   confirmed() {
     let sendToParent: any = {}
-    if (this.data.type === 'import-igot-master-create') {
+    if (this.data?.type === 'import-igot-master-create') {
       sendToParent.startImporting = true
     }
-    else if (this.data.type === 'import-igot-master-review') {
+    else if (this.data?.type === 'import-igot-master-review') {
       sendToParent.reviewImporting = false
     }
-    else if (this.data.type === 'delete') {
+    else if (this.data?.type === 'delete') {
       sendToParent.isDelete = true
     }
     this.dialogRef.close(sendToParent)
@@ -30,14 +30,14 @@ export class LoadingPopupComponent implements OnInit {
 
   rejected() {
     let sendToParent: any = {}
-    if (this.data.type === 'import-igot-master-create') {
+    if (this.data?.type === 'import-igot-master-create') {
       sendToParent.close = true
     }
-    else if (this.data.type === 'import-igot-master-review') {
+    else if (this.data?.type === 'import-igot-master-review') {
       sendToParent.reviewImporting = true
 
     }
-    else if (this.data.type === 'delete') {
+    else if (this.data?.type === 'delete') {
       sendToParent.isDelete = false
     }
     this.dialogRef.close(sendToParent)
