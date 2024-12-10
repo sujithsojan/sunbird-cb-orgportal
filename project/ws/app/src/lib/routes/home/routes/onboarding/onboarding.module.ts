@@ -46,9 +46,8 @@ const routes: Routes = [
         path: 'self-registration',
         component: CustomSelfRegistrationComponent,
         data: {
-          pageId: 'home/onboarding/self-registration',
-          module: 'onboarding',
-          path: 'self-registration',
+          pageId: 'app/home/onboarding/self-registration',
+          module: 'Onboarding',
         },
       },
       {

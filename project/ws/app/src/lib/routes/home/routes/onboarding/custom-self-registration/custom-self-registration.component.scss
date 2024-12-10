@@ -59,6 +59,20 @@
   word-wrap: break-word;
 
   @media (max-width: 1380px) {
-    max-width: 410px;
+    max-width: 380px;
+  }
+}
+
+.mat-btn-outline {
+  @media (max-width: 1380px) {
+    padding: 8px 10px !important;
+  }
+}
+
+.actions-buttons {
+  justify-content: center;
+
+  @media (max-width: 1380px) {
+    justify-content: space-between;
   }
 }
