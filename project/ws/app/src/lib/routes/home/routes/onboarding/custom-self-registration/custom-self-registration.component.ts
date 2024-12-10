@@ -9,6 +9,7 @@ import { LoadingPopupComponent } from '../loading-popup/loading-popup.component'
 import { OnboardingService } from '../../../services/onboarding.service'
 import { DesignationsService } from '../../designation/services/designations.service'
 import _ from 'lodash'
+import { EventService } from '@sunbird-cb/utils'
 
 @Component({
   selector: 'ws-app-custom-self-registration',
@@ -38,6 +39,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
     private clipboard: Clipboard,
     private onboardingService: OnboardingService,
     private designationsService: DesignationsService,
+    private eventService: EventService
 
   ) { }
 
@@ -94,6 +96,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
   }
 
   downloadQRCode(qrLink: string) {
+    this.raiseInteractTelementry('download-qr')
     fetch(qrLink)
       .then(response => {
         if (!response.ok) {
@@ -115,6 +118,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
   }
 
   sendViaEmail(link: string): void {
+    this.raiseInteractTelementry('share-on-mail')
     if (!link) { return }
     const message = `Register for ${this.configSvc.orgReadData.orgName} by clicking the link below:\n\n${link + ' '}`
     const subject = encodeURIComponent('Self Registration Link')
@@ -124,6 +128,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
   }
 
   sendViaWhatsApp(link: string): void {
+    this.raiseInteractTelementry('share-on-whatsapp')
     const message = `Register for ${this.configSvc.orgReadData.orgName} by clicking the link below:\n\n${link + ' '}`
 
     const encodedLink = encodeURIComponent(message)
@@ -245,4 +250,17 @@ export class CustomSelfRegistrationComponent implements OnInit {
 
     })
   }
+
+  raiseInteractTelementry(subType: string) {
+    this.eventService.raiseInteractTelemetry(
+      {
+        type: 'click',
+        subType: subType,
+        id: 'share-custom-registration-link',
+        pageid: '/app/home/onboarding/self-registration'
+      },
+      {},
+    )
+  }
+
 }
