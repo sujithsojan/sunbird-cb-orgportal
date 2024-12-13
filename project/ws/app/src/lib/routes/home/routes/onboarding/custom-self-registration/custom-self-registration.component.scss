@@ -55,12 +55,10 @@
 }
 
 .break-word-link {
-  max-width: 470px;
   word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
 
-  @media (max-width: 1380px) {
-    max-width: 380px;
-  }
 }
 
 .mat-btn-outline {
