@@ -1,7 +1,8 @@
 export interface IOnBoardingConfig {
   featureInformation: {
     title: string
-    notesList: string[]
+    notesList: string[],
+    onBoardingVideo: string
   }
 }
 

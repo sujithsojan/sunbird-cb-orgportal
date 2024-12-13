@@ -5,6 +5,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { IOnBoardingConfig } from './interface/onboarding.interface'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'
 import { Subscription } from 'rxjs'
+import { environment } from '../../../../../../../../../src/environments/environment'
 
 @Component({
   selector: 'ws-app-onboarding',
@@ -53,14 +54,15 @@ export class OnboardingComponent implements OnInit, OnDestroy {
   }
 
   openVideoPopup(): void {
+    const url = `${environment.karmYogiPath}${this.onBoardingConfig?.featureInformation?.onBoardingVideo}`
+
     this.dialog.open(ReportsVideoComponent, {
       data: {
-        videoLink: 'https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1&mute=1',
+        videoLink: url,
       },
       disableClose: true,
-      width: '50%',
-      height: '60%',
-      panelClass: 'overflow-visable',
+      width: "675px",
+      height: "400px"
     })
   }
 

@@ -57,7 +57,7 @@
                     [disabled]="selfRegistrationForm?.invalid">Generate Link</button>
                 </ng-container>
                 <ng-container *ngIf="customRegistrationLinks">
-                  <button mat-flat-button class="mat-btn-outline" (click)="generateRegistrationLink()"
+                  <button mat-flat-button class="mat-btn-outline" (click)="publishNewLink()"
                     [disabled]="selfRegistrationForm?.invalid">Publish New
                     Link</button>
                 </ng-container>
@@ -91,7 +91,7 @@
               </div>
             </div>
 
-            <div class="actions-buttons flex gap-4 items-center mt-4">
+            <div class="actions-buttons flex gap-4 items-center mt-4 flex-wrap">
               <button mat-flat-button class="mat-btn-outline"
                 (click)="copyLinkToClipboard(customRegistrationLinks?.registrationLink)">Copy Link</button>
               <button mat-flat-button class="mat-btn-outline"
@@ -114,16 +114,16 @@
                 <img [src]="customRegistrationLinks?.qrRegistrationLink" alt="qr-scanner" width="115" height="115">
               </div>
               <div class="flex flex-column items-center justify-center gap-2">
-                <button mat-flat-button class="mat-btn-outline"
+                <button mat-flat-button class="mat-btn-outline w-full"
                   (click)="downloadQRCode(customRegistrationLinks?.qrRegistrationLink)">Download
                   QR</button>
-                <button mat-flat-button class="mat-btn-outline"
+                <button mat-flat-button class="mat-btn-outline w-full"
                   (click)="sendViaEmail(customRegistrationLinks?.qrRegistrationLink);">
                   <mat-icon class="mr-2"> email</mat-icon>
                   <span>Share on Mail</span>
                 </button>
 
-                <button mat-flat-button class="mat-btn-outline"
+                <button mat-flat-button class="mat-btn-outline w-full"
                   (click)="sendViaWhatsApp(customRegistrationLinks?.qrRegistrationLink)">
                   <img src="/assets/icons/whatsapp.svg" alt="icon" class="mr-2" width="24" height="24">
                   <span>Share on Whatsapp</span>
