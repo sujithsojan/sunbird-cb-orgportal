@@ -114,7 +114,7 @@
     overflow: hidden;
 }
 
-::ng-deep .mat-checkbox-label {
+:host ::ng-deep .mat-checkbox-label {
     width: 300px;
     white-space: pre-wrap;
 }
