@@ -26,7 +26,7 @@
     margin:26px 25px;
 }
 
-.filter-content {    
+.filter-content {
     padding: 18px 0px;
     margin: 0px 25px;
 }
@@ -97,7 +97,7 @@
 }
 
 .filter ::ng-deep .mat-expansion-panel-header {
-    height: 24px !important; 
+    height: 24px !important;
 }
 
 .spacer {
@@ -114,7 +114,7 @@
     overflow: hidden;
 }
 
-::ng-deep .mat-checkbox-label {
+:host ::ng-deep .mat-checkbox-label {
     width: 300px;
     white-space: pre-wrap;
 }
