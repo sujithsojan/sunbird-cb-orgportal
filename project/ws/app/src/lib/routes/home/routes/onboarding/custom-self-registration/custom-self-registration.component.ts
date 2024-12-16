@@ -120,7 +120,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
   sendViaEmail(link: string): void {
     this.raiseInteractTelementry('share-on-mail')
     if (!link) { return }
-    const message = `Register for ${this.configSvc.orgReadData.orgName} by clicking the link below:\n\n${link + ' '}`
+    const message = `Register for ${this.configSvc.orgReadData.orgName} by clicking the link below:\n\n${link}\n\n\n\n`
     const subject = encodeURIComponent('Self Registration Link')
     const body = encodeURIComponent(message)
     const mailtoLink = `mailto:?subject=${subject}&body=${body}`
@@ -129,7 +129,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
 
   sendViaWhatsApp(link: string): void {
     this.raiseInteractTelementry('share-on-whatsapp')
-    const message = `Register for ${this.configSvc.orgReadData.orgName} by clicking the link below:\n\n${link + ' '}`
+    const message = `Register for ${this.configSvc.orgReadData.orgName} by clicking the link below:\n\n${link}\n\n`
 
     const encodedLink = encodeURIComponent(message)
     const whatsappUrl = `https://api.whatsapp.com/send?text=${encodedLink} `
@@ -180,14 +180,14 @@ export class CustomSelfRegistrationComponent implements OnInit {
   }
 
   getQRCodePath(response: any) {
-    if (response && response.qrcodelogopath) {
-      return response.qrcodelogopath.replace('portal', 'mdo')
+    if (response && response.qrLogoPath) {
+      return response.qrLogoPath.replace('portal', 'mdo')
     }
     else if (response && response.qrRegistrationLink) {
       return response.qrRegistrationLink.replace('portal', 'mdo')
     }
-    else if (response && response.qrcodelogopath) {
-      return response.qrcodelogopath.replace('portal', 'mdo')
+    else if (response && response.qrLogoFilePath) {
+      return response.qrLogoFilePath.replace('portal', 'mdo')
     }
     else if (response && response.qrCodeImagePath) {
       return response.qrCodeImagePath.replace('portal', 'mdo')
@@ -256,7 +256,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
   subscribeToAfterClosedModal() {
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result.hasOwnProperty('reviewImporting') && result.reviewImporting) {
-        this.navigateTo('/app/home/org-designations')
+        this.navigateTo('/app/home/org-designations/import-designation')
       }
       else if (result && result.reviewImporting || result.startImporting) {
         this.navigateTo('/app/home/org-designations')
@@ -291,7 +291,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
 
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result.hasOwnProperty('reviewImporting') && result.reviewImporting) {
-        this.navigateTo('/app/home/org-designations')
+        this.navigateTo('/app/home/org-designations/import-designation')
       }
       else if (result && result.reviewImporting || result.startImporting) {
         this.navigateTo('/app/home/org-designations')
