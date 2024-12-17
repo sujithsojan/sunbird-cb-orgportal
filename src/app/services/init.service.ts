@@ -261,6 +261,7 @@ export class InitService {
 
   private async fetchStartUpDetails(): Promise<any> {
     // let userRoles: string[] = []
+    let apiResponse: any
     const checkSurvey = localStorage.getItem('surveyPopup')
     if (checkSurvey && checkSurvey === 'false') {
       localStorage.setItem('surveyPopup', 'false')
@@ -276,6 +277,7 @@ export class InitService {
           .pipe(map((res: any) => {
             // const roles = _.map(_.get(res, 'result.response.roles'), 'role')
             // _.set(res, 'result.response.roles', roles)
+            apiResponse = res
             return _.get(res, 'result.response')
           }))
           .toPromise()
@@ -359,7 +361,12 @@ export class InitService {
         } else {
           // this.authSvc.force_logout()
           // await this.http.get('/apis/reset').toPromise()
-          window.location.href = `${this.defaultRedirectUrl}apis/reset`
+          // window.location.href = `${this.defaultRedirectUrl}apis/reset`
+          if (apiResponse && apiResponse.redirectUrl) {
+            window.location.href = apiResponse.redirectUrl
+          } else {
+            window.location.href = `${this.defaultRedirectUrl}apis/reset`
+          }
         }
         const details = {
           group: [],
