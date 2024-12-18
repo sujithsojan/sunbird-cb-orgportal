@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { ReportsVideoComponent } from '../reports-video/reports-video.component'
-import { MatDialog } from '@angular/material/dialog'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router'
 import { IOnBoardingConfig } from './interface/onboarding.interface'
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser'

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { MatDialog } from '@angular/material/dialog'
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ICustomRegistrationQRCodeResponse, IOnBoardingConfig, IRegisteredLinksList } from '../interface/onboarding.interface'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
@@ -65,7 +65,8 @@ export class CustomSelfRegistrationComponent implements OnInit {
           this.selfRegistrationForm.get('endDate')?.setValue(new Date(this.latestRegisteredData.endDate))
           this.customRegistrationLinks = {
             registrationLink: this.latestRegisteredData.url,
-            qrRegistrationLink: this.getQRCodePath(this.latestRegisteredData)
+            qrRegistrationLink: this.latestRegisteredData.qrCodeImagePath?.replace('portal', 'mdo'),
+            qrRegistrationLogoPath: this.getQRCodePath(this.latestRegisteredData),
           }
           this.numberOfUsersOnboarded = this.latestRegisteredData.numberOfUsersOnboarded
         } else {
@@ -157,7 +158,8 @@ export class CustomSelfRegistrationComponent implements OnInit {
         if (response.result && Object.keys(response.result).length > 0 && response.responseCode === 'OK') {
           this.customRegistrationLinks = {
             registrationLink: response.result.registrationLink,
-            qrRegistrationLink: this.getQRCodePath(response.result)
+            qrRegistrationLink: response.result?.qrRegistrationLink.replace('portal', 'mdo'),
+            qrRegistrationLogoPath: response.result?.qrCodeLogoPath.replace('portal', 'mdo'),
           }
           this.latestRegisteredData.endDate = new Date(this.selfRegistrationForm.controls['endDate'].value)
           this.latestRegisteredData.startDate = new Date(this.selfRegistrationForm.controls['startDate'].value)
@@ -180,17 +182,17 @@ export class CustomSelfRegistrationComponent implements OnInit {
   }
 
   getQRCodePath(response: any) {
-    if (response && response.qrLogoPath) {
+    if (response && response?.qrLogoPath) {
       return response.qrLogoPath.replace('portal', 'mdo')
     }
-    else if (response && response.qrRegistrationLink) {
-      return response.qrRegistrationLink.replace('portal', 'mdo')
+    else if (response && response?.qrCodeLogoPath) {
+      return response.qrCodeLogoPath.replace('portal', 'mdo')
     }
-    else if (response && response.qrLogoFilePath) {
-      return response.qrLogoFilePath.replace('portal', 'mdo')
-    }
-    else if (response && response.qrCodeImagePath) {
+    else if (response && response?.qrCodeImagePath) {
       return response.qrCodeImagePath.replace('portal', 'mdo')
+    }
+    else if (response && response?.qrRegistrationLink) {
+      return response.qrRegistrationLink.replace('portal', 'mdo')
     }
   }
 
@@ -232,20 +234,18 @@ export class CustomSelfRegistrationComponent implements OnInit {
       this.dialogRef = this.dialog.open(LoadingPopupComponent, {
         autoFocus: false,
         width: '504px',
-        height: '270px',
+        height: '275px',
         maxWidth: '80vw',
         maxHeight: '90vh',
-        disableClose: true,
         data: { type: 'import-igot-master-review' },
       })
     } else {
       this.dialogRef = this.dialog.open(LoadingPopupComponent, {
         autoFocus: false,
         width: '504px',
-        height: '270px',
+        height: '275px',
         maxWidth: '80vw',
         maxHeight: '90vh',
-        disableClose: true,
         data: { type: 'import-igot-master-create' }
       })
     }
@@ -255,10 +255,10 @@ export class CustomSelfRegistrationComponent implements OnInit {
 
   subscribeToAfterClosedModal() {
     this.dialogRef.afterClosed().subscribe((result: any) => {
-      if (result && result.hasOwnProperty('reviewImporting') && result.reviewImporting) {
+      if (result && result.hasOwnProperty('reviewImporting') && result?.reviewImporting) {
         this.navigateTo('/app/home/org-designations/import-designation')
       }
-      else if (result && result.reviewImporting || result.startImporting) {
+      else if (result && result.reviewImporting || result?.startImporting) {
         this.navigateTo('/app/home/org-designations')
       }
       else return
@@ -282,18 +282,17 @@ export class CustomSelfRegistrationComponent implements OnInit {
     this.dialogRef = this.dialog.open(LoadingPopupComponent, {
       autoFocus: false,
       width: '504px',
-      height: '270px',
+      height: '275px',
       maxWidth: '80vw',
       maxHeight: '90vh',
-      disableClose: true,
       data: { type: 'import-igot-master-review' },
     })
 
     this.dialogRef.afterClosed().subscribe((result: any) => {
-      if (result && result.hasOwnProperty('reviewImporting') && result.reviewImporting) {
+      if (result && result.hasOwnProperty('reviewImporting') && result?.reviewImporting) {
         this.navigateTo('/app/home/org-designations/import-designation')
       }
-      else if (result && result.reviewImporting || result.startImporting) {
+      else if (result && result.reviewImporting || result?.startImporting) {
         this.navigateTo('/app/home/org-designations')
       }
       else this.generateRegistrationLink()
