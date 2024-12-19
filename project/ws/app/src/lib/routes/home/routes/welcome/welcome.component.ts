@@ -10,6 +10,17 @@ import { dashboardEmptyData } from '../../../../../../../../../src/mdo-assets/da
 import { Router } from '@angular/router'
 import { EventService } from '@sunbird-cb/utils'
 import { TelemetryEvents } from '../../../../head/_services/telemetry.event.model'
+import { HttpClient } from '@angular/common/http'
+import { map } from 'rxjs/internal/operators/map'
+import { DomSanitizer } from '@angular/platform-browser'
+const endpoint = {
+  profilePid: '/apis/proxies/v8/api/user/v2/read',
+  orgRead: '/apis/proxies/v8/org/v1/read',
+  lookerProDashboard: 'apis/proxies/v8/looker/dashboard',
+  // profileV2: '/apis/protected/v8/user/profileRegistry/getUserRegistryById',
+  // details: `/apis/protected/v8/user/details?ts=${Date.now()}`,
+  orgProfile: (orgId: string) => `/apis/proxies/v8/org/v1/profile/read?orgId=${orgId}`,
+}
 @Component({
   selector: 'ws-app-welcome',
   templateUrl: './welcome.component.html',
@@ -40,12 +51,15 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   currentDashboard: any = []
   dashboardEmpty = dashboardEmptyData
-
+  lookerDashboardDetail: any
+  userData: any
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private homeResolver: ProfileV2Service,
     private router: Router,
-    private events: EventService) {
+    private events: EventService,
+    private http: HttpClient,
+    private domSanitizer: DomSanitizer) {
   }
   filterR(type: string) {
     this.resolutionFilter = type
@@ -60,6 +74,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getUserDetails()
     // this.fetchRoles()
     this.selectDashbord()
+    this.getUserProfileDetail()
   }
 
   selectDashbord() {
@@ -178,5 +193,40 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.currentDashboard = []
       this.currentDashboard.push(this.dashboardEmpty)
     }
+  }
+
+  async getUserProfileDetail() {
+    this.userData = await this.http
+      .get<any>(endpoint.profilePid)
+      .pipe(map((res: any) => {
+        // const roles = _.map(_.get(res, 'result.response.roles'), 'role')
+        // _.set(res, 'result.response.roles', roles)
+        return _.get(res, 'result.response')
+      }))
+      .toPromise()
+    if (this.userData) {
+      /* tslint:disable */
+      console.log('userData', "rootOrgId", this.userData.rootOrgId, "userId", this.userData.userId)
+      /* tslint:enable */
+    }
+  }
+
+  showDashboard() {
+    this.lookerDashboardDetail = ''
+    let userId = ''
+    if (this.userData && this.userData.rootOrgId === '01359132123730739281') {
+      userId = 'c32ced54-14bc-4750-bed0-b335e4d0bc0e'
+    } else if (this.userData && this.userData.rootOrgId === '01376822290813747263') {
+      userId = '91d6d08a-8c23-4cc4-9e59-652fd292d426'
+    }
+    let embedUrl = '%2Fembed%2Fdashboards%2F7'
+    let url = `${endpoint.lookerProDashboard}?externalUserId=${userId}&embedUrl=${embedUrl}`
+    this.http.get<any>(url).subscribe((data) => {
+
+      if (data && data.signedUrl) {
+        this.lookerDashboardDetail = this.domSanitizer.bypassSecurityTrustResourceUrl(data.signedUrl)
+      }
+    })
+
   }
 }

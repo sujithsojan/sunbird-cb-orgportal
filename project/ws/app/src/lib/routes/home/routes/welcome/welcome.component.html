@@ -25,10 +25,18 @@
             (click)="viewmdoinfo('budget')">
             Budget allocation details
           </button>
+          <button type="button" mat-button class="allocation-btn mat-accent-border margin-right-s"
+            (click)="showDashboard()">
+            Show Dashboard
+          </button>
         </div>
       </div>
     </div>
-
+    <mat-card-content>
+      <div *ngIf="lookerDashboardDetail">
+        <iframe [src]="lookerDashboardDetail" style="width: calc(100vw - 320px) ; height: 100vh;"></iframe>
+      </div>
+    </mat-card-content>
     <!-- <ng-container [wsResolverWidget]="sliderData1"></ng-container> -->
     <mat-card-content>
       <div class="flex flex-1 flex-column margin-top-l">
