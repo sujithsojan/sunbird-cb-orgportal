@@ -846,8 +846,9 @@ h3.shepherd-title {
   border-color: #1b4ca1 !important;
 }
 
-.mat-mdc-dialog-container .mdc-dialog__surface {
+.mat-mdc-dialog-container .mdc-dialog__surface,
+.mat-dialog-container {
   border-radius: 8px !important;
   box-shadow: 0px 8px 24px 0px #0000003d !important;
-  padding: 0 24px;
+  padding: 0 24px !important;
 }
