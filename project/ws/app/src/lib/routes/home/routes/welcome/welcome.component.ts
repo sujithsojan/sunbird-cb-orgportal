@@ -219,9 +219,9 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     } else if (this.userData && this.userData.rootOrgId === '01376822290813747263') {
       userId = '91d6d08a-8c23-4cc4-9e59-652fd292d426'
     }
-    let embedUrl = '%2Fembed%2Fdashboards%2F7'
-    let url = `${endpoint.lookerProDashboard}?externalUserId=${userId}&embedUrl=${embedUrl}`
-    this.http.get<any>(url).subscribe((data) => {
+    const embedUrl = '%2Fembed%2Fdashboards%2F7'
+    const url = `${endpoint.lookerProDashboard}?externalUserId=${userId}&embedUrl=${embedUrl}`
+    this.http.get<any>(url).subscribe(data => {
 
       if (data && data.signedUrl) {
         this.lookerDashboardDetail = this.domSanitizer.bypassSecurityTrustResourceUrl(data.signedUrl)
