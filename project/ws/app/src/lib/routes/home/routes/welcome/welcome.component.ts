@@ -12,7 +12,6 @@ import { EventService } from '@sunbird-cb/utils'
 import { TelemetryEvents } from '../../../../head/_services/telemetry.event.model'
 import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/internal/operators/map'
-import { DomSanitizer } from '@angular/platform-browser'
 const endpoint = {
   profilePid: '/apis/proxies/v8/api/user/v2/read',
   orgRead: '/apis/proxies/v8/org/v1/read',
@@ -58,8 +57,8 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     private homeResolver: ProfileV2Service,
     private router: Router,
     private events: EventService,
-    private http: HttpClient,
-    private domSanitizer: DomSanitizer) {
+    private http: HttpClient
+  ) {
   }
   filterR(type: string) {
     this.resolutionFilter = type
@@ -211,22 +210,5 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  showDashboard() {
-    this.lookerDashboardDetail = ''
-    let userId = ''
-    if (this.userData && this.userData.rootOrgId === '01359132123730739281') {
-      userId = 'c32ced54-14bc-4750-bed0-b335e4d0bc0e'
-    } else if (this.userData && this.userData.rootOrgId === '01376822290813747263') {
-      userId = '91d6d08a-8c23-4cc4-9e59-652fd292d426'
-    }
-    const embedUrl = '%2Fembed%2Fdashboards%2F7'
-    const url = `${endpoint.lookerProDashboard}?externalUserId=${userId}&embedUrl=${embedUrl}`
-    this.http.get<any>(url).subscribe(data => {
 
-      if (data && data.signedUrl) {
-        this.lookerDashboardDetail = this.domSanitizer.bypassSecurityTrustResourceUrl(data.signedUrl)
-      }
-    })
-
-  }
 }

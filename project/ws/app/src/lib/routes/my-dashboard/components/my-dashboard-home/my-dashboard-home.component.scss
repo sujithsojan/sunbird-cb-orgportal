@@ -13,3 +13,45 @@
 .height {
   height: -webkit-fill-available;
 }
+
+@media (min-width: 1850px)  {
+.looker-dashboard {
+  width:98vw ;
+  height: 100vh;
+}
+}
+
+@media (min-width: 1848px) and (max-width: 1848px) {
+.looker-dashboard {
+  width:98vw ;
+  height: 225vh;
+}
+}
+
+@media (min-width: 1680px) and (max-width: 1680px) {
+.looker-dashboard {
+  width:98vw ;
+  height: 250vh;
+}
+}
+
+@media (min-width: 1233px) and (max-width: 1600px)  {
+.looker-dashboard {
+  width:98vw ;
+  height: 300vh;
+}
+}
+
+@media (min-width: 1200px) and (max-width: 1232px)  {
+.looker-dashboard {
+  width:98vw ;
+  height: 350vh;
+}
+}
+
+@media (min-width: 1056px) and (max-width: 1056px)  {
+.looker-dashboard {
+  width:98vw ;
+  height: 375vh;
+}
+}
