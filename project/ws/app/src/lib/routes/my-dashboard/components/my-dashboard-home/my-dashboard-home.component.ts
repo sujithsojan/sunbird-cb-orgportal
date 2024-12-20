@@ -5,12 +5,12 @@ import { mapFilePath, dashboardEmptyData } from '../../../../../../../../../src/
 import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/internal/operators/map'
 
-import _ from 'lodash'
+import lodash from 'lodash'
 import { CreateMDOService } from '../../../../head/work-allocation-table/create-mdo.services'
 const endpoint = {
   profilePid: '/apis/proxies/v8/api/user/v2/read',
   orgRead: '/apis/proxies/v8/org/v1/read',
-  lookerProDashboard: 'apis/proxies/v8/looker/dashboard'
+  lookerProDashboard: 'apis/proxies/v8/looker/dashboard',
 }
 @Component({
   selector: 'ws-app-my-dashboard-home',
@@ -23,7 +23,7 @@ const endpoint = {
 export class MyDashboardHomeComponent implements OnInit {
 
   constructor(private router: Router, private configSvc: ConfigurationsService, private http: HttpClient,
-    private mdoService: CreateMDOService) { }
+              private mdoService: CreateMDOService) { }
   pageNavbar: Partial<NsPage.INavBackground> = this.configSvc.pageNavBar
   getDashboardForKM =
     '/apis/proxies/v8/dashboard/analytics/getDashboardConfig/Karmayogi'
@@ -89,16 +89,17 @@ export class MyDashboardHomeComponent implements OnInit {
     } else if (this.userData && this.userData.rootOrgId === '01376822290813747263') {
       userId = '91d6d08a-8c23-4cc4-9e59-652fd292d426'
     }
-    let requestPayload = {
-      "request": {
-        "embedUrl": '/embed/dashboards/7',
-        "sessionLengthInSec": 900,
-        "userAttributes": {
-          "roles": this.userData.roles,
-          "orgId": this.userData.rootOrgId,
-          "userId": userId
-        }
-      }
+    /* tslint:disable */
+    const requestPayload = {
+      request: {
+        embedUrl: '/embed/dashboards/7',
+        sessionLengthInSec: 900,
+        userAttributes: {
+          roles: this.userData.roles,
+          orgId: this.userData.rootOrgId,
+          userId,
+        },
+      },
     }
     const url = `${endpoint.lookerProDashboard}`
     this.mdoService.getDashboardData(url, requestPayload).subscribe(data => {
@@ -109,9 +110,9 @@ export class MyDashboardHomeComponent implements OnInit {
         this.reloadIframeWithNewUser()
       }
     })
+    /* tslint:enable */
 
   }
-
 
   // Function to reload the iframe with a new URL for a new user
   reloadIframeWithNewUser() {
