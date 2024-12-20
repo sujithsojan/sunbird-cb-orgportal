@@ -4,8 +4,9 @@ import { ConfigurationsService, NsPage } from '@sunbird-cb/utils'
 import { mapFilePath, dashboardEmptyData } from '../../../../../../../../../src/mdo-assets/data/data'
 import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/internal/operators/map'
-
+/* tslint:disable */
 import _ from 'lodash'
+/* tslint:enable */
 import { CreateMDOService } from '../../../../head/work-allocation-table/create-mdo.services'
 const endpoint = {
   profilePid: '/apis/proxies/v8/api/user/v2/read',
@@ -23,7 +24,7 @@ const endpoint = {
 export class MyDashboardHomeComponent implements OnInit {
 
   constructor(private router: Router, private configSvc: ConfigurationsService, private http: HttpClient,
-    private mdoService: CreateMDOService) { }
+              private mdoService: CreateMDOService) { }
   pageNavbar: Partial<NsPage.INavBackground> = this.configSvc.pageNavBar
   getDashboardForKM =
     '/apis/proxies/v8/dashboard/analytics/getDashboardConfig/Karmayogi'
