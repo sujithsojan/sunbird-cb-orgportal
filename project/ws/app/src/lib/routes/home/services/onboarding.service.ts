@@ -11,6 +11,7 @@ const API_END_POINTS = {
   providedIn: 'root',
 })
 export class OnboardingService {
+  public routeFromSelfRegistration: boolean = false
 
   constructor(private http: HttpClient) { }
 
@@ -20,5 +21,9 @@ export class OnboardingService {
 
   getListOfRegisteedLinks(request: any) {
     return this.http.post<any>(`${API_END_POINTS.REGISTERED_LINKS_LIST}`, request)
+  }
+
+  setFlagToCheckRoute(flag: boolean) {
+    this.routeFromSelfRegistration = flag
   }
 }
