@@ -8,7 +8,7 @@
   </div>
 </div> -->
 
-<div class="dialog-container">
+<div class="dialog-container pt-4">
   <ng-container [ngSwitch]="dialogDetails.dialogType">
     <!-- <ng-container *ngSwitchCase="'success'">
       <div class="flex justify-center items-center mb-4">
@@ -49,7 +49,7 @@
     </ng-container>
   </ng-container>
 </div>
-<div class="px2 footer flex w-full gap-2" [ngClass]="dialogDetails.footerClass">
+<div class="px2 footer flex w-full gap-2 pb-4" [ngClass]="dialogDetails.footerClass">
   <ng-container *ngFor="let btn of dialogDetails?.buttons">
     <button mat-raised-button (click)="closePopup(btn.response)" [ngClass]="btn.btnClass">{{btn.btnText}}</button>
   </ng-container>

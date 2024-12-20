@@ -238,6 +238,7 @@ export class CustomSelfRegistrationComponent implements OnInit {
         maxWidth: '80vw',
         maxHeight: '90vh',
         data: { type: 'import-igot-master-review' },
+        disableClose: true
       })
     } else {
       this.dialogRef = this.dialog.open(LoadingPopupComponent, {
@@ -246,7 +247,8 @@ export class CustomSelfRegistrationComponent implements OnInit {
         height: '275px',
         maxWidth: '80vw',
         maxHeight: '90vh',
-        data: { type: 'import-igot-master-create' }
+        data: { type: 'import-igot-master-create' },
+        disableClose: true
       })
     }
     this.subscribeToAfterClosedModal()
@@ -256,9 +258,11 @@ export class CustomSelfRegistrationComponent implements OnInit {
   subscribeToAfterClosedModal() {
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result.hasOwnProperty('reviewImporting') && result?.reviewImporting) {
-        this.navigateTo('/app/home/org-designations/import-designation')
+        this.onboardingService.setFlagToCheckRoute(true)
+        this.navigateTo('/app/home/org-designations')
       }
       else if (result && result.reviewImporting || result?.startImporting) {
+        this.onboardingService.setFlagToCheckRoute(true)
         this.navigateTo('/app/home/org-designations')
       }
       else return
@@ -286,13 +290,16 @@ export class CustomSelfRegistrationComponent implements OnInit {
       maxWidth: '80vw',
       maxHeight: '90vh',
       data: { type: 'import-igot-master-review' },
+      disableClose: true,
     })
 
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result && result.hasOwnProperty('reviewImporting') && result?.reviewImporting) {
-        this.navigateTo('/app/home/org-designations/import-designation')
+        this.onboardingService.setFlagToCheckRoute(true)
+        this.navigateTo('/app/home/org-designations')
       }
       else if (result && result.reviewImporting || result?.startImporting) {
+        this.onboardingService.setFlagToCheckRoute(true)
         this.navigateTo('/app/home/org-designations')
       }
       else this.generateRegistrationLink()
