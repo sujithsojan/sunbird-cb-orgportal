@@ -5,7 +5,7 @@ import { mapFilePath, dashboardEmptyData } from '../../../../../../../../../src/
 import { HttpClient } from '@angular/common/http'
 import { map } from 'rxjs/internal/operators/map'
 
-import lodash from 'lodash'
+import _ from 'lodash'
 import { CreateMDOService } from '../../../../head/work-allocation-table/create-mdo.services'
 const endpoint = {
   profilePid: '/apis/proxies/v8/api/user/v2/read',
@@ -23,7 +23,7 @@ const endpoint = {
 export class MyDashboardHomeComponent implements OnInit {
 
   constructor(private router: Router, private configSvc: ConfigurationsService, private http: HttpClient,
-              private mdoService: CreateMDOService) { }
+    private mdoService: CreateMDOService) { }
   pageNavbar: Partial<NsPage.INavBackground> = this.configSvc.pageNavBar
   getDashboardForKM =
     '/apis/proxies/v8/dashboard/analytics/getDashboardConfig/Karmayogi'
