@@ -1,6 +1,6 @@
 
 import { DOCUMENT } from '@angular/common'
-import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core'
 /* tslint:disable */
 import _ from 'lodash'
 import { environment } from '../../../../../../../../../src/environments/environment'
@@ -10,16 +10,6 @@ import { dashboardEmptyData } from '../../../../../../../../../src/mdo-assets/da
 import { Router } from '@angular/router'
 import { EventService } from '@sunbird-cb/utils'
 import { TelemetryEvents } from '../../../../head/_services/telemetry.event.model'
-import { HttpClient } from '@angular/common/http'
-import { map } from 'rxjs/internal/operators/map'
-const endpoint = {
-  profilePid: '/apis/proxies/v8/api/user/v2/read',
-  orgRead: '/apis/proxies/v8/org/v1/read',
-  lookerProDashboard: 'apis/proxies/v8/looker/dashboard',
-  // profileV2: '/apis/protected/v8/user/profileRegistry/getUserRegistryById',
-  // details: `/apis/protected/v8/user/details?ts=${Date.now()}`,
-  orgProfile: (orgId: string) => `/apis/proxies/v8/org/v1/profile/read?orgId=${orgId}`,
-}
 @Component({
   selector: 'ws-app-welcome',
   templateUrl: './welcome.component.html',
@@ -52,12 +42,12 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   dashboardEmpty = dashboardEmptyData
   lookerDashboardDetail: any
   userData: any
+  @ViewChild('lookerIframe', { static: false }) lookerIframe!: ElementRef
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private homeResolver: ProfileV2Service,
     private router: Router,
-    private events: EventService,
-    private http: HttpClient
+    private events: EventService
   ) {
   }
   filterR(type: string) {
@@ -73,7 +63,6 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.getUserDetails()
     // this.fetchRoles()
     this.selectDashbord()
-    this.getUserProfileDetail()
   }
 
   selectDashbord() {
@@ -194,20 +183,6 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  async getUserProfileDetail() {
-    this.userData = await this.http
-      .get<any>(endpoint.profilePid)
-      .pipe(map((res: any) => {
-        // const roles = _.map(_.get(res, 'result.response.roles'), 'role')
-        // _.set(res, 'result.response.roles', roles)
-        return _.get(res, 'result.response')
-      }))
-      .toPromise()
-    if (this.userData) {
-      /* tslint:disable */
-      console.log('userData', "rootOrgId", this.userData.rootOrgId, "userId", this.userData.userId)
-      /* tslint:enable */
-    }
-  }
+
 
 }

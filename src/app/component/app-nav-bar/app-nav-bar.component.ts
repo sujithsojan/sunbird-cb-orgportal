@@ -149,4 +149,9 @@ export class AppNavBarComponent implements OnInit, OnChanges {
     }
 
   }
+
+  showDashboard() {
+    this.router.navigateByUrl('app/my-dashboard-temp/temp')
+  }
 }
+

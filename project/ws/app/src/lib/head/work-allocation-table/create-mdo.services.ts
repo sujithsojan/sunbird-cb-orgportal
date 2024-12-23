@@ -56,7 +56,6 @@ export class CreateMDOService {
 
   getDashboardData(url: string, payload: any): Observable<any> {
     return this.http.post<any>(`${url}`, payload)
-
   }
 
 }

@@ -33,9 +33,11 @@ const routes: Routes = [
     canActivate: [EmptyRouteGuard],
     component: LoginRootComponent,
   },
-  { path: 'practice/behavioral',
+  {
+    path: 'practice/behavioral',
     pathMatch: 'full',
-    redirectTo: 'page/embed-behavioural-skills' },
+    redirectTo: 'page/embed-behavioural-skills'
+  },
   {
     path: 'app/home',
     loadChildren: () => import('./routes/route-home.module').then(u => u.RouteHomeAppModule),
@@ -140,6 +142,12 @@ const routes: Routes = [
   },
   {
     path: 'app/my-dashboard',
+    loadChildren: () =>
+      import('./routes/route-my-dashboard.module').then(u => u.RouteMyDashboardModule),
+    // canActivate: [GeneralGuard, LearningGuard],
+  },
+  {
+    path: 'app/my-dashboard-temp',
     loadChildren: () =>
       import('./routes/route-my-dashboard.module').then(u => u.RouteMyDashboardModule),
     // canActivate: [GeneralGuard, LearningGuard],
@@ -399,13 +407,13 @@ const routes: Routes = [
     PageModule,
     FeaturesModule,
     RouterModule.forRoot(routes, {
-    anchorScrolling: 'enabled',
-    scrollPositionRestoration: 'top',
-    urlUpdateStrategy: 'eager',
-    onSameUrlNavigation: 'reload',
-    scrollOffset: [0, 80],
-    relativeLinkResolution: 'legacy',
-}),
+      anchorScrolling: 'enabled',
+      scrollPositionRestoration: 'top',
+      urlUpdateStrategy: 'eager',
+      onSameUrlNavigation: 'reload',
+      scrollOffset: [0, 80],
+      relativeLinkResolution: 'legacy',
+    }),
   ],
   exports: [RouterModule],
   providers: [ExploreDetailResolve],
