@@ -40,8 +40,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   currentDashboard: any = []
   dashboardEmpty = dashboardEmptyData
-  lookerDashboardDetail: any
-  userData: any
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private homeResolver: ProfileV2Service,
