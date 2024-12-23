@@ -329,3 +329,7 @@ a:not([href]):not([tabindex]) {
   border: 0;
   box-shadow: none !important;
 }
+
+.video_icon.mat-icon {
+  overflow: visible !important;
+}
