@@ -45,8 +45,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     @Inject(DOCUMENT) private document: Document,
     private homeResolver: ProfileV2Service,
     private router: Router,
-    private events: EventService
-  ) {
+    private events: EventService) {
   }
   filterR(type: string) {
     this.resolutionFilter = type
