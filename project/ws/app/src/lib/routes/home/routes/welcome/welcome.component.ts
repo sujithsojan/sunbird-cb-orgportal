@@ -1,6 +1,6 @@
 
 import { DOCUMENT } from '@angular/common'
-import { AfterViewInit, Component, ElementRef, Inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core'
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core'
 /* tslint:disable */
 import _ from 'lodash'
 import { environment } from '../../../../../../../../../src/environments/environment'
@@ -42,7 +42,6 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
   dashboardEmpty = dashboardEmptyData
   lookerDashboardDetail: any
   userData: any
-  @ViewChild('lookerIframe', { static: false }) lookerIframe!: ElementRef
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private homeResolver: ProfileV2Service,
@@ -182,5 +181,4 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
       this.currentDashboard.push(this.dashboardEmpty)
     }
   }
-
 }
