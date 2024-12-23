@@ -154,4 +154,3 @@ export class AppNavBarComponent implements OnInit, OnChanges {
     this.router.navigateByUrl('app/my-dashboard-temp/temp')
   }
 }
-

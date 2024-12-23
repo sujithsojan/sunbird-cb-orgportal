@@ -36,7 +36,7 @@ const routes: Routes = [
   {
     path: 'practice/behavioral',
     pathMatch: 'full',
-    redirectTo: 'page/embed-behavioural-skills'
+    redirectTo: 'page/embed-behavioural-skills',
   },
   {
     path: 'app/home',

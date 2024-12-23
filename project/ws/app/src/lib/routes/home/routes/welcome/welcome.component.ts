@@ -183,6 +183,4 @@ export class WelcomeComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-
-
 }

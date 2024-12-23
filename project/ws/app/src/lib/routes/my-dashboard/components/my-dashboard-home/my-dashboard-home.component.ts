@@ -24,7 +24,7 @@ const endpoint = {
 export class MyDashboardHomeComponent implements OnInit {
 
   constructor(private router: Router, private configSvc: ConfigurationsService, private http: HttpClient,
-    private mdoService: CreateMDOService) { }
+              private mdoService: CreateMDOService) { }
   pageNavbar: Partial<NsPage.INavBackground> = this.configSvc.pageNavBar
   getDashboardForKM =
     '/apis/proxies/v8/dashboard/analytics/getDashboardConfig/Karmayogi'
@@ -132,11 +132,9 @@ export class MyDashboardHomeComponent implements OnInit {
 
   }
 
-
-
   showDashboard() {
     this.lookerDashboardDetail = ''
-    let userId = this.userData.userId
+    const userId = this.userData.userId
     // if (this.userData && this.userData.rootOrgId === '01359132123730739281') {
     //   userId = 'c32ced54-14bc-4750-bed0-b335e4d0bc0e'
     // } else if (this.userData && this.userData.rootOrgId === '01376822290813747263') {
