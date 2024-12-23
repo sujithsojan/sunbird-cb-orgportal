@@ -148,3 +148,7 @@
   pointer-events: none;
   cursor: none;
 }
+
+::ng-deep .stepper .mat-tab-header {
+    border-bottom: none !important;
+}

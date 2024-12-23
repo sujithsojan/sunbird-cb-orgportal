@@ -135,11 +135,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   checked = false
   currentUserStatus = ''
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-              private dialog: MatDialog, private approvalSvc: ApprovalsService,
-              private route: ActivatedRoute, private snackBar: MatSnackBar,
-              private events: EventService,
-              private datePipe: DatePipe,
-              private cdr: ChangeDetectorRef) {
+    private dialog: MatDialog, private approvalSvc: ApprovalsService,
+    private route: ActivatedRoute, private snackBar: MatSnackBar,
+    private events: EventService,
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new UntypedFormGroup({
       designation: new UntypedFormControl('', []),
       group: new UntypedFormControl('', [Validators.required]),
@@ -430,7 +430,10 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
     return result
   }
 
-  onEditUser(user: any, pnael: any) {
+  onEditUser(user: any, pnael: any, event: any) {
+    if (event) {
+      event.stopPropagation()
+    }
     let userval = user
     this.usersSvc.getUserById(user.userId).subscribe((res: any) => {
       if (res) {
@@ -993,7 +996,10 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
       })
   }
 
-  confirmReassign(template: any, user: any) {
+  confirmReassign(template: any, user: any, event: any) {
+    if (event) {
+      event.stopPropagation()
+    }
     const dialog = this.dialog.open(template, {
       width: '500px',
     })
