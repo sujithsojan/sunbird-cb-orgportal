@@ -50,8 +50,8 @@ export class MyDashboardHomeComponent implements OnInit {
       this.showLookerProDashboard = true
       this.getUserProfileDetail()
     } else if (this.selectedDashboardId === '') {
-      // this.showLookerProDashboard = true
-      // this.getUserProfileTempDetail()
+      this.showLookerProDashboard = true
+      this.getUserProfileTempDetail()
       this.currentDashboard = []
       this.currentDashboard.push(this.dashboardEmpty)
     }
