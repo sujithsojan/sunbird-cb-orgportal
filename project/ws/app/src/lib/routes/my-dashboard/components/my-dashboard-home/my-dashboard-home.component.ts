@@ -47,11 +47,11 @@ export class MyDashboardHomeComponent implements OnInit {
   @ViewChild('lookerIframe', { static: false }) lookerIframe!: ElementRef
   ngOnInit() {
     if (this.router.url.includes('/app/my-dashboard-temp/temp')) {
+      // this.showLookerProDashboard = true
+      // this.getUserProfileDetail()
+    } else if (this.selectedDashboardId === '') {
       this.showLookerProDashboard = true
       this.getUserProfileDetail()
-    } else if (this.selectedDashboardId === '') {
-      // this.showLookerProDashboard = true
-      // this.getUserProfileTempDetail()
       this.currentDashboard = []
       this.currentDashboard.push(this.dashboardEmpty)
     }
@@ -149,6 +149,7 @@ export class MyDashboardHomeComponent implements OnInit {
           roles: this.userData.roles,
           orgId: this.userData.rootOrgId,
           userId,
+          name: this.userData && this.userData.firstName ? this.userData.firstName : ''
         },
       },
     }
