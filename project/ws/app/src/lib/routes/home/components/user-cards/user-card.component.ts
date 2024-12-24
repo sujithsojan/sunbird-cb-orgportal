@@ -430,10 +430,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
     return result
   }
 
-  onEditUser(user: any, pnael: any, event: any) {
-    if (event) {
-      event.stopPropagation()
-    }
+  onEditUser(user: any, pnael: any) {
     let userval = user
     this.usersSvc.getUserById(user.userId).subscribe((res: any) => {
       if (res) {
@@ -996,10 +993,8 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
       })
   }
 
-  confirmReassign(template: any, user: any, event: any) {
-    if (event) {
-      event.stopPropagation()
-    }
+  confirmReassign(template: any, user: any) {
+
     const dialog = this.dialog.open(template, {
       width: '500px',
     })
