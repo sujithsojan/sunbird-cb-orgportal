@@ -24,7 +24,7 @@ const endpoint = {
 export class MyDashboardHomeComponent implements OnInit {
 
   constructor(private router: Router, private configSvc: ConfigurationsService, private http: HttpClient,
-    private mdoService: CreateMDOService) { }
+              private mdoService: CreateMDOService) { }
   pageNavbar: Partial<NsPage.INavBackground> = this.configSvc.pageNavBar
   getDashboardForKM =
     '/apis/proxies/v8/dashboard/analytics/getDashboardConfig/Karmayogi'
@@ -50,8 +50,6 @@ export class MyDashboardHomeComponent implements OnInit {
     //   // this.showLookerProDashboard = true
     //   // this.getUserProfileDetail()
     // } else if (this.selectedDashboardId === '') {
-
-
 
     // }
     this.getUserProfileDetail()
@@ -79,8 +77,8 @@ export class MyDashboardHomeComponent implements OnInit {
       .toPromise()
     if (this.userData) {
       if (this.userData && this.userData.roles &&
-        (this.userData.roles.indexOf("MDO_LEADER") > -1) ||
-        (this.userData.roles.indexOf("mdo_leader") > -1)
+        (this.userData.roles.indexOf('MDO_LEADER') > -1) ||
+        (this.userData.roles.indexOf('mdo_leader') > -1)
       ) {
         this.showLookerProDashboard = true
         this.showDashboard()
