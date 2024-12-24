@@ -24,7 +24,7 @@ const endpoint = {
 export class MyDashboardHomeComponent implements OnInit {
 
   constructor(private router: Router, private configSvc: ConfigurationsService, private http: HttpClient,
-              private mdoService: CreateMDOService) { }
+    private mdoService: CreateMDOService) { }
   pageNavbar: Partial<NsPage.INavBackground> = this.configSvc.pageNavBar
   getDashboardForKM =
     '/apis/proxies/v8/dashboard/analytics/getDashboardConfig/Karmayogi'
@@ -144,12 +144,11 @@ export class MyDashboardHomeComponent implements OnInit {
     const requestPayload = {
       request: {
         embedUrl: '/embed/dashboards/7',
-        sessionLengthInSec: 900,
         userAttributes: {
           roles: this.userData.roles,
           orgId: this.userData.rootOrgId,
           userId,
-          name: this.userData && this.userData.firstName ? this.userData.firstName : ''
+          firstName: this.userData && this.userData.firstName ? this.userData.firstName : userId
         },
       },
     }
