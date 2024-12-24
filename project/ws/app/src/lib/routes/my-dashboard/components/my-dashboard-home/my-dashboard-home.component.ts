@@ -24,7 +24,7 @@ const endpoint = {
 export class MyDashboardHomeComponent implements OnInit {
 
   constructor(private router: Router, private configSvc: ConfigurationsService, private http: HttpClient,
-    private mdoService: CreateMDOService) { }
+              private mdoService: CreateMDOService) { }
   pageNavbar: Partial<NsPage.INavBackground> = this.configSvc.pageNavBar
   getDashboardForKM =
     '/apis/proxies/v8/dashboard/analytics/getDashboardConfig/Karmayogi'
@@ -46,16 +46,13 @@ export class MyDashboardHomeComponent implements OnInit {
   showLookerProDashboard = false
   @ViewChild('lookerIframe', { static: false }) lookerIframe!: ElementRef
   ngOnInit() {
-    if (this.router.url.includes('/app/my-dashboard-temp/temp')) {
-      // this.showLookerProDashboard = true
-      // this.getUserProfileDetail()
-    } else if (this.selectedDashboardId === '') {
-      this.showLookerProDashboard = true
-      this.getUserProfileDetail()
-      this.currentDashboard = []
-      this.currentDashboard.push(this.dashboardEmpty)
-    }
+    // if (this.router.url.includes('/app/my-dashboard-temp/temp')) {
+    //   // this.showLookerProDashboard = true
+    //   // this.getUserProfileDetail()
+    // } else if (this.selectedDashboardId === '') {
 
+    // }
+    this.getUserProfileDetail()
   }
 
   getDashboardId(value: string) {
@@ -79,7 +76,17 @@ export class MyDashboardHomeComponent implements OnInit {
       }))
       .toPromise()
     if (this.userData) {
-      this.showDashboard()
+      if (this.userData && this.userData.roles &&
+        (this.userData.roles.indexOf('MDO_LEADER') > -1) ||
+        (this.userData.roles.indexOf('mdo_leader') > -1)
+      ) {
+        this.showLookerProDashboard = true
+        this.showDashboard()
+      } else {
+        this.showLookerProDashboard = false
+        this.currentDashboard = []
+        this.currentDashboard.push(this.dashboardEmpty)
+      }
       /* tslint:disable */
       console.log('userData', "rootOrgId", this.userData.rootOrgId, "userId", this.userData.userId)
       /* tslint:enable */
