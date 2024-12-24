@@ -224,6 +224,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
       this.paginator.pageSize = this.pageSize
       this.cdr.detectChanges()
     }
+    this.cdr.detectChanges()
   }
 
   ngOnChanges() {
@@ -244,7 +245,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   }
 
   ngAfterViewChecked() {
-    this.cdr.detectChanges()
+    // this.cdr.detectChanges()
   }
 
   getApprovalData() {
