@@ -24,7 +24,7 @@ const endpoint = {
 export class MyDashboardHomeComponent implements OnInit {
 
   constructor(private router: Router, private configSvc: ConfigurationsService, private http: HttpClient,
-    private mdoService: CreateMDOService) { }
+              private mdoService: CreateMDOService) { }
   pageNavbar: Partial<NsPage.INavBackground> = this.configSvc.pageNavBar
   getDashboardForKM =
     '/apis/proxies/v8/dashboard/analytics/getDashboardConfig/Karmayogi'
