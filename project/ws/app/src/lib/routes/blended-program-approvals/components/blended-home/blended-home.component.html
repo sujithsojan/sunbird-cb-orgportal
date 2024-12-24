@@ -1,7 +1,8 @@
 <mat-sidenav-container class="container-balanced sticky" autosize name="discuss-menu">
   <mat-sidenav [(opened)]="sideNavBarOpened" class="left-nav">
-    <div class="container2" #stickyMenu>
-      <ng-container [wsResolverWidget]="widgetData"></ng-container>
+    <div class="container2" *ngIf="widgetData">
+      <!-- <ng-container [wsResolverWidget]="widgetData"></ng-container> -->
+      <ws-widget-left-menu [widgetData]="widgetData"></ws-widget-left-menu>
     </div>
   </mat-sidenav>
   <mat-sidenav-content>
