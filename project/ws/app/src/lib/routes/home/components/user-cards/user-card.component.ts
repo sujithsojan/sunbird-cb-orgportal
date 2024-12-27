@@ -1069,11 +1069,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
         }
       }
       // tslint:enable
-      if (checkPendingApprovals) {
-        this.snackBar.open('Please update the approval request of this user from the approvals tab to perform this action')
-        event.source.checked = true
-        return false
-      }
+      // if (checkPendingApprovals) {
+      //   this.snackBar.open('Please update the approval request of this user from the approvals tab to perform this action')
+      //   event.source.checked = true
+      //   return false
+      // }
       if (this.isMdoLeader) {
         showPopup = true
       } else if (this.isMdoAdmin && data.roles.includes('MDO_ADMIN')) {
