@@ -85,6 +85,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   isMdoAdmin = false
   isMdoLeader = false
   isBoth = false
+  checkPendingApprovals = false
   updateUserDataForm: UntypedFormGroup
   approveUserDataForm: UntypedFormGroup
   designationsMeta: any = []
@@ -1057,7 +1058,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
     this.currentUserStatus = status
     let showPopup = true
     if (status === 'NOT-MY-USER') {
-      let checkPendingApprovals = false
+      // let checkPendingApprovals = false
       // tslint:disable
       for (let i = 0; i < this.pendingApprovals.length; i++) {
         if (this.pendingApprovals[i] && this.pendingApprovals[i]['userInfo']
@@ -1065,7 +1066,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
           && this.pendingApprovals[i]['wfInfo']
           && this.pendingApprovals[i]['wfInfo'].length
         ) {
-          checkPendingApprovals = true
+          this.checkPendingApprovals = true
         }
       }
       // tslint:enable
