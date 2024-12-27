@@ -1057,17 +1057,17 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
     this.currentUserStatus = status
     let showPopup = true
     if (status === 'NOT-MY-USER') {
-      // let checkPendingApprovals = false
+      let checkPendingApprovals = false
       // tslint:disable
-      // for (let i = 0; i < this.pendingApprovals.length; i++) {
-      //   if (this.pendingApprovals[i] && this.pendingApprovals[i]['userInfo']
-      //     && this.pendingApprovals[i]['userInfo']['wid'] === data.userId
-      //     && this.pendingApprovals[i]['wfInfo']
-      //     && this.pendingApprovals[i]['wfInfo'].length
-      //   ) {
-      //     checkPendingApprovals = true
-      //   }
-      // }
+      for (let i = 0; i < this.pendingApprovals.length; i++) {
+        if (this.pendingApprovals[i] && this.pendingApprovals[i]['userInfo']
+          && this.pendingApprovals[i]['userInfo']['wid'] === data.userId
+          && this.pendingApprovals[i]['wfInfo']
+          && this.pendingApprovals[i]['wfInfo'].length
+        ) {
+          checkPendingApprovals = true
+        }
+      }
       // tslint:enable
       // if (checkPendingApprovals) {
       //   this.snackBar.open('Please update the approval request of this user from the approvals tab to perform this action')
