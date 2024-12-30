@@ -53,4 +53,9 @@ export class CreateMDOService {
     }
     return this.http.post<any>(`${API_END_POINTS.ASSIGN_ADMIN_TO_CREATED_DEPARTMENT}/userrole`, departmentData)
   }
+
+  getDashboardData(url: string, payload: any): Observable<any> {
+    return this.http.post<any>(`${url}`, payload)
+  }
+
 }

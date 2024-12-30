@@ -13,6 +13,12 @@ const routes: Routes = []
         children: routes,
         data: { module: 'Dashboard' },
       },
+      {
+        path: 'temp',
+        component: MyDashboardHomeComponent,
+        children: routes,
+        data: { module: 'Dashboard' },
+      },
     ]),
   ],
   exports: [RouterModule],
