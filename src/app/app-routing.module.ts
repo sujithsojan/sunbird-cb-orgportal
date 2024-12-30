@@ -36,7 +36,7 @@ const routes: Routes = [
   {
     path: 'practice/behavioral',
     pathMatch: 'full',
-    redirectTo: 'page/embed-behavioural-skills'
+    redirectTo: 'page/embed-behavioural-skills',
   },
   {
     path: 'app/home',
@@ -142,6 +142,12 @@ const routes: Routes = [
   },
   {
     path: 'app/my-dashboard',
+    loadChildren: () =>
+      import('./routes/route-my-dashboard.module').then(u => u.RouteMyDashboardModule),
+    // canActivate: [GeneralGuard, LearningGuard],
+  },
+  {
+    path: 'app/my-dashboard-temp',
     loadChildren: () =>
       import('./routes/route-my-dashboard.module').then(u => u.RouteMyDashboardModule),
     // canActivate: [GeneralGuard, LearningGuard],

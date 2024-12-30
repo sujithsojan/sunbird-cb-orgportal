@@ -33,6 +33,10 @@
         <mat-icon>help_outline</mat-icon>
       </button> -->
         <!-- {{primaryNavbarConfig?.mediumScreen?.right | json}} -->
+        <!-- <button type="button" mat-button class="allocation-btn mat-accent-border margin-right-s opacity-0"
+          (click)="showDashboard()">
+          Show Dashboard
+        </button> -->
         <ng-container [ngTemplateOutlet]="navbarSide" [ngTemplateOutletContext]="{ item: item }"
           *ngFor="let item of primaryNavbarConfig?.mediumScreen?.right">
         </ng-container>
