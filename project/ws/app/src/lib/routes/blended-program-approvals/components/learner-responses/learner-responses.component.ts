@@ -104,7 +104,6 @@ export class LearnerResponsesComponent implements OnInit {
 
   onReject() {
     const dialogRef = this.dialogue.open(RejectReasonDialogComponent, {
-      width: '950px',
       disableClose: true,
       data: {
         title: 'Please provide the reason for rejecting the user from the batch',
