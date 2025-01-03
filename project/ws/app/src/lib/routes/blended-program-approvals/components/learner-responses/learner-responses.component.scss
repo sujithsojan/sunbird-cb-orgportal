@@ -431,3 +431,28 @@ mat-card.mt-2.mat-list-item.dark-card.mat-card {
   padding: 10px;
   border: none;
 }
+
+.repsonse-pannel {
+  padding: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  border-radius: 5px;
+}
+.section-title {
+  /* stylelint-disable */
+  font-family: Montserrat;
+  /* stylelint-enable */
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 19.5px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+}
+
+.form-title {
+  color: #000000de;
+  font-family: Montserrat-SemiBold;
+  font-size: 1.25rem;
+  letter-spacing: .12px;
+  line-height: 1.4;
+}

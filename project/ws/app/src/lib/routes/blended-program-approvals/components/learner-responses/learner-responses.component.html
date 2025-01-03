@@ -237,13 +237,46 @@
         <!-- End of Cadre Related Code-->
       </div>
     </div>
-
     <div class="flex flex-1 flex-column margin-top-m" *ngIf="formId">
-      <section #fullScreenContainer class="survey-container" *ngIf="latestData">
-        <lib-micro-survey class="view-report" [apiData]="apiData" [isReadOnly]="isReadOnly"
-          [surveyId]="latestData.formId" [applicationId]="latestData.applicationId"
-          [courseId]="latestData.dataObject.courseId"></lib-micro-survey>
-      </section>
+      <div class="repsonse-pannel" *ngIf="formfields && newForm">
+        <div class="form-title pb-2">{{formTitle}}</div>
+        <ng-container *ngFor="let formFiled of formfields">
+          <ng-container *ngIf="formFiled.fieldType === 'heading'">
+            <div class="">
+              <div class="section-title">{{formFiled?.values[0]?.heading}}</div>
+              <div class="section-desc text-xs font-normal pt-2">{{formFiled?.values[0]?.subHeading}}</div>
+              <hr class="opacity-50 elment-separator">
+            </div>
+          </ng-container>
+          <ng-container *ngIf="formFiled.fieldType === 'separator'">
+            <hr class="opacity-50 elment-separator">
+          </ng-container>
+          <ng-container *ngIf="formFiled.fieldType !== 'heading' && formFiled.fieldType !== 'separator'">
+            <div class="pb-4">
+              <div class="flex flex-row font-bold">{{formFiled?.name}}</div>
+              <div class="flex flex-row" *ngIf="formFiled.fieldType === 'checkbox'">
+                {{latestData?.dataObject[formFiled?.name]}}
+              </div>
+              <div class="flex flex-row" *ngIf="formFiled.fieldType === 'rating'">
+                <mat-icon *ngFor="let star of stars; index as i" class="stat-mat-icon"
+                  [ngClass]="{ 'filled': i < +(latestData?.dataObject[formFiled?.name]) }">
+                  star
+                </mat-icon>
+              </div>
+              <div class="flex flex-row" *ngIf="formFiled.fieldType !=='rating' && formFiled.fieldType !== 'checkbox'">
+                {{latestData?.dataObject[formFiled?.name]}}
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+      <ng-conatiner *ngIf="!newForm">
+        <section #fullScreenContainer class="survey-container" *ngIf="latestData">
+          <lib-micro-survey class="view-report" [apiData]="apiData" [isReadOnly]="isReadOnly"
+            [surveyId]="latestData.formId" [applicationId]="latestData.applicationId"
+            [courseId]="latestData.dataObject.courseId"></lib-micro-survey>
+        </section>
+      </ng-conatiner>
     </div>
   </div>
 </div>
