@@ -33,9 +33,9 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
   igotDesignationsList: any = []
   selectedDesignationsList: any = []
   orgDesignationsList: any = []
-  pageSize = 20
+  pageSize = 30
   startIndex = 0
-  lastIndex = 20
+  lastIndex = 30
   deisgnationsCount = 0
   private apiSubscription: Subscription | undefined
   designationsImportSuccessResponses: any = []
