@@ -21,6 +21,7 @@ const API_END_POINTS = {
   BPREPORT_STATUS: 'apis/proxies/v8/bp/v1/bpreport/status',
   GENERATE_REPORT: `apis/proxies/v8/bp/v1/generate/report`,
   DOWNLOAD_REPORT: `apis/proxies/v8/bp/v1/bpreport/download/`,
+  GET_FORM_BY_ID: `/apis/proxies/v8/forms/getFormById`,
 }
 
 @Injectable({
@@ -100,5 +101,9 @@ export class BlendedApporvalService {
       link.click()
       window.URL.revokeObjectURL(link.href)
     })
+  }
+
+  getSurveyByFormId(formId: any) {
+    return this.http.get<any>(`${API_END_POINTS.GET_FORM_BY_ID}?id=${formId}`)
   }
 }

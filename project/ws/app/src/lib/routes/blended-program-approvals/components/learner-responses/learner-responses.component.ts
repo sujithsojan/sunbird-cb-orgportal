@@ -27,6 +27,9 @@ export class LearnerResponsesComponent implements OnInit {
   latestData: any
   isReadOnly = true
   showSpinner = true
+  formfields: any
+  newForm = true
+  formTitle: string = ''
 
   constructor(private bpService: BlendedApporvalService, private dialogue: MatDialog) { }
 
@@ -39,7 +42,19 @@ export class LearnerResponsesComponent implements OnInit {
       this.showActions = this.selectedUser.wfInfo[0].currentStatus === 'SEND_FOR_MDO_APPROVAL'
     }
     this.fetchLearner()
-    this.getSurveyReport()
+    this.getFormById()
+  }
+
+  async getFormById() {
+    const _result = await this.bpService.getSurveyByFormId(this.formId).toPromise().catch(_error => { })
+    if (_result && _result.responseData && _result.responseData.fields) {
+      this.formfields = _result.responseData.fields
+      this.formTitle = _result.responseData.title
+      this.newForm = (_result.responseData.clientVersion && _result.responseData.clientVersion === 1.1 ||
+        _result.responseData.clientVerion && _result.responseData.clientVerion === 1.1
+      )
+      this.getSurveyReport()
+    }
   }
 
   fetchLearner() {
