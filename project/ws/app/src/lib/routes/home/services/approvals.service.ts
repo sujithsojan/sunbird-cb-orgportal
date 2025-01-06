@@ -7,6 +7,7 @@ const API_END_POINTS = {
   APPROVALS: '/apis/protected/v8/workflowhandler/applicationsSearch',
   WORKFLOW_HANDLER: 'apis/protected/v8/workflowhandler/transition',
   PROFILEAPPROVALSLIST: '/apis/protected/v8/workflowhandler/profileApprovalSearch',
+  WORKFLOW_HANDLER_V2: '/apis/protected/v8/workflowhandler/v2/transition'
 }
 
 @Injectable({
@@ -30,5 +31,8 @@ export class ApprovalsService {
 
   handleWorkflow(request: any): Observable<any> {
     return this.http.post<any>(API_END_POINTS.WORKFLOW_HANDLER, request)
+  }
+  handleWorkflowV2(request: any): Observable<any> {
+    return this.http.post<any>(API_END_POINTS.WORKFLOW_HANDLER_V2, request)
   }
 }
