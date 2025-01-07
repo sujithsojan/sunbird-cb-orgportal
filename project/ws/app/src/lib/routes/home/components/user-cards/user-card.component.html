@@ -55,13 +55,13 @@
         </div>
         <div class="float-right flex items-center" *ngIf="(isMdoAdmin || isMdoLeader) && !forMentor">
           <!-- <ng-container *ngIf="checkForMDOAdmin(user)"> -->
-          <div class="button mat-body" (click)="onEditUser(user, panel);$event.stopPropagation();"
+          <div class="button mat-body" (click)="onEditUser(user, panel);;"
             *ngIf="currentFilter !== 'notmyuser' && !user?.enableEdit">
             <mat-icon>edit</mat-icon> Edit
           </div>
           <!-- </ng-container> -->
-          <div class="button mat-body" (click)="confirmReassign(confirm, user);$event.stopPropagation();"
-            *ngIf="currentFilter === 'notmyuser'">Reassign</div>
+          <div class="button mat-body" (click)="confirmReassign(confirm, user);" *ngIf="currentFilter === 'notmyuser'">
+            Reassign</div>
         </div>
         <div class="float-right flex flex-col items-center" *ngIf="(isMdoAdmin || isMdoLeader) && forMentor">
           <div class="black-color">Mentor</div>

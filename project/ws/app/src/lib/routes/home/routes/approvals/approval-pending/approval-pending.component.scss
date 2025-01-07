@@ -313,3 +313,6 @@ a:not([href]):not([tabindex]) {
     vertical-align: middle;
   }
 }
+.video_icon.mat-icon {
+  overflow: visible !important;
+}

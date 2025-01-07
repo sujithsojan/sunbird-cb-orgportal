@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core'
 import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list'
 import { CommonModule } from '@angular/common'
 import {
-  AvatarPhotoModule,
-  BreadcrumbsOrgModule,
-  LeftMenuWithoutLogoModule,
-  UIORGTableModule,
+    AvatarPhotoModule,
+    BreadcrumbsOrgModule,
+    LeftMenuWithoutLogoModule,
+    UIORGTableModule,
 } from '@sunbird-cb/collection'
 import { WidgetResolverModule } from '@sunbird-cb/resolver'
 import { HomeModule } from '../home/home.module'
@@ -38,6 +38,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ViewReportDialogComponent } from './components/view-report-dialog/view-report-dialog.component'
 import { MicroSurveyModule } from '@sunbird-cb/micro-surveys'
 import { LearnerResponsesComponent } from './components/learner-responses/learner-responses.component'
+import { LeftMenuModule } from '../../head/left-menu/left-menu.module'
 
 @NgModule({
     declarations: [BlendedHomeComponent, BatchListComponent, BatchDetailsComponent, UsersCardComponent, ProfileViewComponent,
@@ -46,7 +47,7 @@ import { LearnerResponsesComponent } from './components/learner-responses/learne
         MatSidenavModule, MatButtonModule, MatIconModule, HomeModule, RouterModule, UIORGTableModule,
         MatCardModule, AvatarPhotoModule, MatListModule, PipeEmailModule, PipeOrderByModule, ProfileCertificateDialogModule,
         MatBadgeModule, MatTableModule, MatCheckboxModule, MatSortModule, FormsModule, ReactiveFormsModule,
-        MatFormFieldModule, MatDialogModule, MatInputModule, MicroSurveyModule, MatProgressSpinnerModule],
+        MatFormFieldModule, MatDialogModule, MatInputModule, MicroSurveyModule, MatProgressSpinnerModule, LeftMenuModule,],
     exports: [],
     providers: []
 })

@@ -85,6 +85,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   isMdoAdmin = false
   isMdoLeader = false
   isBoth = false
+  checkPendingApprovals = false
   updateUserDataForm: UntypedFormGroup
   approveUserDataForm: UntypedFormGroup
   designationsMeta: any = []
@@ -135,11 +136,11 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   checked = false
   currentUserStatus = ''
   constructor(private usersSvc: UsersService, private roleservice: RolesService,
-              private dialog: MatDialog, private approvalSvc: ApprovalsService,
-              private route: ActivatedRoute, private snackBar: MatSnackBar,
-              private events: EventService,
-              private datePipe: DatePipe,
-              private cdr: ChangeDetectorRef) {
+    private dialog: MatDialog, private approvalSvc: ApprovalsService,
+    private route: ActivatedRoute, private snackBar: MatSnackBar,
+    private events: EventService,
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef) {
     this.updateUserDataForm = new UntypedFormGroup({
       designation: new UntypedFormControl('', []),
       group: new UntypedFormControl('', [Validators.required]),
@@ -224,6 +225,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
       this.paginator.pageSize = this.pageSize
       this.cdr.detectChanges()
     }
+    this.cdr.detectChanges()
   }
 
   ngOnChanges() {
@@ -244,7 +246,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   }
 
   ngAfterViewChecked() {
-    this.cdr.detectChanges()
+    // this.cdr.detectChanges()
   }
 
   getApprovalData() {
@@ -780,6 +782,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   /* tslint:disable */
   // for approval & rejection
   onClickHandleWorkflow(field: any, action: string) {
+
     field.action = action
     const req = {
       action,
@@ -789,6 +792,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
       applicationId: field.wf.applicationId,
       actorUserId: this.userwfData.userInfo.wid,
       wfId: field.wf.wfId,
+      deptName: field.wf.deptName || '',
       serviceName: 'profile',
       updateFieldValues: JSON.parse(field.wf.updateFieldValues),
     }
@@ -853,10 +857,13 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   }
   /* tslint:enable */
   // single aprrove or reject
-  onApproveOrRejectClick(req: any) {
-    this.approvalSvc.handleWorkflow(req).subscribe((res: any) => {
+  onApproveOrRejectClick(req: any, displayMsg: boolean = false) {
+    this.approvalSvc.handleWorkflowV2(req).subscribe((res: any) => {
       if (res.result.data) {
-        // this.openSnackbar('Request approved successfully')
+        if (res.result.data && displayMsg) {
+          this.openSnackbar('Request approved successfully')
+          this.updateList.emit()
+        }
       }
     })
   }
@@ -866,32 +873,19 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
     if (this.currentFilter === 'transfers') {
       this.onTransferSubmit(panel, appData)
     } else {
-      const datalength = this.actionList.length
-      this.actionList.forEach((req: any, index: any) => {
-        if (req.action === 'APPROVE') {
-          req.comment = ''
-        }
-        this.onApproveOrRejectClick(req)
-        if (index === datalength - 1) {
-          panel.close()
-          this.comment = ''
-          setTimeout(() => {
-            this.openSnackbar('Request approved successfully')
-            this.updateList.emit()
-            // tslint:disable-next-line
-          }, 100)
-        }
-        // tslint:disable-next-line
-        // this.approvalData = this.approvalData.filter((wf: any) => { wf.userWorkflow.userInfo.wid !== req.userId })
-        if (this.approvalData.length === 0) {
-          this.disableButton.emit()
-        }
-      })
+      // const datalength = this.actionList.length
+      let request: any = {
+        request: this.actionList
+      }
+
+      this.onApproveOrRejectClick(request, true)
+
     }
     // }
   }
 
   onTransferSubmit(panel: any, appData: any) {
+
     let orgReq = {}
     appData.userWorkflow.wfInfo.forEach((wf: any) => {
       const fields = JSON.parse(wf.updateFieldValues)
@@ -908,6 +902,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
               updateFieldValues: fields,
               userId: wf.userId,
               wfId: wf.wfId,
+              deptName: wf.deptName,
             }
           }
         })
@@ -920,7 +915,10 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
       if (req.action === 'APPROVE') {
         req.comment = ''
       }
-      this.onApproveOrRejectClick(req)
+      let request: any = {
+        request: [req]
+      }
+      this.onApproveOrRejectClick(request, false)
       if (index === datalength - 1) {
         panel.close()
         this.comment = ''
@@ -994,6 +992,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   }
 
   confirmReassign(template: any, user: any) {
+
     const dialog = this.dialog.open(template, {
       width: '500px',
     })
@@ -1055,7 +1054,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
     this.currentUserStatus = status
     let showPopup = true
     if (status === 'NOT-MY-USER') {
-      let checkPendingApprovals = false
+      // let checkPendingApprovals = false
       // tslint:disable
       for (let i = 0; i < this.pendingApprovals.length; i++) {
         if (this.pendingApprovals[i] && this.pendingApprovals[i]['userInfo']
@@ -1063,15 +1062,15 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
           && this.pendingApprovals[i]['wfInfo']
           && this.pendingApprovals[i]['wfInfo'].length
         ) {
-          checkPendingApprovals = true
+          this.checkPendingApprovals = true
         }
       }
       // tslint:enable
-      if (checkPendingApprovals) {
-        this.snackBar.open('Please update the approval request of this user from the approvals tab to perform this action')
-        event.source.checked = true
-        return false
-      }
+      // if (checkPendingApprovals) {
+      //   this.snackBar.open('Please update the approval request of this user from the approvals tab to perform this action')
+      //   event.source.checked = true
+      //   return false
+      // }
       if (this.isMdoLeader) {
         showPopup = true
       } else if (this.isMdoAdmin && data.roles.includes('MDO_ADMIN')) {

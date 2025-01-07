@@ -62,21 +62,24 @@
   }
 }
 
-::ng-deep .mat-drawer-content {
-  overflow-x: hidden!important;
-  margin-left: 301px !important;
+:host ::ng-deep .mat-drawer-content {
+  overflow-x: hidden !important;
+  margin-left: 275px !important;
 }
+
 ::ng-deep .mat-drawer {
   background: #f0f3f4 !important;
-  border-right: 1px solid rgba(0,0,0,.12) !important;
-  box-shadow:  none !important;
+  border-right: 1px solid rgba(0, 0, 0, .12) !important;
+  box-shadow: none !important;
 }
+
 // ::ng-deep .mat-drawer-inner-container {
 //   overflow: hidden;
 // }
 ::ng-deep.mat-drawer-backdrop.mat-drawer-shown {
   visibility: hidden !important;
 }
+
 // ::ng-deep.mat-progress-spinner {
 //     display: block;
 //     position: fixed!important;

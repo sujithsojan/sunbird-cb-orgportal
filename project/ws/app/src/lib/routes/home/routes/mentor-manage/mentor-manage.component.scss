@@ -342,3 +342,7 @@ a:not([href]):not([tabindex]) {
     font-weight: 700 !important;
   }
 }
+
+.video_icon.mat-icon {
+  overflow: visible;
+}

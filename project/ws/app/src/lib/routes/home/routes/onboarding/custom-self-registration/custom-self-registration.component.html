@@ -111,7 +111,7 @@
           <div class="wrapper-card py-4 px-12 rounded-lg mt-4">
             <div class="flex justify-between">
               <div class="qr-scanner-cont flex items-center">
-                <img [src]="customRegistrationLinks?.qrRegistrationLink" alt="qr-scanner" width="115" height="115">
+                <img [src]="customRegistrationLinks?.qrRegistrationLogoPath" alt="qr-scanner" width="115" height="115">
               </div>
               <div class="flex flex-column items-center justify-center gap-2">
                 <button mat-flat-button class="mat-btn-outline w-full"
@@ -135,7 +135,7 @@
           <div class="wrapper-card p-4 rounded-lg mt-4">
             <div class="flex gap-4 items-center">
               <img src="/assets/icons/users.svg" alt="users" width="32" height="32">
-              <span class="text-sm">Number of Users Onboarded: <strong
+              <span class="text-sm">Users Onboarded via Custom URL: <strong
                   class="ml-1">{{numberOfUsersOnboarded}}</strong></span>
             </div>
           </div>

@@ -13,6 +13,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { ConfirmationBoxComponent } from '../../../../../training-plan/components/confirmation-box/confirmation.box.component'
 import { DatePipe } from '@angular/common'
 import { ConformationPopupComponent } from '../../dialog-boxes/conformation-popup/conformation-popup.component'
+import { OnboardingService } from '../../../../services/onboarding.service'
 // import { environment } from '../../../../../../../../../../../src/environments/environment'
 // import { ConformationPopupComponent } from '../../dialog-boxes/conformation-popup/conformation-popup.component'
 
@@ -52,7 +53,8 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
     private route: Router,
     private snackBar: MatSnackBar,
     private datePipe: DatePipe,
-    private activateRoute: ActivatedRoute
+    private activateRoute: ActivatedRoute,
+    private onboardingService: OnboardingService,
   ) {
     this.getFrameWorkDetails()
   }
@@ -366,12 +368,20 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
         disableClose: true,
       })
       dialogRef.afterClosed().subscribe(() => {
-        this.navigateToMyDesignations()
+        if (this.onboardingService.routeFromSelfRegistration) {
+          this.route.navigate(['/app/home/onboarding/self-registration'])
+        } else {
+          this.navigateToMyDesignations()
+        }
       })
     } else {
       const successMessage = _.get(this.designationConfig, 'successMsg')
       this.openSnackbar(successMessage, 10000)
-      this.navigateToMyDesignations()
+      if (this.onboardingService.routeFromSelfRegistration) {
+        this.route.navigate(['/app/home/onboarding/self-registration'])
+      } else {
+        this.navigateToMyDesignations()
+      }
     }
   }
 
@@ -391,5 +401,6 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
     if (this.apiSubscription) {
       this.apiSubscription.unsubscribe()
     }
+    this.onboardingService.setFlagToCheckRoute(false)
   }
 }

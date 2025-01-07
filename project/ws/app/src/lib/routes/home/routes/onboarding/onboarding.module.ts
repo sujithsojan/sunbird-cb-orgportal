@@ -17,7 +17,7 @@ import { BulkUploadComponent } from '../users-view/bulk-upload/bulk-upload.compo
 import { UsersListResolve } from '../../resolvers/users-list-resolve.service'
 import { SingleUserCreationComponent } from '../users-view/single-user-creation/single-user-creation.component'
 import { MatExpansionModule } from '@angular/material/expansion'
-import { MatDialogModule } from '@angular/material/dialog'
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner'
 

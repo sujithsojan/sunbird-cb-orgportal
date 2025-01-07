@@ -15,12 +15,18 @@
 
 .reason-dialog {
   position: relative;
+  padding: 16px 0;
+  box-sizing: border-box;
+
+   .mat-dialog-actions {
+    margin-bottom: -16px;
+   }
 }
 .required:after {
   content:" *";
   color: red;
   position: absolute;
-  right: -5px;
+  margin-left: 4px;
 }
 .mat-form-field {
   width: 100%!important;
