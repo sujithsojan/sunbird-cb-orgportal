@@ -33,9 +33,9 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
   igotDesignationsList: any = []
   selectedDesignationsList: any = []
   orgDesignationsList: any = []
-  pageSize = 20
+  pageSize = 30
   startIndex = 0
-  lastIndex = 20
+  lastIndex = 30
   deisgnationsCount = 0
   private apiSubscription: Subscription | undefined
   designationsImportSuccessResponses: any = []
@@ -125,17 +125,17 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
     })
   }
 
-  selectDesignation(checked: Boolean, id: number) {
-    const index = this.igotDesignationsList.findIndex((e: any) => e.id === id)
+  selectDesignation(index: number) {
     const designation = this.igotDesignationsList[index]
-    if (checked) {
-      designation['selected'] = true
-      this.selectedDesignationsList.push(designation)
-      this.designationsService.updateSelectedDesignationList(this.selectedDesignationsList)
-      // this.igotDesignationsList.splice(index, 1)
-      // this.igotDesignationsList.unshift(designation)
-    } else {
-      this.removeDesignation([designation])
+    if (designation && !designation.isOrgDesignation) {
+      const checked = designation['selected'] !== true ? true : false
+      if (checked) {
+        designation['selected'] = true
+        this.selectedDesignationsList.push(designation)
+        this.designationsService.updateSelectedDesignationList(this.selectedDesignationsList)
+      } else {
+        this.removeDesignation([designation])
+      }
     }
   }
 
@@ -296,7 +296,7 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
             (this.designationsImportSuccessResponses.length / 2) * 1000 : 10000
           setTimeout(() => {
             this.dialogRef.close(true)
-          },         refreshTime)
+          }, refreshTime)
 
         }
       },

@@ -187,6 +187,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
             // tslint:disable-next-line
           }, (_err: HttpErrorResponse) => {
             if (!_err.ok) {
+              this.fileUploadDialogInstance.close()
               this.matSnackBar.open('Uploading CSV file failed due to some error, please try again later!')
             }
           })
@@ -218,7 +219,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
         clearInterval(this.interval)
         this.getBulkStatusList()
       }
-    },                          1000)
+    }, 1000)
   }
 
 }
