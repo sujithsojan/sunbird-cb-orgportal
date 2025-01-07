@@ -782,6 +782,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   /* tslint:disable */
   // for approval & rejection
   onClickHandleWorkflow(field: any, action: string) {
+
     field.action = action
     const req = {
       action,
@@ -791,6 +792,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
       applicationId: field.wf.applicationId,
       actorUserId: this.userwfData.userInfo.wid,
       wfId: field.wf.wfId,
+      deptName: field.wf.deptName || '',
       serviceName: 'profile',
       updateFieldValues: JSON.parse(field.wf.updateFieldValues),
     }
@@ -855,10 +857,13 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
   }
   /* tslint:enable */
   // single aprrove or reject
-  onApproveOrRejectClick(req: any) {
-    this.approvalSvc.handleWorkflow(req).subscribe((res: any) => {
+  onApproveOrRejectClick(req: any, displayMsg: boolean = false) {
+    this.approvalSvc.handleWorkflowV2(req).subscribe((res: any) => {
       if (res.result.data) {
-        // this.openSnackbar('Request approved successfully')
+        if (res.result.data && displayMsg) {
+          this.openSnackbar('Request approved successfully')
+          this.updateList.emit()
+        }
       }
     })
   }
@@ -872,38 +877,15 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
       let request: any = {
         request: this.actionList
       }
-      this.approvalSvc.handleWorkflowV2(request).subscribe((res: any) => {
 
-        if (res.result.data) {
-          this.openSnackbar('Request approved successfully')
-          this.updateList.emit()
-        }
-      })
-      // this.actionList.forEach((req: any, index: any) => {
-      //   if (req.action === 'APPROVE') {
-      //     req.comment = ''
-      //   }
-      //   this.onApproveOrRejectClick(req)
-      //   if (index === datalength - 1) {
-      //     panel.close()
-      //     this.comment = ''
-      //     setTimeout(() => {
-      //       this.openSnackbar('Request approved successfully')
-      //       this.updateList.emit()
-      //       // tslint:disable-next-line
-      //     }, 100)
-      //   }
-      //   // tslint:disable-next-line
-      //   // this.approvalData = this.approvalData.filter((wf: any) => { wf.userWorkflow.userInfo.wid !== req.userId })
-      //   if (this.approvalData.length === 0) {
-      //     this.disableButton.emit()
-      //   }
-      // })
+      this.onApproveOrRejectClick(request, true)
+
     }
     // }
   }
 
   onTransferSubmit(panel: any, appData: any) {
+
     let orgReq = {}
     appData.userWorkflow.wfInfo.forEach((wf: any) => {
       const fields = JSON.parse(wf.updateFieldValues)
@@ -920,6 +902,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
               updateFieldValues: fields,
               userId: wf.userId,
               wfId: wf.wfId,
+              deptName: wf.deptName,
             }
           }
         })
@@ -932,7 +915,10 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
       if (req.action === 'APPROVE') {
         req.comment = ''
       }
-      this.onApproveOrRejectClick(req)
+      let request: any = {
+        request: [req]
+      }
+      this.onApproveOrRejectClick(request, false)
       if (index === datalength - 1) {
         panel.close()
         this.comment = ''
