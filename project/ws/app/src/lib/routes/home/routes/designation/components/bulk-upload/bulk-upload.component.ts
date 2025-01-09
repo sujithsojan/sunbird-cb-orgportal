@@ -14,6 +14,7 @@ import { IBulkUploadDesignationList } from '../../interface/interface'
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator'
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar'
+import { DesignationsService } from '../../services/designations.service'
 
 @Component({
   selector: 'ws-app-bulk-upload',
@@ -49,6 +50,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
     public dialog: MatDialog,
     private usersService: UsersService,
     private activateRoute: ActivatedRoute,
+    private designationsService: DesignationsService
 
   ) {
     this.configSvc = this.activateRoute.snapshot.data['configService']
@@ -65,6 +67,9 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
       this.pageSize = this.bulkUploadConfig.pageSize
       this.sizeOptions = this.bulkUploadConfig.pageSizeOptions
     })
+    if (this.designationsService.frameWorkInfo && this.designationsService.frameWorkInfo.code) {
+      this.bulkUploadFrameworkId = this.designationsService.frameWorkInfo.code
+    }
   }
 
   ngAfterViewInit(): void {
