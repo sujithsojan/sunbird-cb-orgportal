@@ -258,10 +258,17 @@
                 {{latestData?.dataObject[formFiled?.name]}}
               </div>
               <div class="flex flex-row" *ngIf="formFiled.fieldType === 'rating'">
-                <mat-icon *ngFor="let star of stars; index as i" class="stat-mat-icon"
-                  [ngClass]="{ 'filled': i < +(latestData?.dataObject[formFiled?.name]) }">
-                  star
-                </mat-icon>
+                <ng-container *ngIf="latestData?.dataObject[formFiled?.name] === 'N/A'; else stars">
+                  <div class="flex flex-row">
+                    {{latestData?.dataObject[formFiled?.name]}}
+                  </div>
+                </ng-container>
+                <ng-template #stars>
+                  <mat-icon *ngFor="let star of [].constructor(latestData?.dataObject[formFiled?.name]); index as i"
+                    class="stat-mat-icon" [ngClass]="{ 'filled': i < +(latestData?.dataObject[formFiled?.name]) }">
+                    star
+                  </mat-icon>
+                </ng-template>
               </div>
               <div class="flex flex-row" *ngIf="formFiled.fieldType !=='rating' && formFiled.fieldType !== 'checkbox'">
                 {{latestData?.dataObject[formFiled?.name]}}
