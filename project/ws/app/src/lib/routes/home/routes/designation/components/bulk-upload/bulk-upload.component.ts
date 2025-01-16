@@ -180,7 +180,7 @@ export class BulkUploadComponent implements OnInit, OnDestroy, AfterViewInit {
       if (this.fileSelected) {
         const formData: FormData = new FormData()
         formData.append('file', this.fileSelected)
-        this.fileService.bulkUploadDesignation(this.fileName, formData, this.bulkUploadFrameworkId)
+        this.fileService.bulkUploadDesignation(this.fileName, formData, this.bulkUploadFrameworkId, this.rootOrgId)
           .pipe(takeUntil(this.destroySubject$))
           .subscribe((_res: any) => {
             this.fileUploadDialogInstance.close()
