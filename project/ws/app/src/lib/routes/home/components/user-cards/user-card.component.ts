@@ -809,6 +809,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
       this.comment = ''
       const dialogRef = this.dialog.open(this.rejectDialog, {
         width: '770px',
+        minHeight: '260px'
       })
       dialogRef.afterClosed().subscribe(result => {
         if (result) {
