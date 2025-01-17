@@ -862,7 +862,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
     this.approvalSvc.handleWorkflowV2(req).subscribe((res: any) => {
       if (res.result.data) {
         if (res.result.data && displayMsg) {
-          this.openSnackbar('Request approved successfully')
+          this.openSnackbar('Request has been updated')
           this.updateList.emit()
         }
       }
@@ -924,7 +924,7 @@ export class UserCardComponent implements OnInit, OnChanges, AfterViewChecked, A
         panel.close()
         this.comment = ''
         setTimeout(() => {
-          this.openSnackbar('Request approved successfully')
+          this.openSnackbar('Request has been updated')
           this.updateList.emit()
           // tslint:disable-next-line
         }, 100)
