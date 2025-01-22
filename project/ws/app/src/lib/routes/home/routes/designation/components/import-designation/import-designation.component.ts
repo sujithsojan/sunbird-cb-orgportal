@@ -129,16 +129,30 @@ export class ImportDesignationComponent implements OnInit, OnDestroy {
 
   selectDesignation(index: number) {
     const designation = this.igotDesignationsList[index]
+    const maxSelectedDesignation = 1000
+    const errorMessages = `You have exceeded more than ${maxSelectedDesignation} designation please talk to support team for support`
     if (designation && !designation.isOrgDesignation) {
       const checked = designation['selected'] !== true ? true : false
       if (checked) {
         designation['selected'] = true
         this.selectedDesignationsList.push(designation)
-        this.designationsService.updateSelectedDesignationList(this.selectedDesignationsList)
+        if (this.totalSelectedCount > maxSelectedDesignation) {
+          this.openSnackbar(errorMessages)
+          designation.selected = false
+
+        } else {
+          this.designationsService.updateSelectedDesignationList(this.selectedDesignationsList)
+        }
+
       } else {
         this.removeDesignation([designation])
       }
     }
+  }
+
+  get totalSelectedCount() {
+    const designationCount = this.designationsService.selecteDesignationCount
+    return designationCount
   }
 
   get selctedDesignationsCount() {

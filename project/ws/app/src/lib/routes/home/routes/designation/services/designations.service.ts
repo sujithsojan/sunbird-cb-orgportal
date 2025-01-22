@@ -75,6 +75,11 @@ export class DesignationsService {
     this.selectedDesignationList = selectedList
   }
 
+  get selecteDesignationCount(): number {
+    return this.orgDesignationList.length + this.selectedDesignationList.length
+  }
+
+
   formateMasterDesignationList(response: any): Observable<any> {
     const result: any = {
       formatedDesignationsLsit: [],
@@ -203,7 +208,7 @@ export class DesignationsService {
       frameworkId,
       categoryId,
       categoryTermCode
-    )}`,                   reguestBody)
+    )}`, reguestBody)
   }
 
   publishFramework(frameworkName: string) {

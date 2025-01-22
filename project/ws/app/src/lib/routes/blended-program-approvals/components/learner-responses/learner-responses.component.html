@@ -206,7 +206,7 @@
 
           </div>
           <div class="md:w-1/4" *ngIf="userData?.profileDetails?.cadreDetails?.civilServiceType &&
-                          (userData?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Administrative Office (IAS)' ||
+                          (userData?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Administrative Service (IAS)' ||
                           userData?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Police Service (IPS)' ||
                           userData?.profileDetails?.cadreDetails?.civilServiceName.trim() === 'Indian Forest Service (IFoS)')
                           ">
@@ -237,6 +237,19 @@
         <!-- End of Cadre Related Code-->
       </div>
     </div>
+
+    <div class="flex flex-row margin-top-m repsonse-pannel" *ngIf="surveyGroup || surevyDesignation">
+      <div class="md:w-1/3" *ngIf="surveyGroup">
+        <label class="view-text-label">Group (filled during enrollment)</label>
+        <p>{{surveyGroup}}</p>
+      </div>
+      <div class="md:w-1/3" *ngIf="surevyDesignation">
+        <label class="view-text-label">Designation (filled during enrollment)</label>
+        <p>{{surevyDesignation}}</p>
+      </div>
+    </div>
+
+
     <div class="flex flex-1 flex-column margin-top-m" *ngIf="formId">
       <div class="repsonse-pannel" *ngIf="formfields && newForm">
         <div class="form-title pb-2">{{formTitle}}</div>
@@ -258,10 +271,17 @@
                 {{latestData?.dataObject[formFiled?.name]}}
               </div>
               <div class="flex flex-row" *ngIf="formFiled.fieldType === 'rating'">
-                <mat-icon *ngFor="let star of stars; index as i" class="stat-mat-icon"
-                  [ngClass]="{ 'filled': i < +(latestData?.dataObject[formFiled?.name]) }">
-                  star
-                </mat-icon>
+                <ng-container *ngIf="latestData?.dataObject[formFiled?.name] === 'N/A'; else stars">
+                  <div class="flex flex-row">
+                    {{latestData?.dataObject[formFiled?.name]}}
+                  </div>
+                </ng-container>
+                <ng-template #stars>
+                  <mat-icon *ngFor="let star of [].constructor(latestData?.dataObject[formFiled?.name]); index as i"
+                    class="stat-mat-icon" [ngClass]="{ 'filled': i < +(latestData?.dataObject[formFiled?.name]) }">
+                    star
+                  </mat-icon>
+                </ng-template>
               </div>
               <div class="flex flex-row" *ngIf="formFiled.fieldType !=='rating' && formFiled.fieldType !== 'checkbox'">
                 {{latestData?.dataObject[formFiled?.name]}}

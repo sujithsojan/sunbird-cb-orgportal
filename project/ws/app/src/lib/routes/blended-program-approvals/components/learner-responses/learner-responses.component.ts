@@ -7,6 +7,7 @@ import _ from 'lodash'
 import { RejectReasonDialogComponent } from '../reject-reason-dialog/reject-reason-dialog.component'
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog'
 import { DialogConfirmComponent } from '../../../../../../../../../src/app/component/dialog-confirm/dialog-confirm.component'
+import { environment } from '../../../../../../../../../src/environments/environment'
 
 @Component({
   selector: 'ws-app-learner-responses',
@@ -16,6 +17,7 @@ import { DialogConfirmComponent } from '../../../../../../../../../src/app/compo
 export class LearnerResponsesComponent implements OnInit {
   @Input() selectedUser: any
   @Input() contentData: any
+  @Input() batchData: any
   @Output() clickBack = new EventEmitter()
   @Output() actionClick = new EventEmitter()
   userId!: any
@@ -30,6 +32,8 @@ export class LearnerResponsesComponent implements OnInit {
   formfields: any
   newForm = true
   formTitle: string = ''
+  surveyGroup: string = ''
+  surevyDesignation: string = ''
 
   constructor(private bpService: BlendedApporvalService, private dialogue: MatDialog) { }
 
@@ -43,6 +47,51 @@ export class LearnerResponsesComponent implements OnInit {
     }
     this.fetchLearner()
     this.getFormById()
+    this.getGroupAndDesignationFromSurevyForm()
+  }
+
+
+  getGroupAndDesignationFromSurevyForm() {
+    let doptOrg = environment.doptOrg
+    const customFields = this.batchData.batchAttributes.bpEnrolMandatoryProfileFields
+    let profileSurveyLink = this.batchData.batchAttributes.profileSurveyLink
+    if (customFields && customFields.length && profileSurveyLink) {
+      let hasGroups = customFields.find((_field: any) => _field.field === 'profileDetails.professionalDetails.group')
+      let hasDesignation = customFields.find((_field: any) => _field.field === 'profileDetails.professionalDetails.designation')
+      if (doptOrg && doptOrg === this.contentData.createdFor[0] && (hasGroups || hasDesignation)) {
+        let surveyId = profileSurveyLink.split("surveys/")[1]
+        this.getProfileSurevyReport(surveyId, hasGroups, hasDesignation)
+      }
+    }
+  }
+
+  async getProfileSurevyReport(surevyId: string, hasGroups: boolean, hasDesignation: boolean) {
+    const req = {
+      searchObjects: [
+        {
+          key: 'formId',
+          values: surevyId,
+        },
+        {
+          key: 'updatedBy',
+          values: this.userId,
+        },
+      ],
+    }
+    const resList = await this.bpService.getSurveyByUserID(req).toPromise().catch(_error => { })
+    if (resList && resList.statusInfo && resList.statusInfo.statusCode && resList.statusInfo.statusCode === 200) {
+      const tempData = _.sortBy(resList.responseData, ['timestamp'])
+      let latestProfileSurevyData = tempData[tempData.length - 1]
+      if (latestProfileSurevyData && latestProfileSurevyData.dataObject) {
+        if (hasGroups) {
+          this.surveyGroup = latestProfileSurevyData.dataObject.Group
+        }
+        if (hasDesignation) {
+          this.surevyDesignation = latestProfileSurevyData.dataObject.Designation
+        }
+      }
+    }
+
   }
 
   async getFormById() {
