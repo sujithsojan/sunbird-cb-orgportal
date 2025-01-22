@@ -82,7 +82,7 @@
           </div>
         </ng-container>
         <ng-container *ngIf="currentFilter === 'pending' && showUserDetails">
-          <ws-app-learner-responses [selectedUser]="selectedUser" [contentData]="programData"
+          <ws-app-learner-responses [selectedUser]="selectedUser" [contentData]="programData" [batchData]="batchData"
             (actionClick)="onSubmit($event)" (clickBack)="clickOnBack($event)"></ws-app-learner-responses>
         </ng-container>
         <ng-container *ngIf="currentFilter === 'approved'">

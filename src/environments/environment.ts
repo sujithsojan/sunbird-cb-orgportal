@@ -20,6 +20,7 @@ export const environment: IEnvironment = {
   KCMframeworkName: (window as { [key: string]: any })['env']['KCMframeworkName'] || '',
   ODCSMasterFramework: (window as { [key: string]: any })['env']['ODCSMasterFramework'] || '',
   compentencyVersionKey: (window as { [key: string]: any })['env']['compentencyVersionKey'] || '',
+  doptOrg: (window as { [key: string]: any })['env']['doptOrg'] || '',
 }
 interface IEnvironment {
   name: null | string
@@ -39,6 +40,7 @@ interface IEnvironment {
   KCMframeworkName?: string,
   ODCSMasterFramework?: string
   compentencyVersionKey: string
+  doptOrg?: string
 }
 
 /*
